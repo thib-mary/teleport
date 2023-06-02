@@ -58,6 +58,8 @@ type ParserSpec struct {
 	// definition.
 	Variables map[string]Variable
 
+	GetIdentifier func(env any, fields []string) (any, error)
+
 	// Functions defines all of the functions available to expressions in the
 	// predicate language.
 	Functions map[string]Function
@@ -74,7 +76,7 @@ type ParserSpec struct {
 type Variable any
 
 // Function holds the definition of a function. It is expected to be the result
-// of calling one of (Unary|Binary|Ternary)(Variadic)?Function.
+// of calling one of (Unary|Binary|Ternary)(Variadic)?Function(WithEnv)?.
 type Function interface {
 	buildExpression(name string, args ...any) (any, error)
 }
@@ -213,6 +215,14 @@ func (p *Parser[TEnv, TResult]) getIdentifier(selector []string) (any, error) {
 		}
 	}
 
+	if p.spec.GetIdentifier != nil {
+		return dynamicVariable[TEnv, any]{
+			accessor: func(env TEnv) (any, error) {
+				return p.spec.GetIdentifier(env, selector)
+			},
+		}, nil
+	}
+
 	return nil, UnknownIdentifierError(joined)
 }
 
@@ -343,6 +353,36 @@ func DynamicVariable[TEnv, TVar any](accessor func(TEnv) (TVar, error)) Variable
 func (d dynamicVariable[TEnv, TVar]) Evaluate(env TEnv) (TVar, error) {
 	result, err := d.accessor(env)
 	return result, trace.Wrap(err)
+}
+
+type nullaryFunctionWithEnv[TEnv, TResult any] struct {
+	impl func(TEnv) (TResult, error)
+}
+
+// NullaryFunctionWithEnv returns a definition for a function that can be called
+// with zero arguments. The evaluation env will be passed as an argument to [impl].
+func NullaryFunctionWithEnv[TEnv, TResult any](impl func(TEnv) (TResult, error)) Function {
+	return nullaryFunctionWithEnv[TEnv, TResult]{impl}
+}
+
+func (f nullaryFunctionWithEnv[TEnv, TResult]) buildExpression(name string, args ...any) (any, error) {
+	if len(args) != 0 {
+		return nil, trace.BadParameter("function (%s) accepts 0 arguments, given %d", name, len(args))
+	}
+	return nullaryFunctionWithEnvExpr[TEnv, TResult]{
+		name: name,
+		impl: f.impl,
+	}, nil
+}
+
+type nullaryFunctionWithEnvExpr[TEnv, TResult any] struct {
+	name string
+	impl func(TEnv) (TResult, error)
+}
+
+func (e nullaryFunctionWithEnvExpr[TEnv, TResult]) Evaluate(env TEnv) (TResult, error) {
+	res, err := e.impl(env)
+	return res, trace.Wrap(err, "evaluating function (%s)", e.name)
 }
 
 type unaryFunction[TEnv, TArg, TResult any] struct {
