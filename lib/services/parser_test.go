@@ -22,7 +22,6 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/require"
-	"github.com/vulcand/predicate"
 
 	"github.com/gravitational/teleport/api/types"
 )
@@ -360,31 +359,29 @@ func TestParserHostCertContext(t *testing.T) {
 				TTL:         time.Minute * 20,
 			},
 		}
-		parser, err := NewWhereParser(&ctx)
-		require.NoError(t, err)
 
 		t.Run(test.desc, func(t *testing.T) {
 			t.Run("positive", func(t *testing.T) {
 				for _, pred := range test.positive {
-					expr, err := parser.Parse(pred)
+					expr, err := ParseWhereExpression(pred)
 					require.NoError(t, err)
 
-					ret, ok := expr.(predicate.BoolPredicate)
-					require.True(t, ok)
+					res, err := expr.Evaluate(&ctx)
+					require.NoError(t, err)
 
-					require.True(t, ret(), pred)
+					require.True(t, res, pred)
 				}
 			})
 
 			t.Run("negative", func(t *testing.T) {
 				for _, pred := range test.negative {
-					expr, err := parser.Parse(pred)
+					expr, err := ParseWhereExpression(pred)
 					require.NoError(t, err)
 
-					ret, ok := expr.(predicate.BoolPredicate)
-					require.True(t, ok)
+					res, err := expr.Evaluate(&ctx)
+					require.NoError(t, err)
 
-					require.False(t, ret(), pred)
+					require.False(t, res, pred)
 				}
 			})
 		})

@@ -328,11 +328,7 @@ func validateRoleExpressions(r types.Role) error {
 // validateRule parses the where and action fields to validate the rule.
 func validateRule(r types.Rule) error {
 	if len(r.Where) != 0 {
-		parser, err := NewWhereParser(&Context{})
-		if err != nil {
-			return trace.Wrap(err)
-		}
-		_, err = parser.Parse(r.Where)
+		_, err := ParseWhereExpression(r.Where)
 		if err != nil {
 			return trace.BadParameter("could not parse 'where' rule: %q, error: %v", r.Where, err)
 		}
@@ -714,7 +710,7 @@ func MakeRuleSet(rules []types.Rule) RuleSet {
 // Specifying order solves the problem on having multiple rules, e.g. one wildcard
 // rule can override more specific rules with 'where' sections that can have
 // 'actions' lists with side effects that will not be triggered otherwise.
-func (set RuleSet) Match(whereParser predicate.Parser, actionsParser predicate.Parser, resource string, verb string) (bool, error) {
+func (set RuleSet) Match(ctx *Context, overrideWhere string, actionsParser predicate.Parser, resource string, verb string) (bool, error) {
 	// empty set matches nothing
 	if len(set) == 0 {
 		return false, nil
@@ -724,7 +720,7 @@ func (set RuleSet) Match(whereParser predicate.Parser, actionsParser predicate.P
 	// the most specific rule should win
 	rules := set[resource]
 	for _, rule := range rules {
-		match, err := matchesWhere(&rule, whereParser)
+		match, err := matchesWhere(&rule, ctx, overrideWhere)
 		if err != nil {
 			return false, trace.Wrap(err)
 		}
@@ -738,7 +734,7 @@ func (set RuleSet) Match(whereParser predicate.Parser, actionsParser predicate.P
 
 	// check for wildcard resource matcher
 	for _, rule := range set[types.Wildcard] {
-		match, err := matchesWhere(&rule, whereParser)
+		match, err := matchesWhere(&rule, ctx, overrideWhere)
 		if err != nil {
 			return false, trace.Wrap(err)
 		}
@@ -755,19 +751,23 @@ func (set RuleSet) Match(whereParser predicate.Parser, actionsParser predicate.P
 
 // matchesWhere returns true if Where rule matches.
 // Empty Where block always matches.
-func matchesWhere(r *types.Rule, parser predicate.Parser) (bool, error) {
+func matchesWhere(r *types.Rule, ctx *Context, overrideWhere string) (bool, error) {
 	if r.Where == "" {
 		return true, nil
 	}
-	ifn, err := parser.Parse(r.Where)
+	where := r.Where
+	if overrideWhere != "" {
+		where = overrideWhere
+	}
+	expr, err := ParseWhereExpression(where)
 	if err != nil {
 		return false, trace.Wrap(err)
 	}
-	fn, ok := ifn.(predicate.BoolPredicate)
-	if !ok {
-		return false, trace.BadParameter("invalid predicate type for where expression: %v", r.Where)
+	match, err := expr.Evaluate(ctx)
+	if err != nil {
+		return false, trace.Wrap(err)
 	}
-	return fn(), nil
+	return match, nil
 }
 
 // processActions processes actions specified for this rule
@@ -3080,20 +3080,20 @@ func (set RoleSet) String() string {
 // kind that the current user can access?".
 // GuessIfAccessIsPossible is used, mainly, for UI decisions ("should the tab
 // for resource X appear"?). Most callers should use CheckAccessToRule instead.
-func (set RoleSet) GuessIfAccessIsPossible(ctx RuleContext, namespace string, resource string, verb string, silent bool) error {
+func (set RoleSet) GuessIfAccessIsPossible(ctx *Context, namespace string, resource string, verb string, silent bool) error {
 	// "Where" clause are handled differently by the method:
 	// - "allow" rules have their "where" clause always match, as it's assumed
 	//   that there could be a resource that matches it.
 	// - "deny" rules have their "where" clause always fail, as it's assumed that
 	//   there could be a resource that passes it.
 	return set.checkAccessToRuleImpl(checkAccessParams{
-		ctx:        ctx,
-		namespace:  namespace,
-		resource:   resource,
-		verb:       verb,
-		allowWhere: boolParser(true),  // always matches
-		denyWhere:  boolParser(false), // never matches
-		silent:     silent,
+		ctx:                ctx,
+		namespace:          namespace,
+		resource:           resource,
+		verb:               verb,
+		overrideAllowWhere: "true",  // always matches
+		overrideDenyWhere:  "false", // never matches
+		silent:             silent,
 	})
 }
 
@@ -3108,20 +3108,13 @@ func (p boolParser) Parse(string) (interface{}, error) {
 // CheckAccessToRule checks if the RoleSet provides access in the given
 // namespace to the specified resource and verb.
 // silent controls whether the access violations are logged.
-func (set RoleSet) CheckAccessToRule(ctx RuleContext, namespace string, resource string, verb string, silent bool) error {
-	whereParser, err := NewWhereParser(ctx)
-	if err != nil {
-		return trace.Wrap(err)
-	}
-
+func (set RoleSet) CheckAccessToRule(ctx *Context, namespace string, resource string, verb string, silent bool) error {
 	return set.checkAccessToRuleImpl(checkAccessParams{
-		ctx:        ctx,
-		namespace:  namespace,
-		resource:   resource,
-		verb:       verb,
-		allowWhere: whereParser,
-		denyWhere:  whereParser,
-		silent:     silent,
+		ctx:       ctx,
+		namespace: namespace,
+		resource:  resource,
+		verb:      verb,
+		silent:    silent,
 	})
 }
 
@@ -3161,12 +3154,13 @@ func deduplicateKubeResources(resources []types.KubernetesResource) []types.Kube
 }
 
 type checkAccessParams struct {
-	ctx                   RuleContext
-	namespace             string
-	resource              string
-	verb                  string
-	allowWhere, denyWhere predicate.Parser
-	silent                bool
+	ctx                *Context
+	namespace          string
+	resource           string
+	verb               string
+	overrideAllowWhere string
+	overrideDenyWhere  string
+	silent             bool
 }
 
 func (set RoleSet) checkAccessToRuleImpl(p checkAccessParams) error {
@@ -3179,7 +3173,7 @@ func (set RoleSet) checkAccessToRuleImpl(p checkAccessParams) error {
 	for _, role := range set {
 		matchNamespace, _ := MatchNamespace(role.GetNamespaces(types.Deny), types.ProcessNamespace(p.namespace))
 		if matchNamespace {
-			matched, err := MakeRuleSet(role.GetRules(types.Deny)).Match(p.denyWhere, actionsParser, p.resource, p.verb)
+			matched, err := MakeRuleSet(role.GetRules(types.Deny)).Match(p.ctx, p.overrideDenyWhere, actionsParser, p.resource, p.verb)
 			if err != nil {
 				return trace.Wrap(err)
 			}
@@ -3199,7 +3193,7 @@ func (set RoleSet) checkAccessToRuleImpl(p checkAccessParams) error {
 	for _, role := range set {
 		matchNamespace, _ := MatchNamespace(role.GetNamespaces(types.Allow), types.ProcessNamespace(p.namespace))
 		if matchNamespace {
-			match, err := MakeRuleSet(role.GetRules(types.Allow)).Match(p.allowWhere, actionsParser, p.resource, p.verb)
+			match, err := MakeRuleSet(role.GetRules(types.Allow)).Match(p.ctx, p.overrideAllowWhere, actionsParser, p.resource, p.verb)
 			if err != nil {
 				return trace.Wrap(err)
 			}

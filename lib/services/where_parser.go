@@ -7,6 +7,7 @@ import (
 	"github.com/gravitational/teleport"
 	"github.com/gravitational/teleport/api/types"
 	"github.com/gravitational/teleport/api/types/events"
+	"github.com/gravitational/teleport/api/types/wrappers"
 	"github.com/gravitational/teleport/lib/utils/typical"
 	"github.com/gravitational/trace"
 	"golang.org/x/exp/slices"
@@ -33,6 +34,8 @@ func newWhereParser() (*typical.CachedParser[WhereEnv, bool], error) {
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
+	vars["true"] = true
+	vars["false"] = false
 	return typical.NewCachedParser[WhereEnv, bool](typical.ParserSpec{
 		Variables: vars,
 		Functions: map[string]typical.Function{
@@ -105,7 +108,7 @@ func newWhereParser() (*typical.CachedParser[WhereEnv, bool], error) {
 		SessionTracker types.SessionTracker `json:"session_tracker"`
 	}
 */
-type WhereEnv = Context
+type WhereEnv = *Context
 
 func buildVariables() (map[string]typical.Variable, error) {
 	vars := make(map[string]typical.Variable)
@@ -116,11 +119,13 @@ func buildVariables() (map[string]typical.Variable, error) {
 		getter     func(env WhereEnv) any
 	}{
 		{"user", emptyUser, func(env WhereEnv) any { return env.User }},
+		// BIG PROBLEM: we only walk the JSON schema of emptyResource, it won't
+		// match the schema of actual resources
 		{"resource", emptyResource, func(env WhereEnv) any { return env.Resource }},
 		{"session", events.SessionEnd{}, func(env WhereEnv) any { return env.Session }},
-		{"ssh_session", ctxSession{}, func(env WhereEnv) any { return env.SSHSession }},
+		{"ssh_session", ctxSession{}, func(env WhereEnv) any { return toCtxSession(env.SSHSession) }},
 		{"host_cert", emptyHostCert, func(env WhereEnv) any { return env.HostCert }},
-		{"session_tracker", ctxTracker{}, func(env WhereEnv) any { return env.SessionTracker }},
+		{"session_tracker", ctxTracker{}, func(env WhereEnv) any { return toCtxTracker(env.SessionTracker) }},
 	} {
 		root := root
 
@@ -133,7 +138,8 @@ func buildVariables() (map[string]typical.Variable, error) {
 		})
 
 		fields, err := traverseJson(fieldDesc{
-			names: []string{root.name},
+			names:    []string{root.name},
+			emptyVal: root.emptyValue,
 		}, root.emptyValue)
 		if err != nil {
 			return nil, trace.Wrap(err)
@@ -142,29 +148,70 @@ func buildVariables() (map[string]typical.Variable, error) {
 		for _, field := range fields {
 			field := field
 			name := strings.Join(field.names, ".")
-			vars[name] = typical.DynamicVariable[WhereEnv, any](func(env WhereEnv) (any, error) {
+
+			getValue := func(env WhereEnv) (any, error) {
 				r := root.getter(env)
 				if r == nil {
-					return nil, trace.NotFound(name)
+					r = root.emptyValue
 				}
 				v := reflect.ValueOf(r)
 				if v.Kind() == reflect.Interface || v.Kind() == reflect.Ptr {
 					v = v.Elem()
 				}
 				v = v.FieldByIndex(field.indices)
-				if (v == reflect.Value{}) {
-					return nil, trace.NotFound(name)
-				}
+				/*
+					if (v == reflect.Value{}) {
+						return nil, trace.NotFound("can't get nested field %q", name)
+					}
+				*/
 				return v.Interface(), nil
-			})
+			}
+
+			typicalVar := buildVariableForGetter(field.emptyVal, getValue)
+			vars[name] = typicalVar
 		}
 	}
 	return vars, nil
 }
 
+func buildVariableForGetter(emptyVal any, getter func(WhereEnv) (any, error)) typical.Variable {
+	switch emptyVal.(type) {
+	case string:
+		return buildVariableForGetterTyped[string](getter)
+	case []string:
+		return buildVariableForGetterTyped[[]string](getter)
+	case map[string]string:
+		return buildVariableForGetterTyped[map[string]string](getter)
+	case map[string][]string:
+		return buildVariableForGetterTyped[map[string][]string](getter)
+	case wrappers.Traits:
+		return typical.DynamicVariable(func(env WhereEnv) (map[string][]string, error) {
+			v, err := getter(env)
+			if err != nil {
+				return nil, trace.Wrap(err)
+			}
+			return map[string][]string(v.(wrappers.Traits)), nil
+		})
+	default:
+		return typical.DynamicVariable(getter)
+	}
+}
+
+func buildVariableForGetterTyped[TVar any](getter func(WhereEnv) (any, error)) typical.Variable {
+	return typical.DynamicVariable(func(env WhereEnv) (TVar, error) {
+		v, err := getter(env)
+		if err != nil {
+			var nul TVar
+			return nul, trace.Wrap(err)
+		}
+		return v.(TVar), nil
+	})
+}
+
 type fieldDesc struct {
-	names   []string
-	indices []int
+	names    []string
+	indices  []int
+	emptyVal any
 }
 
 func traverseJson(parent fieldDesc, v any) ([]fieldDesc, error) {
@@ -188,13 +235,16 @@ func traverseJson(parent fieldDesc, v any) ([]fieldDesc, error) {
 		case "", "-":
 			continue
 		}
+
+		emptyVal := val.FieldByIndex(field.Index).Interface()
 		fd := fieldDesc{
-			names:   append(parent.names, fieldName),
-			indices: append(parent.indices, field.Index...),
+			names:    append(parent.names, fieldName),
+			indices:  append(parent.indices, field.Index...),
+			emptyVal: emptyVal,
 		}
 		fieldDescs = append(fieldDescs, fd)
 
-		nested, err := traverseJson(fd, val.FieldByIndex(field.Index).Interface())
+		nested, err := traverseJson(fd, emptyVal)
 		if err != nil {
 			return nil, trace.Wrap(err)
 		}

@@ -11,6 +11,7 @@ import (
 func TestWhereParser(t *testing.T) {
 	for _, tc := range []struct {
 		expr                  string
+		expectParseError      []string
 		expectEvaluationError []string
 	}{
 		{
@@ -27,19 +28,28 @@ func TestWhereParser(t *testing.T) {
 		},
 		{
 			expr: "user.spec.traits",
-			expectEvaluationError: []string{
+			expectParseError: []string{
 				"expected type bool",
+				"got expression returning type (map[string][]string)",
 			},
 		},
 	} {
 		t.Run(tc.expr, func(t *testing.T) {
 			parsed, err := ParseWhereExpression(tc.expr)
+			if len(tc.expectParseError) > 0 {
+				require.Error(t, err)
+				for _, msg := range tc.expectParseError {
+					require.ErrorContains(t, err, msg)
+				}
+				return
+			}
 			require.NoError(t, err, "unexpected parse error %s", trace.DebugReport(err))
 
-			result, err := parsed.Evaluate(WhereEnv{
+			result, err := parsed.Evaluate(&Context{
 				User: emptyUser,
 			})
 			if len(tc.expectEvaluationError) > 0 {
+				require.Error(t, err)
 				for _, msg := range tc.expectEvaluationError {
 					require.ErrorContains(t, err, msg)
 				}
