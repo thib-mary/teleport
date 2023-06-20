@@ -474,17 +474,17 @@ func TestGCPKMSKeystore(t *testing.T) {
 			}()
 
 			// Test key creation.
-			sshKeyPair, err := manager.NewSSHKeyPair(clientContext)
+			sshKeyPair, err := manager.NewSSHKeyPair(clientContext, types.HostCA)
 			if tc.expectNewKeyPairError {
 				require.Error(t, err, "expected to get error generating SSH keypair, got nil")
 				return
 			}
 			require.NoError(t, err, "unexpected error while generating SSH keypair")
 
-			jwtKeyPair, err := manager.NewJWTKeyPair(clientContext)
+			jwtKeyPair, err := manager.NewJWTKeyPair(clientContext, types.JWTSigner)
 			require.NoError(t, err, "unexpected error creating JWT keypair")
 
-			tlsKeyPair, err := manager.NewTLSKeyPair(clientContext, "test-cluster")
+			tlsKeyPair, err := manager.NewTLSKeyPair(clientContext, types.CertAuthID{Type: types.HostCA, DomainName: "test-cluster"})
 			require.NoError(t, err, "unexpected error creating TLS keypair")
 
 			// Put all the keys into a "CA" so that the keystore manager can

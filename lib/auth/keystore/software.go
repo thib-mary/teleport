@@ -17,11 +17,19 @@ package keystore
 import (
 	"context"
 	"crypto"
+	"crypto/ecdsa"
+	"crypto/ed25519"
+	"crypto/elliptic"
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/x509"
+	"encoding/pem"
 
 	"github.com/gravitational/trace"
 	"github.com/sirupsen/logrus"
 
 	"github.com/gravitational/teleport/api/types"
+	"github.com/gravitational/teleport/api/utils/keys"
 	"github.com/gravitational/teleport/lib/utils"
 )
 
@@ -32,10 +40,13 @@ type softwareKeyStore struct {
 // RSAKeyPairSource is a function type which returns new RSA keypairs.
 type RSAKeyPairSource func() (priv []byte, pub []byte, err error)
 
+// SoftwareConfig holds configuration parameters for a software keystore.
 type SoftwareConfig struct {
 	RSAKeyPairSource RSAKeyPairSource
 }
 
+// CheckAndSetDefaults checks the SoftwareConfig and sets any applicable default
+// parameters.
 func (cfg *SoftwareConfig) CheckAndSetDefaults() error {
 	if cfg.RSAKeyPairSource == nil {
 		return trace.BadParameter("must provide RSAKeyPairSource")
@@ -53,16 +64,68 @@ func newSoftwareKeyStore(config *SoftwareConfig, logger logrus.FieldLogger) *sof
 // crypto.Signer. The returned identifier for softwareKeyStore is a pem-encoded
 // private key, and can be passed to getSigner later to get the same
 // crypto.Signer.
-func (s *softwareKeyStore) generateRSA(ctx context.Context, _ ...RSAKeyOption) ([]byte, crypto.Signer, error) {
-	priv, _, err := s.rsaKeyPairSource()
+func (s *softwareKeyStore) generateRSA(ctx context.Context, bits int) ([]byte, crypto.Signer, error) {
+	privKey, err := rsa.GenerateKey(rand.Reader, bits)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, trace.Wrap(err)
 	}
-	signer, err := s.getSigner(ctx, priv)
+	// We encode the private key in PKCS #1, ASN.1 DER form
+	// instead of PKCS #8 to maintain compatibility with some
+	// third party clients.
+	keyPEM := pem.EncodeToMemory(&pem.Block{
+		Type:    keys.PKCS1PrivateKeyType,
+		Headers: nil,
+		Bytes:   x509.MarshalPKCS1PrivateKey(privKey),
+	})
+	return keyPEM, privKey, nil
+}
+
+func (s *softwareKeyStore) generateECDSA(ctx context.Context) ([]byte, crypto.Signer, error) {
+	privKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, trace.Wrap(err)
 	}
-	return priv, signer, trace.Wrap(err)
+	keyDER, err := x509.MarshalPKCS8PrivateKey(privKey)
+	if err != nil {
+		return nil, nil, trace.Wrap(err)
+	}
+	keyPEM := pem.EncodeToMemory(&pem.Block{
+		Type:    keys.PKCS8PrivateKeyType,
+		Headers: nil,
+		Bytes:   keyDER,
+	})
+	return keyPEM, privKey, nil
+}
+
+func (s *softwareKeyStore) generateEd25519(ctx context.Context) ([]byte, crypto.Signer, error) {
+	_, privKey, err := ed25519.GenerateKey(rand.Reader)
+	keyDER, err := x509.MarshalPKCS8PrivateKey(privKey)
+	if err != nil {
+		return nil, nil, trace.Wrap(err)
+	}
+	keyPEM := pem.EncodeToMemory(&pem.Block{
+		Type:    keys.PKCS8PrivateKeyType,
+		Headers: nil,
+		Bytes:   keyDER,
+	})
+	return keyPEM, privKey, nil
+}
+
+func (s *softwareKeyStore) generateKey(ctx context.Context, params types.KeyParams) ([]byte, crypto.Signer, error) {
+	switch params.Algorithm {
+	case types.KeyAlgorithm_RSA2048_PKCS1_SHA256, types.KeyAlgorithm_RSA2048_PKCS1_SHA512:
+		return s.generateRSA(ctx, 2048)
+	case types.KeyAlgorithm_RSA3072_PKCS1_SHA256, types.KeyAlgorithm_RSA3072_PKCS1_SHA512:
+		return s.generateRSA(ctx, 3072)
+	case types.KeyAlgorithm_RSA4096_PKCS1_SHA256, types.KeyAlgorithm_RSA4096_PKCS1_SHA512:
+		return s.generateRSA(ctx, 4096)
+	case types.KeyAlgorithm_ECDSA_P256_SHA256:
+		return s.generateECDSA(ctx)
+	case types.KeyAlgorithm_Ed25519:
+		return s.generateEd25519(ctx)
+	default:
+		return nil, nil, trace.BadParameter("algorithm %s unsupported", params.Algorithm)
+	}
 }
 
 // GetSigner returns a crypto.Signer for the given pem-encoded private key.

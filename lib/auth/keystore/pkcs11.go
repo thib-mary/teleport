@@ -31,7 +31,6 @@ import (
 	"github.com/miekg/pkcs11"
 	"github.com/sirupsen/logrus"
 
-	"github.com/gravitational/teleport/api/constants"
 	"github.com/gravitational/teleport/api/types"
 )
 
@@ -135,7 +134,7 @@ func (p *pkcs11KeyStore) findUnusedID() (keyID, error) {
 // generateRSA creates a new RSA private key and returns its identifier and a
 // crypto.Signer. The returned identifier can be passed to getSigner later to
 // get the same crypto.Signer.
-func (p *pkcs11KeyStore) generateRSA(ctx context.Context, options ...RSAKeyOption) ([]byte, crypto.Signer, error) {
+func (p *pkcs11KeyStore) generateRSA(ctx context.Context, bits int) ([]byte, crypto.Signer, error) {
 	p.log.Debug("Creating new HSM keypair")
 	id, err := p.findUnusedID()
 	if err != nil {
@@ -146,7 +145,7 @@ func (p *pkcs11KeyStore) generateRSA(ctx context.Context, options ...RSAKeyOptio
 	if err != nil {
 		return nil, nil, trace.Wrap(err)
 	}
-	signer, err := p.ctx.GenerateRSAKeyPairWithLabel(ckaID, []byte(p.hostUUID), constants.RSAKeySize)
+	signer, err := p.ctx.GenerateRSAKeyPairWithLabel(ckaID, []byte(p.hostUUID), bits)
 	if err != nil {
 		return nil, nil, trace.Wrap(err, "generating RSA key pair")
 	}
@@ -156,6 +155,19 @@ func (p *pkcs11KeyStore) generateRSA(ctx context.Context, options ...RSAKeyOptio
 		return nil, nil, trace.Wrap(err)
 	}
 	return keyID, signer, nil
+}
+
+func (p *pkcs11KeyStore) generateKey(ctx context.Context, params types.KeyParams) ([]byte, crypto.Signer, error) {
+	switch params.Algorithm {
+	case types.KeyAlgorithm_RSA2048_PKCS1_SHA256, types.KeyAlgorithm_RSA2048_PKCS1_SHA512:
+		return p.generateRSA(ctx, 2048)
+	case types.KeyAlgorithm_RSA3072_PKCS1_SHA256, types.KeyAlgorithm_RSA3072_PKCS1_SHA512:
+		return p.generateRSA(ctx, 3072)
+	case types.KeyAlgorithm_RSA4096_PKCS1_SHA256, types.KeyAlgorithm_RSA4096_PKCS1_SHA512:
+		return p.generateRSA(ctx, 4096)
+	default:
+		return nil, nil, trace.BadParameter("algorithm %s unsupported", params.Algorithm)
+	}
 }
 
 // getSigner returns a crypto.Signer for the given key identifier, if it is found.

@@ -19,10 +19,12 @@ package keystore
 import (
 	"context"
 	"crypto"
+	"crypto/ecdsa"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha256"
 	"crypto/x509/pkix"
+	"errors"
 	"log"
 	"os"
 	"testing"
@@ -258,7 +260,7 @@ func TestKeyStore(t *testing.T) {
 			require.NoError(t, err)
 
 			// create a key
-			key, signer, err := keyStore.generateRSA(ctx)
+			key, signer, err := keyStore.generateKey(ctx, keyStore.tlsKeyAlgo(types.HostCA))
 			require.NoError(t, err)
 			require.NotNil(t, key)
 			require.NotNil(t, signer)
@@ -277,9 +279,7 @@ func TestKeyStore(t *testing.T) {
 			signature, err := signer.Sign(rand.Reader, hashed[:], crypto.SHA256)
 			require.NoError(t, err)
 			require.NotEmpty(t, signature)
-			// make sure we can verify the signature with a "known good" rsa implementation
-			err = rsa.VerifyPKCS1v15(signer.Public().(*rsa.PublicKey), crypto.SHA256, hashed[:], signature)
-			require.NoError(t, err)
+			require.NoError(t, verifySignature(signer.Public(), hashed[:], signature))
 
 			// make sure we can get the ssh public key
 			sshSigner, err := ssh.NewSignerFromSigner(signer)
@@ -409,7 +409,7 @@ func TestKeyStore(t *testing.T) {
 			const numKeys = 3
 			var rawKeys [][]byte
 			for i := 0; i < numKeys; i++ {
-				key, _, err := keyStore.generateRSA(ctx)
+				key, _, err := keyStore.generateKey(ctx, keyStore.sshKeyAlgo(types.HostCA))
 				require.NoError(t, err)
 				rawKeys = append(rawKeys, key)
 			}
@@ -445,5 +445,19 @@ func TestKeyStore(t *testing.T) {
 			err = keyStore.deleteKey(ctx, rawKeys[0])
 			require.NoError(t, err)
 		})
+	}
+}
+
+func verifySignature(pub crypto.PublicKey, digest []byte, signature []byte) error {
+	switch pubkey := pub.(type) {
+	case *rsa.PublicKey:
+		return rsa.VerifyPKCS1v15(pubkey, crypto.SHA256, digest, signature)
+	case *ecdsa.PublicKey:
+		if !ecdsa.VerifyASN1(pubkey, digest, signature) {
+			return errors.New("failed to validate ECDSA signature")
+		}
+		return nil
+	default:
+		return trace.BadParameter("unsupported public key type %T", pub)
 	}
 }

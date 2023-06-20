@@ -1739,6 +1739,65 @@ message AuthPreferenceSpecV2 {
   ];
 }
 
+message AllCAKeyParams {
+  // defaults to {ssh:RSA2048WithSHA512,tls:RSA2048WithSHA256,jwt:RSA2048WithSHA256}
+  CAKeyParams default = 1;
+  // ssh+tls
+  CAKeyParams host = 2;
+  // ssh+tls
+  CAKeyParams user = 3;
+  // tls only
+  CAKeyParams db = 4;
+  // ssh only
+  CAKeyParams openssh = 5;
+  // jwt only
+  CAKeyParams jwt = 6;
+  // jwt only
+  CAKeyParams oidcIDP = 7;
+  // tls only
+  CAKeyParams samlIDP = 8;
+}
+message CAKeyParams {
+  KeyParams ssh = 1;
+  KeyParams tls = 2;
+  KeyParams jwt = 3;
+}
+message KeyParams {
+  // Algorithm defines the private key type, key size, signing algorithm, and digest algorithm.
+  KeyAlgorithm algorithm = 1;
+}
+enum KeyAlgorithm {
+  // KEYTYPE+SIZE_ALGORITHM_DIGEST
+
+  // RSA2048_PKCS1_SHA256 represents a 2048 bit RSA key using the PKCS#1 v1.5
+  // signature scheme to sign a SHA256 digest.
+  RSA2048_PKCS1_SHA256 = 0;
+  // RSA2048_PKCS1_SHA512 represents a 2048 bit RSA key using the PKCS#1 v1.5
+  // signature scheme to sign a SHA512 digest.
+  RSA2048_PKCS1_SHA512 = 1;
+
+  // RSA3072_PKCS1_SHA256 represents a 3072 bit RSA key using the PKCS#1 v1.5
+  // signature scheme to sign a SHA256 digest.
+  RSA3072_PKCS1_SHA256 = 2;
+  // RSA3072_PKCS1_SHA512 represents a 3072 bit RSA key using the PKCS#1 v1.5
+  // signature scheme to sign a SHA512 digest.
+  RSA3072_PKCS1_SHA512 = 3;
+
+  // RSA4096_PKCS1_SHA256 represents a 4096 bit RSA key using the PKCS#1 v1.5
+  // signature scheme to sign a SHA256 digest.
+  RSA4096_PKCS1_SHA256 = 4;
+  // RSA4096_PKCS1_SHA512 represents a 4096 bit RSA key using the PKCS#1 v1.5
+  // signature scheme to sign a SHA512 digest.
+  RSA4096_PKCS1_SHA512 = 5;
+
+  // ECDSA_P256_SHA256 represents an ECDSA private key on the P-256 curve which
+  // signs a SHA256 digest.
+  ECDSA_P256_SHA256 = 6;
+
+  // Ed25519 represents an Ed25519 private key signing according to RFC8032.
+  Ed25519 = 7;
+}
+
 // U2F defines settings for U2F device.
 // Deprecated: U2F is transparently converted to WebAuthn by Teleport. Prefer
 // using WebAuthn instead.

@@ -36,6 +36,8 @@ import (
 // which may be software keys or held in an HSM or other key manager.
 type Manager struct {
 	backend
+	caKeyParams      map[types.CertAuthType]types.CAKeyParams
+	defaultKeyParams types.CAKeyParams
 }
 
 // RSAKeyOptions configure options for RSA key generation.
@@ -60,10 +62,7 @@ type backend interface {
 	// 2. Not included in the argument activeKeys
 	DeleteUnusedKeys(ctx context.Context, activeKeys [][]byte) error
 
-	// generateRSA creates a new RSA private key and returns its identifier and
-	// a crypto.Signer. The returned identifier can be passed to getSigner
-	// later to get the same crypto.Signer.
-	generateRSA(context.Context, ...RSAKeyOption) (keyID []byte, signer crypto.Signer, err error)
+	generateKey(context.Context, types.KeyParams) (keyID []byte, signer crypto.Signer, err error)
 
 	// getSigner returns a crypto.Signer for the given key identifier, if it is found.
 	getSigner(ctx context.Context, keyID []byte) (crypto.Signer, error)
@@ -90,9 +89,16 @@ type Config struct {
 	GCPKMS GCPKMSConfig
 	// Logger is a logger to be used by the keystore.
 	Logger logrus.FieldLogger
+
+	// CAKeyParams TODO
+	CAKeyParams types.AllCAKeyParams
 }
 
+// CheckAndSetDefaults TODO
 func (cfg *Config) CheckAndSetDefaults() error {
+	if err := cfg.CAKeyParams.CheckAndSetDefaults(); err != nil {
+		return trace.Wrap(err)
+	}
 	// We check for mutual exclusion when parsing the file config.
 	if (cfg.PKCS11 != PKCS11Config{}) {
 		return trace.Wrap(cfg.PKCS11.CheckAndSetDefaults())
@@ -114,15 +120,36 @@ func NewManager(ctx context.Context, cfg Config) (*Manager, error) {
 		logger = logrus.StandardLogger()
 	}
 
+	m := &Manager{
+		caKeyParams:      make(map[types.CertAuthType]types.CAKeyParams),
+		defaultKeyParams: *cfg.CAKeyParams.Default,
+	}
+	for name, params := range map[types.CertAuthType]*types.CAKeyParams{
+		types.HostCA:     cfg.CAKeyParams.Host,
+		types.UserCA:     cfg.CAKeyParams.User,
+		types.DatabaseCA: cfg.CAKeyParams.Db,
+		types.OpenSSHCA:  cfg.CAKeyParams.Openssh,
+		types.JWTSigner:  cfg.CAKeyParams.Jwt,
+		types.SAMLIDPCA:  cfg.CAKeyParams.SamlIDP,
+		types.OIDCIdPCA:  cfg.CAKeyParams.OidcIDP,
+	} {
+		if params != nil {
+			m.caKeyParams[name] = *params
+		}
+	}
+
 	if (cfg.PKCS11 != PKCS11Config{}) {
-		backend, err := newPKCS11KeyStore(&cfg.PKCS11, logger)
-		return &Manager{backend: backend}, trace.Wrap(err)
+		var err error
+		m.backend, err = newPKCS11KeyStore(&cfg.PKCS11, logger)
+		return m, trace.Wrap(err)
 	}
 	if (cfg.GCPKMS != GCPKMSConfig{}) {
-		backend, err := newGCPKMSKeyStore(ctx, &cfg.GCPKMS, logger)
-		return &Manager{backend: backend}, trace.Wrap(err)
+		var err error
+		m.backend, err = newGCPKMSKeyStore(ctx, &cfg.GCPKMS, logger)
+		return m, trace.Wrap(err)
 	}
-	return &Manager{backend: newSoftwareKeyStore(&cfg.Software, logger)}, nil
+	m.backend = newSoftwareKeyStore(&cfg.Software, logger)
+	return m, nil
 }
 
 // GetSSHSigner selects a usable SSH keypair from the given CA ActiveKeys and
@@ -132,7 +159,7 @@ func (m *Manager) GetSSHSigner(ctx context.Context, ca types.CertAuthority) (ssh
 	return signer, trace.Wrap(err)
 }
 
-// GetSSHSigner selects a usable SSH keypair from the given CA
+// GetAdditionalTrustedSSHSigner selects a usable SSH keypair from the given CA
 // AdditionalTrustedKeys and returns an [ssh.Signer].
 func (m *Manager) GetAdditionalTrustedSSHSigner(ctx context.Context, ca types.CertAuthority) (ssh.Signer, error) {
 	signer, err := m.getSSHSigner(ctx, ca.GetAdditionalTrustedKeys())
@@ -207,10 +234,31 @@ func (m *Manager) GetJWTSigner(ctx context.Context, ca types.CertAuthority) (cry
 	return nil, trace.NotFound("no usable JWT key pairs found")
 }
 
+func (m *Manager) sshKeyAlgo(caType types.CertAuthType) types.KeyParams {
+	if caKeyParams, ok := m.caKeyParams[caType]; ok {
+		return *caKeyParams.Ssh
+	}
+	return *m.defaultKeyParams.Ssh
+}
+
+func (m *Manager) tlsKeyAlgo(caType types.CertAuthType) types.KeyParams {
+	if caKeyParams, ok := m.caKeyParams[caType]; ok {
+		return *caKeyParams.Tls
+	}
+	return *m.defaultKeyParams.Tls
+}
+
+func (m *Manager) jwtKeyAlgo(caType types.CertAuthType) types.KeyParams {
+	if caKeyParams, ok := m.caKeyParams[caType]; ok {
+		return *caKeyParams.Jwt
+	}
+	return *m.defaultKeyParams.Jwt
+}
+
 // NewSSHKeyPair generates a new SSH keypair in the keystore backend and returns it.
-func (m *Manager) NewSSHKeyPair(ctx context.Context) (*types.SSHKeyPair, error) {
+func (m *Manager) NewSSHKeyPair(ctx context.Context, caType types.CertAuthType) (*types.SSHKeyPair, error) {
 	// The default hash length for SSH signers is 512 bits.
-	sshKey, cryptoSigner, err := m.backend.generateRSA(ctx, WithDigestAlgorithm(crypto.SHA512))
+	sshKey, cryptoSigner, err := m.backend.generateKey(ctx, m.sshKeyAlgo(caType))
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -227,16 +275,16 @@ func (m *Manager) NewSSHKeyPair(ctx context.Context) (*types.SSHKeyPair, error) 
 }
 
 // NewTLSKeyPair creates a new TLS keypair in the keystore backend and returns it.
-func (m *Manager) NewTLSKeyPair(ctx context.Context, clusterName string) (*types.TLSKeyPair, error) {
-	tlsKey, signer, err := m.backend.generateRSA(ctx)
+func (m *Manager) NewTLSKeyPair(ctx context.Context, caID types.CertAuthID) (*types.TLSKeyPair, error) {
+	tlsKey, signer, err := m.backend.generateKey(ctx, m.tlsKeyAlgo(caID.Type))
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 	tlsCert, err := tlsca.GenerateSelfSignedCAWithSigner(
 		signer,
 		pkix.Name{
-			CommonName:   clusterName,
-			Organization: []string{clusterName},
+			CommonName:   caID.DomainName,
+			Organization: []string{caID.DomainName},
 		}, nil, defaults.CATTL)
 	if err != nil {
 		return nil, trace.Wrap(err)
@@ -248,10 +296,9 @@ func (m *Manager) NewTLSKeyPair(ctx context.Context, clusterName string) (*types
 	}, nil
 }
 
-// New JWTKeyPair create a new JWT keypair in the keystore backend and returns
-// it.
-func (m *Manager) NewJWTKeyPair(ctx context.Context) (*types.JWTKeyPair, error) {
-	jwtKey, signer, err := m.backend.generateRSA(ctx)
+// NewJWTKeyPair create a new JWT keypair in the keystore backend and returns it.
+func (m *Manager) NewJWTKeyPair(ctx context.Context, caType types.CertAuthType) (*types.JWTKeyPair, error) {
+	jwtKey, signer, err := m.backend.generateKey(ctx, m.jwtKeyAlgo(caType))
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -272,8 +319,7 @@ func (m *Manager) HasUsableActiveKeys(ctx context.Context, ca types.CertAuthorit
 	return usable, trace.Wrap(err)
 }
 
-// HasUsableActiveKeys returns true if the given CA has any usable additional
-// trusted keys.
+// HasUsableAdditionalKeys returns true if the given CA has any usable additional trusted keys.
 func (m *Manager) HasUsableAdditionalKeys(ctx context.Context, ca types.CertAuthority) (bool, error) {
 	usable, err := m.hasUsableKeys(ctx, ca.GetAdditionalTrustedKeys())
 	return usable, trace.Wrap(err)

@@ -2825,17 +2825,10 @@ func TestCAGeneration(t *testing.T) {
 	)
 	native.PrecomputeKeys()
 	// Cache key for better performance as we don't care about the value being unique.
-	privKey, pubKey, err := testauthority.New().GenerateKeyPair()
+	privKey, _, err := testauthority.New().GenerateKeyPair()
 	require.NoError(t, err)
 
-	ksConfig := keystore.Config{
-		Software: keystore.SoftwareConfig{
-			RSAKeyPairSource: func() (priv []byte, pub []byte, err error) {
-				return privKey, pubKey, nil
-			},
-		},
-	}
-	keyStore, err := keystore.NewManager(ctx, ksConfig)
+	keyStore, err := keystore.NewManager(ctx, keystore.Config{})
 	require.NoError(t, err)
 
 	for _, caType := range types.CertAuthTypes {

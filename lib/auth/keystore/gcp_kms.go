@@ -184,6 +184,17 @@ func (g *gcpKMSKeyStore) generateRSA(ctx context.Context, opts ...RSAKeyOption) 
 	return keyID.marshal(), signer, nil
 }
 
+func (g *gcpKMSKeyStore) generateKey(ctx context.Context, params types.KeyParams) ([]byte, crypto.Signer, error) {
+	switch params.Algorithm {
+	case types.KeyAlgorithm_RSA2048_PKCS1_SHA256:
+		return g.generateRSA(ctx, WithDigestAlgorithm(crypto.SHA256))
+	case types.KeyAlgorithm_RSA2048_PKCS1_SHA512:
+		return g.generateRSA(ctx, WithDigestAlgorithm(crypto.SHA512))
+	default:
+		return nil, nil, trace.BadParameter("algorithm %s unsupported", params.Algorithm)
+	}
+}
+
 // getSigner returns a crypto.Signer for the given pem-encoded private key.
 func (g *gcpKMSKeyStore) getSigner(ctx context.Context, rawKey []byte) (crypto.Signer, error) {
 	keyID, err := parseGCPKMSKeyID(rawKey)

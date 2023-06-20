@@ -556,8 +556,8 @@ type Server struct {
 	// session related streams
 	streamer events.Streamer
 
-	// keyStore manages all CA private keys, which  may or may not be backed by
-	// HSMs
+	// keyStore manages all CA private keys, which may or may not be backed by
+	// an HSM or cloud KMS.
 	keyStore *keystore.Manager
 
 	// lockWatcher is a lock watcher, used to verify cert generation requests.
@@ -5102,16 +5102,16 @@ func (a *Server) addAdditionalTrustedKeysAtomic(
 }
 
 // newKeySet generates a new sets of keys for a given CA type.
-// Keep this function in sync with lib/service/suite/suite.go:NewTestCAWithConfig().
+// Keep this function in sync with lib/services/suite/suite.go:NewTestCAWithConfig().
 func newKeySet(ctx context.Context, keyStore *keystore.Manager, caID types.CertAuthID) (types.CAKeySet, error) {
 	var keySet types.CAKeySet
 	switch caID.Type {
 	case types.UserCA, types.HostCA:
-		sshKeyPair, err := keyStore.NewSSHKeyPair(ctx)
+		sshKeyPair, err := keyStore.NewSSHKeyPair(ctx, caID.Type)
 		if err != nil {
 			return keySet, trace.Wrap(err)
 		}
-		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID.DomainName)
+		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID)
 		if err != nil {
 			return keySet, trace.Wrap(err)
 		}
@@ -5119,27 +5119,27 @@ func newKeySet(ctx context.Context, keyStore *keystore.Manager, caID types.CertA
 		keySet.TLS = append(keySet.TLS, tlsKeyPair)
 	case types.DatabaseCA:
 		// Database CA only contains TLS cert.
-		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID.DomainName)
+		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID)
 		if err != nil {
 			return keySet, trace.Wrap(err)
 		}
 		keySet.TLS = append(keySet.TLS, tlsKeyPair)
 	case types.OpenSSHCA:
 		// OpenSSH CA only contains a SSH key pair.
-		sshKeyPair, err := keyStore.NewSSHKeyPair(ctx)
+		sshKeyPair, err := keyStore.NewSSHKeyPair(ctx, caID.Type)
 		if err != nil {
 			return keySet, trace.Wrap(err)
 		}
 		keySet.SSH = append(keySet.SSH, sshKeyPair)
 	case types.JWTSigner, types.OIDCIdPCA:
-		jwtKeyPair, err := keyStore.NewJWTKeyPair(ctx)
+		jwtKeyPair, err := keyStore.NewJWTKeyPair(ctx, caID.Type)
 		if err != nil {
 			return keySet, trace.Wrap(err)
 		}
 		keySet.JWT = append(keySet.JWT, jwtKeyPair)
 	case types.SAMLIDPCA:
 		// SAML IDP CA only contains TLS certs.
-		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID.DomainName)
+		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID)
 		if err != nil {
 			return keySet, trace.Wrap(err)
 		}

@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"crypto"
 	"crypto/ecdsa"
+	"crypto/ed25519"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/tls"
@@ -131,6 +132,8 @@ func ParsePrivateKeyDER(der []byte) (crypto.Signer, error) {
 	case *rsa.PrivateKey:
 		return k, nil
 	case *ecdsa.PrivateKey:
+		return k, nil
+	case ed25519.PrivateKey:
 		return k, nil
 	}
 
