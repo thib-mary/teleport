@@ -409,6 +409,13 @@ type AuthenticationSettings struct {
 	HasMessageOfTheDay bool `json:"has_motd"`
 	// LoadAllCAs tells tsh to load CAs for all clusters when trying to ssh into a node.
 	LoadAllCAs bool `json:"load_all_cas,omitempty"`
+
+	UserKeyAlgorithms UserKeyAlgorithms `json:"user_key_algorithms"`
+}
+
+type UserKeyAlgorithms struct {
+	SSH []string `json:"ssh"`
+	TLS []string `json:"tls"`
 }
 
 // LocalSettings holds settings for local authentication.

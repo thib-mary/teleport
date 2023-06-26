@@ -1737,6 +1737,8 @@ message AuthPreferenceSpecV2 {
     (gogoproto.jsontag) = "allow_headless,omitempty",
     (gogoproto.customtype) = "BoolOption"
   ];
+
+  AllCAKeyParams CAKeyParams = 16 [(gogoproto.jsontag) = "ca_key_params"];
 }
 
 message AllCAKeyParams {
@@ -1765,6 +1767,7 @@ message CAKeyParams {
 message KeyParams {
   // Algorithm defines the private key type, key size, signing algorithm, and digest algorithm.
   KeyAlgorithm algorithm = 1;
+  repeated KeyAlgorithm allowed_subject_key_algorithms = 2;
 }
 enum KeyAlgorithm {
   // KEYTYPE+SIZE_ALGORITHM_DIGEST

@@ -18,6 +18,12 @@ package client
 
 import (
 	"context"
+	"crypto"
+	"crypto/ecdsa"
+	"crypto/ed25519"
+	"crypto/elliptic"
+	"crypto/rand"
+	"crypto/rsa"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/pem"
@@ -63,7 +69,6 @@ import (
 	apiutils "github.com/gravitational/teleport/api/utils"
 	"github.com/gravitational/teleport/api/utils/keys"
 	"github.com/gravitational/teleport/lib/auth"
-	"github.com/gravitational/teleport/lib/auth/native"
 	"github.com/gravitational/teleport/lib/auth/touchid"
 	wancli "github.com/gravitational/teleport/lib/auth/webauthncli"
 	"github.com/gravitational/teleport/lib/client/terminal"
@@ -413,6 +418,9 @@ type Config struct {
 
 	// PrivateKeyPolicy is a key policy that this client will try to follow during login.
 	PrivateKeyPolicy keys.PrivateKeyPolicy
+
+	SupportedUserSSHKeyAlgorithms []string
+	SupportedUserTLSKeyAlgorithms []string
 
 	// LoadAllCAs indicates that tsh should load the CAs of all clusters
 	// instead of just the current cluster.
@@ -3570,14 +3578,66 @@ func (tc *TeleportClient) GetNewLoginKey(ctx context.Context) (priv *keys.Privat
 		log.Debugf("Attempting to login with YubiKey private key with touch required.")
 		priv, err = keys.GetOrGenerateYubiKeyPrivateKey(true)
 	default:
-		log.Debugf("Attempting to login with a new RSA private key.")
-		priv, err = native.GeneratePrivateKey()
+		priv, err = newSoftwareKey(ctx, tc.SupportedUserSSHKeyAlgorithms)
+		log.Debugf("Attempting to login with a new %T private key.", priv)
 	}
 
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 	return priv, nil
+}
+
+func newSoftwareKey(ctx context.Context, allowedAlgorithms []string) (*keys.PrivateKey, error) {
+	var signer crypto.Signer
+	var err error
+	for _, alg := range allowedAlgorithms {
+		switch alg {
+		case types.KeyAlgorithm_RSA2048_PKCS1_SHA256.String(), types.KeyAlgorithm_RSA2048_PKCS1_SHA512.String():
+			signer, err = rsa.GenerateKey(rand.Reader, 2048)
+		case types.KeyAlgorithm_RSA3072_PKCS1_SHA256.String(), types.KeyAlgorithm_RSA3072_PKCS1_SHA512.String():
+			signer, err = rsa.GenerateKey(rand.Reader, 3072)
+		case types.KeyAlgorithm_RSA4096_PKCS1_SHA256.String(), types.KeyAlgorithm_RSA4096_PKCS1_SHA512.String():
+			signer, err = rsa.GenerateKey(rand.Reader, 4096)
+		case types.KeyAlgorithm_Ed25519.String():
+			_, signer, err = ed25519.GenerateKey(rand.Reader)
+		case types.KeyAlgorithm_ECDSA_P256_SHA256.String():
+			signer, err = ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+		default:
+			continue
+		}
+		break
+	}
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	if signer == nil {
+		return nil, trace.BadParameter("no supported algorithm from %v", allowedAlgorithms)
+	}
+	var keyPEM []byte
+	switch s := signer.(type) {
+	case *rsa.PrivateKey:
+		// We encode the private key in PKCS #1, ASN.1 DER form
+		// instead of PKCS #8 to maintain compatibility with some
+		// third party clients.
+		keyPEM = pem.EncodeToMemory(&pem.Block{
+			Type:    keys.PKCS1PrivateKeyType,
+			Headers: nil,
+			Bytes:   x509.MarshalPKCS1PrivateKey(s),
+		})
+	default:
+		keyDER, err := x509.MarshalPKCS8PrivateKey(signer)
+		if err != nil {
+			return nil, trace.Wrap(err)
+		}
+		keyPEM = pem.EncodeToMemory(&pem.Block{
+			Type:    keys.PKCS8PrivateKeyType,
+			Headers: nil,
+			Bytes:   keyDER,
+		})
+	}
+	privKey, err := keys.NewPrivateKey(signer, keyPEM)
+	return privKey, err
 }
 
 // new SSHLogin generates a new SSHLogin using the given login key.
@@ -4130,6 +4190,9 @@ func (tc *TeleportClient) applyAuthSettings(authSettings webclient.Authenticatio
 	if authSettings.PrivateKeyPolicy != "" && authSettings.PrivateKeyPolicy.VerifyPolicy(tc.PrivateKeyPolicy) != nil {
 		tc.PrivateKeyPolicy = authSettings.PrivateKeyPolicy
 	}
+
+	tc.SupportedUserSSHKeyAlgorithms = authSettings.UserKeyAlgorithms.SSH
+	tc.SupportedUserTLSKeyAlgorithms = authSettings.UserKeyAlgorithms.TLS
 }
 
 // AddTrustedCA adds a new CA as trusted CA for this client, used in tests

@@ -6,12 +6,24 @@ func (p *AllCAKeyParams) CheckAndSetDefaults() error {
 		p.Default = &CAKeyParams{
 			Ssh: &KeyParams{
 				Algorithm: KeyAlgorithm_Ed25519,
+				AllowedSubjectKeyAlgorithms: []KeyAlgorithm{
+					KeyAlgorithm_Ed25519,
+					KeyAlgorithm_RSA2048_PKCS1_SHA512,
+				},
 			},
 			Tls: &KeyParams{
-				Algorithm: KeyAlgorithm_ECDSA_P256_SHA256,
+				Algorithm: KeyAlgorithm_RSA2048_PKCS1_SHA256,
+				AllowedSubjectKeyAlgorithms: []KeyAlgorithm{
+					KeyAlgorithm_Ed25519,
+					KeyAlgorithm_RSA2048_PKCS1_SHA256,
+				},
 			},
 			Jwt: &KeyParams{
 				Algorithm: KeyAlgorithm_RSA2048_PKCS1_SHA256,
+				AllowedSubjectKeyAlgorithms: []KeyAlgorithm{
+					KeyAlgorithm_Ed25519,
+					KeyAlgorithm_RSA2048_PKCS1_SHA256,
+				},
 			},
 		}
 	}

@@ -129,6 +129,9 @@ type AuthPreference interface {
 
 	// String represents a human readable version of authentication settings.
 	String() string
+
+	GetUserSSHKeyAlgorithms() []string
+	GetUserTLSKeyAlgorithms() []string
 }
 
 // NewAuthPreference is a convenience method to to create AuthPreferenceV2.
@@ -610,12 +613,41 @@ func (c *AuthPreferenceV2) CheckAndSetDefaults() error {
 		c.Spec.IDP.SAML.Enabled = NewBoolOption(true)
 	}
 
+	if c.Spec.CAKeyParams == nil {
+		c.Spec.CAKeyParams = &AllCAKeyParams{}
+	}
+	if err := c.Spec.CAKeyParams.CheckAndSetDefaults(); err != nil {
+		return trace.Wrap(err)
+	}
+
 	return nil
 }
 
 // String represents a human readable version of authentication settings.
 func (c *AuthPreferenceV2) String() string {
 	return fmt.Sprintf("AuthPreference(Type=%q,SecondFactor=%q)", c.Spec.Type, c.Spec.SecondFactor)
+}
+
+func (a *AuthPreferenceV2) GetUserSSHKeyAlgorithms() []string {
+	if a.Spec.CAKeyParams.User != nil {
+		return keyAlgorithmsToStrings(a.Spec.CAKeyParams.User.Ssh.AllowedSubjectKeyAlgorithms)
+	}
+	return keyAlgorithmsToStrings(a.Spec.CAKeyParams.Default.Ssh.AllowedSubjectKeyAlgorithms)
+}
+
+func (a *AuthPreferenceV2) GetUserTLSKeyAlgorithms() []string {
+	if a.Spec.CAKeyParams.User != nil {
+		return keyAlgorithmsToStrings(a.Spec.CAKeyParams.User.Tls.AllowedSubjectKeyAlgorithms)
+	}
+	return keyAlgorithmsToStrings(a.Spec.CAKeyParams.Default.Tls.AllowedSubjectKeyAlgorithms)
+}
+
+func keyAlgorithmsToStrings(keyAlgos []KeyAlgorithm) []string {
+	strs := make([]string, len(keyAlgos))
+	for i, k := range keyAlgos {
+		strs[i] = k.String()
+	}
+	return strs
 }
 
 func (u *U2F) Check() error {

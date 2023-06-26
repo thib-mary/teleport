@@ -1115,6 +1115,9 @@ func getAuthSettings(ctx context.Context, authClient auth.ClientI) (webclient.Au
 	}
 	as.LoadAllCAs = pingResp.LoadAllCAs
 
+	as.UserKeyAlgorithms.SSH = authPreference.GetUserSSHKeyAlgorithms()
+	as.UserKeyAlgorithms.TLS = authPreference.GetUserTLSKeyAlgorithms()
+
 	return as, nil
 }
 
