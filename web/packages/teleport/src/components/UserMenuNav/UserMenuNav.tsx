@@ -17,7 +17,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Moon, Sun } from 'design/Icon';
+import { Moon, Sun, ShieldCheck } from 'design/Icon';
 import { ChevronDownIcon } from 'design/SVGIcon/ChevronDown';
 import { Text } from 'design';
 import { LogoutIcon } from 'design/SVGIcon';
@@ -237,6 +237,11 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
     transitionDelay += 20;
   }
 
+  useEffect(() => {
+    console.log("topMenuItems: ", topMenuItems)
+    console.log("items: ", items)
+  }, []);
+
   return (
     <Container ref={ref}>
       <UserInfo onClick={() => setOpen(!open)} open={open}>
@@ -252,6 +257,19 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
       <Dropdown open={open}>
         {items}
 
+        <DropdownItem
+          open={open}
+          style={{
+            transitionDelay: `${transitionDelay}ms`,
+          }}
+        >
+          <DropdownItemButton onClick={() => console.log('clicked')}>
+            <DropdownItemIcon>
+              <ShieldCheck size={16} />
+            </DropdownItemIcon>
+            Recommended Actions
+          </DropdownItemButton>
+        </DropdownItem>
         <DropdownDivider />
 
         <DropdownItem
