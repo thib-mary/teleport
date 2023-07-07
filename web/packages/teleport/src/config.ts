@@ -89,6 +89,7 @@ const cfg = {
     account: '/web/account',
     accountPassword: '/web/account/password',
     accountMfaDevices: '/web/account/twofactor',
+    accountSecurity: '/web/account/security',
     roles: '/web/roles',
     sso: '/web/sso',
     cluster: '/web/cluster/:clusterId/',

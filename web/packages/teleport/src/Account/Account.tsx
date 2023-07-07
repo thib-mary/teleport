@@ -29,6 +29,7 @@ import {
 
 import ChangePassword from './ChangePassword';
 import ManageDevices from './ManageDevices';
+import RecommendedActions from './RecommendedActions'
 
 export default function Container() {
   const ctx = useTeleport();
@@ -61,6 +62,10 @@ export function Account({ isSso }: Props) {
           <Route
             path={cfg.routes.accountMfaDevices}
             component={ManageDevices}
+          />
+          <Route
+            path={cfg.routes.accountSecurity}
+            component={RecommendedActions}
           />
           <Redirect
             to={

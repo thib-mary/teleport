@@ -37,6 +37,8 @@ import {
   UsersIcon,
 } from 'design/SVGIcon';
 
+import { ShieldCheck } from 'design/Icon';
+
 import cfg from 'teleport/config';
 
 import {
@@ -576,6 +578,28 @@ export class FeatureHelpAndSupport implements TeleportFeature {
   };
 }
 
+export class FeatureAccountSecurityActions implements TeleportFeature {
+  route = {
+    title: 'Recommended Actions',
+    path: cfg.routes.accountSecurity,
+    exact: true,
+    component: Account,
+  };
+
+  hasAccess() {
+    return true;
+  }
+
+  topMenuItem = {
+    title: 'Recommended Actions',
+    icon: <ShieldCheck size={16} />,
+    exact: true,
+    getLink() {
+      return cfg.routes.accountSecurity;
+    },
+  };
+}
+
 export function getOSSFeatures(): TeleportFeature[] {
   return [
     // Resources
@@ -609,5 +633,6 @@ export function getOSSFeatures(): TeleportFeature[] {
     // Other
     new FeatureAccount(),
     new FeatureHelpAndSupport(),
+    new FeatureAccountSecurityActions()
   ];
 }

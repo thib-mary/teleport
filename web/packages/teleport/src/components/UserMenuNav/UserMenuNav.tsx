@@ -29,6 +29,7 @@ import { useTeleport } from 'teleport';
 import { useUser } from 'teleport/User/UserContext';
 import { ThemePreference } from 'teleport/services/userPreferences/types';
 
+
 interface UserMenuNavProps {
   username: string;
 }
@@ -257,7 +258,7 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
       <Dropdown open={open}>
         {items}
 
-        <DropdownItem
+        {/* <DropdownItem
           open={open}
           style={{
             transitionDelay: `${transitionDelay}ms`,
@@ -269,7 +270,7 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
             </DropdownItemIcon>
             Recommended Actions
           </DropdownItemButton>
-        </DropdownItem>
+        </DropdownItem> */}
         <DropdownDivider />
 
         <DropdownItem
