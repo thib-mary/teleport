@@ -57,6 +57,7 @@ const Kubes = lazy(() => import('./Kubes'));
 const Support = lazy(() => import('./Support'));
 const Clusters = lazy(() => import('./Clusters'));
 const Trust = lazy(() => import('./TrustedClusters'));
+const ClusterSecurity = lazy(() => import('./ClusterRecommendations'));
 const Users = lazy(() => import('./Users'));
 const Roles = lazy(() => import('./Roles'));
 const Recordings = lazy(() => import('./Recordings'));
@@ -483,6 +484,28 @@ export class FeatureAudit implements TeleportFeature {
 }
 
 // - Clusters
+export class FeatureSecureCluster implements TeleportFeature {
+  category = NavigationCategory.Management;
+  section = ManagementSection.Clusters;
+
+  route = {
+    title: 'Recommended Actions',
+    path: cfg.routes.clusterSecurity,
+    component: ClusterSecurity,
+  };
+
+  hasAccess(flags: FeatureFlags) {
+    return flags.trustedClusters;
+  }
+
+  navigationItem = {
+    title: 'Recommended Actions',
+    icon: <ShieldCheck />,
+    getLink() {
+      return cfg.routes.clusterSecurity;
+    },
+  };
+}
 
 export class FeatureClusters implements TeleportFeature {
   category = NavigationCategory.Management;
@@ -627,12 +650,14 @@ export function getOSSFeatures(): TeleportFeature[] {
     new FeatureAudit(),
 
     // - Clusters
+    new FeatureSecureCluster(),
     new FeatureClusters(),
     new FeatureTrust(),
 
     // Other
     new FeatureAccount(),
+    new FeatureAccountSecurityActions(),
     new FeatureHelpAndSupport(),
-    new FeatureAccountSecurityActions()
+
   ];
 }

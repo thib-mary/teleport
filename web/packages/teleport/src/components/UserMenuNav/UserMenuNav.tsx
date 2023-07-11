@@ -29,7 +29,6 @@ import { useTeleport } from 'teleport';
 import { useUser } from 'teleport/User/UserContext';
 import { ThemePreference } from 'teleport/services/userPreferences/types';
 
-
 interface UserMenuNavProps {
   username: string;
 }

@@ -94,6 +94,7 @@ const cfg = {
     sso: '/web/sso',
     cluster: '/web/cluster/:clusterId/',
     clusters: '/web/clusters',
+    clusterSecurity: '/web/clusterssecurity',
     trustedClusters: '/web/trust',
     audit: '/web/cluster/:clusterId/audit',
     nodes: '/web/cluster/:clusterId/nodes',
