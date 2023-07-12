@@ -419,12 +419,37 @@ func (p *ProfileStatus) CACertPathForCluster(cluster string) string {
 	return filepath.Join(keypaths.ProxyKeyDir(p.Dir, p.Name), "cas", cluster+".pem")
 }
 
+// TODO(nklaassen): delete this
 // KeyPath returns path to the private key for this profile.
 //
 // It's kept in <profile-dir>/keys/<proxy>/<user>.
 func (p *ProfileStatus) KeyPath() string {
 	// Return an env var override if both valid and present for this identity.
 	if path, ok := p.virtualPathFromEnv(VirtualPathKey, nil); ok {
+		return path
+	}
+
+	return keypaths.UserKeyPath(p.Dir, p.Name, p.Username)
+}
+
+// SSHKeyPath returns path to the SSH private key for this profile.
+//
+// It's kept in <profile-dir>/keys/<proxy>/<user>.
+func (p *ProfileStatus) SSHKeyPath() string {
+	// Return an env var override if both valid and present for this identity.
+	if path, ok := p.virtualPathFromEnv(VirtualPathSSHKey, nil); ok {
+		return path
+	}
+
+	return keypaths.UserSSHKeyPath(p.Dir, p.Name, p.Username)
+}
+
+// TLSKeyPath returns path to the private key for this profile.
+//
+// It's kept in <profile-dir>/keys/<proxy>/<user>.
+func (p *ProfileStatus) TLSKeyPath() string {
+	// Return an env var override if both valid and present for this identity.
+	if path, ok := p.virtualPathFromEnv(VirtualPathTLSKey, nil); ok {
 		return path
 	}
 

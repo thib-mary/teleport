@@ -300,7 +300,7 @@ func (c *CLICommandBuilder) getMariaDBArgs() []string {
 
 	sslCertPath := c.profile.DatabaseCertPathForCluster(c.tc.SiteName, c.db.ServiceName)
 
-	args = append(args, []string{"--ssl-key", c.profile.KeyPath()}...)
+	args = append(args, []string{"--ssl-key", c.profile.TLSKeyPath()}...)
 	args = append(args, []string{"--ssl-ca", c.profile.CACertPathForCluster(c.rootCluster)}...)
 	args = append(args, []string{"--ssl-cert", sslCertPath}...)
 
@@ -537,7 +537,7 @@ func (c *CLICommandBuilder) getRedisCommand() *exec.Cmd {
 	if !c.options.noTLS {
 		args = append(args,
 			"--tls",
-			"--key", c.profile.KeyPath(),
+			"--key", c.profile.TLSKeyPath(),
 			"--cert", c.profile.DatabaseCertPathForCluster(c.tc.SiteName, c.db.ServiceName))
 
 		if c.tc.InsecureSkipVerify {
@@ -639,7 +639,7 @@ func (c *CLICommandBuilder) getOpenSearchCommand() (*exec.Cmd, error) {
 func (c *CLICommandBuilder) getOpenSearchCLICommand() (*exec.Cmd, error) {
 	cfg := opensearch.ConfigNoTLS(c.host, c.port)
 	if !c.options.noTLS {
-		cfg = opensearch.ConfigTLS(c.host, c.port, c.options.caPath, c.profile.DatabaseCertPathForCluster(c.tc.SiteName, c.db.ServiceName), c.profile.KeyPath())
+		cfg = opensearch.ConfigTLS(c.host, c.port, c.options.caPath, c.profile.DatabaseCertPathForCluster(c.tc.SiteName, c.db.ServiceName), c.profile.TLSKeyPath())
 	}
 
 	baseDir := path.Join(c.profile.Dir, c.profile.Cluster, c.db.ServiceName)
@@ -715,7 +715,7 @@ func (c *CLICommandBuilder) getElasticsearchAlternativeCommands() []CommandAlter
 	} else {
 		args := []string{
 			fmt.Sprintf("https://%v:%v/", c.host, c.port),
-			"--key", c.profile.KeyPath(),
+			"--key", c.profile.TLSKeyPath(),
 			"--cert", c.profile.DatabaseCertPathForCluster(c.tc.SiteName, c.db.ServiceName),
 		}
 
@@ -760,7 +760,7 @@ func (c *CLICommandBuilder) getOpenSearchAlternativeCommands() []CommandAlternat
 	} else {
 		args := []string{
 			fmt.Sprintf("https://%v:%v/", c.host, c.port),
-			"--key", c.profile.KeyPath(),
+			"--key", c.profile.TLSKeyPath(),
 			"--cert", c.profile.DatabaseCertPathForCluster(c.tc.SiteName, c.db.ServiceName),
 		}
 

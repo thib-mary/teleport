@@ -56,6 +56,13 @@ const (
 	// The same private key is used for SSH and TLS certificates.
 	PrivateKeyKey = "key"
 
+	// LegacyPrivateKeyKey is the name under which the private key exists in a destination.
+	// The same private key is used for SSH and TLS certificates.
+	LegacyPrivateKeyKey = "key"
+
+	SSHKeyKey = "sshkey"
+	TLSKeyKey = "tlskey"
+
 	// PublicKeyKey is the ssh public key, required for successful SSH connections.
 	PublicKeyKey = "key.pub"
 

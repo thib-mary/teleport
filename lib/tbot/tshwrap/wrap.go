@@ -205,7 +205,7 @@ func GetEnvForTSH(destPath string) (map[string]string, error) {
 	// everything but also has generic fallbacks. We'll use the fallbacks for
 	// now but could eventually communicate more info to tsh if desired.
 	env := make(map[string]string)
-	mergeEnv(env, filepath.Join(destPath, identity.PrivateKeyKey), client.VirtualPathEnvNames(client.VirtualPathKey, nil))
+	mergeEnv(env, filepath.Join(destPath, identity.SSHKeyKey), client.VirtualPathEnvNames(client.VirtualPathKey, nil))
 
 	// Database certs are a bit awkward since a few databases (cockroach) have
 	// special naming requirements. We can document around these for now and

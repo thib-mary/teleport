@@ -110,9 +110,10 @@ func TestAddKey(t *testing.T) {
 
 	// check that the key has been written to disk
 	expectedFiles := []string{
-		keypaths.UserKeyPath(s.keyDir, s.hostname, s.username),                    // private key
-		keypaths.TLSCertPath(s.keyDir, s.hostname, s.username),                    // Teleport TLS certificate
+		keypaths.UserSSHKeyPath(s.keyDir, s.hostname, s.username),                 // SSH private key
 		keypaths.SSHCertPath(s.keyDir, s.hostname, s.username, s.key.ClusterName), // SSH certificate
+		keypaths.UserTLSKeyPath(s.keyDir, s.hostname, s.username),                 // TLS private key
+		keypaths.TLSCertPath(s.keyDir, s.hostname, s.username),                    // Teleport TLS certificate
 	}
 	for _, file := range expectedFiles {
 		require.FileExists(t, file)

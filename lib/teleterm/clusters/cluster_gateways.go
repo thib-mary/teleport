@@ -64,7 +64,7 @@ func (c *Cluster) CreateGateway(ctx context.Context, params CreateGatewayParams)
 		TargetName:                    db.GetName(),
 		TargetSubresourceName:         params.TargetSubresourceName,
 		Protocol:                      db.GetProtocol(),
-		KeyPath:                       c.status.KeyPath(),
+		KeyPath:                       c.status.TLSKeyPath(),
 		CertPath:                      c.status.DatabaseCertPathForCluster(c.clusterClient.SiteName, db.GetName()),
 		Insecure:                      c.clusterClient.InsecureSkipVerify,
 		WebProxyAddr:                  c.clusterClient.WebProxyAddr,

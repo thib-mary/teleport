@@ -126,7 +126,7 @@ func (p *Profile) Name() string {
 
 // TLSConfig returns the profile's associated TLSConfig.
 func (p *Profile) TLSConfig() (*tls.Config, error) {
-	cert, err := keys.LoadX509KeyPair(p.TLSCertPath(), p.UserKeyPath())
+	cert, err := keys.LoadX509KeyPair(p.TLSCertPath(), p.UserTLSKeyPath())
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -222,7 +222,7 @@ func (p *Profile) SSHClientConfig() (*ssh.ClientConfig, error) {
 		return nil, trace.Wrap(err)
 	}
 
-	priv, err := keys.LoadPrivateKey(p.UserKeyPath())
+	priv, err := keys.LoadPrivateKey(p.UserSSHKeyPath())
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -411,6 +411,14 @@ func (p *Profile) ProxyKeyDir() string {
 // UserKeyPath returns the path to the profile's private key.
 func (p *Profile) UserKeyPath() string {
 	return keypaths.UserKeyPath(p.Dir, p.Name(), p.Username)
+}
+
+func (p *Profile) UserSSHKeyPath() string {
+	return keypaths.UserSSHKeyPath(p.Dir, p.Name(), p.Username)
+}
+
+func (p *Profile) UserTLSKeyPath() string {
+	return keypaths.UserTLSKeyPath(p.Dir, p.Name(), p.Username)
 }
 
 // TLSCertPath returns the path to the profile's TLS certificate.

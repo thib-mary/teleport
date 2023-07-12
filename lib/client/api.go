@@ -476,6 +476,8 @@ const (
 	VirtualPathEnvPrefix = "TSH_VIRTUAL_PATH"
 
 	VirtualPathKey        VirtualPathKind = "KEY"
+	VirtualPathSSHKey     VirtualPathKind = "KEY"
+	VirtualPathTLSKey     VirtualPathKind = "TLSKEY"
 	VirtualPathCA         VirtualPathKind = "CA"
 	VirtualPathDatabase   VirtualPathKind = "DB"
 	VirtualPathApp        VirtualPathKind = "APP"

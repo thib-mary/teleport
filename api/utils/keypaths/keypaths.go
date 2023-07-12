@@ -32,8 +32,6 @@ const (
 	sshDirSuffix = "-ssh"
 	// fileNameKnownHosts is a file where known hosts are stored.
 	fileNameKnownHosts = "known_hosts"
-	// fileExtTLSCert is the suffix/extension of a file where a TLS cert is stored.
-	fileExtTLSCert = "-x509.pem"
 	// fileNameTLSCerts is a file where TLS Cert Authorities are stored.
 	fileNameTLSCerts = "certs.pem"
 	// fileExtCert is the suffix/extension of a file where an SSH Cert is stored.
@@ -64,6 +62,10 @@ const (
 	profileFileExt = ".yaml"
 	// oracleWalletDirSuffix is the suffix of the oracle wallet database directory.
 	oracleWalletDirSuffix = "-wallet"
+
+	// fileExtTLSCert is the suffix/extension of a file where a TLS cert is stored.
+	fileExtTLSCert = "-x509-cert.pem"
+	tlsKeySuffix   = "-tls-privkey.pem"
 )
 
 // Here's the file layout of all these keypaths.
@@ -99,19 +101,19 @@ const (
 //    │   │   │   └── dbC-x509.pem     --> TLS cert for database service "dbC"
 //    │   │   └── proxy-localca.pem    --> Self-signed TLS Routing local proxy CA
 //    │   ├── foo-kube                 --> Kubernetes certs for user "foo"
-//    │   |    ├── root                 --> Kubernetes certs for Teleport cluster "root"
-//    │   |    │   ├── kubeA-kubeconfig --> standalone kubeconfig for Kubernetes cluster "kubeA"
-//    │   |    │   ├── kubeA-x509.pem   --> TLS cert for Kubernetes cluster "kubeA"
-//    │   |    │   ├── kubeB-kubeconfig --> standalone kubeconfig for Kubernetes cluster "kubeB"
-//    │   |    │   ├── kubeB-x509.pem   --> TLS cert for Kubernetes cluster "kubeB"
-//    │   |    │   └── localca.pem      --> Self-signed localhost CA cert for Teleport cluster "root"
-//    │   |    └── leaf                 --> Kubernetes certs for Teleport cluster "leaf"
-//    │   |        ├── kubeC-kubeconfig --> standalone kubeconfig for Kubernetes cluster "kubeC"
-//    │   |        └── kubeC-x509.pem   --> TLS cert for Kubernetes cluster "kubeC"
-//    |   └── cas                       --> Trusted clusters certificates
-//    |        ├── root.pem             --> TLS CA for teleport cluster "root"
-//    |        ├── leaf1.pem            --> TLS CA for teleport cluster "leaf1"
-//    |        └── leaf2.pem            --> TLS CA for teleport cluster "leaf2"
+//    │   │    ├── root                 --> Kubernetes certs for Teleport cluster "root"
+//    │   │    │   ├── kubeA-kubeconfig --> standalone kubeconfig for Kubernetes cluster "kubeA"
+//    │   │    │   ├── kubeA-x509.pem   --> TLS cert for Kubernetes cluster "kubeA"
+//    │   │    │   ├── kubeB-kubeconfig --> standalone kubeconfig for Kubernetes cluster "kubeB"
+//    │   │    │   ├── kubeB-x509.pem   --> TLS cert for Kubernetes cluster "kubeB"
+//    │   │    │   └── localca.pem      --> Self-signed localhost CA cert for Teleport cluster "root"
+//    │   │    └── leaf                 --> Kubernetes certs for Teleport cluster "leaf"
+//    │   │        ├── kubeC-kubeconfig --> standalone kubeconfig for Kubernetes cluster "kubeC"
+//    │   │        └── kubeC-x509.pem   --> TLS cert for Kubernetes cluster "kubeC"
+//    │   └── cas                       --> Trusted clusters certificates
+//    │        ├── root.pem             --> TLS CA for teleport cluster "root"
+//    │        ├── leaf1.pem            --> TLS CA for teleport cluster "leaf1"
+//    │        └── leaf2.pem            --> TLS CA for teleport cluster "leaf2"
 //    └── two.example.com			    --> Additional proxy host entries follow the same format
 //		  ...
 
@@ -156,6 +158,14 @@ func ProxyKeyDir(baseDir, proxy string) string {
 // <baseDir>/keys/<proxy>/<username>.
 func UserKeyPath(baseDir, proxy, username string) string {
 	return filepath.Join(ProxyKeyDir(baseDir, proxy), username)
+}
+
+func UserSSHKeyPath(baseDir, proxy, username string) string {
+	return filepath.Join(ProxyKeyDir(baseDir, proxy), username)
+}
+
+func UserTLSKeyPath(baseDir, proxy, username string) string {
+	return filepath.Join(ProxyKeyDir(baseDir, proxy), username+tlsKeySuffix)
 }
 
 // TLSCertPath returns the path to the users's TLS certificate
