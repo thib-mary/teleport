@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import React from 'react';
-import { Text, Box, Flex, Link, ButtonPrimary, Card } from 'design';
+import { Text, Box, Flex, Link, ButtonPrimary } from 'design';
 import Image from 'design/Image';
 
 import {
@@ -24,8 +24,7 @@ import {
   FeatureHeaderTitle,
 } from 'teleport/components/Layout';
 
-
-import { emptyPng } from '../TrustedClusters/assets';
+import emptyPng from './pdticon2.png';
 
 
 export function ClusterRecommendations() {
@@ -43,9 +42,8 @@ export function ClusterRecommendations() {
             color="text.main"
             style={{ flexShrink: 0 }}
           />
-          <CTA
+          <Cta
             ml="10"
-            width="240px"
             color="text.main"
             style={{ flexShrink: 0 }}
           />
@@ -76,11 +74,11 @@ const Info = props => (
   </Box>
 );
 
-const CTA = (props: any) => {
+const Cta = (props: any) => {
   return (
     <Box {...props}>
       <Box mx="4">
-        <Image width="180px" src={emptyPng} />
+        <Image width="230px" src={emptyPng} />
       </Box>
       <Box>
         <ButtonPrimary
