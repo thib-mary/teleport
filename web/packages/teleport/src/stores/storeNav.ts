@@ -22,6 +22,7 @@ export const defaultNavState = {
   sideNav: [] as NavItem[],
   topNav: [] as NavItem[],
   topMenu: [] as NavItem[],
+  topSubMenu: [] as NavItem[],
 };
 
 export default class StoreNav extends Store<typeof defaultNavState> {
@@ -33,6 +34,13 @@ export default class StoreNav extends Store<typeof defaultNavState> {
     const items = [...this.state.topMenu, item];
     return this.setState({
       topMenu: items,
+    });
+  }
+
+  addTopMenuSubItem(item: NavItem) {
+    const items = [...this.state.topSubMenu, item];
+    return this.setState({
+      topSubMenu: items,
     });
   }
 
@@ -56,6 +64,10 @@ export default class StoreNav extends Store<typeof defaultNavState> {
 
   getTopMenuItems() {
     return this.state.topMenu;
+  }
+
+  getTopMenuSubItems() {
+    return this.state.topSubMenu;
   }
 
   getTopItems() {

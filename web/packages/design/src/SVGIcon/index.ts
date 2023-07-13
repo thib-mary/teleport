@@ -54,6 +54,8 @@ export { ServerIcon } from './Server';
 export { ServersIcon } from './Servers';
 export { SessionRecordingsIcon } from './SessionRecordings';
 export { SettingsIcon } from './Settings';
+export { ShieldCheck } from './ShieldCheck';
+export { ShieldAlert } from './ShieldAlert';
 export { SidebarIcon } from './Sidebar';
 export { SupportIcon } from './Support';
 export { TerminalIcon } from './Terminal';

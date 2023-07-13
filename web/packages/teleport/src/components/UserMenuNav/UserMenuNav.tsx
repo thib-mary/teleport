@@ -161,6 +161,11 @@ const DropdownItemIcon = styled.div`
   line-height: 0;
 `;
 
+const DropdownItemRightIcon = styled.div`
+  margin-left: 16px;
+  line-height: 0;
+`;
+
 const DropdownDivider = styled.div`
   height: 1px;
   background: ${props => props.theme.colors.spotBackground[1]};
@@ -212,12 +217,31 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
 
   const topMenuItems = features.filter(feature => Boolean(feature.topMenuItem));
 
+  const topMenuSubItems = features.filter(feature => Boolean(feature.topMenuSubItem));
+
   const items = [];
+  const subitems2 = [];
 
   let transitionDelay = 80;
+  function subItems() {
+    for (const [index, item] of topMenuSubItems.entries()) {
+      // console.log(index, item.topMenuSubItem.title)
+      items.push(
+        <DropdownItemLink
+        key={index}
+            to={item.topMenuSubItem.getLink(clusterId)}
+            onClick={() => setOpen(false)}
+          >
+            <DropdownItemIcon>{item.topMenuSubItem.icon}</DropdownItemIcon>
+            {item.topMenuSubItem.title}
+          </DropdownItemLink>
+      )
+
+    }
+  }
   for (const [index, item] of topMenuItems.entries()) {
     items.push(
-      <DropdownItem
+       <DropdownItem
         open={open}
         key={index}
         style={{
@@ -230,6 +254,7 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
         >
           <DropdownItemIcon>{item.topMenuItem.icon}</DropdownItemIcon>
           {item.topMenuItem.title}
+          {item.topMenuItem.topMenuSubItem2 ? <DropdownItemRightIcon>{item.topMenuItem.topMenuSubItem2.icon}</DropdownItemRightIcon>: null}
         </DropdownItemLink>
       </DropdownItem>
     );
@@ -237,8 +262,38 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
     transitionDelay += 20;
   }
 
+  for (const [index, item] of topMenuSubItems.entries()) {
+    subitems2.push(
+        <DropdownItem
+        open={open}
+        key={index}
+        style={{
+          transitionDelay: `${transitionDelay}ms`,
+        }}
+      >
+        <DropdownItemLink
+          to={item.topMenuItem.getLink(clusterId)}
+          onClick={() => setOpen(false)}
+        >
+          <DropdownItemIcon>{item.topMenuItem.icon}</DropdownItemIcon>
+         {item.topMenuItem?.topMenuSubItem2? item.topMenuItem.topMenuSubItem2.title :item.topMenuItem.title } 
+        </DropdownItemLink>
+        {/* {subItems} */}
+      </DropdownItem>
+    );
+
+    transitionDelay += 20;
+  }
+
   useEffect(() => {
+    console.log('----------')
+    for (const [index, item] of topMenuItems.entries()) {
+      console.log(index, item.topMenuItem.topMenuSubItem2)
+    }
+    console.log('----------')
+
     console.log("topMenuItems: ", topMenuItems)
+    console.log("topMenuSubItems: ", topMenuSubItems)
     console.log("items: ", items)
   }, []);
 
@@ -256,20 +311,6 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
 
       <Dropdown open={open}>
         {items}
-
-        {/* <DropdownItem
-          open={open}
-          style={{
-            transitionDelay: `${transitionDelay}ms`,
-          }}
-        >
-          <DropdownItemButton onClick={() => console.log('clicked')}>
-            <DropdownItemIcon>
-              <ShieldCheck size={16} />
-            </DropdownItemIcon>
-            Recommended Actions
-          </DropdownItemButton>
-        </DropdownItem> */}
         <DropdownDivider />
 
         <DropdownItem
@@ -304,3 +345,27 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
     </Container>
   );
 }
+
+
+// for (const [index, item] of topMenuSubItems.entries()) {
+//   items.push(
+//       <DropdownItem
+//       open={open}
+//       key={index}
+//       style={{
+//         transitionDelay: `${transitionDelay}ms`,
+//       }}
+//     >
+//       <DropdownItemLink
+//       key={index}
+//         to={item.topMenuSubItems.getLink(clusterId)}
+//         onClick={() => setOpen(false)}
+//       >
+//         <DropdownItemIcon>{item.topMenuSubItems.icon}</DropdownItemIcon>
+//         {item.topMenuSubItems.title}
+//       </DropdownItemLink>
+
+
+//     </DropdownItem>
+//   )
+// }

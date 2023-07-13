@@ -35,9 +35,12 @@ import {
   TrustedClustersIcon,
   UserSettingsIcon,
   UsersIcon,
+  CheckIcon,
+  ShieldCheck,
+  ShieldAlert,
 } from 'design/SVGIcon';
 
-import { ShieldCheck } from 'design/Icon';
+import { ShieldCheck2 } from 'design/Icon';
 
 import cfg from 'teleport/config';
 
@@ -500,7 +503,7 @@ export class FeatureSecureCluster implements TeleportFeature {
 
   navigationItem = {
     title: 'Recommended Actions',
-    icon: <ShieldCheck />,
+    icon: <ShieldCheck size={20} fill='green'/>,
     getLink() {
       return cfg.routes.clusterSecurity;
     },
@@ -574,9 +577,17 @@ export class FeatureAccount implements TeleportFeature {
     title: 'Account Settings',
     icon: <UserSettingsIcon size={16} />,
     getLink() {
-      return cfg.routes.account;
+      return cfg.routes.accountSecurity;
     },
+    topMenuSubItem2: {
+      title: 'Issue Needs Your Attention',
+      icon: <ShieldAlert size={16} fill="red" />,
+      getLink() {
+        return cfg.routes.accountSecurity;
+      },
+    }
   };
+
 }
 
 export class FeatureHelpAndSupport implements TeleportFeature {

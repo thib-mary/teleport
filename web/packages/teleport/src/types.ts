@@ -34,6 +34,7 @@ export interface TeleportFeatureNavigationItem {
   exact?: boolean;
   getLink?(clusterId: string): string;
   isExternalLink?: boolean;
+  // topMenuSubItem2: TeleportFeatureNavigationItem;
 }
 
 export interface TeleportFeatureRoute {
@@ -57,6 +58,7 @@ export interface TeleportFeature {
   route?: TeleportFeatureRoute;
   navigationItem?: TeleportFeatureNavigationItem;
   topMenuItem?: TeleportFeatureNavigationItem;
+  topMenuSubItem?: TeleportFeatureNavigationItem;
   // alternative items to display when the user has permissions (RBAC)
   // but the cluster lacks the feature:
   isLocked?(lockedFeatures: LockedFeatures): boolean;
