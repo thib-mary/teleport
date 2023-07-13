@@ -33,7 +33,8 @@ export function RecommendedActions() {
   return (
     <FeatureBox style={{ padding: 0 }}>
       <FeatureHeader border="none">
-        <FeatureHeaderTitle></FeatureHeaderTitle>
+        {/* <FeatureHeaderTitle>Recommendations to secure your account</FeatureHeaderTitle> */}
+        <FeatureHeaderTitle> Your access is at risk!</FeatureHeaderTitle>
       </FeatureHeader>
       <TrustedDevice />
     </FeatureBox>
