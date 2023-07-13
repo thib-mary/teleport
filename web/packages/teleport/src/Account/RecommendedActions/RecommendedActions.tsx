@@ -33,7 +33,7 @@ export function RecommendedActions() {
   return (
     <FeatureBox style={{ padding: 0 }}>
       <FeatureHeader border="none">
-        <FeatureHeaderTitle>Recommended Actions</FeatureHeaderTitle>
+        <FeatureHeaderTitle></FeatureHeaderTitle>
       </FeatureHeader>
       <TrustedDevice />
     </FeatureBox>

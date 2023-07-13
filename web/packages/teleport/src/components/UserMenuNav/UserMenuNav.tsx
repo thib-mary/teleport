@@ -19,6 +19,9 @@ import styled, { css } from 'styled-components';
 
 import { Moon, Sun, ShieldCheck } from 'design/Icon';
 import { ChevronDownIcon } from 'design/SVGIcon/ChevronDown';
+import {
+  ShieldAlert,
+} from 'design/SVGIcon';
 import { Text } from 'design';
 import { LogoutIcon } from 'design/SVGIcon';
 import { NavLink } from 'react-router-dom';
@@ -87,6 +90,13 @@ const Arrow = styled.div`
     transform: ${p => (p.open ? 'rotate(-180deg)' : 'none')};
     transition: 0.1s linear transform;
   }
+`;
+
+const AlertIcon = styled.div`
+top: 10%;
+bottom: 0;
+right: 0;
+position:absolute;
 `;
 
 interface OpenProps {
@@ -165,6 +175,9 @@ const DropdownItemRightIcon = styled.div`
   margin-left: 16px;
   line-height: 0;
 `;
+
+
+
 
 const DropdownDivider = styled.div`
   height: 1px;
@@ -307,8 +320,8 @@ export function UserMenuNav({ username }: UserMenuNavProps) {
         <Arrow open={open}>
           <ChevronDownIcon />
         </Arrow>
+        <AlertIcon><ShieldAlert fill="red"/></AlertIcon>
       </UserInfo>
-
       <Dropdown open={open}>
         {items}
         <DropdownDivider />

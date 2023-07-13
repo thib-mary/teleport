@@ -667,7 +667,7 @@ export function getOSSFeatures(): TeleportFeature[] {
 
     // Other
     new FeatureAccount(),
-    new FeatureAccountSecurityActions(),
+    // new FeatureAccountSecurityActions(),
     new FeatureHelpAndSupport(),
 
   ];
