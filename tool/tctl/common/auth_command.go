@@ -317,7 +317,7 @@ func (a *AuthCommand) generateWindowsCert(ctx context.Context, clusterAPI auth.C
 
 	_, err = identityfile.Write(ctx, identityfile.WriteConfig{
 		OutputPath: a.output,
-		Key: &client.Key{
+		Key: &client.KeySet{
 			// the godocs say the map key is the desktop server name,
 			// but in this case we're just generating a cert that's not
 			// specific to a particular desktop
@@ -497,7 +497,7 @@ func (a *AuthCommand) generateDatabaseKeys(ctx context.Context, clusterAPI auth.
 
 // generateDatabaseKeysForKey signs the provided unsigned key with Teleport CA
 // for database access.
-func (a *AuthCommand) generateDatabaseKeysForKey(ctx context.Context, clusterAPI auth.ClientI, key *client.Key) error {
+func (a *AuthCommand) generateDatabaseKeysForKey(ctx context.Context, clusterAPI auth.ClientI, key *client.KeySet) error {
 	principals := strings.Split(a.genHost, ",")
 
 	dbCertReq := db.GenerateDatabaseCertificatesRequest{

@@ -81,7 +81,7 @@ func newKubernetesRestConfig(ctx context.Context, tc *client.TeleportClient) (*r
 // getKubeTLSClientConfig returns a TLS client config for the kubernetes cluster
 // that the client wants to connected to.
 func getKubeTLSClientConfig(ctx context.Context, tc *client.TeleportClient) (rest.TLSClientConfig, error) {
-	var k *client.Key
+	var k *client.KeySet
 	err := client.RetryWithRelogin(ctx, tc, func() error {
 		var err error
 		k, err = tc.IssueUserCertsWithMFA(ctx, client.ReissueParams{

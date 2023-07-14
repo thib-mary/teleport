@@ -249,7 +249,7 @@ type profileOptions struct {
 }
 
 // profileFromkey returns a ProfileStatus for the given key and options.
-func profileStatusFromKey(key *Key, opts profileOptions) (*ProfileStatus, error) {
+func profileStatusFromKey(key *KeySet, opts profileOptions) (*ProfileStatus, error) {
 	sshCert, err := key.SSHCert()
 	if err != nil {
 		return nil, trace.Wrap(err)
@@ -419,6 +419,7 @@ func (p *ProfileStatus) CACertPathForCluster(cluster string) string {
 	return filepath.Join(keypaths.ProxyKeyDir(p.Dir, p.Name), "cas", cluster+".pem")
 }
 
+/*
 // TODO(nklaassen): delete this
 // KeyPath returns path to the private key for this profile.
 //
@@ -431,6 +432,7 @@ func (p *ProfileStatus) KeyPath() string {
 
 	return keypaths.UserKeyPath(p.Dir, p.Name, p.Username)
 }
+*/
 
 // SSHKeyPath returns path to the SSH private key for this profile.
 //
@@ -453,7 +455,7 @@ func (p *ProfileStatus) TLSKeyPath() string {
 		return path
 	}
 
-	return keypaths.UserKeyPath(p.Dir, p.Name, p.Username)
+	return keypaths.UserTLSKeyPath(p.Dir, p.Name, p.Username)
 }
 
 // DatabaseCertPathForCluster returns path to the specified database access

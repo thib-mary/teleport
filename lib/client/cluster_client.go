@@ -126,7 +126,7 @@ func (c *ClusterClient) SessionSSHConfig(ctx context.Context, user string, targe
 }
 
 // reissueUserCerts gets new user certificates from the root Auth server.
-func (c *ClusterClient) reissueUserCerts(ctx context.Context, cachePolicy CertCachePolicy, params ReissueParams) (*Key, error) {
+func (c *ClusterClient) reissueUserCerts(ctx context.Context, cachePolicy CertCachePolicy, params ReissueParams) (*KeySet, error) {
 	if params.RouteToCluster == "" {
 		params.RouteToCluster = c.tc.SiteName
 	}
@@ -192,7 +192,7 @@ func (c *ClusterClient) reissueUserCerts(ctx context.Context, cachePolicy CertCa
 
 // prepareUserCertsRequest creates a [proto.UserCertsRequest] with the fields
 // set accordingly from the provided ReissueParams.
-func (c *ClusterClient) prepareUserCertsRequest(params ReissueParams, key *Key) (*proto.UserCertsRequest, error) {
+func (c *ClusterClient) prepareUserCertsRequest(params ReissueParams, key *KeySet) (*proto.UserCertsRequest, error) {
 	tlsCert, err := key.TeleportTLSCertificate()
 	if err != nil {
 		return nil, trace.Wrap(err)
@@ -237,7 +237,7 @@ func (c *ClusterClient) prepareUserCertsRequest(params ReissueParams, key *Key) 
 
 // performMFACeremony runs the mfa ceremony to completion. If successful the returned
 // [Key] will be authorized to connect to the target.
-func (c *ClusterClient) performMFACeremony(ctx context.Context, clt *ClusterClient, params ReissueParams, key *Key) (*Key, error) {
+func (c *ClusterClient) performMFACeremony(ctx context.Context, clt *ClusterClient, params ReissueParams, key *KeySet) (*KeySet, error) {
 	stream, err := clt.AuthClient.GenerateUserSingleUseCerts(ctx)
 	if err != nil {
 		if trace.IsNotImplemented(err) {

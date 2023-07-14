@@ -373,7 +373,7 @@ func formatAppConfig(tc *client.TeleportClient, profile *client.ProfileStatus, a
   %v`,
 		curlInsecureFlag,
 		profile.AppCertPath(appName),
-		profile.KeyPath(),
+		profile.TLSKeyPath(),
 		uri)
 	format = strings.ToLower(format)
 	switch format {
@@ -384,7 +384,7 @@ func formatAppConfig(tc *client.TeleportClient, profile *client.ProfileStatus, a
 	case appFormatCert:
 		return profile.AppCertPath(appName), nil
 	case appFormatKey:
-		return profile.KeyPath(), nil
+		return profile.TLSKeyPath(), nil
 	case appFormatCURL:
 		return curlCmd, nil
 	case appFormatJSON, appFormatYAML:
@@ -393,7 +393,7 @@ func formatAppConfig(tc *client.TeleportClient, profile *client.ProfileStatus, a
 			URI:               uri,
 			CA:                profile.CACertPathForCluster(cluster),
 			Cert:              profile.AppCertPath(appName),
-			Key:               profile.KeyPath(),
+			Key:               profile.TLSKeyPath(),
 			Curl:              curlCmd,
 			AWSRoleARN:        awsARN,
 			AzureIdentity:     azureIdentity,
@@ -412,7 +412,7 @@ func formatAppConfig(tc *client.TeleportClient, profile *client.ProfileStatus, a
 		t.AddRow([]string{"URI:", uri})
 		t.AddRow([]string{"CA:", profile.CACertPathForCluster(cluster)})
 		t.AddRow([]string{"Cert:", profile.AppCertPath(appName)})
-		t.AddRow([]string{"Key:", profile.KeyPath()})
+		t.AddRow([]string{"Key:", profile.TLSKeyPath()})
 
 		if awsARN != "" {
 			t.AddRow([]string{"AWS ARN:", awsARN})
@@ -513,7 +513,7 @@ func loadAppSelfSignedCA(profile *client.ProfileStatus, tc *client.TeleportClien
 		return tls.Certificate{}, trace.Wrap(err)
 	}
 
-	cert, err := loadSelfSignedCA(profile.AppLocalCAPath(appName), profile.KeyPath(), appCertsExpireAt, "localhost")
+	cert, err := loadSelfSignedCA(profile.AppLocalCAPath(appName), profile.TLSKeyPath(), appCertsExpireAt, "localhost")
 	return cert, trace.Wrap(err)
 }
 

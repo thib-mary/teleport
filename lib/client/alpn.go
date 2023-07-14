@@ -123,7 +123,8 @@ func getUserCerts(ctx context.Context, client ALPNAuthClient, mfaResponse *proto
 	}
 
 	certs, err := client.GenerateUserCerts(ctx, proto.UserCertsRequest{
-		PublicKey:              key.MarshalSSHPublicKey(),
+		// TODO(nic): don't use ssh pubkey format
+		PublicKey:              key.MarshalTLSPublicKey(),
 		Username:               currentUser.GetName(),
 		Expires:                expires,
 		ConnectionDiagnosticID: connectionDiagnosticID,
@@ -134,7 +135,7 @@ func getUserCerts(ctx context.Context, client ALPNAuthClient, mfaResponse *proto
 		return nil, trace.Wrap(err)
 	}
 
-	tlsCert, err := keys.X509KeyPair(certs.TLS, key.PrivateKeyPEM())
+	tlsCert, err := keys.X509KeyPair(certs.TLS, key.TLSPrivateKeyPEM())
 	if err != nil {
 		return nil, trace.BadParameter("failed to parse private key: %v", err)
 	}

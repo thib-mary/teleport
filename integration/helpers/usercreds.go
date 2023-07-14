@@ -33,7 +33,7 @@ import (
 // UserCreds holds user client credentials
 type UserCreds struct {
 	// Key is user client key and certificate
-	Key client.Key
+	Key client.KeySet
 	// HostCA is a trusted host certificate authority
 	HostCA types.CertAuthority
 }
@@ -141,7 +141,7 @@ func GenerateUserCreds(req UserCredsRequest) (*UserCreds, error) {
 
 	return &UserCreds{
 		HostCA: ca,
-		Key: client.Key{
+		Key: client.KeySet{
 			PrivateKey: priv,
 			Cert:       sshCert,
 			TLSCert:    x509Cert,

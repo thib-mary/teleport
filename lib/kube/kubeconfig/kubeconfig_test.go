@@ -537,7 +537,7 @@ func TestRemoveByServerAddr(t *testing.T) {
 	require.Equal(t, wantConfig, config)
 }
 
-func genUserKey(hostname string) (*client.Key, []byte, error) {
+func genUserKey(hostname string) (*client.KeySet, []byte, error) {
 	caKey, caCert, err := tlsca.GenerateSelfSignedCA(pkix.Name{
 		CommonName:   hostname,
 		Organization: []string{hostname},
@@ -569,7 +569,7 @@ func genUserKey(hostname string) (*client.Key, []byte, error) {
 		return nil, nil, trace.Wrap(err)
 	}
 
-	return &client.Key{
+	return &client.KeySet{
 		PrivateKey: priv,
 		TLSCert:    tlsCert,
 		TrustedCerts: []auth.TrustedCerts{{

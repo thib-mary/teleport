@@ -137,7 +137,7 @@ func (c *kubeJoinCommand) run(cf *CLIConf) error {
 
 	cluster := meta.GetClusterName()
 	kubeCluster := meta.GetKubeCluster()
-	var k *client.Key
+	var k *client.KeySet
 
 	// Try loading existing keys.
 	k, err = tc.LocalAgent().GetKey(cluster, client.WithKubeCerts{})
@@ -814,7 +814,7 @@ func (c *kubeCredentialsCommand) checkLocalProxyRequirement(profile *profile.Pro
 // defined. If not, it returns an error.
 // This is a safety check in order to print a better message to the user even
 // before hitting Teleport Kubernetes Proxy.
-func checkIfCertsAreAllowedToAccessCluster(k *client.Key, kubeCluster string) error {
+func checkIfCertsAreAllowedToAccessCluster(k *client.KeySet, kubeCluster string) error {
 	for k8sCluster, cert := range k.KubeTLSCerts {
 		if k8sCluster != kubeCluster {
 			continue
@@ -851,7 +851,7 @@ func checkIfCertHasKubeGroupsAndUsers(certB []byte) (bool, error) {
 	return false, nil
 }
 
-func (c *kubeCredentialsCommand) writeKeyResponse(output io.Writer, key *client.Key, kubeClusterName string) error {
+func (c *kubeCredentialsCommand) writeKeyResponse(output io.Writer, key *client.KeySet, kubeClusterName string) error {
 	crt, err := key.KubeX509Cert(kubeClusterName)
 	if err != nil {
 		return trace.Wrap(err)
@@ -1285,7 +1285,7 @@ type kubernetesStatus struct {
 	clusterAddr         string
 	teleportClusterName string
 	kubeClusters        []types.KubeCluster
-	credentials         *client.Key
+	credentials         *client.KeySet
 	tlsServerName       string
 }
 

@@ -475,7 +475,7 @@ func onProxyCommandDB(cf *CLIConf) error {
 			"address":    listener.Addr().String(),
 			"ca":         profile.CACertPathForCluster(rootCluster),
 			"cert":       profile.DatabaseCertPathForCluster(cf.SiteName, dbInfo.ServiceName),
-			"key":        profile.KeyPath(),
+			"key":        profile.TLSKeyPath(),
 			"randomPort": randomPort,
 		})
 		if err != nil {
@@ -866,7 +866,7 @@ func makeBasicLocalProxyConfig(cf *CLIConf, tc *libclient.TeleportClient, listen
 	}
 }
 
-func generateDBLocalProxyCert(key *libclient.Key, profile *libclient.ProfileStatus) error {
+func generateDBLocalProxyCert(key *libclient.KeySet, profile *libclient.ProfileStatus) error {
 	path := profile.DatabaseLocalCAPath()
 	if utils.FileExists(path) {
 		return nil
@@ -938,7 +938,7 @@ var dbProxyAuthMultiTpl = template.Must(template.New("").Parse(
 {{end}}
 Use one of the following commands to connect to the database or to the address above using other database GUI/CLI clients:
 {{range $item := .commands}}
-  * {{$item.Description}}: 
+  * {{$item.Description}}:
 
   $ {{$item.Command}}
 {{end}}

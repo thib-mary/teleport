@@ -198,7 +198,7 @@ func makeKubeLocalProxy(cf *CLIConf, tc *client.TeleportClient, clusters kubecon
 		return nil, trace.Wrap(err)
 	}
 
-	localClientKey, err := keys.LoadPrivateKey(profile.KeyPath())
+	localClientKey, err := keys.LoadPrivateKey(profile.TLSKeyPath())
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -385,8 +385,8 @@ func loadKubeUserCerts(ctx context.Context, tc *client.TeleportClient, clusters 
 	return certs, nil
 }
 
-func loadKubeKeys(tc *client.TeleportClient, teleportClusters []string) (map[string]*client.Key, error) {
-	kubeKeys := map[string]*client.Key{}
+func loadKubeKeys(tc *client.TeleportClient, teleportClusters []string) (map[string]*client.KeySet, error) {
+	kubeKeys := map[string]*client.KeySet{}
 	for _, teleportCluster := range teleportClusters {
 		key, err := tc.LocalAgent().GetKey(teleportCluster, client.WithKubeCerts{})
 		if err != nil && !trace.IsNotFound(err) {
@@ -397,7 +397,7 @@ func loadKubeKeys(tc *client.TeleportClient, teleportClusters []string) (map[str
 	return kubeKeys, nil
 }
 
-func kubeCertFromKey(key *client.Key, kubeCluster string) (tls.Certificate, error) {
+func kubeCertFromKey(key *client.KeySet, kubeCluster string) (tls.Certificate, error) {
 	x509cert, err := key.KubeX509Cert(kubeCluster)
 	if err != nil {
 		return tls.Certificate{}, trace.Wrap(err)

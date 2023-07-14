@@ -109,7 +109,7 @@ func TestListKeys(t *testing.T) {
 		const keyNum = 5
 
 		// add 5 keys for "bob"
-		keys := make([]Key, keyNum)
+		keys := make([]KeySet, keyNum)
 		for i := 0; i < keyNum; i++ {
 			idx := KeyIndex{fmt.Sprintf("host-%v", i), "bob", "root"}
 			key := auth.makeSignedKey(t, idx, false)
@@ -145,7 +145,7 @@ func TestGetCertificates(t *testing.T) {
 		const keyNum = 3
 
 		// add keys for 3 different clusters with the same user and proxy.
-		keys := make([]Key, keyNum)
+		keys := make([]KeySet, keyNum)
 		certs := make([]*ssh.Certificate, keyNum)
 		var proxy = "proxy.example.com"
 		var user = "bob"

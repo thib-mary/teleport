@@ -481,7 +481,7 @@ func (t *sshBaseHandler) issueSessionMFACerts(ctx context.Context, tc *client.Te
 		return nil, trace.Wrap(err)
 	}
 
-	key := &client.Key{
+	key := &client.KeySet{
 		PrivateKey: pk,
 		Cert:       t.ctx.cfg.Session.GetPub(),
 		TLSCert:    t.ctx.cfg.Session.GetTLSCert(),

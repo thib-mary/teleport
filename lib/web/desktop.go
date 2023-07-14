@@ -268,7 +268,7 @@ func desktopTLSConfig(ctx context.Context, ws *websocket.Conn, pc *client.ProxyC
 			Login:          username,
 		},
 		RouteToCluster: siteName,
-		ExistingCreds: &client.Key{
+		ExistingCreds: &client.KeySet{
 			PrivateKey:          pk,
 			Cert:                sessCtx.cfg.Session.GetPub(),
 			TLSCert:             sessCtx.cfg.Session.GetTLSCert(),

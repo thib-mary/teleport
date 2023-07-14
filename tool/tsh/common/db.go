@@ -295,7 +295,7 @@ func databaseLogin(cf *CLIConf, tc *client.TeleportClient, dbInfo *databaseInfo)
 		return trace.Wrap(err)
 	}
 
-	var key *client.Key
+	var key *client.KeySet
 	// Identity files themselves act as the database credentials (if any), so
 	// don't bother fetching new certs.
 	if profile.IsVirtual {
@@ -507,7 +507,7 @@ func onDatabaseConfig(cf *CLIConf) error {
 			database.ServiceName, host, port, database.Username,
 			database.Database, profile.CACertPathForCluster(rootCluster),
 			profile.DatabaseCertPathForCluster(tc.SiteName, database.ServiceName),
-			profile.KeyPath(),
+			profile.TLSKeyPath(),
 		}
 		out, err := serializeDatabaseConfig(configInfo, format)
 		if err != nil {
@@ -526,7 +526,9 @@ Key:       %v
 `,
 			database.ServiceName, host, port, database.Username,
 			database.Database, profile.CACertPathForCluster(rootCluster),
-			profile.DatabaseCertPathForCluster(tc.SiteName, database.ServiceName), profile.KeyPath())
+			// TODO(nklaassen): TLS key might not be RSA, may need separate key
+			// for DB
+			profile.DatabaseCertPathForCluster(tc.SiteName, database.ServiceName), profile.TLSKeyPath())
 	}
 	return nil
 }
@@ -636,7 +638,8 @@ func createLocalProxyListener(addr string, route tlsca.RouteToDatabase, profile 
 	if route.Protocol == defaults.ProtocolOracle {
 		localCert, err := tls.LoadX509KeyPair(
 			profile.DatabaseLocalCAPath(),
-			profile.KeyPath(),
+			// TODO(nic): RSA db keys
+			profile.TLSKeyPath(),
 		)
 		if err != nil {
 			return nil, trace.Wrap(err)

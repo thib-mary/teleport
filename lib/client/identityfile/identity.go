@@ -171,7 +171,7 @@ type WriteConfig struct {
 	// and use OutputPath as a prefix.
 	OutputPath string
 	// Key contains the credentials to write to the identity file.
-	Key *client.Key
+	Key *client.KeySet
 	// Format is the output format for the identity file.
 	Format Format
 	// KubeProxyAddr is the public address of the proxy with its kubernetes
@@ -664,7 +664,7 @@ func checkOverwrite(ctx context.Context, writer ConfigWriter, force bool, paths 
 }
 
 // KeyFromIdentityFile loads client key from identity file.
-func KeyFromIdentityFile(identityPath, proxyHost, clusterName string) (*client.Key, error) {
+func KeyFromIdentityFile(identityPath, proxyHost, clusterName string) (*client.KeySet, error) {
 	if proxyHost == "" {
 		return nil, trace.BadParameter("proxyHost must be provided to parse identity file")
 	}

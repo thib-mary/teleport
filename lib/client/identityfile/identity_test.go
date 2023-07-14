@@ -68,7 +68,7 @@ func newSelfSignedCA(priv crypto.Signer) (*tlsca.CertAuthority, auth.TrustedCert
 	}, nil
 }
 
-func newClientKey(t *testing.T) *client.Key {
+func newClientKey(t *testing.T) *client.KeySet {
 	privateKey, err := testauthority.New().GeneratePrivateKey()
 	require.NoError(t, err)
 

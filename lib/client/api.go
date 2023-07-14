@@ -475,7 +475,7 @@ const (
 	// path vars.
 	VirtualPathEnvPrefix = "TSH_VIRTUAL_PATH"
 
-	VirtualPathKey        VirtualPathKind = "KEY"
+	//VirtualPathKey        VirtualPathKind = "KEY"
 	VirtualPathSSHKey     VirtualPathKind = "KEY"
 	VirtualPathTLSKey     VirtualPathKind = "TLSKEY"
 	VirtualPathCA         VirtualPathKind = "CA"
@@ -1322,7 +1322,7 @@ func (tc *TeleportClient) ReissueUserCerts(ctx context.Context, cachePolicy Cert
 // (according to RBAC), IssueCertsWithMFA will:
 // - for SSH certs, return the existing Key from the keystore.
 // - for TLS certs, fall back to ReissueUserCerts.
-func (tc *TeleportClient) IssueUserCertsWithMFA(ctx context.Context, params ReissueParams, applyOpts func(opts *PromptMFAChallengeOpts)) (*Key, error) {
+func (tc *TeleportClient) IssueUserCertsWithMFA(ctx context.Context, params ReissueParams, applyOpts func(opts *PromptMFAChallengeOpts)) (*KeySet, error) {
 	ctx, span := tc.Tracer.Start(
 		ctx,
 		"teleportClient/IssueUserCertsWithMFA",
@@ -3284,7 +3284,7 @@ func (tc *TeleportClient) GetWebConfig(ctx context.Context) (*webclient.WebConfi
 // If the initial login fails due to a private key policy not being met, Login
 // will automatically retry login with a private key that meets the required policy.
 // This will initiate the same login flow again, aka prompt for password/otp/sso/mfa.
-func (tc *TeleportClient) Login(ctx context.Context) (*Key, error) {
+func (tc *TeleportClient) Login(ctx context.Context) (*KeySet, error) {
 	ctx, span := tc.Tracer.Start(
 		ctx,
 		"teleportClient/Login",
@@ -3372,7 +3372,7 @@ func (tc *TeleportClient) LoginWeb(ctx context.Context) (*WebClient, types.WebSe
 // successful, as skipping the ceremony is valid for various reasons (Teleport
 // cluster doesn't support device authn, device wasn't enrolled, etc).
 // Use [TeleportClient.DeviceLogin] if you want more control over process.
-func (tc *TeleportClient) AttemptDeviceLogin(ctx context.Context, key *Key, rootAuthClient auth.ClientI) error {
+func (tc *TeleportClient) AttemptDeviceLogin(ctx context.Context, key *KeySet, rootAuthClient auth.ClientI) error {
 	ctx, span := tc.Tracer.Start(
 		ctx,
 		"teleportClient/AttemptDeviceLogin",
@@ -3720,7 +3720,7 @@ type SSHLoginFunc func(context.Context, *keys.PrivateKey) (*auth.SSHLoginRespons
 
 // SSHLogin uses the given login function to login the client. This function handles
 // private key logic and parsing the resulting auth response.
-func (tc *TeleportClient) SSHLogin(ctx context.Context, sshLoginFunc SSHLoginFunc) (*Key, error) {
+func (tc *TeleportClient) SSHLogin(ctx context.Context, sshLoginFunc SSHLoginFunc) (*KeySet, error) {
 	ctx, span := tc.Tracer.Start(
 		ctx,
 		"teleportClient/SSHLogin",
@@ -4057,7 +4057,7 @@ func (tc *TeleportClient) ssoLogin(ctx context.Context, priv *keys.PrivateKey, c
 
 // ConnectToRootCluster activates the provided key and connects to the
 // root cluster with its credentials.
-func (tc *TeleportClient) ConnectToRootCluster(ctx context.Context, key *Key) (*ProxyClient, auth.ClientI, error) {
+func (tc *TeleportClient) ConnectToRootCluster(ctx context.Context, key *KeySet) (*ProxyClient, auth.ClientI, error) {
 	ctx, span := tc.Tracer.Start(
 		ctx,
 		"teleportClient/ConnectToRootCluster",
@@ -4088,7 +4088,7 @@ func (tc *TeleportClient) ConnectToRootCluster(ctx context.Context, key *Key) (*
 
 // activateKey saves the target session cert into the local
 // keystore (and into the ssh-agent) for future use.
-func (tc *TeleportClient) activateKey(ctx context.Context, key *Key) error {
+func (tc *TeleportClient) activateKey(ctx context.Context, key *KeySet) error {
 	_, span := tc.Tracer.Start(
 		ctx,
 		"teleportClient/activateKey",
@@ -4454,7 +4454,7 @@ func (tc *TeleportClient) AddTrustedCA(ctx context.Context, ca types.CertAuthori
 }
 
 // AddKey adds a key to the client's local agent, used in tests.
-func (tc *TeleportClient) AddKey(key *Key) error {
+func (tc *TeleportClient) AddKey(key *KeySet) error {
 	if tc.localAgent == nil {
 		return trace.BadParameter("TeleportClient.AddKey called on a client without localAgent")
 	}
@@ -4920,7 +4920,7 @@ func playSession(sessionEvents []events.EventFields, stream []byte) error {
 	}
 }
 
-func findActiveDatabases(key *Key) ([]tlsca.RouteToDatabase, error) {
+func findActiveDatabases(key *KeySet) ([]tlsca.RouteToDatabase, error) {
 	dbCerts, err := key.DBTLSCertificates()
 	if err != nil {
 		return nil, trace.Wrap(err)
