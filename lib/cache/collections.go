@@ -26,6 +26,7 @@ import (
 	"github.com/gravitational/teleport/api/client"
 	"github.com/gravitational/teleport/api/client/proto"
 	apidefaults "github.com/gravitational/teleport/api/defaults"
+	"github.com/gravitational/teleport/api/internalutils/stream"
 	"github.com/gravitational/teleport/api/types"
 	"github.com/gravitational/teleport/lib/services"
 )
@@ -868,6 +869,7 @@ func (nodeExecutor) getReader(cache *Cache, cacheOK bool) nodeGetter {
 type nodeGetter interface {
 	GetNodes(ctx context.Context, namespace string) ([]types.Server, error)
 	GetNode(ctx context.Context, namespace, name string) (types.Server, error)
+	GetNodeStream(ctx context.Context, namespace string) stream.Stream[types.Server]
 }
 
 var _ executor[types.Server, nodeGetter] = nodeExecutor{}

@@ -35,6 +35,7 @@ import (
 	"github.com/gravitational/teleport"
 	"github.com/gravitational/teleport/api/client/proto"
 	apidefaults "github.com/gravitational/teleport/api/defaults"
+	"github.com/gravitational/teleport/api/internalutils/stream"
 	"github.com/gravitational/teleport/api/types"
 	"github.com/gravitational/teleport/api/utils/retryutils"
 	"github.com/gravitational/teleport/lib/backend"
@@ -853,7 +854,6 @@ func (c *Cache) Start() error {
 		Jitter: retryutils.NewHalfJitter(),
 		Clock:  c.Clock,
 	})
-
 	if err != nil {
 		c.Close()
 		return trace.Wrap(err)
@@ -1803,6 +1803,37 @@ func (c *Cache) GetNodes(ctx context.Context, namespace string) ([]types.Server,
 	}
 
 	return rg.reader.GetNodes(ctx, namespace)
+}
+
+func (c *Cache) GetNodeStream(ctx context.Context, namespace string) stream.Stream[types.Server] {
+	ctx, span := c.Tracer.Start(ctx, "cache/GetNodeStream")
+	defer span.End()
+
+	rg, err := readCollectionCache(c, c.collections.nodes)
+	if err != nil {
+		return stream.Fail[types.Server](trace.Wrap(err))
+	}
+
+	if !rg.IsCacheRead() {
+		defer rg.Release() // for good measure
+		return rg.reader.GetNodeStream(ctx, namespace)
+	}
+
+	// the stream must be consumed before the cache is usable again :(
+	return releaserStream[types.Server]{
+		Stream:   rg.reader.GetNodeStream(ctx, namespace),
+		releaser: rg.Release,
+	}
+}
+
+type releaserStream[T any] struct {
+	stream.Stream[T]
+	releaser func()
+}
+
+func (r releaserStream[T]) Done() error {
+	defer r.releaser()
+	return r.Stream.Done()
 }
 
 // getNodesWithTTLCache implements TTL-based caching for the GetNodes endpoint.  All nodes that will be returned from the caching layer
