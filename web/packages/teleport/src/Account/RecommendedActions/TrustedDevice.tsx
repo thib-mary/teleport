@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Text } from 'design';
+import { Box, Flex, Text, ButtonPrimary } from 'design';
 import Image from 'design/Image';
 
 import emptyPng from './pdticon2.png';
@@ -44,9 +44,16 @@ const Cta = (props: any) => {
         <Image width="230px" src={emptyPng} />
       </Box>
       <Box>
-      <Text typography="h6" mb={3} textAlign="center">
+      <ButtonPrimary
+          mb="2"
+          mx="10"
+          mt={4}
+        >
+          Enrol Device
+        </ButtonPrimary>
+      {/* <Text typography="h6" mb={3} textAlign="center">
     Contact cluster administrator <br /> to register your Device.
-    </Text>
+    </Text> */}
       </Box>
     </Box>
   );

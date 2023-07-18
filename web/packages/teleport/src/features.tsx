@@ -40,7 +40,7 @@ import {
   ShieldAlert,
 } from 'design/SVGIcon';
 
-import { ShieldCheck2 } from 'design/Icon';
+import { ShieldCheck as ShieldCheck2 } from 'design/Icon';
 
 import cfg from 'teleport/config';
 
@@ -503,7 +503,7 @@ export class FeatureSecureCluster implements TeleportFeature {
 
   navigationItem = {
     title: 'Recommended Actions',
-    icon: <ShieldCheck size={20} fill='green'/>,
+    icon: <ShieldCheck2 size={20} />,
     getLink() {
       return cfg.routes.clusterSecurity;
     },
@@ -612,27 +612,27 @@ export class FeatureHelpAndSupport implements TeleportFeature {
   };
 }
 
-export class FeatureAccountSecurityActions implements TeleportFeature {
-  route = {
-    title: 'Recommended Actions',
-    path: cfg.routes.accountSecurity,
-    exact: true,
-    component: Account,
-  };
+// export class FeatureAccountSecurityActions implements TeleportFeature {
+//   route = {
+//     title: 'Recommended Actions',
+//     path: cfg.routes.accountSecurity,
+//     exact: true,
+//     component: Account,
+//   };
 
-  hasAccess() {
-    return true;
-  }
+//   hasAccess() {
+//     return true;
+//   }
 
-  topMenuItem = {
-    title: 'Recommended Actions',
-    icon: <ShieldCheck size={16} />,
-    exact: true,
-    getLink() {
-      return cfg.routes.accountSecurity;
-    },
-  };
-}
+//   topMenuItem = {
+//     title: 'Recommended Actions',
+//     icon: <ShieldCheck size={16} />,
+//     exact: true,
+//     getLink() {
+//       return cfg.routes.accountSecurity;
+//     },
+//   };
+// }
 
 export function getOSSFeatures(): TeleportFeature[] {
   return [

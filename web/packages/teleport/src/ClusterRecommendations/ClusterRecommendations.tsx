@@ -37,13 +37,13 @@ export function ClusterRecommendations() {
       </FeatureHeader>
         <Flex alignItems="start">
           <Info
-            ml="4"
-            width="240px"
+            ml="6"
+            width="300px"
             color="text.main"
             style={{ flexShrink: 0 }}
           />
           <Cta
-            ml="10"
+            ml="4"
             color="text.main"
             style={{ flexShrink: 0 }}
           />
@@ -56,19 +56,20 @@ export function ClusterRecommendations() {
 const Info = props => (
   <Box {...props}>
     <Text typography="h6" mb={3}>
-      Trusted Device Access
+      Enable Device Trust
     </Text>
     <Text typography="subtitle1" mb={3}>
-      Trusted Device Access authenticates user devices, establishing device identity for access.
+      Device Trust authenticates and establishes device identity before access. Device Trust adds additional dimension to secure access
+      by authenticating user device before access, enabling zero trust.
     </Text>
     <Text typography="subtitle1">
-          Read Device Trust to learn more about  {' '}
+          Learn more about {' '}
           <Link
             color="text.main"
             href="https://goteleport.com/docs/access-controls/guides/device-trust/"
             target="_blank"
           >
-            Teleport Trusted Device Access.
+            Teleport Device Trust.
           </Link>{' '}
         </Text>
   </Box>
@@ -81,17 +82,10 @@ const Cta = (props: any) => {
         <Image width="230px" src={emptyPng} />
       </Box>
       <Box>
-        <ButtonPrimary
-          disabled={props.disabled}
-          title={
-            props.disabled
-              ? 'You do not have access to add a trusted cluster'
-              : ''
-          }
-          onClick={props.onCreate}
+      <ButtonPrimary
           mb="2"
-          mx="auto"
-          width="240px"
+          mx="7"
+          mt={2}
         >
           Unlock Device Trust
         </ButtonPrimary>
