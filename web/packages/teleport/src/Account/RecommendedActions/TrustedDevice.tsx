@@ -4,7 +4,7 @@ import Image from 'design/Image';
 
 import emptyPng from './pdticon2.png';
 
-export const TrustedDevice = () => {
+export const TrustedDevice = (props: any) => {
   return (
     <Flex alignItems="start">
     <Info
@@ -17,6 +17,7 @@ export const TrustedDevice = () => {
       ml="10"
       color="text.main"
       style={{ flexShrink: 0 }}
+      setOpen={props.setOpen}
     />
   </Flex>
   );
@@ -48,6 +49,7 @@ const Cta = (props: any) => {
           mb="2"
           mx="10"
           mt={4}
+          onClick={props.setOpen}
         >
           Enrol Device
         </ButtonPrimary>
