@@ -457,6 +457,7 @@ func (proxy *ProxyClient) IssueUserCertsWithMFA(ctx context.Context, params Reis
 	key := params.ExistingCreds
 	if key == nil {
 		var err error
+		// TODO(nic): seperate keys
 		key, err = proxy.localAgent().GetKey(params.RouteToCluster, WithAllCerts...)
 		if err != nil {
 			return nil, trace.Wrap(err)

@@ -210,7 +210,8 @@ func (c *ClusterClient) prepareUserCertsRequest(params ReissueParams, key *KeySe
 		params.AccessRequests = activeRequests.AccessRequests
 	}
 
-	attestationStatement, err := keys.GetAttestationStatement(key.PrivateKey)
+	// TODO(nic): attest both keys
+	attestationStatement, err := keys.GetAttestationStatement(key.TLSKey)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}

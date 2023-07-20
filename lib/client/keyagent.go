@@ -523,7 +523,7 @@ func (a *LocalKeyAgent) addKey(key *KeySet) error {
 			return trace.Wrap(err)
 		}
 	} else {
-		if !key.EqualPrivateKey(storedKey) {
+		if !key.EqualPrivateKeys(storedKey) {
 			a.log.Debugf("Deleting obsolete stored key with index %+v.", storedKey.KeyIndex)
 			if err := a.clientStore.DeleteKey(storedKey.KeyIndex); err != nil {
 				return trace.Wrap(err)
@@ -599,7 +599,7 @@ func (a *LocalKeyAgent) Signers() ([]ssh.Signer, error) {
 			if err := k.checkCert(cert); err != nil {
 				return nil, trace.Wrap(err)
 			}
-			signer, err := sshutils.SSHSigner(cert, k)
+			signer, err := sshutils.SSHSigner(cert, k.SSHKey)
 			if err != nil {
 				return nil, trace.Wrap(err)
 			}

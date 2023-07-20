@@ -99,9 +99,14 @@ func NewFSKeyStore(dirPath string) *FSKeyStore {
 	}
 }
 
-// userKeyPath returns the private key path for the given KeyIndex.
-func (fs *FSKeyStore) userKeyPath(idx KeyIndex) string {
-	return keypaths.UserKeyPath(fs.KeyDir, idx.ProxyHost, idx.Username)
+// userSSHKeyPath returns the SSH private key path for the given KeyIndex.
+func (fs *FSKeyStore) userSSHKeyPath(idx KeyIndex) string {
+	return keypaths.UserSSHKeyPath(fs.KeyDir, idx.ProxyHost, idx.Username)
+}
+
+// userTLSKeyPath returns the TLS private key path for the given KeyIndex.
+func (fs *FSKeyStore) userTLSKeyPath(idx KeyIndex) string {
+	return keypaths.UserTLSKeyPath(fs.KeyDir, idx.ProxyHost, idx.Username)
 }
 
 // tlsCertPath returns the TLS certificate path given KeyIndex.
@@ -155,7 +160,10 @@ func (fs *FSKeyStore) AddKey(key *KeySet) error {
 		return trace.Wrap(err)
 	}
 
-	if err := fs.writeBytes(key.PrivateKeyPEM(), fs.userKeyPath(key.KeyIndex)); err != nil {
+	if err := fs.writeBytes(key.SSHKey.PrivateKeyPEM(), fs.userSSHKeyPath(key.KeyIndex)); err != nil {
+		return trace.Wrap(err)
+	}
+	if err := fs.writeBytes(key.TLSKey.PrivateKeyPEM(), fs.userTLSKeyPath(key.KeyIndex)); err != nil {
 		return trace.Wrap(err)
 	}
 
@@ -170,7 +178,7 @@ func (fs *FSKeyStore) AddKey(key *KeySet) error {
 
 	// We only generate PPK files for use by PuTTY when running tsh on Windows.
 	if runtime.GOOS == constants.WindowsOS {
-		ppkFile, err := key.PPKFile()
+		ppkFile, err := key.SSHKey.PPKFile()
 		// PPKFile can only be generated from an RSA private key. If the key is in a different
 		// format, a BadParameter error is returned and we can skip PPK generation.
 		if err != nil && !trace.IsBadParameter(err) {
@@ -230,7 +238,8 @@ func (fs *FSKeyStore) writeBytes(bytes []byte, fp string) error {
 // DeleteKey deletes the user's key with all its certs.
 func (fs *FSKeyStore) DeleteKey(idx KeyIndex) error {
 	files := []string{
-		fs.userKeyPath(idx),
+		fs.userSSHKeyPath(idx),
+		fs.userTLSKeyPath(idx),
 		fs.publicKeyPath(idx),
 		fs.tlsCertPath(idx),
 	}
@@ -322,12 +331,17 @@ func (fs *FSKeyStore) GetKey(idx KeyIndex, opts ...CertOption) (*KeySet, error) 
 		return nil, trace.ConvertSystemError(err)
 	}
 
-	priv, err := keys.LoadKeyPair(fs.userKeyPath(idx), fs.publicKeyPath(idx))
+	sshKey, err := keys.LoadKeyPair(fs.userSSHKeyPath(idx), fs.publicKeyPath(idx))
 	if err != nil {
 		return nil, trace.ConvertSystemError(err)
 	}
 
-	key := NewKey(priv)
+	tlsKey, err := keys.LoadPrivateKey(fs.userTLSKeyPath(idx))
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+
+	key := NewKeySet(sshKey, tlsKey)
 	key.KeyIndex = idx
 	key.TLSCert = tlsCert
 
@@ -586,7 +600,7 @@ func (ms *MemKeyStore) GetKey(idx KeyIndex, opts ...CertOption) (*KeySet, error)
 		return nil, trace.NotFound("key for %+v not found", idx)
 	}
 
-	retKey := NewKey(key.PrivateKey)
+	retKey := NewKeySet(key.SSHKey, key.TLSKey)
 	retKey.KeyIndex = idx
 	retKey.TLSCert = key.TLSCert
 	for _, o := range opts {

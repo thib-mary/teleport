@@ -78,12 +78,15 @@ func (idx KeyIndex) Match(matchKey KeyIndex) bool {
 		(matchKey.Username == "" || matchKey.Username == idx.Username)
 }
 
-// KeySet describes a complete (signed) set of client keys
+// KeySet describes a complete set of client keys along with signed
+// certificates.
 type KeySet struct {
 	KeyIndex
 
-	// PrivateKey is a private key used for cryptographical operations.
+	// SSHKey is a private key used for SSH connections.
 	SSHKey *keys.PrivateKey
+
+	// TLSKey is a private key used for TLS connections.
 	TLSKey *keys.PrivateKey
 
 	// Cert is an SSH client certificate
@@ -122,9 +125,23 @@ func GenerateRSAKey() (*KeySet, error) {
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	return NewKey(priv), nil
+	// TODO(nic): separate keys
+	return NewKeySet(priv, priv), nil
 }
 
+// NewKeySet creates a new Key for the given private keys.
+func NewKeySet(sshKey, tlsKey *keys.PrivateKey) *KeySet {
+	return &KeySet{
+		SSHKey:              sshKey,
+		TLSKey:              tlsKey,
+		KubeTLSCerts:        make(map[string][]byte),
+		DBTLSCerts:          make(map[string][]byte),
+		AppTLSCerts:         make(map[string][]byte),
+		WindowsDesktopCerts: make(map[string][]byte),
+	}
+}
+
+/*
 // NewKey creates a new Key for the given private key.
 func NewKey(priv *keys.PrivateKey) *KeySet {
 	return &KeySet{
@@ -135,6 +152,7 @@ func NewKey(priv *keys.PrivateKey) *KeySet {
 		WindowsDesktopCerts: make(map[string][]byte),
 	}
 }
+*/
 
 // RootClusterCAs returns root cluster CAs.
 func (k *KeySet) RootClusterCAs() ([][]byte, error) {
@@ -281,7 +299,7 @@ func (k *KeySet) ProxyClientSSHConfig(hostname string) (*ssh.ClientConfig, error
 		return nil, trace.Wrap(err, "failed to extract username from SSH certificate")
 	}
 
-	sshConfig, err := sshutils.ProxyClientSSHConfig(sshCert, k)
+	sshConfig, err := sshutils.ProxyClientSSHConfig(sshCert, k.SSHKey)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -368,7 +386,7 @@ func isTeleportAgentKey(key *agent.Key) bool {
 }
 
 // AsAgentKey converts client.Key struct to an agent.AddedKey. Any agent.AddedKey
-// can be added to a local agent (keyring), nut non-standard keys cannot be added
+// can be added to a local agent (keyring), but non-standard keys cannot be added
 // to an SSH system agent through the ssh agent protocol. Check canAddToSystemAgent
 // before adding this key to an SSH system agent.
 func (k *KeySet) AsAgentKey() (agent.AddedKey, error) {
@@ -378,7 +396,7 @@ func (k *KeySet) AsAgentKey() (agent.AddedKey, error) {
 	}
 
 	return agent.AddedKey{
-		PrivateKey:       k.Signer,
+		PrivateKey:       k.SSHKey.Signer,
 		Certificate:      sshCert,
 		Comment:          teleportAgentKeyComment(k.KeyIndex),
 		LifetimeSecs:     0,
@@ -403,6 +421,10 @@ func (k *KeySet) TeleportTLSCertificate() (*x509.Certificate, error) {
 	return tlsca.ParseCertificatePEM(k.TLSCert)
 }
 
+func (k *KeySet) TLSCertificate(certPEMBlock []byte) (tls.Certificate, error) {
+	return k.TLSKey.TLSCertificate(certPEMBlock)
+}
+
 // KubeX509Cert returns the parsed x509 certificate for authentication against
 // a named kubernetes cluster.
 func (k *KeySet) KubeX509Cert(kubeClusterName string) (*x509.Certificate, error) {
@@ -420,7 +442,7 @@ func (k *KeySet) KubeTLSCert(kubeClusterName string) (tls.Certificate, error) {
 	if !ok {
 		return tls.Certificate{}, trace.NotFound("TLS certificate for kubernetes cluster %q not found", kubeClusterName)
 	}
-	keyPem, err := k.PrivateKey.RSAPrivateKeyPEM()
+	keyPem, err := k.TLSKey.RSAPrivateKeyPEM()
 	if err != nil {
 		return tls.Certificate{}, trace.Wrap(err)
 	}
@@ -481,7 +503,7 @@ func (k *KeySet) AsAuthMethod() (ssh.AuthMethod, error) {
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	return sshutils.AsAuthMethod(cert, k)
+	return sshutils.AsAuthMethod(cert, k.SSHKey)
 }
 
 // SSHSigner returns an ssh.Signer using the SSH certificate in this key.
@@ -490,7 +512,7 @@ func (k *KeySet) SSHSigner() (ssh.Signer, error) {
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	return sshutils.SSHSigner(cert, k)
+	return sshutils.SSHSigner(cert, k.SSHKey)
 }
 
 // SSHCert returns parsed SSH certificate
@@ -535,7 +557,7 @@ func (k *KeySet) CheckCert() error {
 func (k *KeySet) checkCert(sshCert *ssh.Certificate) error {
 	// Check that the certificate was for the current public key. If not, the
 	// public/private key pair may have been rotated.
-	if !sshutils.KeysEqual(sshCert.Key, k.SSHPublicKey()) {
+	if !sshutils.KeysEqual(sshCert.Key, k.SSHKey.SSHPublicKey()) {
 		return trace.CompareFailed("public key in profile does not match the public key in SSH certificate")
 	}
 
@@ -568,14 +590,16 @@ func (k *KeySet) RootClusterName() (string, error) {
 }
 
 // EqualPrivateKey returns whether this key and the given key have the same PrivateKey.
-func (k *KeySet) EqualPrivateKey(other *KeySet) bool {
+func (k *KeySet) EqualPrivateKeys(other *KeySet) bool {
 	// Compare both private and public key PEM, since hardware keys
 	// may not be uniquely identifiable by their private key PEM alone.
 	// For example, for PIV keys, the private key PEM only uniquely
 	// identifies a PIV slot, so we can use the public key to verify
 	// that the private key on the slot hasn't changed.
-	return subtle.ConstantTimeCompare(k.PrivateKeyPEM(), other.PrivateKeyPEM()) == 1 &&
-		bytes.Equal(k.MarshalSSHPublicKey(), other.MarshalSSHPublicKey())
+	return subtle.ConstantTimeCompare(k.SSHKey.PrivateKeyPEM(), other.SSHKey.PrivateKeyPEM()) == 1 &&
+		subtle.ConstantTimeCompare(k.TLSKey.PrivateKeyPEM(), other.TLSKey.PrivateKeyPEM()) == 1 &&
+		bytes.Equal(k.MarshalSSHPublicKey(), other.MarshalSSHPublicKey()) &&
+		bytes.Equal(k.MarshalTLSPublicKey(), other.MarshalTLSPublicKey())
 }
 
 func (k *KeySet) MarshalSSHPublicKey() []byte {
@@ -585,6 +609,10 @@ func (k *KeySet) MarshalSSHPublicKey() []byte {
 func (k *KeySet) MarshalTLSPublicKey() []byte {
 	// TODO(nic): don't use ssh pubkey format
 	return k.TLSKey.MarshalSSHPublicKey()
+}
+
+func (k *KeySet) SSHPrivateKeyPEM() []byte {
+	return k.SSHKey.PrivateKeyPEM()
 }
 
 func (k *KeySet) TLSPrivateKeyPEM() []byte {

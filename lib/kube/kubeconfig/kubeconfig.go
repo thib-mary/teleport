@@ -207,7 +207,7 @@ func Update(path string, v Values, storeAllCAs bool) error {
 
 		// TODO (Joerger): Create a custom k8s Auth Provider or Exec Provider to use non-rsa
 		// private keys for kube credentials (if possible)
-		rsaKeyPEM, err := v.Credentials.PrivateKey.RSAPrivateKeyPEM()
+		rsaKeyPEM, err := v.Credentials.TLSKey.RSAPrivateKeyPEM()
 		if err == nil {
 			if len(v.Credentials.TLSCert) == 0 {
 				return trace.BadParameter("TLS certificate missing in provided credentials")

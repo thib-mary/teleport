@@ -64,7 +64,7 @@ func GenerateClientConfiguration(key *client.KeySet, db tlsca.RouteToDatabase, p
 }
 
 func createClientWallet(key *client.KeySet, certPem []byte, password string, walletPath string) (string, error) {
-	buff, err := createJKSWallet(key.PrivateKeyPEM(), certPem, certPem, password)
+	buff, err := createJKSWallet(key.TLSPrivateKeyPEM(), certPem, certPem, password)
 	if err != nil {
 		return "", trace.Wrap(err)
 	}

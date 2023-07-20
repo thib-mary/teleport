@@ -91,7 +91,7 @@ func GenerateDatabaseCertificates(ctx context.Context, req GenerateDatabaseCerti
 		req.Key = key
 	}
 
-	csr, err := tlsca.GenerateCertificateRequestPEM(subject, req.Key.PrivateKey)
+	csr, err := tlsca.GenerateCertificateRequestPEM(subject, req.Key.TLSKey)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}

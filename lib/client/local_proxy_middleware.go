@@ -114,7 +114,7 @@ func (c *DBCertChecker) renewCerts(ctx context.Context, lp *alpnproxy.LocalProxy
 	if !ok {
 		return trace.NotFound("database '%v' TLS cert missing", c.dbRoute.ServiceName)
 	}
-	tlsCert, err := keys.X509KeyPair(dbCert, key.PrivateKeyPEM())
+	tlsCert, err := keys.X509KeyPair(dbCert, key.TLSPrivateKeyPEM())
 	if err != nil {
 		return trace.Wrap(err)
 	}

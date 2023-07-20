@@ -3762,7 +3762,8 @@ func (tc *TeleportClient) SSHLogin(ctx context.Context, sshLoginFunc SSHLoginFun
 	}
 
 	// extract the new certificate out of the response
-	key := NewKey(priv)
+	// TODO(nic): seperate keys
+	key := NewKeySet(priv, priv)
 	key.Cert = response.Cert
 	key.TLSCert = response.TLSCert
 	key.TrustedCerts = response.HostSigners

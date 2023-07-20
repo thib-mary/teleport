@@ -104,7 +104,8 @@ func (s *Server) CreateAppSession(ctx context.Context, req types.CreateAppSessio
 		return nil, trace.Wrap(err)
 	}
 	session, err := types.NewWebSession(sessionID, types.KindAppSession, types.WebSessionSpecV2{
-		User:        req.Username,
+		User: req.Username,
+		// TODO(nic): separate keys
 		Priv:        privateKey,
 		Pub:         certs.SSH,
 		TLSCert:     certs.TLS,

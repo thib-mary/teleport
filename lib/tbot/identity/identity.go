@@ -82,6 +82,7 @@ var log = logrus.WithFields(logrus.Fields{
 // identity. This is derived from Teleport's usual auth.Identity with small
 // modifications to work with user rather than host certificates.
 type Identity struct {
+	// TODO(nic): split TLS and SSH
 	// PrivateKeyBytes is a PEM encoded private key
 	PrivateKeyBytes []byte
 	// PublicKeyBytes contains bytes of the original SSH public key

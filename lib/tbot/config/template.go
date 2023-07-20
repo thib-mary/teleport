@@ -138,7 +138,9 @@ func newClientKey(ident *identity.Identity, hostCAs []types.CertAuthority) (*cli
 		KeyIndex: client.KeyIndex{
 			ClusterName: ident.ClusterName,
 		},
-		PrivateKey:   pk,
+		// TODO(nic): split SSH and TLS keys
+		SSHKey:       pk,
+		TLSKey:       pk,
 		Cert:         ident.CertBytes,
 		TLSCert:      ident.TLSCertBytes,
 		TrustedCerts: auth.AuthoritiesToTrustedCerts(hostCAs),

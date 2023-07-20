@@ -408,10 +408,12 @@ func (p *Profile) ProxyKeyDir() string {
 	return keypaths.ProxyKeyDir(p.Dir, p.Name())
 }
 
+/*
 // UserKeyPath returns the path to the profile's private key.
 func (p *Profile) UserKeyPath() string {
 	return keypaths.UserKeyPath(p.Dir, p.Name(), p.Username)
 }
+*/
 
 func (p *Profile) UserSSHKeyPath() string {
 	return keypaths.UserSSHKeyPath(p.Dir, p.Name(), p.Username)

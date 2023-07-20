@@ -217,7 +217,8 @@ func Write(ctx context.Context, cfg WriteConfig) (filesWritten []string, err err
 		}
 
 		idFile := &identityfile.IdentityFile{
-			PrivateKey: cfg.Key.PrivateKeyPEM(),
+			SSHKey: cfg.Key.SSHPrivateKeyPEM(),
+			TLSKey: cfg.Key.TLSPrivateKeyPEM(),
 			Certs: identityfile.Certs{
 				SSH: cfg.Key.Cert,
 				TLS: cfg.Key.TLSCert,
@@ -264,7 +265,7 @@ func Write(ctx context.Context, cfg WriteConfig) (filesWritten []string, err err
 			return nil, trace.Wrap(err)
 		}
 
-		err = writer.WriteFile(keyPath, cfg.Key.PrivateKeyPEM(), identityfile.FilePermissions)
+		err = writer.WriteFile(keyPath, cfg.Key.SSHPrivateKeyPEM(), identityfile.FilePermissions)
 		if err != nil {
 			return nil, trace.Wrap(err)
 		}
@@ -305,7 +306,7 @@ func Write(ctx context.Context, cfg WriteConfig) (filesWritten []string, err err
 			return nil, trace.Wrap(err)
 		}
 
-		err = writer.WriteFile(keyPath, cfg.Key.PrivateKeyPEM(), identityfile.FilePermissions)
+		err = writer.WriteFile(keyPath, cfg.Key.TLSPrivateKeyPEM(), identityfile.FilePermissions)
 		if err != nil {
 			return nil, trace.Wrap(err)
 		}
@@ -328,7 +329,7 @@ func Write(ctx context.Context, cfg WriteConfig) (filesWritten []string, err err
 		if err := checkOverwrite(ctx, writer, cfg.OverwriteDestination, filesWritten...); err != nil {
 			return nil, trace.Wrap(err)
 		}
-		err = writer.WriteFile(certPath, append(cfg.Key.TLSCert, cfg.Key.PrivateKeyPEM()...), identityfile.FilePermissions)
+		err = writer.WriteFile(certPath, append(cfg.Key.TLSCert, cfg.Key.TLSPrivateKeyPEM()...), identityfile.FilePermissions)
 		if err != nil {
 			return nil, trace.Wrap(err)
 		}
@@ -468,7 +469,7 @@ func writeOracleFormat(cfg WriteConfig, writer ConfigWriter) ([]string, error) {
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	keyK, err := utils.ParsePrivateKeyPEM(cfg.Key.PrivateKeyPEM())
+	keyK, err := utils.ParsePrivateKeyPEM(cfg.Key.TLSPrivateKeyPEM())
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -599,7 +600,7 @@ func prepareCassandraTruststore(cfg WriteConfig) (*bytes.Buffer, error) {
 
 func prepareCassandraKeystore(cfg WriteConfig) (*bytes.Buffer, error) {
 	certBlock, _ := pem.Decode(cfg.Key.TLSCert)
-	privBlock, _ := pem.Decode(cfg.Key.PrivateKeyPEM())
+	privBlock, _ := pem.Decode(cfg.Key.TLSPrivateKeyPEM())
 
 	privKey, err := x509.ParsePKCS1PrivateKey(privBlock.Bytes)
 	if err != nil {
@@ -673,12 +674,17 @@ func KeyFromIdentityFile(identityPath, proxyHost, clusterName string) (*client.K
 		return nil, trace.Wrap(err, "failed to parse identity file")
 	}
 
-	priv, err := keys.ParsePrivateKey(ident.PrivateKey)
+	sshPriv, err := keys.ParsePrivateKey(ident.SSHKey)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 
-	key := client.NewKey(priv)
+	tlsPriv, err := keys.ParsePrivateKey(ident.TLSKey)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+
+	key := client.NewKeySet(sshPriv, tlsPriv)
 	key.Cert = ident.Certs.SSH
 	key.TLSCert = ident.Certs.TLS
 	key.KeyIndex = client.KeyIndex{
@@ -768,7 +774,7 @@ func NewClientStoreFromIdentityFile(identityFile, proxyAddr, clusterName string)
 		WebProxyAddr:     proxyAddr,
 		SiteName:         key.ClusterName,
 		Username:         key.Username,
-		PrivateKeyPolicy: keys.GetPrivateKeyPolicy(key.PrivateKey),
+		PrivateKeyPolicy: keys.GetPrivateKeyPolicy(key.TLSKey),
 	}
 	if err := clientStore.SaveProfile(profile, true); err != nil {
 		return nil, trace.Wrap(err)

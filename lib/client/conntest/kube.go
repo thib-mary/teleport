@@ -180,7 +180,7 @@ func (s KubeConnectionTester) genKubeRestTLSClientConfig(ctx context.Context, mf
 	return rest.TLSClientConfig{
 		CAData:   ca.TLSCA,
 		CertData: key.TLSCert,
-		KeyData:  key.PrivateKeyPEM(),
+		KeyData:  key.TLSPrivateKeyPEM(),
 	}, nil
 }
 

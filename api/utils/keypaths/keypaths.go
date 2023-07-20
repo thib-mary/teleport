@@ -152,6 +152,7 @@ func ProxyKeyDir(baseDir, proxy string) string {
 	return filepath.Join(KeyDir(baseDir), proxy)
 }
 
+/*
 // UserKeyPath returns the path to the users's private key
 // for the given proxy.
 //
@@ -159,6 +160,7 @@ func ProxyKeyDir(baseDir, proxy string) string {
 func UserKeyPath(baseDir, proxy, username string) string {
 	return filepath.Join(ProxyKeyDir(baseDir, proxy), username)
 }
+*/
 
 func UserSSHKeyPath(baseDir, proxy, username string) string {
 	return filepath.Join(ProxyKeyDir(baseDir, proxy), username)
