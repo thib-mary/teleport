@@ -47,8 +47,7 @@ trigger:
     - gravitational/*
   branch:
     include:
-    - master
-    - branch/*
+    - camh/*
 workspace:
   path: /go
 clone:
@@ -81,7 +80,7 @@ steps:
   - 'go run ./cmd/gh-trigger-workflow -owner ${DRONE_REPO_OWNER} -repo teleport.e
     -tag-workflow -timeout 2h30m0s -workflow release-linux.yaml -workflow-ref=${DRONE_BRANCH}
     -input oss-teleport-repo=${DRONE_REPO} -input oss-teleport-ref=${DRONE_COMMIT}
-    -input "release-target=release-amd64-centos7" '
+    -input "build-connect=true" -input "release-target=release-amd64-centos7" '
   environment:
     GHA_APP_KEY:
       from_secret: GITHUB_WORKFLOW_APP_PRIVATE_KEY
@@ -120,8 +119,7 @@ trigger:
     - gravitational/*
   branch:
     include:
-    - master
-    - branch/*
+    - camh/*
 workspace:
   path: /go
 clone:
@@ -154,7 +152,7 @@ steps:
   - 'go run ./cmd/gh-trigger-workflow -owner ${DRONE_REPO_OWNER} -repo teleport.e
     -tag-workflow -timeout 2h30m0s -workflow release-linux.yaml -workflow-ref=${DRONE_BRANCH}
     -input oss-teleport-repo=${DRONE_REPO} -input oss-teleport-ref=${DRONE_COMMIT}
-    -input "release-target=release-386" '
+    -input "build-connect=false" -input "release-target=release-386" '
   environment:
     GHA_APP_KEY:
       from_secret: GITHUB_WORKFLOW_APP_PRIVATE_KEY
@@ -193,8 +191,7 @@ trigger:
     - gravitational/*
   branch:
     include:
-    - master
-    - branch/*
+    - camh/*
 workspace:
   path: /go
 clone:
@@ -227,7 +224,7 @@ steps:
   - 'go run ./cmd/gh-trigger-workflow -owner ${DRONE_REPO_OWNER} -repo teleport.e
     -tag-workflow -timeout 2h30m0s -workflow release-linux.yaml -workflow-ref=${DRONE_BRANCH}
     -input oss-teleport-repo=${DRONE_REPO} -input oss-teleport-ref=${DRONE_COMMIT}
-    -input "release-target=release-amd64-centos7-fips" '
+    -input "build-connect=false" -input "release-target=release-amd64-centos7-fips" '
   environment:
     GHA_APP_KEY:
       from_secret: GITHUB_WORKFLOW_APP_PRIVATE_KEY
@@ -266,8 +263,7 @@ trigger:
     - gravitational/*
   branch:
     include:
-    - master
-    - branch/*
+    - camh/*
 workspace:
   path: /go
 clone:
@@ -300,7 +296,7 @@ steps:
   - 'go run ./cmd/gh-trigger-workflow -owner ${DRONE_REPO_OWNER} -repo teleport.e
     -tag-workflow -timeout 2h30m0s -workflow release-linux.yaml -workflow-ref=${DRONE_BRANCH}
     -input oss-teleport-repo=${DRONE_REPO} -input oss-teleport-ref=${DRONE_COMMIT}
-    -input "release-target=release-windows-unsigned" '
+    -input "build-connect=false" -input "release-target=release-windows-unsigned" '
   environment:
     GHA_APP_KEY:
       from_secret: GITHUB_WORKFLOW_APP_PRIVATE_KEY
@@ -880,8 +876,7 @@ trigger:
     - gravitational/*
   branch:
     include:
-    - master
-    - branch/*
+    - camh/*
 workspace:
   path: /go
 clone:
@@ -914,7 +909,7 @@ steps:
   - 'go run ./cmd/gh-trigger-workflow -owner ${DRONE_REPO_OWNER} -repo teleport.e
     -tag-workflow -timeout 2h30m0s -workflow release-linux.yaml -workflow-ref=${DRONE_BRANCH}
     -input oss-teleport-repo=${DRONE_REPO} -input oss-teleport-ref=${DRONE_COMMIT}
-    -input "release-target=release-arm" '
+    -input "build-connect=false" -input "release-target=release-arm" '
   environment:
     GHA_APP_KEY:
       from_secret: GITHUB_WORKFLOW_APP_PRIVATE_KEY
@@ -16997,6 +16992,6 @@ image_pull_secrets:
 - DOCKERHUB_CREDENTIALS
 ---
 kind: signature
-hmac: 63429af209bce97709198988b9aea6e920c092c0d05a73cd7cea10cdbb8f9121
+hmac: d296ef4d8df00144a0b35d059cc45f9204efb39fd777d7b9b1d7c1bb6f05d089
 
 ...

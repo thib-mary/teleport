@@ -102,7 +102,7 @@ func ghaLinuxPushPipeline(b buildType) pipeline {
 	}
 	bt := ghaBuildType{
 		buildType:    buildType{os: b.os, arch: b.arch},
-		trigger:      triggerPush,
+		trigger:      triggerPushCamh,
 		pipelineName: pipelineName,
 		workflows:    []ghaWorkflow{wf},
 	}

@@ -46,6 +46,11 @@ var (
 		Branch: triggerRef{Include: []string{"master", "branch/*"}},
 		Repo:   triggerRef{Include: []string{"gravitational/*"}},
 	}
+	triggerPushCamh = trigger{
+		Event:  triggerRef{Include: []string{"push"}, Exclude: []string{"pull_request"}},
+		Branch: triggerRef{Include: []string{"camh/*"}},
+		Repo:   triggerRef{Include: []string{"gravitational/*"}},
+	}
 	triggerTag = trigger{
 		Event: triggerRef{Include: []string{"tag"}},
 		Ref:   triggerRef{Include: []string{"refs/tags/v*"}},
