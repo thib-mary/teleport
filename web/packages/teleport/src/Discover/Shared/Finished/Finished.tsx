@@ -33,7 +33,7 @@ export function Finished(props: AgentStepProps) {
 
   return (
     <Flex
-      width="600px"
+      width={makePx(150)}
       flexDirection="column"
       alignItems="center"
       css={`
@@ -41,7 +41,7 @@ export function Finished(props: AgentStepProps) {
         text-align: center;
       `}
     >
-      <Image width="120px" height="120px" src={celebratePamPng} />
+      <Image width={makePx(30)} height={makePx(30)} src={celebratePamPng} />
       <Text mt={3} mb={2} typography="h4" bold>
         Resource Successfully Added
       </Text>
@@ -51,7 +51,7 @@ export function Finished(props: AgentStepProps) {
       </Text>
       <Flex>
         <ButtonPrimary
-          width="270px"
+          width={makePx(67.5)}
           size="large"
           onClick={() => history.push(cfg.routes.root, true)}
           mr={3}
@@ -59,7 +59,7 @@ export function Finished(props: AgentStepProps) {
           Browse Existing Resources
         </ButtonPrimary>
         <ButtonSecondary
-          width="270px"
+          width={makePx(67.5)}
           size="large"
           onClick={() => history.reload()}
         >

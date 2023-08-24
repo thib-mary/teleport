@@ -34,7 +34,7 @@ export function Reconnect(props: {
             {props.statusText}
           </Text>
         </Danger>
-        <ButtonPrimary width="100px" onClick={props.reconnect}>
+        <ButtonPrimary width={makePx(25)} onClick={props.reconnect}>
           Retry
         </ButtonPrimary>
       </Flex>

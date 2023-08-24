@@ -50,7 +50,7 @@ export const PortFieldInput: typeof ConfigFieldInput = forwardRef(
       max={65535}
       ref={ref}
       {...props}
-      width="110px"
+      width={makePx(27.5)}
     />
   )
 );

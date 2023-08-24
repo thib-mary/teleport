@@ -44,12 +44,12 @@ export function TextSelectCopy({
           overflow: 'auto',
           whiteSpace: 'pre',
           wordBreak: 'break-all',
-          fontSize: '12px',
+          fontSize: {makePx(3)},
           fontFamily: font,
         }
       : {
           wordBreak: 'break-all',
-          fontSize: '12px',
+          fontSize: {makePx(3)},
           fontFamily: font,
         };
 
@@ -70,11 +70,11 @@ export function TextSelectCopy({
       <ButtonPrimary
         onClick={onCopyClick}
         style={{
-          maxWidth: '48px',
+          maxWidth: {makePx(12)},
           width: '100%',
           padding: '4px 8px',
-          minHeight: '10px',
-          fontSize: '10px',
+          minHeight: {makePx(2.5)},
+          fontSize: {makePx(2.5)},
         }}
       >
         {copyCmd}

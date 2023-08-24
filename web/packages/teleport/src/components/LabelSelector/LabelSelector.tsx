@@ -73,7 +73,7 @@ function LabelSelector({ onChange }: LabelSelectorProps) {
         <Flex justifyContent="space-between">
           <Flex>
             <Text>Assign Labels (optional)</Text>
-            <div ref={infoIconRef} style={{ marginLeft: '12px' }}>
+            <div ref={infoIconRef} style={{ marginLeft: {makePx(3)} }}>
               <Info
                 style={{
                   cursor: 'pointer',

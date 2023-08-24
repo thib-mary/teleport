@@ -18,6 +18,8 @@ import React from 'react';
 import { Text, Box, Flex, Indicator, Link } from 'design';
 import * as Icons from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import useTeleport from 'teleport/useTeleport';
 import { TextSelectCopyMulti } from 'teleport/components/TextSelectCopy';
 
@@ -47,7 +49,7 @@ export function IamPolicyView({
   iamPolicyName,
 }: State) {
   return (
-    <Box maxWidth="800px">
+    <Box maxWidth={makePx(200)}>
       <Header>Configure IAM Policy</Header>
       <HeaderSubtitle>
         Teleport needs AWS IAM permissions to be able to discover and register
@@ -66,9 +68,9 @@ export function IamPolicyView({
           </ButtonBlueText>
         </>
       ) : (
-        <Flex height="460px">
+        <Flex height={makePx(115)}>
           {attempt.status === 'processing' && (
-            <Flex width="404px" justifyContent="center" alignItems="center">
+            <Flex width={makePx(101)} justifyContent="center" alignItems="center">
               <Indicator />
             </Flex>
           )}

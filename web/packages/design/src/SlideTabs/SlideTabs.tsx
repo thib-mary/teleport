@@ -104,7 +104,7 @@ const TabSlider = styled.div`
   background-color: ${({ theme }) => theme.colors.brand};
   border-radius: ${props => (props.appearance === 'square' ? '8px' : '60px')};
   box-shadow: 0px 2px 6px rgba(12, 12, 14, 0.1);
-  height: ${props => (props.size === 'xlarge' ? '56px' : '40px')};
+  height: ${props => (props.size === 'xlarge' ? '56px' : {makePx(10)})};
   left: calc(${props => (100 / props.itemCount) * props.activeIndex}% + 8px);
   margin: ${props =>
     props.size === 'xlarge' ? '12px 12px 12px 0' : '4px 4px 4px 0'};

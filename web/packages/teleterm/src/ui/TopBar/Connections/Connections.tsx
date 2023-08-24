@@ -19,6 +19,8 @@ import Popover from 'design/Popover';
 import styled from 'styled-components';
 import { Box } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { useKeyboardShortcuts } from 'teleterm/ui/services/keyboardShortcuts';
 
 import { KeyboardArrowsNavigation } from 'teleterm/ui/components/KeyboardArrowsNavigation';
@@ -69,7 +71,7 @@ export function Connections() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         onClose={() => setIsPopoverOpened(false)}
       >
-        <Container p="12px">
+        <Container p={makePx(3)}>
           <KeyboardArrowsNavigation>
             <ConnectionsFilterableList
               items={connections.items}

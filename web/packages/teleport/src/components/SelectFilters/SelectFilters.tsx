@@ -213,7 +213,7 @@ const ControlComponent = props => {
           mr={2}
           onClick={onFilterApply}
           disabled={appliedFilters.length === 0 && selectedOptions.length === 0}
-          width="90px"
+          width={makePx(22.5)}
         >
           Apply{numFilters}
         </ActionButton>

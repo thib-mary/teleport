@@ -24,6 +24,8 @@ import { AccessDenied } from 'design/CardError';
 
 import useAttempt from 'shared/hooks/useAttemptNext';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { UrlLauncherParams } from 'teleport/config';
 import service from 'teleport/services/apps';
 
@@ -105,7 +107,7 @@ export function AppLauncher() {
 
 export function AppLauncherProcessing() {
   return (
-    <Flex height="180px" justifyContent="center" alignItems="center" flex="1">
+    <Flex height={makePx(45)} justifyContent="center" alignItems="center" flex="1">
       <Indicator />
     </Flex>
   );

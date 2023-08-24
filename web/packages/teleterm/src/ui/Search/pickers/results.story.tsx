@@ -94,7 +94,7 @@ export const Results = (props: { maxWidth: string }) => {
 };
 
 export const ResultsNarrow = () => {
-  return <Results maxWidth="300px" />;
+  return <Results maxWidth={makePx(75)} />;
 };
 
 const SearchResultItems = () => {

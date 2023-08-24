@@ -39,7 +39,7 @@ export default function DeleteTrustedClusterDialog(props: Props) {
       <DialogHeader>
         <DialogTitle>Remove Trusted Cluster?</DialogTitle>
       </DialogHeader>
-      <DialogContent width="540px">
+      <DialogContent width={makePx(135)}>
         {attempt.status === 'failed' && (
           <Alerts.Danger>{attempt.statusText}</Alerts.Danger>
         )}

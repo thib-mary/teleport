@@ -20,6 +20,8 @@ import { Box, ButtonPrimary, Card, Flex, Text } from 'design';
 import copyToClipboard from 'design/utils/copyToClipboard';
 import selectElementContent from 'design/utils/selectElementContent';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { RecoveryCodes } from 'teleport/services/auth';
 import { CaptureEvent, userEventService } from 'teleport/services/userEvent';
 
@@ -77,8 +79,8 @@ export default function RecoveryCodesDialog({
         as={Flex}
         flexWrap="wrap"
         mx="auto"
-        minWidth="584px"
-        maxWidth="1024px"
+        minWidth={makePx(137)}
+        maxWidth={makePx(256)}
         borderRadius={8}
         overflow="hidden"
         className="no-print"
@@ -86,7 +88,7 @@ export default function RecoveryCodesDialog({
         <Flex
           flex={4}
           bg="levels.surface"
-          minWidth="584px"
+          minWidth={makePx(137)}
           flexDirection="column"
           p={5}
           className="print"
@@ -146,7 +148,7 @@ export default function RecoveryCodesDialog({
         </Flex>
         <Flex
           flex={2}
-          minWidth="384px"
+          minWidth={makePx(96)}
           flexDirection="column"
           p={5}
           css={`

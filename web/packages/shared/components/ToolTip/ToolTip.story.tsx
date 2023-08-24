@@ -25,7 +25,7 @@ export default {
 
 export const ShortContent = () => (
   <>
-    <span css={{ marginRight: '4px', verticalAlign: 'middle' }}>
+    <span css={{ marginRight: makePx(), verticalAlign: 'middle' }}>
       Hover the icon
     </span>
     <ToolTipInfo>"some popover content"</ToolTipInfo>
@@ -53,7 +53,7 @@ export const LongContent = () => (
 
 export const WithMutedIconColor = () => (
   <>
-    <span css={{ marginRight: '4px', verticalAlign: 'middle' }}>
+    <span css={{ marginRight: makePx(), verticalAlign: 'middle' }}>
       Hover the icon
     </span>
     <ToolTipInfo muteIconColor>"some popover content"</ToolTipInfo>

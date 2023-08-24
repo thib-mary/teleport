@@ -26,8 +26,8 @@ export default {
 export const Menu = () => (
   <Flex
     mx="auto"
-    width="200px"
-    height="100px"
+    width={makePx(50)}
+    height={makePx(25)}
     justifyContent="space-around"
     alignItems="center"
   >

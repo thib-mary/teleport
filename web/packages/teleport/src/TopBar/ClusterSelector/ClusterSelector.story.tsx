@@ -17,6 +17,8 @@ limitations under the License.
 import React from 'react';
 import { Flex } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import ClusterSelector from './ClusterSelector';
 
 export default {
@@ -51,7 +53,7 @@ function renderlusterSelector(props) {
         mx="auto"
         open={true}
         value={'clusterIdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdff'}
-        width="384px"
+        width={makePx(96)}
         maxMenuHeight={200}
         onChange={() => null}
         {...props}

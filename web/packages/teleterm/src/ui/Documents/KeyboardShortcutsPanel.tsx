@@ -19,6 +19,8 @@ import { Text } from 'design';
 
 import styled from 'styled-components';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import Document from 'teleterm/ui/Document';
 import { useKeyboardShortcutFormatters } from 'teleterm/ui/services/keyboardShortcuts';
 import { KeyboardShortcutAction } from 'teleterm/services/config';
@@ -73,7 +75,7 @@ export function KeyboardShortcutsPanel() {
 function Entry(props: { title: string; accelerator: string }) {
   return (
     <>
-      <Text textAlign="right" typography="subtitle1" py="4px">
+      <Text textAlign="right" typography="subtitle1" py={makePx()}>
         {props.title}
       </Text>
       <MonoText
@@ -81,8 +83,8 @@ function Entry(props: { title: string; accelerator: string }) {
           background: ${props => props.theme.colors.spotBackground[0]};
         `}
         textAlign="left"
-        px="12px"
-        py="4px"
+        px={makePx(3)}
+        py={makePx()}
       >
         {props.accelerator}
       </MonoText>

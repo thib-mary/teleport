@@ -60,7 +60,7 @@ export function EditIntegrationDialog(props: Props) {
           <DialogHeader>
             <DialogTitle>Edit Integration</DialogTitle>
           </DialogHeader>
-          <DialogContent width="450px">
+          <DialogContent width={makePx(112.5)}>
             {attempt.status === 'failed' && (
               <Alert children={attempt.statusText} />
             )}

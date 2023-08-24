@@ -440,16 +440,16 @@ exports[`loaded 1`] = `
             color="text.main"
             style="white-space: nowrap; text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               7
             </strong>
              of
-             
+
             <strong>
               7
             </strong>
@@ -636,7 +636,7 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
         <tr>
@@ -672,11 +672,11 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           >
             <div
               class="c21"
-              width="80px"
+              width={makePx(20)}
             >
               <button
                 class="c22"
@@ -737,11 +737,11 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           >
             <div
               class="c21"
-              width="80px"
+              width={makePx(20)}
             >
               <button
                 class="c22"
@@ -802,11 +802,11 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           >
             <div
               class="c21"
-              width="80px"
+              width={makePx(20)}
             >
               <button
                 class="c22"
@@ -867,7 +867,7 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
         <tr>
@@ -903,7 +903,7 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
         <tr>
@@ -945,7 +945,7 @@ exports[`loaded 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
       </tbody>
@@ -1420,11 +1420,11 @@ exports[`loaded with CTA 1`] = `
     </div>
     <div
       class="c3"
-      width="340px"
+      width={makePx(85)}
     >
       <a
         class="c4"
-        height="36px"
+        height={makePx(9)}
         href="https://goteleport.com/r/upgrade-team?4.4.0-dev&utm_campaign=CTA_ACTIVE_SESSIONS"
         kind="primary"
         rel="noreferrer"
@@ -1495,16 +1495,16 @@ exports[`loaded with CTA 1`] = `
             color="text.main"
             style="white-space: nowrap; text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               7
             </strong>
              of
-             
+
             <strong>
               7
             </strong>
@@ -1691,7 +1691,7 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
         <tr>
@@ -1727,11 +1727,11 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           >
             <div
               class="c25"
-              width="80px"
+              width={makePx(20)}
             >
               <button
                 class="c26"
@@ -1792,11 +1792,11 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           >
             <div
               class="c25"
-              width="80px"
+              width={makePx(20)}
             >
               <button
                 class="c26"
@@ -1857,11 +1857,11 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           >
             <div
               class="c25"
-              width="80px"
+              width={makePx(20)}
             >
               <button
                 class="c26"
@@ -1922,7 +1922,7 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
         <tr>
@@ -1958,7 +1958,7 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
         <tr>
@@ -2000,7 +2000,7 @@ exports[`loaded with CTA 1`] = `
           </td>
           <td
             align="right"
-            height="26px"
+            height={makePx(6.5)}
           />
         </tr>
       </tbody>

@@ -44,6 +44,8 @@ import {
 import createMfaOptions, { MfaOption } from 'shared/utils/createMfaOptions';
 import { StepSlider, StepComponentProps } from 'design/StepSlider';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { PrivateKeyLoginDisabledCard } from 'teleport/components/PrivateKeyPolicy';
 import { UserCredentials } from 'teleport/services/auth';
 
@@ -74,7 +76,7 @@ export default function LoginForm(props: Props) {
   // and display sso providers if any.
   if (!isLocalAuthEnabled && ssoEnabled) {
     return (
-      <Card my="5" mx="auto" width="464px" pb={4}>
+      <Card my="5" mx="auto" width={makePx(116)} pb={4}>
         <Text typography="h3" pt={4} textAlign="center">
           {title}
         </Text>
@@ -90,7 +92,7 @@ export default function LoginForm(props: Props) {
 
   if (!isLocalAuthEnabled) {
     return (
-      <Card my="5" mx="auto" width="464px" px={5} pb={4}>
+      <Card my="5" mx="auto" width={makePx(116)} px={5} pb={4}>
         <Text typography="h3" pt={4} textAlign="center">
           {title}
         </Text>

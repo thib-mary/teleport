@@ -44,7 +44,7 @@ export function DeleteIntegrationDialog(props: Props) {
       <DialogHeader>
         <DialogTitle>Delete Integration?</DialogTitle>
       </DialogHeader>
-      <DialogContent width="450px">
+      <DialogContent width={makePx(112.5)}>
         {attempt.status === 'failed' && <Alert children={attempt.statusText} />}
         <Text typography="paragraph" mb="6">
           Are you sure you want to delete integration{' '}

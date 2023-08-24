@@ -23,6 +23,8 @@ import Select from 'shared/components/Select';
 import useAttempt from 'shared/hooks/useAttemptNext';
 import { ArrowBack } from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import {
   FeatureBox,
   FeatureHeader,
@@ -189,7 +191,7 @@ export function NewLockView(props: Props) {
         {attempt.status === 'failed' && (
           <ErrorMessage message={attempt.statusText} />
         )}
-        <Box width="180px" mb={4} data-testid="resource-selector">
+        <Box width={makePx(45)} mb={4} data-testid="resource-selector">
           <Select
             value={selectedResourceOpt}
             options={props.customResourceKindOpts || baseResourceKindOpts}
@@ -270,7 +272,7 @@ function CheckoutFooter({
           </ButtonSecondary>
         )}
         <ButtonPrimary
-          width="182px"
+          width={makePx(45.5)}
           onClick={() => setShowCheckout(true)}
           disabled={!numAddedResources || isProcessing}
         >

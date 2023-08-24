@@ -19,6 +19,8 @@ import styled from 'styled-components';
 
 import { Flex } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { View } from '../flow';
 
 import { StepList } from './StepList';
@@ -40,7 +42,7 @@ export function Navigation(props: NavigationProps) {
   let content;
   if (props.views) {
     content = (
-      <Flex mt="10px" mb="45px">
+      <Flex mt={makePx(2.5)} mb="45px">
         {/*
           This initial StepItem is to render the first "bullet"
           in this nav, which is the selected resource's icon

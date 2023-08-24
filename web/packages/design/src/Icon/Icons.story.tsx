@@ -184,7 +184,7 @@ export const Icons = () => (
 );
 
 const IconBox = ({ IconCmpt, text }) => (
-  <Flex m="10px" width="300px">
+  <Flex m={makePx(2.5)} width={makePx(75)}>
     <IconCmpt />
     <Text ml={2}>{text}</Text>
   </Flex>

@@ -70,7 +70,7 @@ const Background = styled.div`
   right: 2px;
   border-radius: ${p => (p.visible ? '25px' : '25px')};
   background: ${p => (p.visible ? p.theme.colors.levels.popout : '#311c79')};
-  width: ${p => (p.visible ? '500px' : '50px')};
+  width: ${p => (p.visible ? {makePx(125)} : '50px')};
   height: ${p => (p.visible ? '600px' : '50px')};
   transition: all
     ${p =>

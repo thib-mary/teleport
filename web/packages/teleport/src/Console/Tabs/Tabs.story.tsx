@@ -27,7 +27,7 @@ export const ConsoleTabs = () => (
   <TestLayout>
     <Tabs
       width="100%"
-      height="32px"
+      height={makePx(8)}
       activeTab={35}
       items={items}
       parties={parties}

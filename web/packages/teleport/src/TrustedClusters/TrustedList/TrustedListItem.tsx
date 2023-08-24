@@ -67,7 +67,7 @@ export default function TrustedListItem(props: Props) {
           mb="1"
           textAlign="center"
           title={name}
-          style={{ width: '200px' }}
+          style={{ width: {makePx(50)}' }}
         >
           {name}
         </Text>
@@ -81,9 +81,9 @@ export default function TrustedListItem(props: Props) {
 
 const menuActionProps = {
   style: {
-    right: '10px',
+    right: {makePx(2.5)},
     position: 'absolute',
-    top: '10px',
+    top: {makePx(2.5)},
   },
 };
 

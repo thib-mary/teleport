@@ -170,7 +170,7 @@ exports[`render ConsoleTabs 1`] = `
   <nav
     class="c1"
     color="text.slightlyMuted"
-    height="32px"
+    height={makePx(8)}
     width="100%"
   >
     <div

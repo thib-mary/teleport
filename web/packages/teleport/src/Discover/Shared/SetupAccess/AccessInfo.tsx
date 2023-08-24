@@ -18,6 +18,8 @@ import React from 'react';
 import { Flex, Text } from 'design';
 import TextEditor from 'shared/components/TextEditor';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import {
   kubeAccessRW,
   kubeAccessRO,
@@ -97,14 +99,14 @@ export function YamlReader({
         );
       }
       return (
-        <Flex minHeight="370px" mt={3}>
+        <Flex minHeight={makePx(92.5)} mt={3}>
           <ReadOnlyYamlEditor content={kubeAccessRW} />
         </Flex>
       );
     case 'OS':
       if (userAccessReadOnly) {
         return (
-          <Flex minHeight="150px" mt={3}>
+          <Flex minHeight={makePx(37.5)} mt={3}>
             <ReadOnlyYamlEditor content={nodeAccessRO} />
           </Flex>
         );
@@ -117,19 +119,19 @@ export function YamlReader({
     case 'Database':
       if (userAccessReadOnly) {
         return (
-          <Flex minHeight="210px" mt={3}>
+          <Flex minHeight={makePx(52.5)} mt={3}>
             <ReadOnlyYamlEditor content={dbAccessRO} />
           </Flex>
         );
       }
       return (
-        <Flex minHeight="340px" mt={3}>
+        <Flex minHeight={makePx(85)} mt={3}>
           <ReadOnlyYamlEditor content={dbAccessRW} />
         </Flex>
       );
     case 'ConnDiag':
       return (
-        <Flex minHeight="190px" mt={3}>
+        <Flex minHeight={makePx(47.5)} mt={3}>
           <ReadOnlyYamlEditor content={connDiagRW} />
         </Flex>
       );
@@ -137,7 +139,7 @@ export function YamlReader({
 }
 
 const Info = ({ children }: { children: React.ReactNode }) => (
-  <Text mt={4} width="100px">
+  <Text mt={4} width={makePx(25)}>
     {children}
   </Text>
 );

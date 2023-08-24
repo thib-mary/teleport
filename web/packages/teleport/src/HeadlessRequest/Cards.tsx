@@ -22,7 +22,7 @@ import React from 'react';
 
 export function CardDenied({ title, children }) {
   return (
-    <Card width="540px" p={7} my={4} mx="auto" textAlign="center">
+    <Card width={makePx(135)} p={7} my={4} mx="auto" textAlign="center">
       <CircleStop mb={3} size={64} color="red" />
       {title && (
         <Text typography="h2" mb="4">

@@ -28,6 +28,8 @@ import Validation, { Validator } from 'shared/components/Validation';
 import FieldInput from 'shared/components/FieldInput';
 import { Attempt } from 'shared/hooks/useAttemptNext';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import cfg from 'teleport/config';
 import TextSelectCopy from 'teleport/components/TextSelectCopy';
 
@@ -81,7 +83,7 @@ export function Automatically(props: Props) {
     <Validation>
       {({ validator }) => (
         <>
-          <DialogContent minHeight="254px" flex="0 0 auto">
+          <DialogContent minHeight={makePx(63.5)} flex="0 0 auto">
             <Flex alignItems="center" flexDirection="row">
               <FieldInput
                 rule={requiredAppName}
@@ -89,7 +91,7 @@ export function Automatically(props: Props) {
                 autoFocus
                 value={name}
                 placeholder="jenkins"
-                width="320px"
+                width={makePx(80)}
                 mr="3"
                 onKeyPress={e => handleEnterPress(e, validator)}
                 onChange={e => setName(e.target.value.toLowerCase())}

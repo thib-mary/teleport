@@ -18,6 +18,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Box, Card, Flex, Image, Link, Text } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import {
   FeatureBox,
   FeatureHeader,
@@ -33,7 +35,7 @@ import step3 from './assets/step3.png';
 
 export function LockedAccessRequests() {
   const CTAButton = (
-    <ButtonLockedFeature height="36px" event={CtaEvent.CTA_ACCESS_REQUESTS}>
+    <ButtonLockedFeature height={makePx(9)} event={CtaEvent.CTA_ACCESS_REQUESTS}>
       Unlock Access Requests With Teleport Enterprise
     </ButtonLockedFeature>
   );
@@ -47,7 +49,7 @@ export function LockedAccessRequests() {
       <Card
         m="auto"
         p={4}
-        pb="44px"
+        pb={makePx(11)}
         as={Flex}
         flex="0 0 auto"
         flexDirection="column"

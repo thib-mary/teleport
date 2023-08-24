@@ -72,7 +72,7 @@ export function UserAddEdit(props: ReturnType<typeof useDialog>) {
       {({ validator }) => (
         <Dialog
           dialogCss={() => ({
-            maxWidth: '500px',
+            maxWidth: {makePx(125)},
             width: '100%',
             overflow: 'initial',
           })}

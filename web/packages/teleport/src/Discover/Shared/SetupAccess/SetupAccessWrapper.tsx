@@ -19,6 +19,8 @@ import styled from 'styled-components';
 import { Text, Box, Indicator, Flex } from 'design';
 import * as Icons from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import {
   Header,
   HeaderSubtitle,
@@ -80,7 +82,7 @@ export function SetupAccessWrapper({
 
     case 'processing':
       $content = (
-        <Box mt={4} textAlign="center" height="70px" width="300px">
+        <Box mt={4} textAlign="center" height={makePx(17.5)} width={makePx(75)}>
           <Indicator delay="none" />
         </Box>
       );
@@ -129,7 +131,7 @@ export function SetupAccessWrapper({
   }
 
   return (
-    <Box maxWidth="700px">
+    <Box maxWidth={makePx(175)}>
       <Header>Set Up Access</Header>
       <HeaderSubtitle>{headerSubtitle}</HeaderSubtitle>
       <Box mb={3}>{$content}</Box>

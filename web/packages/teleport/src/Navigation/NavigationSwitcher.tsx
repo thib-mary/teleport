@@ -71,7 +71,7 @@ const Dropdown = styled.div<OpenProps>`
   transform-origin: top center;
   transition: opacity 0.2s ease, visibility 0.2s ease,
     transform 0.3s cubic-bezier(0.45, 0.6, 0.5, 1.25);
-  transform: translate3d(0, ${p => (p.open ? '12px' : 0)}, 0);
+  transform: translate3d(0, ${p => (p.open ? {makePx(3)} : 0)}, 0);
 `;
 
 const DropdownItem = styled.div<ActiveProps & OpenProps>`

@@ -75,14 +75,14 @@ export function renderActionCell(
     <Cell align="right">
       {isResourceSelected ? (
         <ButtonPrimary
-          width="134px"
+          width={makePx(33.5)}
           size="small"
           onClick={toggleResourceSelect}
         >
           Remove
         </ButtonPrimary>
       ) : (
-        <ButtonBorder width="134px" size="small" onClick={toggleResourceSelect}>
+        <ButtonBorder width={makePx(33.5)} size="small" onClick={toggleResourceSelect}>
           + Add Target
         </ButtonBorder>
       )}

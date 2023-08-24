@@ -32,6 +32,8 @@ import { Auth2faType } from 'shared/services';
 
 import { OnboardCard } from 'design/Onboard/OnboardCard';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import {
   SliderProps,
   UseTokenState,
@@ -135,7 +137,7 @@ export function NewMfaDevice(props: NewMfaDeviceProps) {
               options={mfaOptions}
               value={mfaType.value}
               flexDirection="row"
-              gap="16px"
+              gap={makePx(4)}
               onChange={value => onSetMfaOption(value, validator)}
             />
           </Box>
@@ -175,7 +177,7 @@ export function NewMfaDevice(props: NewMfaDeviceProps) {
             )}
             {mfaType?.value === 'webauthn' && (
               <>
-                <Image src={imgSrc} width="220px" height="154px" />
+                <Image src={imgSrc} width={makePx(55)} height={makePx(38.5)} />
                 <Text
                   fontSize={1}
                   color="text.slightlyMuted"

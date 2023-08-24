@@ -19,6 +19,8 @@ import styled, { css, useTheme } from 'styled-components';
 import { ButtonIcon, Flex, Link, Text } from 'design';
 import { Cross } from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import type { NotificationItem, NotificationItemContent } from './types';
 
 interface NotificationProps {
@@ -152,7 +154,7 @@ function getRenderedContent(
           <Text
             fontSize={13}
             bold
-            mr="30px"
+            mr={makePx(7.5)}
             css={`
               line-height: 20px;
             `}

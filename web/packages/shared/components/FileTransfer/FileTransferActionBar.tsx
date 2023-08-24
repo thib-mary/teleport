@@ -18,6 +18,8 @@ import React from 'react';
 import { Flex, ButtonIcon } from 'design';
 import * as Icons from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { useFileTransferContext } from './FileTransferContextProvider';
 
 type FileTransferActionBarProps = {
@@ -32,7 +34,7 @@ export function FileTransferActionBar({
     fileTransferContext.openedDialog || !isConnected;
 
   return (
-    <Flex flex="none" alignItems="center" height="24px">
+    <Flex flex="none" alignItems="center" height={makePx(6)}>
       <ButtonIcon
         disabled={areFileTransferButtonsDisabled}
         size={0}

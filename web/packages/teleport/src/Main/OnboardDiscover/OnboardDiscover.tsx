@@ -22,6 +22,8 @@ import Dialog, {
   DialogHeader,
 } from 'design/Dialog';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { CaptureEvent } from 'teleport/services/userEvent/types';
 import { userEventService } from 'teleport/services/userEvent';
 
@@ -60,7 +62,7 @@ export function OnboardDiscover({
       open={true}
     >
       <DialogHeader mx="auto">
-        <Image src={resourcesPng} width="350px" height="218.97px" />
+        <Image src={resourcesPng} width={makePx(87.5)} height="218.97px" />
       </DialogHeader>
       <DialogContent textAlign="center">
         <Text bold typography="h4">

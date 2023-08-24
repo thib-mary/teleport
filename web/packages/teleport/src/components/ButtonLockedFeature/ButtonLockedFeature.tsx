@@ -58,7 +58,7 @@ export function ButtonLockedFeature({
       target="blank"
       href={getSalesURL(version, isEnterprise, isUsageBased, event)}
       onClick={handleClick}
-      py="12px"
+      py={makePx(3)}
       width="100%"
       style={{ textTransform: 'none' }}
       rel="noreferrer"

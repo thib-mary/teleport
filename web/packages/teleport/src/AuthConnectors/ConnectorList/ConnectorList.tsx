@@ -78,7 +78,7 @@ function ConnectorListItem({ name, id, onEdit, onDelete }) {
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
-        width="200px"
+        width={makePx(50)}
         style={{ textAlign: 'center' }}
       >
         <Box mb={3} mt={3}>
@@ -97,9 +97,9 @@ function ConnectorListItem({ name, id, onEdit, onDelete }) {
 
 const menuActionProps = {
   style: {
-    right: '10px',
+    right: {makePx(2.5)},
     position: 'absolute',
-    top: '10px',
+    top: {makePx(2.5)},
   },
 };
 

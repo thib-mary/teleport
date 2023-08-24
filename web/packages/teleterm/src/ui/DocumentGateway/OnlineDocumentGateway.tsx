@@ -20,6 +20,8 @@ import { Box, ButtonSecondary, Flex, Link, Text } from 'design';
 import Validation from 'shared/components/Validation';
 import * as Alerts from 'design/Alert';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { CliCommand } from './CliCommand';
 import { ConfigFieldInput, PortFieldInput } from './common';
 import { DocumentGatewayProps } from './DocumentGateway';
@@ -76,7 +78,7 @@ export function OnlineDocumentGateway(props: OnlineDocumentGatewayProps) {
   );
 
   return (
-    <Box maxWidth="590px" width="100%" mx="auto" mt="4" px="5">
+    <Box maxWidth={makePx(147.5)} width="100%" mx="auto" mt="4" px="5">
       <Flex justifyContent="space-between" mb="4" flexWrap="wrap" gap={2}>
         <Text typography="h3">Database Connection</Text>
         <ButtonSecondary size="small" onClick={props.disconnect}>

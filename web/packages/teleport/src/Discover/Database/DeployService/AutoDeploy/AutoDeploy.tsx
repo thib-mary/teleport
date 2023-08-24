@@ -22,6 +22,8 @@ import FieldInput from 'shared/components/FieldInput';
 import Validation, { Validator } from 'shared/components/Validation';
 import useAttempt from 'shared/hooks/useAttemptNext';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { TextSelectCopyMulti } from 'teleport/components/TextSelectCopy';
 import { usePingTeleport } from 'teleport/Discover/Shared/PingTeleportContext';
 import {
@@ -313,7 +315,7 @@ const CreateAccessRole = ({
         autoFocus
         value={taskRoleArn}
         placeholder="TeleportDatabaseAccess"
-        width="440px"
+        width={makePx(110)}
         mr="3"
         onChange={e => setTaskRoleArn(e.target.value)}
         toolTipContent={`Amazon Resource Names (ARNs) uniquely identify AWS \

@@ -76,7 +76,7 @@ export function TestConnection({
         <Text typography="subtitle1" mb={3}>
           Pick the OS user to test
         </Text>
-        <Box width="320px">
+        <Box width={makePx(80)}>
           <LabelInput>Select Login</LabelInput>
           <Select
             value={selectedOpt}
@@ -100,7 +100,7 @@ export function TestConnection({
           Connect to the server
         </Text>
         <ButtonSecondary
-          width="200px"
+          width={makePx(50)}
           onClick={() => startSshSession(selectedOpt.value)}
         >
           Start Session

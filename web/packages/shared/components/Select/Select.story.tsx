@@ -17,6 +17,8 @@ limitations under the License.
 import React from 'react';
 import { Flex, Box } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import Select, { DarkStyledSelect } from '../Select';
 
 export default {
@@ -49,8 +51,8 @@ function SelectDefault({ value, onChange, options }) {
   const [selected, setSelected] = React.useState([]);
 
   return (
-    <Flex flexDirection="column" width="330px" mr={5}>
-      <Box mb="200px">
+    <Flex flexDirection="column" width={makePx(82.5)} mr={5}>
+      <Box mb={makePx(50)}>
         <Select
           value={value}
           onChange={onChange}
@@ -58,7 +60,7 @@ function SelectDefault({ value, onChange, options }) {
           isMulti={true}
         />
       </Box>
-      <Box mb="200px">
+      <Box mb={makePx(50)}>
         <Select
           value={selected}
           onChange={(opt: any) => setSelected(opt)}
@@ -83,8 +85,8 @@ function SelectDark({ value, onChange, options }) {
   const [selected, setSelected] = React.useState([]);
 
   return (
-    <Flex flexDirection="column" width="330px">
-      <DarkStyledSelect mb="206px">
+    <Flex flexDirection="column" width={makePx(82.5)}>
+      <DarkStyledSelect mb={makePx(51.5)}>
         <Select
           value={value}
           onChange={onChange}
@@ -92,7 +94,7 @@ function SelectDark({ value, onChange, options }) {
           isMulti={true}
         />
       </DarkStyledSelect>
-      <DarkStyledSelect mb="206px">
+      <DarkStyledSelect mb={makePx(51.5)}>
         <Select
           value={selected}
           onChange={(opt: any) => setSelected(opt)}

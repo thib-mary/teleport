@@ -19,6 +19,8 @@ import * as Icons from 'design/Icon';
 import React from 'react';
 import styled from 'styled-components';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { Participant, Session, SessionKind } from 'teleport/services/session';
 
 import { SessionJoinBtn } from './SessionJoinBtn';
@@ -114,11 +116,11 @@ const renderJoinCell = ({
 }: renderJoinCellProps) => {
   const { joinable } = kinds[kind];
   if (!joinable) {
-    return <Cell align="right" height="26px" />;
+    return <Cell align="right" height={makePx(6.5)} />;
   }
 
   return (
-    <Cell align="right" height="26px">
+    <Cell align="right" height={makePx(6.5)}>
       <SessionJoinBtn
         sid={sid}
         clusterId={clusterId}

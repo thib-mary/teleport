@@ -21,6 +21,8 @@ import { Flex, Box } from 'design';
 
 import { Danger } from 'design/Alert';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { useParams, useLocation } from 'teleport/components/Router';
 
 import session from 'teleport/services/websession';
@@ -84,7 +86,7 @@ export default function Player() {
 
   return (
     <StyledPlayer>
-      <Flex bg="levels.surface" height="38px">
+      <Flex bg="levels.surface" height={makePx(9.5)}>
         <Tabs flex="1 0">
           <TabItem title="Session Player" />
         </Tabs>

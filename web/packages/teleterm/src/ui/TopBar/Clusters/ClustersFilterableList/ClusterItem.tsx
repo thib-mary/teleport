@@ -73,7 +73,7 @@ export function ClusterItem(props: ClusterItemProps) {
 }
 
 const StyledListItem = styled(ListItem)`
-  padding-left: ${props => (props.isLeaf ? '32px' : null)};
+  padding-left: ${props => (props.isLeaf ? {makePx(8)} : null)};
 
   &:hover,
   &:focus {

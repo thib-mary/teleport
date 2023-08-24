@@ -221,7 +221,7 @@ exports[`render with URL loc state set to "server" 1`] = `
   </div>
   <div
     class="c3"
-    height="90px"
+    height={makePx(22.5)}
     width="600px"
   >
     <div
@@ -282,11 +282,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -297,7 +297,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -323,11 +323,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -338,7 +338,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -364,11 +364,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -379,7 +379,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -405,11 +405,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -420,7 +420,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -446,11 +446,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -461,7 +461,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -486,11 +486,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -501,7 +501,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -527,11 +527,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -542,7 +542,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -568,11 +568,11 @@ exports[`render with URL loc state set to "server" 1`] = `
       >
         <div
           class="c14"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c15"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -583,7 +583,7 @@ exports[`render with URL loc state set to "server" 1`] = `
           <div
             class="c17"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Microsoft
           </div>
@@ -599,10 +599,10 @@ exports[`render with URL loc state set to "server" 1`] = `
   </div>
   <div
     class="c21"
-    font-size="12px"
+    font-size={makePx(3)}
   >
     Looking for something else?
-     
+
     <a
       class="c22"
       href="https://github.com/gravitational/teleport/issues/new?assignees=&labels=feature-request&template=feature_request.md"
@@ -798,7 +798,7 @@ exports[`render with all access 1`] = `
   </div>
   <div
     class="c3"
-    height="90px"
+    height={makePx(22.5)}
     width="600px"
   >
     <div
@@ -811,7 +811,7 @@ exports[`render with all access 1`] = `
         value=""
       />
     </div>
-    
+
   </div>
   <div
     class="c6"
@@ -830,11 +830,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -842,7 +842,7 @@ exports[`render with all access 1`] = `
         <div
           class="c12"
         >
-          
+
           <div
             class="c13"
           >
@@ -865,11 +865,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -880,7 +880,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -906,11 +906,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -921,7 +921,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -947,11 +947,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -959,7 +959,7 @@ exports[`render with all access 1`] = `
         <div
           class="c12"
         >
-          
+
           <div
             class="c13"
           >
@@ -982,11 +982,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -997,7 +997,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1023,11 +1023,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1038,7 +1038,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1064,11 +1064,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1079,7 +1079,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1105,11 +1105,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1120,7 +1120,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1145,11 +1145,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1160,7 +1160,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -1186,11 +1186,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1201,7 +1201,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1227,11 +1227,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1242,7 +1242,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Google Cloud Provider (GCP)
           </div>
@@ -1268,11 +1268,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1283,7 +1283,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Google Cloud Provider (GCP)
           </div>
@@ -1309,11 +1309,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1324,7 +1324,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1350,11 +1350,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1365,7 +1365,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Database
           </div>
@@ -1391,11 +1391,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1406,7 +1406,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1432,11 +1432,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1447,7 +1447,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1473,11 +1473,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1488,7 +1488,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1514,11 +1514,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1529,7 +1529,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Database
           </div>
@@ -1555,11 +1555,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1570,7 +1570,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1596,11 +1596,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1611,7 +1611,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1637,11 +1637,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1649,7 +1649,7 @@ exports[`render with all access 1`] = `
         <div
           class="c12"
         >
-          
+
           <div
             class="c16"
             color="text.main"
@@ -1672,11 +1672,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1687,7 +1687,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -1713,11 +1713,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1728,7 +1728,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -1754,11 +1754,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1769,7 +1769,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1795,11 +1795,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1810,7 +1810,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1836,11 +1836,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1851,7 +1851,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -1877,11 +1877,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1892,7 +1892,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1918,11 +1918,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1933,7 +1933,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -1959,11 +1959,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -1971,7 +1971,7 @@ exports[`render with all access 1`] = `
         <div
           class="c12"
         >
-          
+
           <div
             class="c16"
             color="text.main"
@@ -1995,11 +1995,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2010,7 +2010,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Windows Desktop
           </div>
@@ -2036,11 +2036,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2051,7 +2051,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -2077,11 +2077,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2092,7 +2092,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -2118,11 +2118,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2133,7 +2133,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -2159,11 +2159,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2174,7 +2174,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -2200,11 +2200,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2215,7 +2215,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -2240,11 +2240,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2255,7 +2255,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -2281,11 +2281,11 @@ exports[`render with all access 1`] = `
       >
         <div
           class="c10"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c11"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2296,7 +2296,7 @@ exports[`render with all access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Microsoft
           </div>
@@ -2312,10 +2312,10 @@ exports[`render with all access 1`] = `
   </div>
   <div
     class="c17"
-    font-size="12px"
+    font-size={makePx(3)}
   >
     Looking for something else?
-     
+
     <a
       class="c18"
       href="https://github.com/gravitational/teleport/issues/new?assignees=&labels=feature-request&template=feature_request.md"
@@ -2511,7 +2511,7 @@ exports[`render with no access 1`] = `
   </div>
   <div
     class="c3"
-    height="90px"
+    height={makePx(22.5)}
     width="600px"
   >
     <div
@@ -2524,7 +2524,7 @@ exports[`render with no access 1`] = `
         value=""
       />
     </div>
-    
+
   </div>
   <div
     class="c6"
@@ -2547,11 +2547,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2562,7 +2562,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Database
           </div>
@@ -2593,11 +2593,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2608,7 +2608,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Database
           </div>
@@ -2639,11 +2639,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2654,7 +2654,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -2685,11 +2685,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2697,7 +2697,7 @@ exports[`render with no access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c15"
             color="text.main"
@@ -2725,11 +2725,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2740,7 +2740,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -2771,11 +2771,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2786,7 +2786,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -2817,11 +2817,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2832,7 +2832,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -2863,11 +2863,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2878,7 +2878,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -2909,11 +2909,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2924,7 +2924,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -2955,11 +2955,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -2970,7 +2970,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -3001,11 +3001,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3013,7 +3013,7 @@ exports[`render with no access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c15"
             color="text.main"
@@ -3041,11 +3041,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3056,7 +3056,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Google Cloud Provider (GCP)
           </div>
@@ -3087,11 +3087,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3102,7 +3102,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Google Cloud Provider (GCP)
           </div>
@@ -3133,11 +3133,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3148,7 +3148,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Microsoft
           </div>
@@ -3179,11 +3179,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3194,7 +3194,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -3225,11 +3225,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3240,7 +3240,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -3271,11 +3271,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3286,7 +3286,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -3317,11 +3317,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3332,7 +3332,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -3363,11 +3363,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3378,7 +3378,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3409,11 +3409,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3424,7 +3424,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3455,11 +3455,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3470,7 +3470,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3501,11 +3501,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3516,7 +3516,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3547,11 +3547,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3562,7 +3562,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3590,11 +3590,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3605,7 +3605,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -3632,11 +3632,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3647,7 +3647,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -3674,11 +3674,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3689,7 +3689,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3716,11 +3716,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3731,7 +3731,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3758,11 +3758,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3773,7 +3773,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3800,11 +3800,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3815,7 +3815,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -3842,11 +3842,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3857,7 +3857,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -3884,11 +3884,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3899,7 +3899,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -3926,11 +3926,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3941,7 +3941,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -3968,11 +3968,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -3983,7 +3983,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -4010,11 +4010,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4025,7 +4025,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -4052,11 +4052,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4067,7 +4067,7 @@ exports[`render with no access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Windows Desktop
           </div>
@@ -4094,11 +4094,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4106,7 +4106,7 @@ exports[`render with no access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c16"
           >
@@ -4130,11 +4130,11 @@ exports[`render with no access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4142,7 +4142,7 @@ exports[`render with no access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c16"
           >
@@ -4154,10 +4154,10 @@ exports[`render with no access 1`] = `
   </div>
   <div
     class="c17"
-    font-size="12px"
+    font-size={makePx(3)}
   >
     Looking for something else?
-     
+
     <a
       class="c18"
       href="https://github.com/gravitational/teleport/issues/new?assignees=&labels=feature-request&template=feature_request.md"
@@ -4383,7 +4383,7 @@ exports[`render with partial access 1`] = `
   </div>
   <div
     class="c3"
-    height="90px"
+    height={makePx(22.5)}
     width="600px"
   >
     <div
@@ -4396,7 +4396,7 @@ exports[`render with partial access 1`] = `
         value=""
       />
     </div>
-    
+
   </div>
   <div
     class="c6"
@@ -4419,11 +4419,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4434,7 +4434,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Database
           </div>
@@ -4465,11 +4465,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4480,7 +4480,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Database
           </div>
@@ -4511,11 +4511,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4526,7 +4526,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -4557,11 +4557,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4569,7 +4569,7 @@ exports[`render with partial access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c15"
             color="text.main"
@@ -4597,11 +4597,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4612,7 +4612,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -4643,11 +4643,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4658,7 +4658,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -4689,11 +4689,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4704,7 +4704,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -4735,11 +4735,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4750,7 +4750,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -4781,11 +4781,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4796,7 +4796,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -4827,11 +4827,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4842,7 +4842,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -4873,11 +4873,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4885,7 +4885,7 @@ exports[`render with partial access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c15"
             color="text.main"
@@ -4913,11 +4913,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4928,7 +4928,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Google Cloud Provider (GCP)
           </div>
@@ -4959,11 +4959,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -4974,7 +4974,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Google Cloud Provider (GCP)
           </div>
@@ -5005,11 +5005,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5020,7 +5020,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Microsoft
           </div>
@@ -5051,11 +5051,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5066,7 +5066,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -5097,11 +5097,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5112,7 +5112,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -5143,11 +5143,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5158,7 +5158,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -5189,11 +5189,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5204,7 +5204,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Azure
           </div>
@@ -5235,11 +5235,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5250,7 +5250,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5281,11 +5281,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5296,7 +5296,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5327,11 +5327,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5342,7 +5342,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5373,11 +5373,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5388,7 +5388,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5419,11 +5419,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5434,7 +5434,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5462,11 +5462,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5477,7 +5477,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -5504,11 +5504,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5519,7 +5519,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Self-Hosted
           </div>
@@ -5546,11 +5546,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5561,7 +5561,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5588,11 +5588,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5603,7 +5603,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5630,11 +5630,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5645,7 +5645,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5672,11 +5672,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5687,7 +5687,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Amazon Web Services (AWS)
           </div>
@@ -5713,11 +5713,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5725,7 +5725,7 @@ exports[`render with partial access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c16"
           >
@@ -5748,11 +5748,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5760,7 +5760,7 @@ exports[`render with partial access 1`] = `
         <div
           class="c13"
         >
-          
+
           <div
             class="c16"
           >
@@ -5783,11 +5783,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5798,7 +5798,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Windows Desktop
           </div>
@@ -5824,11 +5824,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5839,7 +5839,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -5865,11 +5865,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5880,7 +5880,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -5906,11 +5906,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5921,7 +5921,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -5947,11 +5947,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -5962,7 +5962,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -5988,11 +5988,11 @@ exports[`render with partial access 1`] = `
       >
         <div
           class="c11"
-          width="24px"
+          width={makePx(6)}
         >
           <img
             class="c12"
-            height="24px"
+            height={makePx(6)}
             src="file_stub"
             width="23.9px"
           />
@@ -6003,7 +6003,7 @@ exports[`render with partial access 1`] = `
           <div
             class="c14"
             color="text.slightlyMuted"
-            font-size="12px"
+            font-size={makePx(3)}
           >
             Server
           </div>
@@ -6018,10 +6018,10 @@ exports[`render with partial access 1`] = `
   </div>
   <div
     class="c19"
-    font-size="12px"
+    font-size={makePx(3)}
   >
     Looking for something else?
-     
+
     <a
       class="c20"
       href="https://github.com/gravitational/teleport/issues/new?assignees=&labels=feature-request&template=feature_request.md"

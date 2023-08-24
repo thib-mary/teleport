@@ -18,6 +18,8 @@ import React from 'react';
 
 import { Box, Text } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { FilterableList } from 'teleterm/ui/components/FilterableList';
 import { ExtendedTrackedConnection } from 'teleterm/ui/services/connectionTracker';
 
@@ -41,7 +43,7 @@ export function ConnectionsFilterableList(
   const { setActiveIndex } = useKeyboardArrowsNavigationStateUpdate();
 
   return (
-    <Box width="300px">
+    <Box width={makePx(75)}>
       {props.items.length ? (
         <FilterableList<ExtendedTrackedConnection>
           items={props.items}

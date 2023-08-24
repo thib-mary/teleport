@@ -18,14 +18,15 @@ import React from 'react';
 import { ButtonPrimary, Text } from 'design';
 
 import { OnboardCard } from 'design/Onboard/OnboardCard';
+import {makePx} from "design/theme/utils/makePx";
 
 export function CardWelcome({ title, subTitle, btnText, onClick }: Props) {
   return (
     <OnboardCard center>
-      <Text mb="8px" typography="h4">
+      <Text mb={makePx(2)} typography="h4">
         {title}
       </Text>
-      <Text mb="16px" typography="subtitle1" fontWeight="light">
+      <Text mb={makePx(4)} typography="subtitle1" fontWeight="light">
         {subTitle}
       </Text>
       <ButtonPrimary width="100%" onClick={onClick}>

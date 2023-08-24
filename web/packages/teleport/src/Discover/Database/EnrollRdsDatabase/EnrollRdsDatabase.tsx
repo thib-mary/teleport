@@ -200,7 +200,7 @@ export function EnrollRdsDatabase() {
   }
 
   return (
-    <Box maxWidth="800px">
+    <Box maxWidth={makePx(200)}>
       <Header>Enroll a RDS Database</Header>
       {fetchDbAttempt.status === 'failed' && (
         <Danger mt={3}>{fetchDbAttempt.statusText}</Danger>

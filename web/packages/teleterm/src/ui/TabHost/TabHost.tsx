@@ -97,7 +97,7 @@ export function TabHost({ ctx }: { ctx: IAppContext }) {
 
   return (
     <StyledTabHost>
-      <Flex height="32px">
+      <Flex height={makePx(8)}>
         <Tabs
           flex="1"
           items={getActiveWorkspaceDocuments()}

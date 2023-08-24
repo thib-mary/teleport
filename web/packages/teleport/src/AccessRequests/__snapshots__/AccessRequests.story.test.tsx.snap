@@ -263,7 +263,7 @@ exports[`locked 1`] = `
     >
       <a
         class="c4"
-        height="36px"
+        height={makePx(9)}
         href="https://goteleport.com/r/upgrade-community?4.4.0-dev&utm_campaign=CTA_ACCESS_REQUESTS"
         kind="primary"
         rel="noreferrer"
@@ -347,7 +347,7 @@ exports[`locked 1`] = `
             class="c20"
             font-size="3"
           >
-            Step 
+            Step
             1
           </div>
         </div>
@@ -362,7 +362,7 @@ exports[`locked 1`] = `
             <span
               style="font-weight: bold;"
             >
-               dbadmin 
+               dbadmin
             </span>
             in the Web UI or CLI
           </div>
@@ -387,7 +387,7 @@ exports[`locked 1`] = `
             class="c20"
             font-size="3"
           >
-            Step 
+            Step
             2
           </div>
         </div>
@@ -421,7 +421,7 @@ exports[`locked 1`] = `
             class="c20"
             font-size="3"
           >
-            Step 
+            Step
             3
           </div>
         </div>
@@ -441,7 +441,7 @@ exports[`locked 1`] = `
       >
         <a
           class="c4"
-          height="36px"
+          height={makePx(9)}
           href="https://goteleport.com/r/upgrade-community?4.4.0-dev&utm_campaign=CTA_ACCESS_REQUESTS"
           kind="primary"
           rel="noreferrer"

@@ -30,7 +30,7 @@ import type { WebauthnLogin } from '../../useClusterLogin';
 export function PromptWebauthn(props: Props) {
   const { prompt } = props;
   return (
-    <Box minHeight="40px" p={4}>
+    <Box minHeight={makePx(10)} p={4}>
       {prompt === 'credential' && <PromptCredential {...props} />}
       {(prompt === 'tap' || prompt === 'retap') && <PromptTouch {...props} />}
       {prompt === 'pin' && <PromptPin {...props} />}
@@ -41,7 +41,7 @@ export function PromptWebauthn(props: Props) {
 function PromptTouch({ onCancel, prompt }: Props) {
   return (
     <>
-      <Image mb={4} width="200px" src={svgHardwareKey} mx="auto" />
+      <Image mb={4} width={makePx(50)} src={svgHardwareKey} mx="auto" />
       <Box textAlign="center" style={{ position: 'relative' }}>
         {prompt === 'retap' ? (
           <Text bold>Tap your security key again to complete the request</Text>
@@ -62,7 +62,7 @@ function PromptCredential({
   onCancel,
 }: Props) {
   return (
-    <Box height="330px" width="100%">
+    <Box height={makePx(82.5)} width="100%">
       <Text mb={2} bold>
         Select the user for login:
       </Text>

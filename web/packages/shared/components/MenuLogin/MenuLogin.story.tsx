@@ -28,8 +28,8 @@ storiesOf('Shared/MenuLogin', module).add('MenuLogin', () => {
 export function MenuLoginExamples() {
   return (
     <Flex
-      width="400px"
-      height="100px"
+      width={makePx(100)}
+      height={makePx(25)}
       alignItems="center"
       justifyContent="space-around"
       bg="levels.surface"

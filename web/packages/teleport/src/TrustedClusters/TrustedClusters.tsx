@@ -149,7 +149,7 @@ const Info = props => (
 const Empty = (props: EmptyProps) => {
   return (
     <Card
-      maxWidth="700px"
+      maxWidth={makePx(175)}
       mt={4}
       mx="auto"
       py={4}
@@ -158,7 +158,7 @@ const Empty = (props: EmptyProps) => {
       flex="0 0 auto"
     >
       <Box mx="4">
-        <Image width="180px" src={emptyPng} />
+        <Image width={makePx(45)} src={emptyPng} />
       </Box>
       <Box>
         <Info pr={4} mb={6} />

@@ -48,7 +48,7 @@ export default class MenuActionIcon extends React.Component<Props> {
     return (
       <>
         <ButtonBorder
-          height="24px"
+          height={makePx(6)}
           size="small"
           setRef={e => (this.anchorEl = e)}
           onClick={this.onOpen}

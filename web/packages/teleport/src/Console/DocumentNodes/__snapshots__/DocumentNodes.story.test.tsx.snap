@@ -696,7 +696,7 @@ exports[`render DocumentNodes 1`] = `
             class="c5"
             font-size="0"
           >
-             Clusters 
+             Clusters
           </label>
           <div
             class="c6"
@@ -865,16 +865,16 @@ exports[`render DocumentNodes 1`] = `
                 color="text.main"
                 style="text-transform: uppercase;"
               >
-                Showing 
+                Showing
                 <strong>
                   1
                 </strong>
-                 - 
+                 -
                 <strong>
                   5
                 </strong>
                  of
-                 
+
                 <strong>
                   5
                 </strong>
@@ -957,7 +957,7 @@ exports[`render DocumentNodes 1`] = `
               >
                 <button
                   class="c29"
-                  height="24px"
+                  height={makePx(6)}
                   kind="border"
                 >
                   CONNECT
@@ -1011,7 +1011,7 @@ exports[`render DocumentNodes 1`] = `
               >
                 <button
                   class="c29"
-                  height="24px"
+                  height={makePx(6)}
                   kind="border"
                 >
                   CONNECT
@@ -1070,7 +1070,7 @@ exports[`render DocumentNodes 1`] = `
               >
                 <button
                   class="c29"
-                  height="24px"
+                  height={makePx(6)}
                   kind="border"
                 >
                   CONNECT
@@ -1129,7 +1129,7 @@ exports[`render DocumentNodes 1`] = `
               >
                 <button
                   class="c29"
-                  height="24px"
+                  height={makePx(6)}
                   kind="border"
                 >
                   CONNECT
@@ -1207,7 +1207,7 @@ exports[`render DocumentNodes 1`] = `
               >
                 <button
                   class="c29"
-                  height="24px"
+                  height={makePx(6)}
                   kind="border"
                 >
                   CONNECT

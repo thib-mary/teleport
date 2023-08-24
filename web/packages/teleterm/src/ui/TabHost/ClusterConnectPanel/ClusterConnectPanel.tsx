@@ -20,6 +20,8 @@ import styled from 'styled-components';
 
 import Image from 'design/Image';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { useAppContext } from 'teleterm/ui/appContextProvider';
 
 import clusterPng from './clusters.png';
@@ -36,12 +38,12 @@ export function ClusterConnectPanel() {
     <ScrollingContainer>
       <Box width="100%" m="auto" pb={3} pt={1} px={3}>
         <Flex
-          minWidth="370px"
+          minWidth={makePx(92.5)}
           pb={5}
           flexDirection="column"
           alignItems="center"
         >
-          <Image width="120px" src={clusterPng} mb={3} />
+          <Image width={makePx(30)} src={clusterPng} mb={3} />
           <Text typography="h3" bold mb={2}>
             Connect a Cluster
           </Text>

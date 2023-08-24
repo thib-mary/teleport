@@ -218,7 +218,7 @@ exports[`empty state for enterprise, can create 1`] = `
         >
           <img
             class="c7"
-            height="160px"
+            height={makePx(40)}
             src="file_stub"
           />
           <div
@@ -1053,8 +1053,8 @@ exports[`failed state 1`] = `
             >
               <div
                 class="c25"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -1101,7 +1101,7 @@ exports[`failed state 1`] = `
                 kind="border"
                 rel="noreferrer"
                 target="_blank"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </a>
@@ -1113,8 +1113,8 @@ exports[`failed state 1`] = `
             >
               <div
                 class="c30"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -1146,7 +1146,7 @@ exports[`failed state 1`] = `
                 kind="border"
                 rel="noreferrer"
                 target="_blank"
-                width="88px"
+                width={makePx(22)}
               >
                 LOGIN
               </a>
@@ -1158,8 +1158,8 @@ exports[`failed state 1`] = `
             >
               <div
                 class="c31"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -1206,7 +1206,7 @@ exports[`failed state 1`] = `
                 kind="border"
                 rel="noreferrer"
                 target="_blank"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </a>
@@ -1218,8 +1218,8 @@ exports[`failed state 1`] = `
             >
               <div
                 class="c31"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -1265,7 +1265,7 @@ exports[`failed state 1`] = `
                 disabled=""
                 kind="border"
                 title="Cloud or TCP applications cannot be launched by the browser"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </button>
@@ -1277,8 +1277,8 @@ exports[`failed state 1`] = `
             >
               <div
                 class="c30"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <span
                   class="c20 icon icon-amazonaws"
@@ -1335,7 +1335,7 @@ exports[`failed state 1`] = `
               <button
                 class="c29"
                 kind="border"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
                 <span
@@ -1364,8 +1364,8 @@ exports[`failed state 1`] = `
             >
               <div
                 class="c33"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -1411,7 +1411,7 @@ exports[`failed state 1`] = `
                 disabled=""
                 kind="border"
                 title="Cloud or TCP applications cannot be launched by the browser"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </button>
@@ -2292,8 +2292,8 @@ exports[`loaded state 1`] = `
             >
               <div
                 class="c25"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -2340,7 +2340,7 @@ exports[`loaded state 1`] = `
                 kind="border"
                 rel="noreferrer"
                 target="_blank"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </a>
@@ -2352,8 +2352,8 @@ exports[`loaded state 1`] = `
             >
               <div
                 class="c30"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -2385,7 +2385,7 @@ exports[`loaded state 1`] = `
                 kind="border"
                 rel="noreferrer"
                 target="_blank"
-                width="88px"
+                width={makePx(22)}
               >
                 LOGIN
               </a>
@@ -2397,8 +2397,8 @@ exports[`loaded state 1`] = `
             >
               <div
                 class="c31"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -2445,7 +2445,7 @@ exports[`loaded state 1`] = `
                 kind="border"
                 rel="noreferrer"
                 target="_blank"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </a>
@@ -2457,8 +2457,8 @@ exports[`loaded state 1`] = `
             >
               <div
                 class="c31"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -2504,7 +2504,7 @@ exports[`loaded state 1`] = `
                 disabled=""
                 kind="border"
                 title="Cloud or TCP applications cannot be launched by the browser"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </button>
@@ -2516,8 +2516,8 @@ exports[`loaded state 1`] = `
             >
               <div
                 class="c30"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <span
                   class="c20 icon icon-amazonaws"
@@ -2574,7 +2574,7 @@ exports[`loaded state 1`] = `
               <button
                 class="c29"
                 kind="border"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
                 <span
@@ -2603,8 +2603,8 @@ exports[`loaded state 1`] = `
             >
               <div
                 class="c33"
-                height="32px"
-                width="32px"
+                height={makePx(8)}
+                width={makePx(8)}
               >
                 <div
                   class="c26"
@@ -2650,7 +2650,7 @@ exports[`loaded state 1`] = `
                 disabled=""
                 kind="border"
                 title="Cloud or TCP applications cannot be launched by the browser"
-                width="88px"
+                width={makePx(22)}
               >
                 LAUNCH
               </button>

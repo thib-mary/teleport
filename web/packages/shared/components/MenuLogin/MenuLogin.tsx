@@ -75,7 +75,7 @@ export const MenuLogin = React.forwardRef<MenuLoginHandle, MenuLoginProps>(
     return (
       <React.Fragment>
         <ButtonBorder
-          height="24px"
+          height={makePx(6)}
           size="small"
           setRef={anchorRef}
           onClick={onOpen}

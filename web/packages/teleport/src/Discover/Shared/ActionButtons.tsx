@@ -16,6 +16,7 @@
 
 import React from 'react';
 import { Box, ButtonPrimary, ButtonSecondary, ButtonText } from 'design';
+import {makePx} from "design/theme/utils/makePx";
 
 export const ActionButtons = ({
   onProceed = null,

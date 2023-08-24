@@ -18,6 +18,8 @@ import React from 'react';
 
 import { Box, ButtonBorder, Card, Text } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { useAppContext } from 'teleterm/ui/appContextProvider';
 import { getUserWithClusterName } from 'teleterm/ui/utils';
 import { RootClusterUri } from 'teleterm/ui/uri';
@@ -47,11 +49,11 @@ export function RecentClusters() {
   }
 
   return (
-    <Card p={3} maxWidth="480px" m="auto">
+    <Card p={3} maxWidth={makePx(120)} m="auto">
       <Text bold fontSize={3} mb={1}>
         Recent clusters
       </Text>
-      <Box as="ul" p={0} m={0} maxHeight="110px" overflow="auto">
+      <Box as="ul" p={0} m={0} maxHeight={makePx(27.5)} overflow="auto">
         {rootClusters.map((cluster, index) => (
           <Box
             as="li"

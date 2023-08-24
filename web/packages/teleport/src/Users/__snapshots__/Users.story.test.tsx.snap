@@ -674,7 +674,7 @@ exports[`success state 1`] = `
             >
               <button
                 class="c22"
-                height="24px"
+                height={makePx(6)}
                 kind="border"
               >
                 OPTIONS
@@ -724,7 +724,7 @@ exports[`success state 1`] = `
             >
               <button
                 class="c22"
-                height="24px"
+                height={makePx(6)}
                 kind="border"
               >
                 OPTIONS
@@ -780,7 +780,7 @@ exports[`success state 1`] = `
             >
               <button
                 class="c22"
-                height="24px"
+                height={makePx(6)}
                 kind="border"
               >
                 OPTIONS

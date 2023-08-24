@@ -90,7 +90,7 @@ export function FilterPanel({
 
   return (
     <Flex justifyContent="space-between" mb={2}>
-      <Box width="300px">
+      <Box width={makePx(75)}>
         <FilterSelect
           isMulti={true}
           placeholder="Type"
@@ -100,7 +100,7 @@ export function FilterPanel({
         />
       </Box>
       <Flex>
-        <Box width="100px">
+        <Box width={makePx(25)}>
           <SortSelect
             options={sortFieldOptions}
             value={activeSortFieldOption}

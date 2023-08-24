@@ -24,7 +24,7 @@ import { State as ResourceState } from 'teleport/components/useResources';
 export default function EmptyList({ onCreate }: Props) {
   const theme = useTheme();
   return (
-    <Card maxWidth="700px" p={4} as={Flex} alignItems="center">
+    <Card maxWidth={makePx(175)} p={4} as={Flex} alignItems="center">
       <Box mr={5}>
         <GitHubIcon size={128} fill={theme.colors.spotBackground[1]} />
       </Box>

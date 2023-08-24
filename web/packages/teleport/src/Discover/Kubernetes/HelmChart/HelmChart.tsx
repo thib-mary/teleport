@@ -286,7 +286,7 @@ const StepTwo = ({
             </Box>
             {disabled ? (
               <ButtonSecondary
-                width="200px"
+                width={makePx(50)}
                 type="submit"
                 onClick={() => onEdit()}
               >
@@ -294,7 +294,7 @@ const StepTwo = ({
               </ButtonSecondary>
             ) : (
               <ButtonSecondary
-                width="200px"
+                width={makePx(50)}
                 type="submit"
                 onClick={() => handleSubmit(validator)}
               >

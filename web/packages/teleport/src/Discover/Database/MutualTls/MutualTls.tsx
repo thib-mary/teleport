@@ -23,6 +23,8 @@ import TextEditor from 'shared/components/TextEditor';
 import { FieldTextArea } from 'shared/components/FieldTextArea';
 import Validation from 'shared/components/Validation';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import useTeleport from 'teleport/useTeleport';
 import { TextSelectCopyMulti } from 'teleport/components/TextSelectCopy';
 import { Tabs } from 'teleport/components/Tabs';
@@ -52,7 +54,7 @@ export function MutualTlsView({
   const [caCert, setCaCert] = useState('');
 
   return (
-    <Box maxWidth="800px">
+    <Box maxWidth={makePx(200)}>
       <Header>Configure Mutual TLS</Header>
       <HeaderSubtitle>
         Self-hosted databases must be configured with Teleport's certificate

@@ -95,7 +95,7 @@ export function TestConnectionView({
         <Text typography="subtitle1" mb={3}>
           Select a user and a database name to test.
         </Text>
-        <Box width="500px" mb={4}>
+        <Box width={makePx(125)} mb={4}>
           <LabelInput htmlFor={'select'}>Database User</LabelInput>
           <Select
             placeholder={
@@ -112,7 +112,7 @@ export function TestConnectionView({
             }
           />
         </Box>
-        <Box width="500px" mb={3}>
+        <Box width={makePx(125)} mb={3}>
           <LabelInput htmlFor={'select'}>Database Name</LabelInput>
           <Select
             label="Database Name"

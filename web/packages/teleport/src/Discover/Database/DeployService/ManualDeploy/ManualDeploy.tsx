@@ -307,7 +307,7 @@ function LoadedView({
         dbLabels={dbLabels}
         showLabelMatchErr={showLabelMatchErr}
       />
-      <ButtonSecondary width="200px" onClick={handleGenerateCommand}>
+      <ButtonSecondary width={makePx(50)} onClick={handleGenerateCommand}>
         Generate Command
       </ButtonSecondary>
       <ActionButtons onProceed={() => null} disableProceed={true} />

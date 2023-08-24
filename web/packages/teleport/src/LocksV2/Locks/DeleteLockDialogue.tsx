@@ -49,7 +49,7 @@ export function DeleteLockDialogue(props: Props) {
       <DialogHeader>
         <DialogTitle>Delete Lock</DialogTitle>
       </DialogHeader>
-      <DialogContent width="540px">
+      <DialogContent width={makePx(135)}>
         {attempt.status === 'failed' && <Danger>{attempt.statusText}</Danger>}
         <Flex alignItems="center" flexWrap="wrap">
           <Text typography="paragraph" as="span" mr={1}>

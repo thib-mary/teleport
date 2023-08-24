@@ -141,7 +141,7 @@ const renderPlayCell = (
         kind="primary"
         as="a"
         href={url}
-        width="80px"
+        width={makePx(20)}
         target="_blank"
         size="small"
       >

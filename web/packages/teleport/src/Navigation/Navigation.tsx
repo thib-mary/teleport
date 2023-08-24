@@ -20,6 +20,8 @@ import { matchPath, useHistory, useLocation } from 'react-router';
 
 import { Image } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { NavigationSwitcher } from 'teleport/Navigation/NavigationSwitcher';
 import cfg from 'teleport/config';
 
@@ -192,12 +194,12 @@ const NavigationLogo = () => {
   return (
     <Image
       src={theme.type === 'dark' ? logoDark : logoLight}
-      height="32px"
+      height={makePx(8)}
       width="fit-content"
       style={{
-        marginTop: '20px',
-        marginLeft: '32px',
-        marginBottom: '20px',
+        marginTop: makePx(5),
+        marginLeft: makePx(8),
+        marginBottom: makePx(5),
       }}
       alt="teleport logo"
     />
@@ -208,12 +210,12 @@ const PoweredByLogo = () => {
   return (
     <Image
       src={logoPoweredBy}
-      height="48px"
+      height={makePx(12)}
       width="fit-content"
       style={{
-        marginTop: '28px',
-        marginLeft: '32px',
-        marginBottom: '36px',
+        marginTop: makePx(7),
+        marginLeft: makePx(8),
+        marginBottom: makePx(9),
       }}
       alt="powered by teleport"
     />

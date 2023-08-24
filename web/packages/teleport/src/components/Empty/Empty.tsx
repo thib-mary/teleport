@@ -25,6 +25,8 @@ import database from 'design/assets/resources/database.png';
 import desktop from 'design/assets/resources/desktop.png';
 import stack from 'design/assets/resources/stack.png';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import cfg from 'teleport/config';
 
 type ResourceType =
@@ -58,10 +60,10 @@ export default function Empty(props: Props) {
       <Box
         p={8}
         mx="auto"
-        maxWidth="664px"
+        maxWidth={makePx(166)}
         textAlign="center"
         color="text.main"
-        borderRadius="12px"
+        borderRadius={makePx(3)}
       >
         <Text typography="h2" mb="3">
           {readOnly.title}
@@ -94,7 +96,7 @@ export default function Empty(props: Props) {
             ml="auto"
             mr="auto"
             mb={4}
-            height="160px"
+            height={makePx(40)}
           />
           <Text typography="h5" mb={2} fontWeight={700} fontSize={24}>
             {title}

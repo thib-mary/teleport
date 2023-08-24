@@ -34,7 +34,7 @@ interface ClustersFilterableListProps {
 export function ClustersFilterableList(props: ClustersFilterableListProps) {
   const { setActiveIndex } = useKeyboardArrowsNavigationStateUpdate();
   return (
-    <Box width="260px">
+    <Box width={makePx(65)}>
       {props.items.length ? (
         <FilterableList<Cluster>
           items={props.items}

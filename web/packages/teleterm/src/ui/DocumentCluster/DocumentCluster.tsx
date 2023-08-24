@@ -102,7 +102,7 @@ function RequiresLogin(props: { clusterUri: string; onLogin(): void }) {
           {` cluster is offline`}
         </Text>
       </Text>
-      <ButtonPrimary mt={4} width="100px" onClick={props.onLogin}>
+      <ButtonPrimary mt={4} width={makePx(25)} onClick={props.onLogin}>
         Connect
       </ButtonPrimary>
     </Flex>

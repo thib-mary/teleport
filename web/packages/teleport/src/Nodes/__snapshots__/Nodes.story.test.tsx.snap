@@ -218,7 +218,7 @@ exports[`empty state 1`] = `
         >
           <img
             class="c7"
-            height="160px"
+            height={makePx(40)}
             src="file_stub"
           />
           <div
@@ -991,7 +991,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -1045,7 +1045,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -1099,7 +1099,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -1153,7 +1153,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -1207,7 +1207,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -1266,7 +1266,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -1325,7 +1325,7 @@ exports[`failed 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2161,7 +2161,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2215,7 +2215,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2269,7 +2269,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2323,7 +2323,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2377,7 +2377,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2436,7 +2436,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT
@@ -2495,7 +2495,7 @@ exports[`loaded 1`] = `
           >
             <button
               class="c26"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               CONNECT

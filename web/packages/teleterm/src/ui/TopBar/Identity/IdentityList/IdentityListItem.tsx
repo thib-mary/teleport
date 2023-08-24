@@ -18,6 +18,8 @@ import React, { useState } from 'react';
 import { ButtonIcon, Flex, Label, Text } from 'design';
 import { Logout } from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { ListItem } from 'teleterm/ui/components/ListItem';
 import { useKeyboardArrowsNavigation } from 'teleterm/ui/components/KeyboardArrowsNavigation';
 import { getUserWithClusterName } from 'teleterm/ui/utils';
@@ -80,7 +82,7 @@ export function IdentityListItem(props: IdentityListItemProps) {
             }}
           >
             {/* Due to the icon shape it appears to be not centered, so a small margin is added */}
-            <Logout ml="2px" size="small" />
+            <Logout ml={makePx(.5)} size="small" />
           </ButtonIcon>
         </Flex>
       </Flex>

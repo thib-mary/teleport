@@ -39,7 +39,7 @@ const tooltipPosition = (props: TooltipPositionProps) => {
 const tooltipCaretPosition = (props: TooltipPositionProps) => {
   if (props.position === 'right') {
     return {
-      right: '10px',
+      right: {makePx(2.5)},
     };
   }
   if (props.position === 'middle') {
@@ -49,7 +49,7 @@ const tooltipCaretPosition = (props: TooltipPositionProps) => {
     };
   }
   return {
-    left: '10px',
+    left: {makePx(2.5)},
   };
 };
 

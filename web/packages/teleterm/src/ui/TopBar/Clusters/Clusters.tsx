@@ -82,7 +82,7 @@ export function Clusters() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         onClose={() => setIsPopoverOpened(false)}
       >
-        <Container p="12px">
+        <Container p={makePx(3)}>
           <KeyboardArrowsNavigation>
             <ClustersFilterableList
               items={clusters.items}

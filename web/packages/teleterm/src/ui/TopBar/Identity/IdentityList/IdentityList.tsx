@@ -39,7 +39,7 @@ interface IdentityListProps {
 
 export function IdentityList(props: IdentityListProps) {
   return (
-    <Box minWidth="200px">
+    <Box minWidth={makePx(50)}>
       {props.loggedInUser && (
         <>
           <Flex px={3} pt={2} pb={2} justifyContent="space-between">

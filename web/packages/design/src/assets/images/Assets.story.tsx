@@ -42,13 +42,13 @@ export const ImageSVG = () => (
             alignItems: 'stretch',
         }}
     >
-        <Image maxWidth="100px" maxHeight="100px" src={gravitationalLogo} />
-        <Image maxWidth="100px" maxHeight="100px" src={kubeLogo} />
-        <Image maxWidth="100px" maxHeight="100px" src={sampleLogoLong} />
-        <Image maxWidth="100px" maxHeight="100px" src={sampleLogoSquire} />
-        <Image maxWidth="100px" maxHeight="100px" src={secKeyGraphic} />
-        <Image maxWidth="100px" maxHeight="100px" src={teleportLogo} />
-        <Image maxWidth="100px" maxHeight="100px" src={teleportMedallion} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={gravitationalLogo} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={kubeLogo} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={sampleLogoLong} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={sampleLogoSquire} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={secKeyGraphic} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={teleportLogo} />
+        <Image maxWidth={makePx(25)} maxHeight={makePx(25)} src={teleportMedallion} />
     </div>
 );
 

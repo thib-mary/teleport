@@ -43,6 +43,8 @@ import createMfaOptions, { MfaOption } from 'shared/utils/createMfaOptions';
 
 import secKeyGraphic from 'design/assets/images/sec-key-graphic.svg';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { DeviceUsage } from 'teleport/services/mfa';
 import useTeleport from 'teleport/useTeleport';
 
@@ -138,7 +140,7 @@ export function AddDevice({
                 justifyContent="center"
                 alignItems="center"
                 borderRadius={8}
-                height="256px"
+                height={makePx(64)}
                 p={3}
                 mb={4}
                 css={`
@@ -148,7 +150,7 @@ export function AddDevice({
                 {mfaOption.value === 'otp' && (
                   <>
                     <Flex
-                      height="168px"
+                      height={makePx(42)}
                       justifyContent="center"
                       alignItems="center"
                     >
@@ -184,7 +186,7 @@ export function AddDevice({
                 )}
                 {mfaOption.value === 'webauthn' && (
                   <>
-                    <Image src={secKeyGraphic} height="168px" />
+                    <Image src={secKeyGraphic} height={makePx(42)} />
                     <Text mt={3}>{hardwareInstructions}</Text>
                   </>
                 )}

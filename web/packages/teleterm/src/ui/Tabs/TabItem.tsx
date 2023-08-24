@@ -79,7 +79,7 @@ export function TabItem(props: TabItemProps) {
         canDrag={canDrag}
         title={name}
       >
-        <Title color="inherit" fontWeight={700} fontSize="12px">
+        <Title color="inherit" fontWeight={700} fontSize={makePx(3)}>
           {name}
         </Title>
         {isLoading && active && <LinearProgress transparentBackground={true} />}

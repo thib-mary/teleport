@@ -2580,7 +2580,7 @@ exports[`no login enabled 1`] = `
 
 <div
   class="c0"
-  width="464px"
+  width={makePx(116)}
 >
   <div
     class="c1"
@@ -3088,7 +3088,7 @@ exports[`sso list still renders when local auth is disabled 1`] = `
 
 <div
   class="c0"
-  width="464px"
+  width={makePx(116)}
 >
   <div
     class="c1"

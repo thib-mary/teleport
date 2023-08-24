@@ -18,12 +18,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Image } from 'design';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import pam from './pam.svg';
 
 export function PamIcon() {
   return (
     <PamCircle>
-      <Image src={pam} width="14px" />
+      <Image src={pam} width={makePx(3.5)} />
     </PamCircle>
   );
 }

@@ -51,9 +51,9 @@ test('basic functionality of clicking is respected', () => {
 
 const menuListCss = {
   style: {
-    right: '10px',
+    right: {makePx(2.5)},
     position: 'absolute',
-    top: '10px',
+    top: {makePx(2.5)},
   },
 };
 

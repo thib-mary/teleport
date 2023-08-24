@@ -23,7 +23,7 @@ export default function PromptSsoStatus(props: Props) {
   return (
     <Flex
       flex="1"
-      minHeight="40px"
+      minHeight={makePx(10)}
       flexDirection="column"
       justifyContent="space-between"
       alignItems="center"

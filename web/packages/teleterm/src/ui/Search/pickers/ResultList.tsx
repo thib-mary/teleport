@@ -201,7 +201,7 @@ export function IconAndContent(
   return (
     <Flex alignItems="flex-start" gap={2}>
       {/* lineHeight of the icon needs to match the line height of the first row of props.children */}
-      <Flex height="24px">
+      <Flex height={makePx(6)}>
         <props.Icon color={props.iconColor} size="medium" />
       </Flex>
       <Flex flexDirection="column" gap={1} minWidth={0} flex="1">

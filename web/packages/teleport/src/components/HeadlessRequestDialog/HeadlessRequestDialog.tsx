@@ -24,6 +24,7 @@ import Dialog, {
 } from 'design/Dialog';
 import { Danger } from 'design/Alert';
 import { ButtonPrimary, ButtonSecondary, Text } from 'design';
+import {makePx} from "design/theme/utils/makePx";
 
 export default function HeadlessRequestDialog({
   ipAddress,
@@ -67,7 +68,7 @@ export default function HeadlessRequestDialog({
       <DialogFooter textAlign="center">
         {!errorText && (
           <>
-            <ButtonPrimary onClick={onAccept} autoFocus mr={3} width="130px">
+            <ButtonPrimary onClick={onAccept} autoFocus mr={3} width={makePx(32.5)}>
               Approve
             </ButtonPrimary>
             <ButtonSecondary onClick={onReject}>Reject</ButtonSecondary>

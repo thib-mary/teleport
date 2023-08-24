@@ -23,5 +23,5 @@ interface DiscoverIconProps {
 }
 
 export const DiscoverIcon = ({ name }: DiscoverIconProps) => (
-  <ResourceIcon name={name} width="23.9px" height="24px" />
+  <ResourceIcon name={name} width="23.9px" height={makePx(6)} />
 );

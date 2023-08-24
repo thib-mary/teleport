@@ -70,7 +70,7 @@ export function ConnectionDiagnosticResult({
         {canTestConnection ? (
           <>
             <ButtonSecondary
-              width="200px"
+              width={makePx(50)}
               onClick={testConnection}
               disabled={attempt.status === 'processing'}
             >

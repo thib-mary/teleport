@@ -131,7 +131,7 @@ export function SelectResource({ onSelect }: SelectResourceProps) {
         Teleport can integrate into most, if not all of your infrastructure.
         Search for what resource you want to add.
       </HeaderSubtitle>
-      <Box height="90px" width="600px">
+      <Box height={makePx(22.5)} width={makePx(150)}>
         <InputWrapper mb={2}>
           <StyledInput
             placeholder="Search for a resource"
@@ -197,7 +197,7 @@ export function SelectResource({ onSelect }: SelectResourceProps) {
                     />
                   )}
                   <Flex px={2} alignItems="center">
-                    <Flex mr={3} justifyContent="center" width="24px">
+                    <Flex mr={3} justifyContent="center" width={makePx(6)}>
                       <DiscoverIcon name={r.icon} />
                     </Flex>
                     <Box>
@@ -239,7 +239,7 @@ export function SelectResource({ onSelect }: SelectResourceProps) {
 const ClearSearch = ({ onClick }: { onClick(): void }) => {
   return (
     <Flex
-      width="120px"
+      width={makePx(30)}
       onClick={onClick}
       alignItems="center"
       mt={1}
@@ -256,9 +256,9 @@ const ClearSearch = ({ onClick }: { onClick(): void }) => {
       <Box
         mr={1}
         ml={1}
-        width="18px"
-        height="18px"
-        borderRadius="4px"
+        width={makePx(4.5)}
+        height={makePx(4.5)}
+        borderRadius={makePx()}
         textAlign="center"
         css={`
           background: ${props => props.theme.colors.error.main};

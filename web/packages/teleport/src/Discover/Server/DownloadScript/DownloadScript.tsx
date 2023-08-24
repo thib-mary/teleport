@@ -19,6 +19,8 @@ import React, { Suspense, useEffect, useState } from 'react';
 import { Box, Indicator, Text } from 'design';
 import * as Icons from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import cfg from 'teleport/config';
 import { CatchError } from 'teleport/components/CatchError';
 import {
@@ -68,9 +70,9 @@ export default function Container(props: AgentStepProps) {
     >
       <Suspense
         fallback={
-          <Box height="144px">
+          <Box height={makePx(36)}>
             <Template prevStep={props.prevStep} nextStep={() => null}>
-              <Box textAlign="center" height="108px">
+              <Box textAlign="center" height={makePx(27)}>
                 <Indicator delay="none" />
               </Box>
             </Template>

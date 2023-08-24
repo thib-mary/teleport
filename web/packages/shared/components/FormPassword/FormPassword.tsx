@@ -18,6 +18,8 @@ import React from 'react';
 import { Card, ButtonPrimary, Flex, Box } from 'design';
 import * as Alerts from 'design/Alert';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import useAttempt from 'shared/hooks/useAttempt';
 import createMfaOptions, { MfaOption } from 'shared/utils/createMfaOptions';
 
@@ -107,7 +109,7 @@ function FormPassword(props: Props) {
   return (
     <Validation>
       {({ validator }) => (
-        <Card as="form" width="456px" p="6">
+        <Card as="form" width={makePx(114)} p="6">
           <Status attempt={attempt} />
           <FieldInput
             rule={requiredField('Current Password is required')}

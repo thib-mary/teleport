@@ -17,6 +17,8 @@
 import React, { useRef, useEffect } from 'react';
 import Flex from 'design/Flex';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import * as tshd from 'teleterm/services/tshd/types';
 import { makeLoggedInUser } from 'teleterm/services/tshd/testHelpers';
 
@@ -38,7 +40,7 @@ const OpenedIdentity = (props: IdentityProps) => {
   }, [ref.current]);
 
   return (
-    <Flex justifyContent="end" height="40px">
+    <Flex justifyContent="end" height={makePx(10)}>
       <Identity ref={ref} {...props} />
     </Flex>
   );

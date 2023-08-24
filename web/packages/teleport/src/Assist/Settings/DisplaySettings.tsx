@@ -223,7 +223,7 @@ function MockChat() {
       <Message author="user" style={{ width: '30px' }} />
       <Message author="teleport" style={{ width: '25px' }} />
       <Message author="user" style={{ width: '27px' }} />
-      <Message author="teleport" style={{ width: '32px' }} />
+      <Message author="teleport" style={{ width: {makePx(8)} }} />
     </Chat>
   );
 }

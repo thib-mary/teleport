@@ -47,7 +47,7 @@ export default function AuthnDialog({
         </Text>
       </DialogContent>
       <DialogFooter textAlign="center">
-        <ButtonPrimary onClick={onContinue} autoFocus mr={3} width="130px">
+        <ButtonPrimary onClick={onContinue} autoFocus mr={3} width={makePx(32.5)}>
           {errorText ? 'Retry' : 'OK'}
         </ButtonPrimary>
         <ButtonSecondary onClick={onCancel}>Cancel</ButtonSecondary>

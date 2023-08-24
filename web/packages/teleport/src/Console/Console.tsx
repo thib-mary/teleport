@@ -95,7 +95,7 @@ export default function Console() {
       )}
       {attempt.status === 'success' && (
         <>
-          <Flex bg="levels.surface" height="32px">
+          <Flex bg="levels.surface" height={makePx(8)}>
             <Tabs
               flex="1"
               items={documents}

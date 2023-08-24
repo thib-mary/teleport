@@ -470,11 +470,11 @@ exports[`render dialog to add a new mfa device with webauthn as preferred type 1
         >
           <div
             class="c7"
-            height="256px"
+            height={makePx(64)}
           >
             <img
               class="c8"
-              height="168px"
+              height={makePx(42)}
               src="file_stub"
             />
             <div
@@ -1163,11 +1163,11 @@ exports[`render failed state for dialog to add a new mfa device 1`] = `
         >
           <div
             class="c8"
-            height="256px"
+            height={makePx(64)}
           >
             <img
               class="c9"
-              height="168px"
+              height={makePx(42)}
               src="file_stub"
             />
             <div
@@ -1875,24 +1875,24 @@ exports[`render failed state for fetching QR Code for dialog to add a new mfa de
         >
           <div
             class="c8"
-            height="256px"
+            height={makePx(64)}
           >
             <div
               class="c9"
-              height="168px"
+              height={makePx(42)}
             />
             <div
               class="c10"
               font-size="1"
             >
               Scan the QR Code with any authenticator app and enter the generated code.
-               
+
               <div
                 class="c11"
                 color="text.slightlyMuted"
               >
                 We recommend
-                 
+
                 <a
                   class="c12"
                   href="https://authy.com/download/"

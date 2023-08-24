@@ -57,8 +57,8 @@ const IconBox = ({ children, text }) => {
 
   return (
     <Flex
-      width="150px"
-      height="150px"
+      width={makePx(37.5)}
+      height={makePx(37.5)}
       alignItems="center"
       justifyContent="center"
       bg={theme.colors.spotBackground[0]}

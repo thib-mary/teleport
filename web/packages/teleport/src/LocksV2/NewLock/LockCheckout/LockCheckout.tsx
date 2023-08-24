@@ -32,6 +32,8 @@ import Table, { Cell } from 'design/DataTable';
 import useAttempt from 'shared/hooks/useAttemptNext';
 import { pluralize } from 'shared/utils/text';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import cfg from 'teleport/config';
 import { lockService } from 'teleport/services/locks';
 import { TrashButton } from 'teleport/LocksV2/common';
@@ -208,7 +210,7 @@ export function LockCheckout({
               </Text>
             </Box>
             <Flex justifyContent="center" mb={3}>
-              <Image src={shieldCheck} width="250px" height="179px" />
+              <Image src={shieldCheck} width={makePx(62.5)} height="179px" />
             </Flex>
           </Box>
         ) : (

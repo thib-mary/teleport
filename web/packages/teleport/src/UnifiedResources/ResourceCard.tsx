@@ -128,7 +128,7 @@ export function ResourceCard({ resource, onLabelClick }: Props) {
           // We would love to just vertical-center-align this one, but then it
           // would move down along with expanding the labels. So we apply a
           // carefully measured top margin instead.
-          mt="16px"
+          mt={makePx(4)}
         />
         {/* MinWidth is important to prevent descriptions from overflowing. */}
         <Flex flexDirection="column" flex="1" minWidth="0" ml={3} gap={1}>

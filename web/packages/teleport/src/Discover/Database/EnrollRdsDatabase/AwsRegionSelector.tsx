@@ -46,7 +46,7 @@ export function AwsRegionSelector({
         Select the AWS Region you would like to see databases for:
       </Text>
       <Flex alignItems="center" gap={3} mt={2} mb={3}>
-        <Box width="320px" mb={4}>
+        <Box width={makePx(80)} mb={4}>
           <LabelInput htmlFor={'select'}>AWS Region</LabelInput>
           <Select
             inputId="select"
@@ -63,8 +63,8 @@ export function AwsRegionSelector({
           onClick={onRefresh}
           mt={1}
           title="Refresh database table"
-          height="40px"
-          width="30px"
+          height={makePx(10)}
+          width={makePx(7.5)}
           css={`
             &:disabled {
               opacity: 0.35;

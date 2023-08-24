@@ -20,6 +20,8 @@ import { Flex, Text } from 'design';
 // @ts-ignore
 import { AccessRequestCheckoutButton } from 'e-teleterm/ui/StatusBar/AccessRequestCheckoutButton';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { useActiveDocumentClusterBreadcrumbs } from './useActiveDocumentClusterBreadcrumbs';
 import { ShareFeedback } from './ShareFeedback';
 
@@ -29,7 +31,7 @@ export function StatusBar() {
   return (
     <Flex
       width="100%"
-      height="28px"
+      height={makePx(7)}
       css={`
         border-top: 1px solid ${props => props.theme.colors.spotBackground[1]};
       `}
@@ -40,7 +42,7 @@ export function StatusBar() {
     >
       <Text
         color="text.slightlyMuted"
-        fontSize="14px"
+        fontSize={makePx(3.5)}
         css={`
           white-space: nowrap;
         `}

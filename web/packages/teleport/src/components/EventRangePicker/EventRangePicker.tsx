@@ -53,7 +53,7 @@ export default function DataRange({ ml, range, onChangeRange, ranges }: Props) {
 
   return (
     <>
-      <Box ml={ml} width="210px">
+      <Box ml={ml} width={makePx(52.5)}>
         <Select
           isSearchable={false}
           components={{ ValueContainer }}

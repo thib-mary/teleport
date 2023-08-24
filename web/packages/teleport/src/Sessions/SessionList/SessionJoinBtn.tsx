@@ -19,6 +19,8 @@ import React, { useState } from 'react';
 import { ButtonBorder, Text, Box, Menu, MenuItem, Flex } from 'design';
 import { ChevronDown, Warning } from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import cfg from 'teleport/config';
 import { ParticipantMode } from 'teleport/services/session';
 import { ButtonLockedFeature } from 'teleport/components/ButtonLockedFeature';
@@ -44,10 +46,10 @@ export const SessionJoinBtn = ({
   return (
     <JoinMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
       {showCTA && (
-        <Box mx="12px" my="3">
+        <Box mx={makePx(3)} my="3">
           <ButtonLockedFeature
             noIcon
-            height="40px"
+            height={makePx(10)}
             event={CtaEvent.CTA_ACTIVE_SESSIONS}
           >
             Join Active Sessions with Teleport Enterprise
@@ -106,7 +108,7 @@ function JoinMenu({
   };
 
   return (
-    <Box textAlign="center" width="80px">
+    <Box textAlign="center" width={makePx(20)}>
       <ButtonBorder size="small" onClick={handleClickListItem}>
         Join
         <ChevronDown ml={1} size="small" color="text.slightlyMuted" />
@@ -163,7 +165,7 @@ function JoinMenuItem({
             ${({ theme }) => theme.colors.spotBackground[0]};
         `}
       >
-        <Box height="fit-content" width="264px">
+        <Box height="fit-content" width={makePx(66)}>
           <Text typography="h6">{title}</Text>
           <Text color="text.slightlyMuted">{description}</Text>
         </Box>
@@ -186,14 +188,14 @@ function JoinMenuItem({
         }
       `}
     >
-      <Box height="fit-content" width="264px">
+      <Box height="fit-content" width={makePx(66)}>
         <Text typography="h6">{title}</Text>
         <Text>{description}</Text>
         {!showCTA && (
           <Box color="text.main" px={1} mt={1}>
             <Flex>
               <Warning color="error.main" mr={2} size="small" />
-              <Text fontSize="10px" color="text.slightlyMuted">
+              <Text fontSize={makePx(2.5)} color="text.slightlyMuted">
                 {modeWarningText[participantMode]}
               </Text>
             </Flex>

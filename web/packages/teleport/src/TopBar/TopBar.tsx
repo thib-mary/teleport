@@ -165,14 +165,14 @@ export function TopBar() {
   return (
     <TopBarContainer>
       {!hasClusterUrl && (
-        <Text fontSize="18px" bold data-testid="title">
+        <Text fontSize={makePx(4.5)} bold data-testid="title">
           {title}
         </Text>
       )}
-      <Text fontSize="18px" id="topbar-portal" ml={2}></Text>
+      <Text fontSize={makePx(4.5)} id="topbar-portal" ml={2}></Text>
       <ClusterSelector
         value={clusterId}
-        width="384px"
+        width={makePx(96)}
         maxMenuHeight={200}
         mr={makePx(5)}
         onChange={changeCluster}

@@ -94,7 +94,7 @@ export function CreateDatabaseView({
   return (
     <Validation>
       {({ validator }) => (
-        <Box maxWidth="800px">
+        <Box maxWidth={makePx(200)}>
           <Header>Register a Database</Header>
           <HeaderSubtitle>
             Create a new database resource for the database server.
@@ -119,7 +119,7 @@ export function CreateDatabaseView({
           {canCreateDatabase && (
             <>
               {!finishedFirstStep && (
-                <Box width="500px">
+                <Box width={makePx(125)}>
                   <FieldInput
                     label="Database Name"
                     rule={requiredField('database name is required')}
@@ -133,7 +133,7 @@ export function CreateDatabaseView({
               )}
               {finishedFirstStep && (
                 <>
-                  <Flex width="500px">
+                  <Flex width={makePx(125)}>
                     <FieldInput
                       autoFocus
                       label="Database Connection Endpoint"

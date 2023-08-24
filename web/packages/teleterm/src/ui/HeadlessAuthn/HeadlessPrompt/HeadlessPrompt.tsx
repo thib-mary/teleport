@@ -91,7 +91,7 @@ export function HeadlessPrompt({
           <br />
           If it was not you, click Cancel and contact your administrator.
         </Text>
-        <Text color="text.muted" mt={1} fontSize="12px">
+        <Text color="text.muted" mt={1} fontSize={makePx(3)}>
           Request ID: {headlessAuthenticationId}
         </Text>
       </DialogContent>

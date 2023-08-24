@@ -53,7 +53,7 @@ export function Notifications(props: NotificationsProps) {
     <Container>
       {props.items.map(item => (
         <Notification
-          style={{ marginBottom: '12px' }}
+          style={{ marginBottom: {makePx(3)} }}
           key={item.id}
           item={item}
           onRemove={() => props.onRemoveItem(item.id)}

@@ -79,7 +79,7 @@ const FieldInput = forwardRef<HTMLInputElement, Props>(
               <>
                 <span
                   css={{
-                    marginRight: '4px',
+                    marginRight: makePx(),
                     verticalAlign: 'middle',
                   }}
                 >

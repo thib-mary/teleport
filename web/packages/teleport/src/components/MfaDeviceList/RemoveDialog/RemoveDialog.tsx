@@ -31,7 +31,7 @@ export default function RemoveDialog(props: Props) {
 
   return (
     <Dialog disableEscapeKeyDown={false} onClose={onClose} open={true}>
-      <DialogContent width="400px">
+      <DialogContent width={makePx(100)}>
         <Text typography="h2" mb={2}>
           Remove Device
         </Text>

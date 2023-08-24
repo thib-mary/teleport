@@ -22,6 +22,7 @@ import { useValidation, Validator } from 'shared/components/Validation';
 import { requiredField } from 'shared/components/Validation/rules';
 
 import { ResourceLabel } from 'teleport/services/agents';
+import {makePx} from "design/theme/utils/makePx";
 
 export function LabelsCreater({
   labels = [],
@@ -104,15 +105,15 @@ export function LabelsCreater({
     <>
       {labels.length > 0 && (
         <Flex mt={2}>
-          <Box width="170px" mr="3">
+          <Box width={makePx(42.5)} mr="3">
             Key{' '}
-            <span css={{ fontSize: '12px', fontWeight: 'lighter' }}>
+            <span css={{ fontSize: {makePx(3)}, fontWeight: 'lighter' }}>
               (required field)
             </span>
           </Box>
           <Box>
             Value{' '}
-            <span css={{ fontSize: '12px', fontWeight: 'lighter' }}>
+            <span css={{ fontSize: {makePx(3)}, fontWeight: 'lighter' }}>
               (required field)
             </span>
           </Box>
@@ -129,7 +130,7 @@ export function LabelsCreater({
                   autoFocus={autoFocus}
                   value={label.name}
                   placeholder="label key"
-                  width="170px"
+                  width={makePx(42.5)}
                   mr={3}
                   mb={0}
                   onChange={e => handleChange(e, index, 'name')}
@@ -140,7 +141,7 @@ export function LabelsCreater({
                   rule={requiredField('required')}
                   value={label.value}
                   placeholder="label value"
-                  width="170px"
+                  width={makePx(42.5)}
                   mb={0}
                   mr={2}
                   onChange={e => handleChange(e, index, 'value')}
@@ -164,7 +165,7 @@ export function LabelsCreater({
                 )}
               </Flex>
               {label.isDupKey && (
-                <Text color="red" fontSize="12px">
+                <Text color="red" fontSize={makePx(3)}>
                   Duplicate key not allowed
                 </Text>
               )}

@@ -18,6 +18,8 @@ import React from 'react';
 import { Indicator, Box } from 'design';
 import { Danger } from 'design/Alert';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import {
   FeatureBox,
   FeatureHeader,
@@ -48,9 +50,9 @@ export function Sessions(props: ReturnType<typeof useSessions>) {
       <FeatureHeader alignItems="center" justifyContent="space-between">
         <FeatureHeaderTitle>Active Sessions</FeatureHeaderTitle>
         {showActiveSessionsCTA && (
-          <Box width="340px">
+          <Box width={makePx(85)}>
             <ButtonLockedFeature
-              height="36px"
+              height={makePx(9)}
               event={CtaEvent.CTA_ACTIVE_SESSIONS}
             >
               Join Active Sessions With Teleport Enterprise

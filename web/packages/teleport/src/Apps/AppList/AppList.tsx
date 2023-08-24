@@ -33,6 +33,8 @@ import {
 } from 'design/theme/palette';
 import { AmazonAws } from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { App } from 'teleport/services/apps';
 import { ResourceLabel, ResourceFilter } from 'teleport/services/agents';
 import ServersideSearchPanel from 'teleport/components/ServersideSearchPanel';
@@ -123,8 +125,8 @@ function renderAppIcon({ name, awsConsole }: App) {
   return (
     <Cell style={{ userSelect: 'none' }}>
       <Flex
-        height="32px"
-        width="32px"
+        height={makePx(8)}
+        width={makePx(8)}
         bg={awsConsole ? orange[700] : getIconColor(name)}
         borderRadius="100%"
         justifyContent="center"
@@ -167,7 +169,7 @@ function renderLaunchButtonCell({
     $btn = (
       <ButtonBorder
         disabled
-        width="88px"
+        width={makePx(22)}
         size="small"
         title="Cloud or TCP applications cannot be launched by the browser"
       >
@@ -178,7 +180,7 @@ function renderLaunchButtonCell({
     $btn = (
       <ButtonBorder
         as="a"
-        width="88px"
+        width={makePx(22)}
         size="small"
         target="_blank"
         href={samlAppSsoUrl}
@@ -191,7 +193,7 @@ function renderLaunchButtonCell({
     $btn = (
       <ButtonBorder
         as="a"
-        width="88px"
+        width={makePx(22)}
         size="small"
         target="_blank"
         href={launchUrl}

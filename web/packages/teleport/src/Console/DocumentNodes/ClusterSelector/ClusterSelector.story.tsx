@@ -61,7 +61,7 @@ function renderlusterSelector(ctx, { ...props } = {}) {
         mx="auto"
         open={true}
         value={'clusterId'}
-        width="400px"
+        width={makePx(100)}
         maxMenuHeight={200}
         onChange={() => null}
         {...props}

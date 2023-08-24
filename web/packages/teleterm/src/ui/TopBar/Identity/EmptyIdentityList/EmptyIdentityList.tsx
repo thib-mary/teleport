@@ -30,10 +30,10 @@ export function EmptyIdentityList(props: EmptyIdentityListProps) {
       m="auto"
       flexDirection="column"
       alignItems="center"
-      width="200px"
+      width={makePx(50)}
       p={3}
     >
-      <Image width="60px" src={clusterPng} />
+      <Image width={makePx(15)} src={clusterPng} />
       <Text fontSize={1} bold mb={2}>
         No cluster connected
       </Text>

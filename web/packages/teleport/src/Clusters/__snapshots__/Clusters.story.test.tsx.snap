@@ -440,16 +440,16 @@ exports[`render clusters 1`] = `
             color="text.main"
             style="white-space: nowrap; text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               37
             </strong>
              of
-             
+
             <strong>
               37
             </strong>
@@ -565,7 +565,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -601,7 +601,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -637,7 +637,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -673,7 +673,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -709,7 +709,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -745,7 +745,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -781,7 +781,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -817,7 +817,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -853,7 +853,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -889,7 +889,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -925,7 +925,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -961,7 +961,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -997,7 +997,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1033,7 +1033,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1069,7 +1069,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1105,7 +1105,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1141,7 +1141,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1177,7 +1177,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1213,7 +1213,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1249,7 +1249,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1285,7 +1285,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1321,7 +1321,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1357,7 +1357,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1393,7 +1393,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1429,7 +1429,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1465,7 +1465,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1501,7 +1501,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1537,7 +1537,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1573,7 +1573,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1609,7 +1609,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1645,7 +1645,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1681,7 +1681,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1717,7 +1717,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1753,7 +1753,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1789,7 +1789,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1825,7 +1825,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS
@@ -1861,7 +1861,7 @@ exports[`render clusters 1`] = `
           >
             <button
               class="c21"
-              height="24px"
+              height={makePx(6)}
               kind="border"
             >
               OPTIONS

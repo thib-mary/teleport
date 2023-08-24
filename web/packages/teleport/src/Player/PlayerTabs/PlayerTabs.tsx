@@ -21,7 +21,7 @@ import { Flex, Box } from 'design';
 
 const Tabs = props => {
   return (
-    <StyledTabs height="40px" color="text.slightlyMuted" as="nav" {...props} />
+    <StyledTabs height={makePx(10)} color="text.slightlyMuted" as="nav" {...props} />
   );
 };
 

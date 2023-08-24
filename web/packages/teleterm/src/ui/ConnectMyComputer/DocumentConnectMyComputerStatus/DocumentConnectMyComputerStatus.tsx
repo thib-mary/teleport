@@ -105,7 +105,7 @@ export function DocumentConnectMyComputerStatus(
 
   return (
     <Document visible={props.visible}>
-      <Box maxWidth="590px" mx="auto" mt="4" px="5" width="100%">
+      <Box maxWidth={makePx(147.5)} mx="auto" mt="4" px="5" width="100%">
         {isAgentConfiguredAttempt.status === 'error' && (
           <Alert
             css={`

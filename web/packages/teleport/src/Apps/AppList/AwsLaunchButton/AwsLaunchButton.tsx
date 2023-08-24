@@ -20,6 +20,8 @@ import { ButtonBorder, Text } from 'design';
 import Menu, { MenuItem } from 'design/Menu';
 import { ChevronDown } from 'design/Icon';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import cfg from 'teleport/config';
 import { AwsRole } from 'teleport/services/apps';
 
@@ -45,7 +47,7 @@ export default class AwsLaunchButton extends React.Component<Props> {
     return (
       <>
         <ButtonBorder
-          width="88px"
+          width={makePx(22)}
           size="small"
           setRef={e => (this.anchorEl = e)}
           onClick={this.onOpen}

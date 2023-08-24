@@ -37,7 +37,7 @@ export function UserDelete({
 }: ReturnType<typeof useDialog>) {
   return (
     <Dialog
-      dialogCss={() => ({ maxWidth: '500px', width: '100%' })}
+      dialogCss={() => ({ maxWidth: {makePx(125)}, width: '100%' })}
       disableEscapeKeyDown={false}
       onClose={close}
       open={true}

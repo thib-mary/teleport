@@ -19,6 +19,8 @@ import { ButtonPrimary, Flex, Image, Text } from 'design';
 
 import { OnboardCard } from 'design/Onboard/OnboardCard';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { CaptureEvent, userEventService } from 'teleport/services/userEvent';
 
 import { RegisterSuccessProps } from './types';
@@ -54,7 +56,7 @@ export function RegisterSuccess({
         {actionTxt} successful
       </Text>
       <Flex justifyContent="center" mb={3}>
-        <Image src={shieldCheck} width="200px" height="143px" />
+        <Image src={shieldCheck} width={makePx(50)} height="143px" />
       </Flex>
       <Text fontSize={2} color="text.slightlyMuted" mb={4}>
         Congratulations your {actionTxt} is completed.

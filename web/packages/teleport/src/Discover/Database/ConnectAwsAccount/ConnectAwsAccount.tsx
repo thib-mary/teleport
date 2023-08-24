@@ -101,10 +101,10 @@ export function ConnectAwsAccount() {
 
   if (!hasAccess) {
     return (
-      <Box maxWidth="700px">
+      <Box maxWidth={makePx(175)}>
         <Heading />
-        <Box maxWidth="700px">
-          <Text mt={4} width="100px">
+        <Box maxWidth={makePx(175)}>
+          <Text mt={4} width={makePx(25)}>
             You don’t have the required permissions for integrating.
             <br />
             Ask your Teleport administrator to update your role with the
@@ -124,7 +124,7 @@ export function ConnectAwsAccount() {
 
   if (attempt.status === 'processing') {
     return (
-      <Box maxWidth="700px">
+      <Box maxWidth={makePx(175)}>
         <Heading />
         <Box textAlign="center" m={10}>
           <Indicator />
@@ -135,7 +135,7 @@ export function ConnectAwsAccount() {
 
   if (attempt.status === 'failed') {
     return (
-      <Box maxWidth="700px">
+      <Box maxWidth={makePx(175)}>
         <Heading />
         <Alert kind="danger" children={attempt.statusText} />
         <ButtonPrimary mt={2} onClick={fetchAwsIntegrations}>
@@ -175,7 +175,7 @@ export function ConnectAwsAccount() {
     } as DiscoverUrlLocationState,
   };
   return (
-    <Box maxWidth="700px">
+    <Box maxWidth={makePx(175)}>
       <Heading />
       <Box mb={3}>
         <Validation>
@@ -186,7 +186,7 @@ export function ConnectAwsAccount() {
                   <Text mb={2}>
                     Select the name of the AWS integration to use:
                   </Text>
-                  <Box width="300px" mb={6}>
+                  <Box width={makePx(75)} mb={6}>
                     <FieldSelect
                       disabled
                       label="AWS Integrations"

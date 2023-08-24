@@ -382,7 +382,7 @@ exports[`connected settings false 1`] = `
   >
     <nav
       class="c1"
-      height="40px"
+      height={makePx(10)}
       style="justify-content: space-between;"
     >
       <div
@@ -472,7 +472,7 @@ exports[`connected settings false 1`] = `
                   />
                 </svg>
               </span>
-               
+
               0
             </div>
           </button>
@@ -683,7 +683,7 @@ exports[`connected settings true 1`] = `
   >
     <nav
       class="c1"
-      height="40px"
+      height={makePx(10)}
       style="justify-content: space-between;"
     >
       <div
@@ -773,7 +773,7 @@ exports[`connected settings true 1`] = `
                   />
                 </svg>
               </span>
-               
+
               0
             </div>
           </button>
@@ -1193,7 +1193,7 @@ exports[`disconnected 1`] = `
   >
     <nav
       class="c1"
-      height="40px"
+      height={makePx(10)}
       style="justify-content: space-between;"
     >
       <div
@@ -1283,7 +1283,7 @@ exports[`disconnected 1`] = `
                   />
                 </svg>
               </span>
-               
+
               0
             </div>
           </button>
@@ -1903,7 +1903,7 @@ exports[`processing 1`] = `
   >
     <nav
       class="c1"
-      height="40px"
+      height={makePx(10)}
       style="justify-content: space-between;"
     >
       <div
@@ -1993,7 +1993,7 @@ exports[`processing 1`] = `
                   />
                 </svg>
               </span>
-               
+
               0
             </div>
           </button>
@@ -2213,7 +2213,7 @@ exports[`tdp processing 1`] = `
   >
     <nav
       class="c1"
-      height="40px"
+      height={makePx(10)}
       style="justify-content: space-between;"
     >
       <div
@@ -2303,7 +2303,7 @@ exports[`tdp processing 1`] = `
                   />
                 </svg>
               </span>
-               
+
               0
             </div>
           </button>
@@ -2751,7 +2751,7 @@ exports[`webauthn prompt 1`] = `
       <div
         class="c6"
       >
-        
+
         <div
           class="c7"
         >
@@ -2764,7 +2764,7 @@ exports[`webauthn prompt 1`] = `
         <button
           class="c9"
           kind="primary"
-          width="130px"
+          width={makePx(32.5)}
         >
           OK
         </button>

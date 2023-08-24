@@ -71,7 +71,7 @@ export function CliCommand({ cliCommand, onRun, isLoading }: CliCommandProps) {
         <span>{cliCommand}</span>
         {shouldDisplayIsLoading && (
           <Indicator
-            fontSize="14px"
+            fontSize={makePx(3.5)}
             delay="none"
             css={`
               display: inline;

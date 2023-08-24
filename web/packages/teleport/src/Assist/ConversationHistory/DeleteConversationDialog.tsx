@@ -46,7 +46,7 @@ export function DeleteConversationDialog(props: DeleteConversationDialogProps) {
         <DialogTitle>Are you sure?</DialogTitle>
       </DialogHeader>
       {props.error && <Danger>{props.error}</Danger>}
-      <DialogContent width="400px">
+      <DialogContent width={makePx(100)}>
         <p style={{ margin: 0 }}>
           You are about to delete the conversation{' '}
           <strong>{conversationTitle}</strong>.

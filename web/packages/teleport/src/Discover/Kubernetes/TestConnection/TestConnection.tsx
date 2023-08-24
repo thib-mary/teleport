@@ -107,7 +107,7 @@ export function TestConnection({
             <Text typography="subtitle1" mb={3}>
               Define the namespace to test.
             </Text>
-            <Box width="500px">
+            <Box width={makePx(125)}>
               <FieldInput
                 label="Namespace"
                 rule={requiredField('Namespace is required')}
@@ -123,7 +123,7 @@ export function TestConnection({
             <Text typography="subtitle1" mb={3}>
               Select groups and a user to test.
             </Text>
-            <Box width="500px">
+            <Box width={makePx(125)}>
               <FieldSelect
                 label="Kubernetes Groups"
                 placeholder={
@@ -142,7 +142,7 @@ export function TestConnection({
                 }
               />
             </Box>
-            <Box width="500px">
+            <Box width={makePx(125)}>
               <FieldSelect
                 label={'Kubernetes User'}
                 labelTip={

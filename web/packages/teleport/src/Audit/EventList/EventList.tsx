@@ -19,6 +19,8 @@ import { ButtonBorder } from 'design';
 import Table, { Cell } from 'design/DataTable';
 import { dateTimeMatcher } from 'design/utils/match';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { Event } from 'teleport/services/audit';
 
 import { State } from '../useAuditEvents';
@@ -91,7 +93,7 @@ export const renderActionCell = (
     <ButtonBorder
       size="small"
       onClick={() => onShowDetails(event)}
-      width="87px"
+      width={makePx(21.75)}
     >
       Details
     </ButtonBorder>

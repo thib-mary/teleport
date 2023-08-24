@@ -30,7 +30,7 @@ export const ActionCell = props => {
   }
   return (
     <Cell align="right">
-      <ButtonBorder size="small" onClick={onClick} width="87px">
+      <ButtonBorder size="small" onClick={onClick} width={makePx(21.75)}>
         Details
       </ButtonBorder>
     </Cell>

@@ -59,7 +59,7 @@ export default function ClustersList(props: Props) {
 function renderRootLabelCell({ clusterId }: Cluster) {
   const isRoot = cfg.proxyCluster === clusterId;
   return (
-    <Cell style={{ width: '40px' }}>{isRoot && <Primary>ROOT</Primary>}</Cell>
+    <Cell style={{ width: {makePx(10)} }}>{isRoot && <Primary>ROOT</Primary>}</Cell>
   );
 }
 

@@ -20,7 +20,7 @@ import { ArrowBack } from 'design/Icon';
 import { Text, ButtonIcon, Flex } from 'design';
 
 export const Header: React.FC = ({ children }) => (
-  <Text my={1} fontSize="18px" bold>
+  <Text my={1} fontSize={makePx(4.5)} bold>
     {children}
   </Text>
 );
@@ -37,7 +37,7 @@ export const HeaderWithBackBtn: React.FC<{ onPrev(): void }> = ({
     <ButtonIcon size={1} title="Go Back" onClick={onPrev} ml={-2}>
       <ArrowBack size="large" />
     </ButtonIcon>
-    <Text my={1} fontSize="18px" bold>
+    <Text my={1} fontSize={makePx(4.5)} bold>
       {children}
     </Text>
   </Flex>

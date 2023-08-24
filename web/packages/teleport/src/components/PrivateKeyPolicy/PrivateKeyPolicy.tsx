@@ -108,7 +108,7 @@ export function PrivateKeyAccessRequestDialogue({
 }) {
   return (
     <Dialog
-      dialogCss={() => ({ maxWidth: '500px', width: '100%' })}
+      dialogCss={() => ({ maxWidth: {makePx(125)}, width: '100%' })}
       onClose={close}
       open={true}
     >

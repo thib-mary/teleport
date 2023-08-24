@@ -18,6 +18,8 @@ import React, { useState } from 'react';
 import { ButtonBorder } from 'design';
 import { LoginItem, MenuLogin } from 'shared/components/MenuLogin';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { UnifiedResource } from 'teleport/services/agents';
 import cfg from 'teleport/config';
 
@@ -154,7 +156,7 @@ const AppLaunch = ({ app }: { app: App }) => {
     return (
       <ButtonBorder
         disabled
-        width="90px"
+        width={makePx(22.5)}
         size="small"
         title="Cloud or TCP applications cannot be launched by the browser"
       >
@@ -166,7 +168,7 @@ const AppLaunch = ({ app }: { app: App }) => {
     return (
       <ButtonBorder
         as="a"
-        width="90px"
+        width={makePx(22.5)}
         size="small"
         target="_blank"
         href={samlAppSsoUrl}
@@ -179,7 +181,7 @@ const AppLaunch = ({ app }: { app: App }) => {
   return (
     <ButtonBorder
       as="a"
-      width="90px"
+      width={makePx(22.5)}
       size="small"
       target="_blank"
       href={launchUrl}
