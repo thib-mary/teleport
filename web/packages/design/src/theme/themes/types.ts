@@ -225,4 +225,5 @@ export type Theme = {
   /** Whether this is a custom theme and not Dark Theme/Light Theme. */
   isCustomTheme: boolean;
   colors: ThemeColors;
+  makePx: () => string;
 } & SharedStyles;

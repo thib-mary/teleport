@@ -23,6 +23,8 @@ import { Box, Flex, Link, Text } from 'design';
 
 import { getPlatform, Platform } from 'design/theme/utils';
 
+import {makePx} from "design/theme/utils/makePx";
+
 import useTeleport from 'teleport/useTeleport';
 import { ToolTipNoPermBadge } from 'teleport/components/ToolTipNoPermBadge';
 import { Acl } from 'teleport/services/user';
@@ -200,7 +202,7 @@ export function SelectResource({ onSelect }: SelectResourceProps) {
                     </Flex>
                     <Box>
                       {pretitle && (
-                        <Text fontSize="12px" color="text.slightlyMuted">
+                        <Text fontSize={makePx(3)} color="text.slightlyMuted">
                           {pretitle}
                         </Text>
                       )}
@@ -217,7 +219,7 @@ export function SelectResource({ onSelect }: SelectResourceProps) {
               );
             })}
           </Grid>
-          <Text mt={6} fontSize="12px">
+          <Text mt={6} fontSize={makePx(3)}>
             Looking for something else?{' '}
             <Link
               href="https://github.com/gravitational/teleport/issues/new?assignees=&labels=feature-request&template=feature_request.md"

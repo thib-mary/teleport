@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import {makePx} from "design/theme/utils/makePx";
+
 import { lighten } from '../utils/colorManipulator';
 
 import { sharedColors, sharedStyles } from './sharedStyles';
@@ -202,6 +204,7 @@ const theme: Theme = {
   type: 'dark',
   isCustomTheme: false,
   colors,
+  makePx: makePx,
 };
 
 export default theme;
