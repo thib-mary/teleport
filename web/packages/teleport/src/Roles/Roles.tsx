@@ -64,7 +64,7 @@ export function Roles(props: State) {
     <FeatureBox>
       <FeatureHeader alignItems="center">
         <FeatureHeaderTitle>Roles</FeatureHeaderTitle>
-        <ButtonPrimary ml="auto" width="240px" onClick={handleCreate}>
+        <ButtonPrimary ml="auto" width={makePx(60)}onClick={handleCreate}>
           CREATE NEW ROLE
         </ButtonPrimary>
       </FeatureHeader>
@@ -85,7 +85,7 @@ export function Roles(props: State) {
           </Box>
           <Box
             ml="auto"
-            width="240px"
+            width={makePx(60)}
             color="text.main"
             style={{ flexShrink: 0 }}
           >

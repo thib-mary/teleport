@@ -64,7 +64,7 @@ export default function TrustedClusters() {
           <ButtonPrimary
             disabled={!canCreate}
             ml="auto"
-            width="240px"
+            width={makePx(60)}
             onClick={() => resources.create('trusted_cluster')}
           >
             Connect to Root Cluster
@@ -94,7 +94,7 @@ export default function TrustedClusters() {
           />
           <Info
             ml="4"
-            width="240px"
+            width={makePx(60)}
             color="text.main"
             style={{ flexShrink: 0 }}
           />
@@ -172,7 +172,7 @@ const Empty = (props: EmptyProps) => {
           onClick={props.onCreate}
           mb="2"
           mx="auto"
-          width="240px"
+          width={makePx(60)}
         >
           Connect to Root Cluster
         </ButtonPrimary>

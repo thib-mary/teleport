@@ -56,7 +56,7 @@ export function AuthConnectors(props: State) {
         <FeatureHeaderTitle>Auth Connectors</FeatureHeaderTitle>
         <ButtonPrimary
           ml="auto"
-          width="240px"
+          width={makePx(60)}
           onClick={() => resources.create('github')}
         >
           New GitHub Connector
@@ -84,7 +84,7 @@ export function AuthConnectors(props: State) {
               />
               <Box
                 ml="4"
-                width="240px"
+                width={makePx(60)}
                 color="text.main"
                 style={{ flexShrink: 0 }}
               >

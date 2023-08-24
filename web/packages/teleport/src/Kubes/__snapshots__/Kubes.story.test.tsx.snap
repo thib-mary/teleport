@@ -247,7 +247,7 @@ exports[`empty state 1`] = `
             <button
               class="c11"
               kind="primary"
-              width="224px"
+              width={makePx(56)}
             >
               Add Resource
             </button>
@@ -258,7 +258,7 @@ exports[`empty state 1`] = `
             kind="border"
             rel="noreferrer"
             target="_blank"
-            width="224px"
+            width={makePx(56)}
           >
             View Documentation
           </a>
@@ -889,16 +889,16 @@ exports[`failed 1`] = `
             color="text.main"
             style="text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               3
             </strong>
              of
-             
+
             <strong>
               3
             </strong>
@@ -1100,7 +1100,7 @@ exports[`failed 1`] = `
       </div>
     </nav>
   </div>
-  
+
 </div>
 `;
 
@@ -1648,7 +1648,7 @@ exports[`loaded 1`] = `
         class="c3"
         kind="primary"
         title=""
-        width="240px"
+        width={makePx(60)}
       >
         Add kubernetes
       </button>
@@ -1750,16 +1750,16 @@ exports[`loaded 1`] = `
             color="text.main"
             style="text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               3
             </strong>
              of
-             
+
             <strong>
               3
             </strong>
@@ -1961,7 +1961,7 @@ exports[`loaded 1`] = `
       </div>
     </nav>
   </div>
-  
+
 </div>
 `;
 
@@ -2065,7 +2065,7 @@ exports[`readonly empty state 1`] = `
       <div
         class="c5"
       >
-        Either there are no 
+        Either there are no
         kubernetes clusters
          in the "
         <span

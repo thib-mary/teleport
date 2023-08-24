@@ -47,7 +47,7 @@ exports[`can create 1`] = `
   class="c0"
   kind="primary"
   title=""
-  width="240px"
+  width={makePx(60)}
 >
   Add Database
 </button>
@@ -101,7 +101,7 @@ exports[`leaf cluster 1`] = `
   disabled=""
   kind="primary"
   title="Adding a database to a leaf cluster is not supported"
-  width="240px"
+  width={makePx(60)}
 >
   Add Database
 </button>
@@ -155,7 +155,7 @@ exports[`read only 1`] = `
   disabled=""
   kind="primary"
   title="You do not have access to add a database"
-  width="240px"
+  width={makePx(60)}
 >
   Add Database
 </button>

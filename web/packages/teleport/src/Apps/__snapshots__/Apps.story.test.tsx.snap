@@ -247,7 +247,7 @@ exports[`empty state for enterprise, can create 1`] = `
             <button
               class="c11"
               kind="primary"
-              width="224px"
+              width={makePx(56)}
             >
               Add Resource
             </button>
@@ -258,7 +258,7 @@ exports[`empty state for enterprise, can create 1`] = `
             kind="border"
             rel="noreferrer"
             target="_blank"
-            width="224px"
+            width={makePx(56)}
           >
             View Documentation
           </a>
@@ -957,16 +957,16 @@ exports[`failed state 1`] = `
               color="text.main"
               style="text-transform: uppercase;"
             >
-              Showing 
+              Showing
               <strong>
                 1
               </strong>
-               - 
+               -
               <strong>
                 6
               </strong>
                of
-               
+
               <strong>
                 6
               </strong>
@@ -2094,7 +2094,7 @@ exports[`loaded state 1`] = `
           class="c3"
           kind="primary"
           title=""
-          width="240px"
+          width={makePx(60)}
         >
           Add application
         </button>
@@ -2196,16 +2196,16 @@ exports[`loaded state 1`] = `
               color="text.main"
               style="text-transform: uppercase;"
             >
-              Showing 
+              Showing
               <strong>
                 1
               </strong>
-               - 
+               -
               <strong>
                 6
               </strong>
                of
-               
+
               <strong>
                 6
               </strong>
@@ -2821,7 +2821,7 @@ exports[`readonly empty state 1`] = `
       <div
         class="c5"
       >
-        Either there are no 
+        Either there are no
         applications
          in the "
         <span

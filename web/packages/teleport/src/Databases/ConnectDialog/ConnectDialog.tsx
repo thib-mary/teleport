@@ -49,7 +49,7 @@ export default function ConnectDialog({
       <DialogHeader mb={4}>
         <DialogTitle>Connect To Database</DialogTitle>
       </DialogHeader>
-      <DialogContent minHeight="240px" flex="0 0 auto">
+      <DialogContent minHeight={makePx(60)}flex="0 0 auto">
         <Box mb={4}>
           <Text bold as="span">
             Step 1

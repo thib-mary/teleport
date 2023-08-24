@@ -174,7 +174,7 @@ export function TopBar() {
         value={clusterId}
         width="384px"
         maxMenuHeight={200}
-        mr="20px"
+        mr={makePx(5)}
         onChange={changeCluster}
         onLoad={loadClusters}
         style={styles}

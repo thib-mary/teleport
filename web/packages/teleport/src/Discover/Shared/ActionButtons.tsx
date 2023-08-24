@@ -43,7 +43,7 @@ export const ActionButtons = ({
           as="a"
           href={proceedHref}
           target="_blank"
-          width="224px"
+          width={makePx(56)}
           mr={3}
           rel="noreferrer"
         >

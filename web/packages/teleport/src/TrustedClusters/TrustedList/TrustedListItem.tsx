@@ -30,8 +30,8 @@ export default function TrustedListItem(props: Props) {
         position: 'relative',
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.24)',
       }}
-      width="240px"
-      height="240px"
+      width={makePx(60)}
+      height={makePx(60)}
       borderRadius="3"
       flexDirection="column"
       alignItems="center"

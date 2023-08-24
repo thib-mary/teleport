@@ -113,7 +113,7 @@ export default function Empty(props: Props) {
             }}
             style={{ textDecoration: 'none' }}
           >
-            <ButtonPrimary width="224px" textTransform="none">
+            <ButtonPrimary width={makePx(56)} textTransform="none">
               Add Resource
             </ButtonPrimary>
           </Link>
@@ -124,7 +124,7 @@ export default function Empty(props: Props) {
               as="a"
               href={docsURL}
               target="_blank"
-              width="224px"
+              width={makePx(56)}
               ml={4}
               rel="noreferrer"
             >

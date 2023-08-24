@@ -247,7 +247,7 @@ exports[`empty state for enterprise, can create 1`] = `
             <button
               class="c11"
               kind="primary"
-              width="224px"
+              width={makePx(56)}
             >
               Add Resource
             </button>
@@ -258,7 +258,7 @@ exports[`empty state for enterprise, can create 1`] = `
             kind="border"
             rel="noreferrer"
             target="_blank"
-            width="224px"
+            width={makePx(56)}
           >
             View Documentation
           </a>
@@ -889,16 +889,16 @@ exports[`failed 1`] = `
             color="text.main"
             style="text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               3
             </strong>
              of
-             
+
             <strong>
               3
             </strong>
@@ -1001,7 +1001,7 @@ exports[`failed 1`] = `
             aurora
           </td>
           <td>
-            PostgreSQL 11.6: AWS Aurora 
+            PostgreSQL 11.6: AWS Aurora
           </td>
           <td>
             RDS PostgreSQL
@@ -1721,7 +1721,7 @@ exports[`open source loaded 1`] = `
         class="c3"
         kind="primary"
         title=""
-        width="240px"
+        width={makePx(60)}
       >
         Add database
       </button>
@@ -1823,16 +1823,16 @@ exports[`open source loaded 1`] = `
             color="text.main"
             style="text-transform: uppercase;"
           >
-            Showing 
+            Showing
             <strong>
               1
             </strong>
-             - 
+             -
             <strong>
               3
             </strong>
              of
-             
+
             <strong>
               3
             </strong>
@@ -1935,7 +1935,7 @@ exports[`open source loaded 1`] = `
             aurora
           </td>
           <td>
-            PostgreSQL 11.6: AWS Aurora 
+            PostgreSQL 11.6: AWS Aurora
           </td>
           <td>
             RDS PostgreSQL
@@ -2211,7 +2211,7 @@ exports[`readonly empty state 1`] = `
       <div
         class="c5"
       >
-        Either there are no 
+        Either there are no
         databases
          in the "
         <span

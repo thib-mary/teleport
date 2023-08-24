@@ -124,7 +124,7 @@ function RadioCell({
   disabled: boolean;
 }) {
   return (
-    <Cell width="20px" disabled={disabled}>
+    <Cell width={makePx(5)} disabled={disabled}>
       <Flex alignItems="center" my={2} justifyContent="center">
         <input
           css={`

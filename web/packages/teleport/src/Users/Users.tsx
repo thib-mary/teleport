@@ -56,7 +56,7 @@ export function Users(props: State) {
       <FeatureHeader>
         <FeatureHeaderTitle>Users</FeatureHeaderTitle>
         {attempt.isSuccess && (
-          <ButtonPrimary ml="auto" width="240px" onClick={onStartCreate}>
+          <ButtonPrimary ml="auto" width={makePx(60)}onClick={onStartCreate}>
             Create New User
           </ButtonPrimary>
         )}

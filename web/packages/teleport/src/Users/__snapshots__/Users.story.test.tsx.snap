@@ -452,7 +452,7 @@ exports[`success state 1`] = `
       <button
         class="c3"
         kind="primary"
-        width="240px"
+        width={makePx(60)}
       >
         Create New User
       </button>
@@ -495,16 +495,16 @@ exports[`success state 1`] = `
               color="text.main"
               style="white-space: nowrap; text-transform: uppercase;"
             >
-              Showing 
+              Showing
               <strong>
                 1
               </strong>
-               - 
+               -
               <strong>
                 6
               </strong>
                of
-               
+
               <strong>
                 6
               </strong>

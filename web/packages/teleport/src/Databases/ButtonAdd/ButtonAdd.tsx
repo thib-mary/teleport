@@ -34,7 +34,7 @@ export default function ButtonAdd(props: Props) {
     <ButtonPrimary
       title={title}
       disabled={disabled}
-      width="240px"
+      width={makePx(60)}
       onClick={onClick}
     >
       Add Database

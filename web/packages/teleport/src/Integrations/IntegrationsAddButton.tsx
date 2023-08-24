@@ -28,7 +28,7 @@ export function IntegrationsAddButton({
     <ButtonPrimary
       as={Link}
       ml="auto"
-      width="240px"
+      width={makePx(60)}
       disabled={!canCreate}
       to={cfg.getIntegrationEnrollRoute()}
       title={canCreate ? '' : 'You do not have access to add new integrations'}

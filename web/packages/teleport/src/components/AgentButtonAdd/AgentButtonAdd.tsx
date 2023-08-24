@@ -57,7 +57,7 @@ export default function AgentButtonAdd(props: Props) {
       <ButtonPrimary
         title={title}
         disabled={disabled}
-        width="240px"
+        width={makePx(60)}
         onClick={onClick}
       >
         {agent === 'unified_resource' ? 'Enroll New Resource' : `Add ${agent}`}

@@ -82,7 +82,7 @@ export default function DocumentNodes(props: Props) {
             value={doc.clusterId}
             width="336px"
             maxMenuHeight={200}
-            mr="20px"
+            mr={makePx(5)}
             onChange={onChangeCluster}
           />
         </Flex>

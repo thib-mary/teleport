@@ -129,7 +129,7 @@ function PromptPin({ onCancel, onUserResponse, processing }: Props) {
         >
           <Box>
             <FieldInput
-              width="240px"
+              width={makePx(60)}
               label="Enter the PIN for your security key"
               rule={requiredLength}
               type="password"
