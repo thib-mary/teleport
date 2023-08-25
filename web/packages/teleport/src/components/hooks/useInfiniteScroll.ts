@@ -36,19 +36,26 @@ import { useEffect, useRef } from 'react';
  * ```
  */
 export function useInfiniteScroll(trigger: Element, callback: () => void) {
-  const observer = useRef<IntersectionObserver | null>(null);
+  // const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    if (observer.current) {
-      observer.current.disconnect();
-    }
-    observer.current = new IntersectionObserver(entries => {
+    console.log('reinstalling observer');
+    // if (observer.current) {
+    //   observer.current.disconnect();
+    // }
+    // observer.current = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver(entries => {
       if (entries[0]?.isIntersecting) {
+        console.log('triggering callback');
         callback();
       }
     });
     if (trigger) {
-      observer.current.observe(trigger);
+      // observer.current.observe(trigger);
+      observer.observe(trigger);
     }
+    return () => {
+      observer.disconnect();
+    };
   }, [trigger, callback]);
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import useAttempt, { Attempt } from 'shared/hooks/useAttemptNext';
 
 import {
@@ -23,6 +23,8 @@ import {
   resourceFilterToHookDeps,
 } from 'teleport/services/agents';
 import { UrlResourcesParams } from 'teleport/config';
+
+let cnt = 0;
 
 /**
  * Supports fetching more data from the server when more data is available. Pass
@@ -40,13 +42,18 @@ export function useKeyBasedPagination<T>({
   initialFetchSize = 30,
   fetchMoreSize = 20,
 }: Props<T>): State<T> {
+  const x = cnt++;
   const abortController = useRef<AbortController | null>(null);
   const { attempt, setAttempt } = useAttempt();
   const [finished, setFinished] = useState(false);
   const [resources, setResources] = useState<T[]>([]);
   const [startKey, setStartKey] = useState(null);
 
+  console.log(
+    `${x} Rendering: ${filter.sort?.dir}, ${startKey}, ${attempt.status}`
+  );
   useEffect(() => {
+    console.log(`${x} Resetting: ${filter.sort?.dir}, ${startKey}`);
     abortController.current?.abort();
     abortController.current = null;
 
@@ -59,47 +66,64 @@ export function useKeyBasedPagination<T>({
   // This is an additional countermeasure to prevent fetching if `fetch` is
   // called multiple times per React state reconciliation cycle.
   let fetchCalled = false;
-  const fetch = async (force: boolean) => {
-    if (
-      finished ||
-      fetchCalled ||
-      (!force &&
-        (attempt.status === 'processing' || attempt.status === 'failed'))
-    ) {
-      return;
-    }
-
-    try {
-      fetchCalled = true;
-      setAttempt({ status: 'processing' });
-      const limit = resources.length > 0 ? fetchMoreSize : initialFetchSize;
-      abortController.current?.abort();
-      abortController.current = new AbortController();
-      const res = await fetchFunc(
-        clusterId,
-        {
-          ...filter,
-          limit,
-          startKey,
-        },
-        abortController.current.signal
-      );
-      abortController.current = null;
-      setResources([...resources, ...res.agents]);
-      setStartKey(res.startKey);
-      if (!res.startKey) {
-        setFinished(true);
-      }
-      setAttempt({ status: 'success' });
-    } catch (err) {
-      // Aborting is not really an error here.
-      if (isAbortError(err)) {
-        setAttempt({ status: '', statusText: '' });
+  const fetch = useCallback(
+    async (force: boolean) => {
+      if (
+        finished ||
+        fetchCalled ||
+        (!force &&
+          (attempt.status === 'processing' || attempt.status === 'failed'))
+      ) {
         return;
       }
-      setAttempt({ status: 'failed', statusText: err.message });
-    }
-  };
+
+      console.log(`${x} Fetching: ${filter.sort?.dir}, ${startKey}`);
+      try {
+        fetchCalled = true;
+        setAttempt({ status: 'processing' });
+        const limit = resources.length > 0 ? fetchMoreSize : initialFetchSize;
+        abortController.current?.abort();
+        abortController.current = new AbortController();
+        const res = await fetchFunc(
+          clusterId,
+          {
+            ...filter,
+            limit,
+            startKey,
+          },
+          abortController.current.signal
+        );
+        console.log(
+          `${x} Adding: ${filter.sort?.dir}, ${startKey} (${
+            res.agents[0]?.name ?? res.agents[0]?.hostname
+          }) to ${resources.length} existing; next key: ${res.startKey}`
+        );
+        abortController.current = null;
+        setResources([...resources, ...res.agents]);
+        setStartKey(res.startKey);
+        if (!res.startKey) {
+          setFinished(true);
+        }
+        setAttempt({ status: 'success' });
+      } catch (err) {
+        // Aborting is not really an error here.
+        if (isAbortError(err)) {
+          setAttempt({ status: '', statusText: '' });
+          console.log(`${x} Aborted request: ${filter.sort?.dir}, ${startKey}`);
+          return;
+        }
+        setAttempt({ status: 'failed', statusText: err.message });
+      }
+    },
+    [
+      clusterId,
+      ...resourceFilterToHookDeps(filter),
+      startKey,
+      resources,
+      finished,
+      attempt,
+    ]
+  );
 
   return {
     fetch: () => fetch(false),

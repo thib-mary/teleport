@@ -60,6 +60,8 @@ export function Resources() {
     fetchFunc: teleCtx.resourceService.fetchUnifiedResources,
     clusterId,
     filter: params,
+    initialFetchSize: 1,
+    fetchMoreSize: 1,
   });
 
   const scrollDetector = useRef(null);
