@@ -203,6 +203,23 @@ Cloud user, and manage your own version server.
 You can override this to use your own Teleport Kube Agent Updater image rather
 than a Teleport-published image.
 
+### `updater.pullCredentials`
+
+| Type     | Default value | Required? |
+|----------|---------------|-----------|
+| `string` | ""            | No        |
+
+`pullCredentials` configures the method to retrieve credentials when pulling the
+image and validating the signature. This value is used when the updater is
+configured to pull images from a private registry.
+
+Possible values are:
+- `amazon`: reads [environment variables](https://docs.aws.amazon.com/sdkref/latest/guide/environment-variables.html),
+  [AWS credentials, and AWS config](https://docs.aws.amazon.com/sdkref/latest/guide/file-format.html);
+- `google`: reads the [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials);
+- `docker`: reads [`.docker/config.json`](https://docs.docker.com/engine/reference/commandline/cli/#sample-configuration-file)
+- `none`: doesn't read credentials.
+
 ## `roleBindingName`
 
 | Type     | Default value | Required? |

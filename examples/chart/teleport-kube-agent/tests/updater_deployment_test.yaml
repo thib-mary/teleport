@@ -225,3 +225,14 @@ tests:
       - equal:
           path: spec.template.spec.serviceAccountName
           value: distinct-updater-sa
+
+  - it: sets the pull credentials when specified
+    values:
+      - ../.lint/updater.yaml
+    set:
+      updater:
+        pullCredentials: "amazon"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].args
+          content: "--pull-credentials=amazon"
