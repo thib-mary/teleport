@@ -122,6 +122,7 @@ func defaultTeleportServiceConfig(t *testing.T) (*helpers.TeleInstance, string) 
 				types.NewRule(types.KindLoginRule, unrestricted),
 				types.NewRule(types.KindToken, unrestricted),
 				types.NewRule(types.KindOktaImportRule, unrestricted),
+				types.NewRule(types.KindAccessList, unrestricted),
 			},
 		},
 	})
@@ -209,6 +210,9 @@ func (s *TestSetup) StartKubernetesOperator(t *testing.T) {
 	require.NoError(t, err)
 
 	err = resources.NewOktaImportRuleReconciler(s.K8sClient, clientAccessor).SetupWithManager(k8sManager)
+	require.NoError(t, err)
+
+	err = resources.NewAccessListReconciler(s.K8sClient, clientAccessor).SetupWithManager(k8sManager)
 	require.NoError(t, err)
 
 	ctx, ctxCancel := context.WithCancel(context.Background())

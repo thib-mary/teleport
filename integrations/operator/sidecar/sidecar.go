@@ -121,6 +121,7 @@ func sidecarRole(roleName string) (types.Role, error) {
 						types.KindLoginRule,
 						types.KindToken,
 						types.KindOktaImportRule,
+						types.KindAccessList,
 					},
 					Verbs: []string{"*"},
 				},
