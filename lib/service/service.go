@@ -2627,7 +2627,6 @@ func (process *TeleportProcess) initSSH() error {
 			regular.SetSessionController(sessionController),
 			regular.SetCAGetter(authClient.GetCertAuthority),
 			regular.SetPublicAddrs(cfg.SSH.PublicAddrs),
-			regular.SetServerVersion(resume.ServerVersion),
 		)
 		if err != nil {
 			return trace.Wrap(err)
@@ -2635,7 +2634,7 @@ func (process *TeleportProcess) initSSH() error {
 		defer func() { warnOnErr(s.Close(), log) }()
 
 		var agentPool *reversetunnel.AgentPool
-		resumeHandler := resume.NewResumableSSHServer(s)
+		resumeHandler := resume.NewResumableSSHServer(s, cfg.HostUUID)
 		if !conn.UseTunnel() {
 			listener, err := process.importOrCreateListener(ListenerNodeSSH, cfg.SSH.Addr.Addr)
 			if err != nil {
