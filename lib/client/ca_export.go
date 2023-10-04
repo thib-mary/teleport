@@ -105,14 +105,14 @@ func exportAuth(ctx context.Context, client auth.ClientI, req ExportAuthoritiesR
 		return exportTLSAuthority(ctx, client, req)
 	case "db":
 		req := exportTLSAuthorityRequest{
-			AuthType:          types.DatabaseCA,
+			AuthType:          types.DatabaseClientCA,
 			UnpackPEM:         false,
 			ExportPrivateKeys: exportSecrets,
 		}
 		return exportTLSAuthority(ctx, client, req)
 	case "db-der":
 		req := exportTLSAuthorityRequest{
-			AuthType:          types.DatabaseCA,
+			AuthType:          types.DatabaseClientCA,
 			UnpackPEM:         true,
 			ExportPrivateKeys: exportSecrets,
 		}
@@ -249,6 +249,14 @@ func exportTLSAuthority(ctx context.Context, client auth.ClientI, req exportTLSA
 		types.CertAuthID{Type: req.AuthType, DomainName: clusterName},
 		req.ExportPrivateKeys,
 	)
+	// TODO(gavin): DELETE IN 16.0.0.
+	if err != nil && req.AuthType == types.DatabaseClientCA && trace.IsBadParameter(err) {
+		// fallback to DatabaseCA for compatibility.
+		certAuthority, err = client.GetCertAuthority(ctx, types.CertAuthID{
+			Type:       types.DatabaseCA,
+			DomainName: clusterName,
+		}, req.ExportPrivateKeys)
+	}
 	if err != nil {
 		return "", trace.Wrap(err)
 	}

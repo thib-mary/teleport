@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/gravitational/trace"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gravitational/teleport/api/types"
@@ -32,6 +33,8 @@ import (
 type mockAuthClient struct {
 	auth.ClientI
 	server *auth.Server
+
+	unsupportedCATypes []types.CertAuthType
 }
 
 func (m *mockAuthClient) GetDomainName(ctx context.Context) (string, error) {
@@ -39,10 +42,20 @@ func (m *mockAuthClient) GetDomainName(ctx context.Context) (string, error) {
 }
 
 func (m *mockAuthClient) GetCertAuthorities(ctx context.Context, caType types.CertAuthType, loadKeys bool) ([]types.CertAuthority, error) {
+	for _, unsupported := range m.unsupportedCATypes {
+		if unsupported == caType {
+			return nil, trace.BadParameter("%q authority type is not supported", unsupported)
+		}
+	}
 	return m.server.GetCertAuthorities(ctx, caType, loadKeys)
 }
 
 func (m *mockAuthClient) GetCertAuthority(ctx context.Context, id types.CertAuthID, loadKeys bool) (types.CertAuthority, error) {
+	for _, unsupported := range m.unsupportedCATypes {
+		if unsupported == id.Type {
+			return nil, trace.BadParameter("%q authority type is not supported", unsupported)
+		}
+	}
 	return m.server.GetCertAuthority(ctx, id, loadKeys)
 }
 
@@ -91,11 +104,12 @@ func TestExportAuthorities(t *testing.T) {
 
 	for _, exportSecrets := range []bool{false, true} {
 		for _, tt := range []struct {
-			name            string
-			req             ExportAuthoritiesRequest
-			errorCheck      require.ErrorAssertionFunc
-			assertNoSecrets func(t *testing.T, output string)
-			assertSecrets   func(t *testing.T, output string)
+			name               string
+			req                ExportAuthoritiesRequest
+			errorCheck         require.ErrorAssertionFunc
+			assertNoSecrets    func(t *testing.T, output string)
+			assertSecrets      func(t *testing.T, output string)
+			overrideAuthClient auth.ClientI
 		}{
 			{
 				name: "ssh host and user ca",
@@ -201,6 +215,15 @@ func TestExportAuthorities(t *testing.T) {
 				assertSecrets: validatePrivateKeyPEMFunc,
 			},
 			{
+				name: "db",
+				req: ExportAuthoritiesRequest{
+					AuthType: "db",
+				},
+				errorCheck:      require.NoError,
+				assertNoSecrets: validateTLSCertificatePEMFunc,
+				assertSecrets:   validatePrivateKeyPEMFunc,
+			},
+			{
 				name: "db-der",
 				req: ExportAuthoritiesRequest{
 					AuthType: "db-der",
@@ -209,10 +232,35 @@ func TestExportAuthorities(t *testing.T) {
 				assertNoSecrets: validateTLSCertificateDERFunc,
 				assertSecrets:   validatePrivateKeyDERFunc,
 			},
+			{
+				name: "db backward compat",
+				req: ExportAuthoritiesRequest{
+					AuthType: "db",
+				},
+				errorCheck:         require.NoError,
+				assertNoSecrets:    validateTLSCertificatePEMFunc,
+				assertSecrets:      validatePrivateKeyPEMFunc,
+				overrideAuthClient: &mockAuthClient{server: testAuth.AuthServer, unsupportedCATypes: []types.CertAuthType{types.DatabaseClientCA}},
+			},
+			{
+				name: "db-der backward compat",
+				req: ExportAuthoritiesRequest{
+					AuthType: "db-der",
+				},
+				errorCheck:         require.NoError,
+				assertNoSecrets:    validateTLSCertificateDERFunc,
+				assertSecrets:      validatePrivateKeyDERFunc,
+				overrideAuthClient: &mockAuthClient{server: testAuth.AuthServer, unsupportedCATypes: []types.CertAuthType{types.DatabaseClientCA}},
+			},
 		} {
 			t.Run(fmt.Sprintf("%s_exportSecrets_%v", tt.name, exportSecrets), func(t *testing.T) {
-				mockedClient := &mockAuthClient{
-					server: testAuth.AuthServer,
+				var mockedClient auth.ClientI
+				if tt.overrideAuthClient != nil {
+					mockedClient = tt.overrideAuthClient
+				} else {
+					mockedClient = &mockAuthClient{
+						server: testAuth.AuthServer,
+					}
 				}
 				var (
 					err      error

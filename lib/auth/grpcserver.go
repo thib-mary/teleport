@@ -391,6 +391,7 @@ func (g *GRPCServer) WatchEvents(watch *authpb.Watch, stream authpb.AuthService_
 	if err != nil {
 		return trace.Wrap(err)
 	}
+	dropDBClientCAEvents := shouldDropDBClientCAEvents(stream.Context(), &servicesWatch)
 
 	defer func() {
 		serr := events.Done()
@@ -407,6 +408,14 @@ func (g *GRPCServer) WatchEvents(watch *authpb.Watch, stream authpb.AuthService_
 				return trace.Wrap(err)
 			}
 			event.Resource = downgraded
+		}
+		if dropDBClientCAEvents {
+			if ca, ok := event.Resource.(types.CertAuthority); ok {
+				if ca.GetType() == types.DatabaseClientCA {
+					log.Debugf("Dropping event %s", event)
+					continue
+				}
+			}
 		}
 		out, err := client.EventToGRPC(event)
 		if err != nil {
@@ -425,6 +434,79 @@ func (g *GRPCServer) WatchEvents(watch *authpb.Watch, stream authpb.AuthService_
 	// defferred cleanup func will inject stream error if needed
 	return nil
 }
+
+// shouldDropDBClientCAEvents returns true if we should drop DatabaseClientCA
+// events, e.g. during a rotation when OpPut events are sent.
+// These CA events should be dropped if the client version does not support
+// the DatabaseClientCA and is watching CAs without a filter.
+//
+// We drop the events instead of adding a filter to the watch, because the cache
+// system will notice that the upstream filter was changed and then
+// refuse to watch CAs if the watch they requested does not have a filter that
+// is as narrow or narrower than the modified filter. This fix is specifically
+// to avoid cache re-init in services that don't use a filter - meaning, if
+// we installed a filter then it would actually break those services entirely.
+// Instead, we simply drop the DatabaseClientCA events for clients that don't
+// support that CA type.
+//
+// TODO(gavin): DELETE IN 16.0.0 - no supported clients will require this at
+// that point.
+func shouldDropDBClientCAEvents(ctx context.Context, watch *types.Watch) bool {
+	// next check if this watch is even for cert authorities.
+	if !isWatchingCAsWithoutFilter(watch) {
+		return false
+	}
+
+	// next check client version to see if it knows the DatabaseClientCA type.
+	clientVersionString, ok := metadata.ClientVersionFromContext(ctx)
+	if !ok {
+		log.Debug("no client version found in grpc context")
+		return false
+	}
+	clientVersion, err := semver.NewVersion(clientVersionString)
+	if err != nil {
+		log.WithError(err).Debugf("couldn't parse client version %q", clientVersionString)
+		return false
+	}
+	if versionSupportsDatabaseClientCA(*clientVersion) {
+		return false
+	}
+	log.Debugf("Dropping all %s CA events for client version %s",
+		types.DatabaseClientCA, clientVersionString)
+	return true
+}
+
+// isWatchingCAsWithoutFilter returns true if the watch kinds include
+// KindCertAuthority and the filter is empty.
+func isWatchingCAsWithoutFilter(watch *types.Watch) bool {
+	for _, k := range watch.Kinds {
+		if k.Kind == types.KindCertAuthority && len(k.Filter) == 0 {
+			return true
+		}
+	}
+	return false
+}
+
+// versionSupportsDatabaseClientCA returns true if the client version supports
+// the DatabaseClientCA. This CA was introduced in backports.
+// Client version in the intervals [v12.x, v13.0), [v13.y, v14.0), [v14.z, inf)
+// supports the DatabaseClientCA type, where x, y, z are the minor release
+// versions that the DatabaseClientCA is backported to.
+// Since this function needs to be aware of multiple minor release versions,
+// we should first backport to v12 with a known minor version, then
+// v13, then v14, and finally merge into v15.
+// That way each minor release will be aware of the supported version
+// intervals.
+func versionSupportsDatabaseClientCA(v semver.Version) bool {
+	v.PreRelease = "" // ignore pre-release tags
+	return !v.LessThan(dbClientCACutoffVersion)
+}
+
+// dbClientCAVersionCutoff is the version starting from which we stop
+// dropping DatabaseClientCA events.
+//
+// TODO(gavin): adjust for release!
+var dbClientCACutoffVersion = semver.Version{Major: 14, Minor: 2, Patch: 0}
 
 // resourceLabel returns the label for the provided types.Event
 func resourceLabel(event types.Event) string {
@@ -1389,8 +1471,9 @@ func (g *GRPCServer) SignDatabaseCSR(ctx context.Context, req *authpb.DatabaseCS
 	return response, nil
 }
 
-// GenerateDatabaseCert generates client certificate used by a database
-// service to authenticate with the database instance.
+// GenerateDatabaseCert generates a client certificate used by a database
+// service to authenticate with the database instance, or a server certificate
+// for configuring a self-hosted database, depending on the requester_name.
 func (g *GRPCServer) GenerateDatabaseCert(ctx context.Context, req *authpb.DatabaseCertRequest) (*authpb.DatabaseCertResponse, error) {
 	auth, err := g.authenticate(ctx)
 	if err != nil {

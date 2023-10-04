@@ -45,8 +45,8 @@ type GenerateDatabaseCertificatesRequest struct {
 	Password string
 }
 
-// GenerateDatabaseCertificates to be used by databases to set up mTLS authentication
-func GenerateDatabaseCertificates(ctx context.Context, req GenerateDatabaseCertificatesRequest) ([]string, error) {
+// GenerateDatabaseServerCertificates to be used by databases to set up mTLS authentication
+func GenerateDatabaseServerCertificates(ctx context.Context, req GenerateDatabaseCertificatesRequest) ([]string, error) {
 
 	if len(req.Principals) == 0 ||
 		(len(req.Principals) == 1 && req.Principals[0] == "" && req.OutputFormat != identityfile.FormatSnowflake) {
@@ -63,6 +63,11 @@ func GenerateDatabaseCertificates(ctx context.Context, req GenerateDatabaseCerti
 
 	subject := pkix.Name{CommonName: req.Principals[0]}
 
+	clusterNameType, err := req.ClusterAPI.GetClusterName()
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	clusterName := clusterNameType.GetClusterName()
 	if req.OutputFormat == identityfile.FormatMongo {
 		// Include Organization attribute in MongoDB certificates as well.
 		//
@@ -75,12 +80,7 @@ func GenerateDatabaseCertificates(ctx context.Context, req GenerateDatabaseCerti
 		// MongoDB cluster members so set it to the Teleport cluster name
 		// to avoid hardcoding anything.
 
-		clusterNameType, err := req.ClusterAPI.GetClusterName()
-		if err != nil {
-			return nil, trace.Wrap(err)
-		}
-
-		subject.Organization = []string{clusterNameType.GetClusterName()}
+		subject.Organization = []string{clusterName}
 	}
 
 	if req.Key == nil {

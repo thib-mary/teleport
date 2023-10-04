@@ -986,8 +986,13 @@ func (e certAuthorityExecutor) getAll(ctx context.Context, cache *Cache, loadSec
 		cas, err := cache.Trust.GetCertAuthorities(ctx, caType, loadSecrets)
 		// if caType was added in this major version we might get a BadParameter
 		// error if we're connecting to an older upstream that doesn't know about it
-		if err != nil && !(caType.NewlyAdded() && trace.IsBadParameter(err)) {
-			return nil, trace.Wrap(err)
+		if err != nil {
+			// DatabaseClientCA is special - we backported it for a security fix
+			// so it was not introduced in a single major version.
+			if !(trace.IsBadParameter(err) && (caType.NewlyAdded() || caType == types.DatabaseClientCA)) {
+				return nil, trace.Wrap(err)
+			}
+			continue
 		}
 
 		// this can be removed once we get the ability to fetch CAs with a filter,

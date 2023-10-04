@@ -200,6 +200,7 @@ var allowedCertificateTypes = []string{
 var allowedCRLCertificateTypes = []string{
 	string(types.HostCA),
 	string(types.DatabaseCA),
+	string(types.DatabaseClientCA),
 	string(types.UserCA),
 }
 
@@ -353,20 +354,11 @@ func (a *AuthCommand) generateSnowflakeKey(ctx context.Context, clusterAPI auth.
 		return trace.Wrap(err)
 	}
 
-	cn, err := clusterAPI.GetClusterName()
+	dbClientCAs, err := getDatabaseClientCA(ctx, clusterAPI)
 	if err != nil {
 		return trace.Wrap(err)
 	}
-	certAuthID := types.CertAuthID{
-		Type:       types.DatabaseCA,
-		DomainName: cn.GetClusterName(),
-	}
-	databaseCA, err := clusterAPI.GetCertAuthority(ctx, certAuthID, false)
-	if err != nil {
-		return trace.Wrap(err)
-	}
-
-	key.TrustedCerts = []auth.TrustedCerts{{TLSCertificates: services.GetTLSCerts(databaseCA)}}
+	key.TrustedCerts = []auth.TrustedCerts{{TLSCertificates: services.GetTLSCerts(dbClientCAs)}}
 
 	filesWritten, err := identityfile.Write(ctx, identityfile.WriteConfig{
 		OutputPath:           a.output,
@@ -528,7 +520,7 @@ func (a *AuthCommand) generateDatabaseKeysForKey(ctx context.Context, clusterAPI
 		Password:           a.password,
 		IdentityFileWriter: a.identityWriter,
 	}
-	filesWritten, err := db.GenerateDatabaseCertificates(ctx, dbCertReq)
+	filesWritten, err := db.GenerateDatabaseServerCertificates(ctx, dbCertReq)
 	if err != nil {
 		return trace.Wrap(err)
 	}
@@ -1142,4 +1134,29 @@ func (a *AuthCommand) helperMsgDst() io.Writer {
 		return os.Stderr
 	}
 	return os.Stdout
+}
+
+func getDatabaseClientCA(ctx context.Context, clusterAPI auth.ClientI) (types.CertAuthority, error) {
+	cn, err := clusterAPI.GetClusterName()
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	dbClientCA, err := clusterAPI.GetCertAuthority(ctx, types.CertAuthID{
+		Type:       types.DatabaseClientCA,
+		DomainName: cn.GetClusterName(),
+	}, false)
+	if err == nil {
+		return dbClientCA, nil
+	}
+	if !trace.IsBadParameter(err) {
+		return nil, trace.Wrap(err)
+	}
+
+	// fallback to DatabaseCA if DatabaseClientCA isn't found
+	// in backend.
+	dbServerCA, err := clusterAPI.GetCertAuthority(ctx, types.CertAuthID{
+		Type:       types.DatabaseCA,
+		DomainName: cn.GetClusterName(),
+	}, false)
+	return dbServerCA, trace.Wrap(err)
 }

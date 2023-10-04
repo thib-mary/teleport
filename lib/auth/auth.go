@@ -4819,10 +4819,10 @@ func (a *Server) GenerateCertAuthorityCRL(ctx context.Context, caType types.Cert
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	ca, err := a.GetCertAuthority(ctx, types.CertAuthID{
+	ca, err := getCAForCRL(ctx, a, types.CertAuthID{
 		Type:       caType,
 		DomainName: clusterName.GetClusterName(),
-	}, true)
+	})
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -5810,7 +5810,7 @@ func newKeySet(ctx context.Context, keyStore *keystore.Manager, caID types.CertA
 		}
 		keySet.SSH = append(keySet.SSH, sshKeyPair)
 		keySet.TLS = append(keySet.TLS, tlsKeyPair)
-	case types.DatabaseCA:
+	case types.DatabaseCA, types.DatabaseClientCA:
 		// Database CA only contains TLS cert.
 		tlsKeyPair, err := keyStore.NewTLSKeyPair(ctx, caID.DomainName)
 		if err != nil {
@@ -6208,4 +6208,22 @@ func DefaultDNSNamesForRole(role types.SystemRole) []string {
 		}
 	}
 	return nil
+}
+
+// getCAForCRL is a helper to get the CRL for a CA, except for DatabaseCA try
+// to return the DatabaseClientCA instead.
+// This is to avoid breaking tctl/cluster compatibility after the db client CA
+// is introduced in v12, v13, v14.
+func getCAForCRL(ctx context.Context, trustSvc services.Trust, caID types.CertAuthID) (types.CertAuthority, error) {
+	if caID.Type == types.DatabaseCA {
+		ca, err := trustSvc.GetCertAuthority(ctx, types.CertAuthID{
+			Type:       types.DatabaseClientCA,
+			DomainName: caID.DomainName,
+		}, true)
+		if err == nil {
+			return ca, nil
+		}
+		// if there's an error fallback to DatabaseCA.
+	}
+	return trustSvc.GetCertAuthority(ctx, caID, true)
 }

@@ -1570,8 +1570,9 @@ func (c *Client) SignDatabaseCSR(ctx context.Context, req *proto.DatabaseCSRRequ
 	return resp, nil
 }
 
-// GenerateDatabaseCert generates client certificate used by a database
-// service to authenticate with the database instance.
+// GenerateDatabaseCert generates a client certificate used by a database
+// service to authenticate with the database instance, or a server certificate
+// for configuring a self-hosted database, depending on the requester_name.
 func (c *Client) GenerateDatabaseCert(ctx context.Context, req *proto.DatabaseCertRequest) (*proto.DatabaseCertResponse, error) {
 	resp, err := c.grpc.GenerateDatabaseCert(ctx, req)
 	if err != nil {
@@ -3203,6 +3204,12 @@ func (c *Client) CreateRegisterChallenge(ctx context.Context, in *proto.CreateRe
 // GenerateCertAuthorityCRL generates an empty CRL for a CA.
 func (c *Client) GenerateCertAuthorityCRL(ctx context.Context, req *proto.CertAuthorityRequest) (*proto.CRL, error) {
 	resp, err := c.grpc.GenerateCertAuthorityCRL(ctx, req)
+	if req.Type == types.DatabaseClientCA && trace.IsBadParameter(err) {
+		// fallback to DatabaseCA if DatabaseClientCA is not supported upstream.
+		req := *req
+		req.Type = types.DatabaseCA
+		resp, err = c.grpc.GenerateCertAuthorityCRL(ctx, &req)
+	}
 	return resp, trace.Wrap(err)
 }
 

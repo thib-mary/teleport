@@ -325,14 +325,14 @@ func (h *Handler) sqlServerConfigureADScriptHandle(w http.ResponseWriter, r *htt
 
 	certAuthority, err := h.GetProxyClient().GetCertAuthority(
 		r.Context(),
-		types.CertAuthID{Type: types.DatabaseCA, DomainName: clusterName},
+		types.CertAuthID{Type: types.DatabaseClientCA, DomainName: clusterName},
 		false,
 	)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 
-	caCRL, err := h.GetProxyClient().GenerateCertAuthorityCRL(r.Context(), types.DatabaseCA)
+	caCRL, err := h.GetProxyClient().GenerateCertAuthorityCRL(r.Context(), types.DatabaseClientCA)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}

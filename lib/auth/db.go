@@ -46,32 +46,119 @@ import (
 // GenerateDatabaseCert generates client certificate used by a database
 // service to authenticate with the database instance.
 func (s *Server) GenerateDatabaseCert(ctx context.Context, req *proto.DatabaseCertRequest) (*proto.DatabaseCertResponse, error) {
-	csr, err := tlsca.ParseCertificateRequestPEM(req.CSR)
-	if err != nil {
-		return nil, trace.Wrap(err)
+	if req.RequesterName == proto.DatabaseCertRequest_TCTL {
+		// tctl/web cert request needs to generate a db server cert and trust
+		// the db client CA.
+		return s.generateDatabaseServerCert(ctx, req)
 	}
+	// db service needs to generate a db client cert and trust the db server CA.
+	return s.generateDatabaseClientCert(ctx, req)
+}
+
+// generateDatabaseServerCert generates database server certificate used by a
+// database to authenticate itself to a database service.
+func (s *Server) generateDatabaseServerCert(ctx context.Context, req *proto.DatabaseCertRequest) (*proto.DatabaseCertResponse, error) {
 	clusterName, err := s.GetClusterName()
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	databaseCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
+	// databases should be configured to should trust the DatabaseClientCA when
+	// clients connect so return DatabaseClientCA in the response.
+	dbClientCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
+		Type:       types.DatabaseClientCA,
+		DomainName: clusterName.GetClusterName(),
+	}, false)
+	if err != nil {
+		if trace.IsNotFound(err) {
+			// DatabaseClientCA does not exist.
+			// Use legacy cert gen as a fallback.
+			return s.legacyGenerateDatabaseCert(ctx, req, clusterName)
+		}
+		return nil, trace.Wrap(err)
+	}
+	dbServerCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
 		Type:       types.DatabaseCA,
 		DomainName: clusterName.GetClusterName(),
 	}, true)
 	if err != nil {
-		if trace.IsNotFound(err) {
-			// Database CA doesn't exist. Fallback to Host CA.
-			// https://github.com/gravitational/teleport/issues/5029
-			databaseCA, err = s.GetCertAuthority(ctx, types.CertAuthID{
-				Type:       types.HostCA,
-				DomainName: clusterName.GetClusterName(),
-			}, true)
-		}
-		if err != nil {
-			return nil, trace.Wrap(err)
-		}
+		return nil, trace.Wrap(err)
 	}
-	caCert, signer, err := getCAandSigner(ctx, s.GetKeyStore(), databaseCA, req)
+
+	cert, err := s.generateDatabaseCert(ctx, req, dbServerCA)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	return &proto.DatabaseCertResponse{
+		Cert:    cert,
+		CACerts: services.GetTLSCerts(dbClientCA),
+	}, nil
+}
+
+// generateDatabaseClientCert generates client certificate used by a database
+// service to authenticate with the database instance.
+func (s *Server) generateDatabaseClientCert(ctx context.Context, req *proto.DatabaseCertRequest) (*proto.DatabaseCertResponse, error) {
+	clusterName, err := s.GetClusterName()
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	dbClientCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
+		Type:       types.DatabaseClientCA,
+		DomainName: clusterName.GetClusterName(),
+	}, true)
+	if err != nil {
+		if trace.IsNotFound(err) {
+			// DatabaseClientCA does not exist.
+			// Use legacy cert gen as a fallback.
+			return s.legacyGenerateDatabaseCert(ctx, req, clusterName)
+		}
+		return nil, trace.Wrap(err)
+	}
+
+	cert, err := s.generateDatabaseCert(ctx, req, dbClientCA)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	// db clients should trust the Database Server CA when establishing
+	// connection to a database, so return that CA's certs in the response.
+	dbServerCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
+		Type:       types.DatabaseCA,
+		DomainName: clusterName.GetClusterName(),
+	}, false)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	return &proto.DatabaseCertResponse{
+		Cert:    cert,
+		CACerts: services.GetTLSCerts(dbServerCA),
+	}, nil
+}
+
+// legacyGenerateDatabaseCert generates client certificate used by a database
+// service to authenticate with the database instance.
+func (s *Server) legacyGenerateDatabaseCert(ctx context.Context, req *proto.DatabaseCertRequest, clusterName types.ClusterName) (*proto.DatabaseCertResponse, error) {
+	dbServerCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
+		Type:       types.DatabaseCA,
+		DomainName: clusterName.GetClusterName(),
+	}, true)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	cert, err := s.generateDatabaseCert(ctx, req, dbServerCA)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	return &proto.DatabaseCertResponse{
+		Cert:    cert,
+		CACerts: services.GetTLSCerts(dbServerCA),
+	}, nil
+}
+
+func (s *Server) generateDatabaseCert(ctx context.Context, req *proto.DatabaseCertRequest, ca types.CertAuthority) ([]byte, error) {
+	csr, err := tlsca.ParseCertificateRequestPEM(req.CSR)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	caCert, signer, err := getCAandSigner(ctx, s.GetKeyStore(), ca, req)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -100,13 +187,7 @@ func (s *Server) GenerateDatabaseCert(ctx context.Context, req *proto.DatabaseCe
 		certReq.DNSNames = getServerNames(req)
 	}
 	cert, err := tlsCA.GenerateCertificate(certReq)
-	if err != nil {
-		return nil, trace.Wrap(err)
-	}
-	return &proto.DatabaseCertResponse{
-		Cert:    cert,
-		CACerts: services.GetTLSCerts(databaseCA),
-	}, nil
+	return cert, trace.Wrap(err)
 }
 
 // getCAandSigner returns correct signer and CA that should be used when generating database certificate.
@@ -116,6 +197,7 @@ func (s *Server) GenerateDatabaseCert(ctx context.Context, req *proto.DatabaseCe
 func getCAandSigner(ctx context.Context, keyStore *keystore.Manager, databaseCA types.CertAuthority, req *proto.DatabaseCertRequest,
 ) ([]byte, crypto.Signer, error) {
 	if req.RequesterName == proto.DatabaseCertRequest_TCTL &&
+		databaseCA.GetType() == types.DatabaseCA &&
 		databaseCA.GetRotation().Phase == types.RotationPhaseInit {
 		return keyStore.GetAdditionalTrustedTLSCertAndSigner(ctx, databaseCA)
 	}
@@ -234,11 +316,21 @@ func (s *Server) GenerateSnowflakeJWT(ctx context.Context, req *proto.SnowflakeJ
 		return nil, trace.Wrap(err)
 	}
 	ca, err := s.GetCertAuthority(ctx, types.CertAuthID{
-		Type:       types.DatabaseCA,
+		Type:       types.DatabaseClientCA,
 		DomainName: clusterName.GetClusterName(),
 	}, true)
 	if err != nil {
-		return nil, trace.Wrap(err)
+		if !trace.IsNotFound(err) {
+			return nil, trace.Wrap(err)
+		}
+		// DatabaseClientCA doesn't exist, fallback to DatabaseCA.
+		ca, err = s.GetCertAuthority(ctx, types.CertAuthID{
+			Type:       types.DatabaseCA,
+			DomainName: clusterName.GetClusterName(),
+		}, true)
+		if err != nil {
+			return nil, trace.Wrap(err)
+		}
 	}
 
 	if len(ca.GetActiveKeys().TLS) == 0 {
