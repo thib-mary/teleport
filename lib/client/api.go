@@ -1634,8 +1634,8 @@ func (tc *TeleportClient) ConnectToNode(ctx context.Context, clt *ClusterClient,
 			return
 		}
 
-		conn, err = resume.NewResumableSSHClientConn(conn, func(ctx context.Context) (net.Conn, error) {
-			c, _, err := clt.ProxyClient.DialHost(ctx, nodeDetails.Addr, nodeDetails.Cluster, nil)
+		conn, err = resume.NewResumableSSHClientConn(conn, ctx, func(connCtx context.Context) (net.Conn, error) {
+			c, _, err := clt.ProxyClient.DialHost(connCtx, nodeDetails.Addr, nodeDetails.Cluster, nil)
 			return c, err
 		})
 		if err != nil {
@@ -1780,7 +1780,7 @@ func (tc *TeleportClient) connectToNodeWithMFA(ctx context.Context, clt *Cluster
 		return nil, trace.Wrap(err)
 	}
 
-	conn, err = resume.NewResumableSSHClientConn(conn, func(ctx context.Context) (net.Conn, error) {
+	conn, err = resume.NewResumableSSHClientConn(conn, ctx, func(ctx context.Context) (net.Conn, error) {
 		c, _, err := clt.ProxyClient.DialHost(ctx, nodeDetails.Addr, nodeDetails.Cluster, nil)
 		return c, err
 	})
