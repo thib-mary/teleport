@@ -53,6 +53,7 @@ export type ResourceFilter = {
   sort?: SortType;
   limit?: number;
   startKey?: string;
+  searchAsRoles?: string;
   pinnedOnly?: boolean;
   // TODO(bl-nero): Remove this once filters are expressed as advanced search.
   kinds?: string[];
@@ -76,6 +77,7 @@ export type ResourceIdKind =
   | 'app'
   | 'db'
   | 'kube_cluster'
+  | 'resource'
   | 'user_group'
   | 'windows_desktop';
 

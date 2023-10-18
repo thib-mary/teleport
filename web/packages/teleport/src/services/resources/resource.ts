@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+import { SharedUnifiedResource } from 'shared/components/UnifiedResources/types';
+
 import api from 'teleport/services/api';
 import cfg, { UrlResourcesParams } from 'teleport/config';
 import history from 'teleport/services/history';
 
-import { UnifiedResource, ResourcesResponse } from '../agents';
+import { ResourcesResponse } from '../agents';
 import { KeysEnum } from '../localStorage';
 
 import { makeUnifiedResource } from './makeUnifiedResource';
@@ -36,7 +38,7 @@ class ResourceService {
     clusterId?: string,
     params?: UrlResourcesParams,
     signal?: AbortSignal
-  ): Promise<ResourcesResponse<UnifiedResource>> {
+  ): Promise<ResourcesResponse<SharedUnifiedResource['resource']>> {
     return api
       .get(cfg.getUnifiedResourcesUrl(clusterId, params), signal)
       .then(json => {
