@@ -77,7 +77,6 @@ export type ResourceIdKind =
   | 'app'
   | 'db'
   | 'kube_cluster'
-  | 'resource'
   | 'user_group'
   | 'windows_desktop';
 

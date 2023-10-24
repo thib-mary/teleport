@@ -131,6 +131,10 @@ interface UnifiedResourcesProps<T> {
   updateUnifiedResourcesPreferences(
     preferences: UnifiedResourcePreferences
   ): void;
+
+  // optional prop used to override the feature box padding if this feature is "contained"
+  // inside another FeatureBox (like the one for the Access Requests page)
+  featureBoxPadding?: number;
 }
 
 export function UnifiedResources<T>(props: UnifiedResourcesProps<T>) {
@@ -140,6 +144,7 @@ export function UnifiedResources<T>(props: UnifiedResourcesProps<T>) {
     onLabelClick,
     availableKinds,
     pinning,
+    featureBoxPadding = 4,
     updateUnifiedResourcesPreferences,
   } = props;
   const {
@@ -297,7 +302,7 @@ export function UnifiedResources<T>(props: UnifiedResourcesProps<T>) {
   return (
     <FeatureBox
       className="ContainerContext"
-      px={4}
+      px={featureBoxPadding}
       css={`
         max-width: ${RESOURCES_MAX_WIDTH};
         margin: auto;
