@@ -88,6 +88,9 @@ func ValidateJoinMethod(method JoinMethod) error {
 	return nil
 }
 
+// Example YAML:
+// ---
+// in_cluster
 type KubernetesJoinType string
 
 var (
