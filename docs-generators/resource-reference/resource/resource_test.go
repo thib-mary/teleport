@@ -1184,6 +1184,44 @@ func (stream *streamFunc[T]) Next() bool {
 	}
 }
 
+func TestMakeFieldTableInfo(t *testing.T) {
+	cases := []struct {
+		description string
+		input       []rawField
+		expected    []Field
+	}{
+		{
+			description: "angle brackets in comments",
+			input: []rawField{
+				{
+					packageName: "mypkg",
+					doc:         "This field has a comment including \"<angle brackets>\"",
+					kind:        yamlString{},
+					name:        "myField",
+					jsonName:    "my_field",
+					tags:        "json:\"my_field\"",
+				},
+			},
+			expected: []Field{
+				{
+					Name:        "my_field",
+					Description: "This field has a comment including `angle brackets`",
+					Type:        "string",
+				},
+			},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.description, func(t *testing.T) {
+			f, err := makeFieldTableInfo(c.input)
+			assert.NoError(t, err)
+
+			assert.Equal(t, c.expected, f)
+		})
+	}
+}
+
 func TestGetJSONTag(t *testing.T) {
 	cases := []struct {
 		description string

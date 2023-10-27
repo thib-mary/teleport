@@ -489,6 +489,8 @@ func makeRawField(field *ast.Field, packageName string) (rawField, error) {
 	}, nil
 }
 
+var bracketRE = regexp.MustCompile(`("?<|>"?)`)
+
 // makeFieldTableInfo assembles a slice of human-readable information about fields
 // within a Go struct.
 func makeFieldTableInfo(fields []rawField) ([]Field, error) {
@@ -508,6 +510,7 @@ func makeFieldTableInfo(fields []rawField) ([]Field, error) {
 			typ = field.kind.formatForTable()
 		}
 		desc = strings.Trim(strings.ReplaceAll(desc, "\n", " "), " ")
+		desc = bracketRE.ReplaceAllString(desc, "`")
 
 		result = append(result, Field{
 			Description: descriptionWithoutName(desc, field.name),
