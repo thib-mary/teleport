@@ -4,8 +4,9 @@
 
 ### Access Request
 
-**Kind**: `access_request`
-**Version**: `v3`
+**Kind**: access_request
+
+**Version**: v3
 
 AccessRequest represents an access request resource specification
 
@@ -17,8 +18,8 @@ AccessRequest represents an access request resource specification
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|AccessRequest metadata|[Metadata](./#metadata)|
-|spec|An AccessRequest specification|[Access Request Spec](./#access-request-spec)|
+|metadata|AccessRequest metadata|[Metadata](#metadata)|
+|spec|An AccessRequest specification|[Access Request Spec](#access-request-spec)|
  
 
 
@@ -37,8 +38,9 @@ spec:
 
 ### App Server
 
-**Kind**: `app_server`
-**Version**: `v3`
+**Kind**: app_server
+
+**Version**: v3
 
 Represents a single proxied web app.
 
@@ -50,8 +52,8 @@ Represents a single proxied web app.
 |kind|The app server resource kind. Always "app_server".|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The app server metadata.|[Metadata](./#metadata)|
-|spec|The app server spec.|[App Server Spec](./#app-server-spec)|
+|metadata|The app server metadata.|[Metadata](#metadata)|
+|spec|The app server spec.|[App Server Spec](#app-server-spec)|
  
 
 
@@ -70,8 +72,9 @@ spec:
 
 ### App
 
-**Kind**: `app`
-**Version**: `v3`
+**Kind**: app
+
+**Version**: v3
 
 Represents an app resource.
 
@@ -83,8 +86,8 @@ Represents an app resource.
 |kind|The app resource kind. Always "app".|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The app resource metadata.|[Metadata](./#metadata)|
-|spec|The app resource spec.|[App Spec](./#app-spec)|
+|metadata|The app resource metadata.|[Metadata](#metadata)|
+|spec|The app resource spec.|[App Spec](#app-spec)|
  
 
 
@@ -103,8 +106,9 @@ spec:
 
 ### Auth Preference
 
-**Kind**: `cluster_auth_preference`
-**Version**: `v2`
+**Kind**: cluster_auth_preference
+
+**Version**: v2
 
 Implements the AuthPreference interface.
 
@@ -116,8 +120,8 @@ Implements the AuthPreference interface.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|A resource version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|An AuthPreference specification|[Auth Preference Spec](./#auth-preference-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|An AuthPreference specification|[Auth Preference Spec](#auth-preference-spec)|
  
 
 
@@ -136,8 +140,9 @@ spec:
 
 ### Cert Authority
 
-**Kind**: `cert_authority`
-**Version**: `v2`
+**Kind**: cert_authority
+
+**Version**: v2
 
 Version 2 resource spec for Cert Authority
 
@@ -149,8 +154,8 @@ Version 2 resource spec for Cert Authority
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Connector metadata|[Metadata](./#metadata)|
-|spec|Contains cert authority specification|[Cert Authority Spec](./#cert-authority-spec)|
+|metadata|Connector metadata|[Metadata](#metadata)|
+|spec|Contains cert authority specification|[Cert Authority Spec](#cert-authority-spec)|
  
 
 
@@ -169,8 +174,9 @@ spec:
 
 ### Cluster Audit Config
 
-**Kind**: `cluster_audit_config`
-**Version**: `v2`
+**Kind**: cluster_audit_config
+
+**Version**: v2
 
 Represents audit log settings in the cluster.
 
@@ -182,8 +188,8 @@ Represents audit log settings in the cluster.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|A resource version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A ClusterAuditConfig specification|[Cluster Audit Config Spec](./#cluster-audit-config-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A ClusterAuditConfig specification|[Cluster Audit Config Spec](#cluster-audit-config-spec)|
  
 
 
@@ -202,8 +208,9 @@ spec:
 
 ### Cluster Name
 
-**Kind**: `cluster_name`
-**Version**: `v2`
+**Kind**: cluster_name
+
+**Version**: v2
 
 Implements the ClusterName interface.
 
@@ -215,8 +222,8 @@ Implements the ClusterName interface.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A cluster name V2 spec|[Cluster Name Spec](./#cluster-name-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A cluster name V2 spec|[Cluster Name Spec](#cluster-name-spec)|
  
 
 
@@ -235,8 +242,9 @@ spec:
 
 ### Cluster Networking Config
 
-**Kind**: `cluster_networking_config`
-**Version**: `v2`
+**Kind**: cluster_networking_config
+
+**Version**: v2
 
 Contains cluster-wide networking configuration.
 
@@ -248,8 +256,8 @@ Contains cluster-wide networking configuration.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|A resource version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A ClusterNetworkingConfig specification|[Cluster Networking Config Spec](./#cluster-networking-config-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A ClusterNetworkingConfig specification|[Cluster Networking Config Spec](#cluster-networking-config-spec)|
  
 
 
@@ -268,8 +276,9 @@ spec:
 
 ### Database Server
 
-**Kind**: `db_server`
-**Version**: `v3`
+**Kind**: db_server
+
+**Version**: v3
 
 Represents a database access server.
 
@@ -281,8 +290,8 @@ Represents a database access server.
 |kind|The database server resource kind.|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The database server metadata.|[Metadata](./#metadata)|
-|spec|The database server spec.|[Database Server Spec](./#database-server-spec)|
+|metadata|The database server metadata.|[Metadata](#metadata)|
+|spec|The database server spec.|[Database Server Spec](#database-server-spec)|
  
 
 
@@ -301,8 +310,9 @@ spec:
 
 ### Database
 
-**Kind**: `db`
-**Version**: `v3`
+**Kind**: db
+
+**Version**: v3
 
 Represents a single proxied database.
 
@@ -314,9 +324,9 @@ Represents a single proxied database.
 |kind|The database resource kind.|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The database metadata.|[Metadata](./#metadata)|
-|spec|The database spec.|[Database Spec](./#database-spec)|
-|status|The database runtime information.|[Database Status](./#database-status)|
+|metadata|The database metadata.|[Metadata](#metadata)|
+|spec|The database spec.|[Database Spec](#database-spec)|
+|status|The database runtime information.|[Database Status](#database-status)|
  
 
 
@@ -337,8 +347,9 @@ status:
 
 ### Github Connector
 
-**Kind**: `github`
-**Version**: `v3`
+**Kind**: github
+
+**Version**: v3
 
 Represents a Github connector.
 
@@ -350,8 +361,8 @@ Represents a Github connector.
 |kind|A resource kind.|string|
 |sub_kind|An optional resource sub kind, used in some resources.|string|
 |version|A resource version.|string|
-|metadata|Holds resource metadata.|[Metadata](./#metadata)|
-|spec|An Github connector specification.|[Github Connector Spec](./#github-connector-spec)|
+|metadata|Holds resource metadata.|[Metadata](#metadata)|
+|spec|An Github connector specification.|[Github Connector Spec](#github-connector-spec)|
  
 
 
@@ -370,8 +381,9 @@ spec:
 
 ### Installer
 
-**Kind**: `installer`
-**Version**: `v1`
+**Kind**: installer
+
+**Version**: v1
 
 Represents an installer script resource. Used to provide a script to install teleport on discovered nodes.
 
@@ -383,8 +395,8 @@ Represents an installer script resource. Used to provide a script to install tel
 |kind|The resource kind.|string|
 |sub_kind|An optional resource subkind. Currently unused for this resource.|string|
 |version|The resource version.|string|
-|metadata|The resource metadata.|[Metadata](./#metadata)|
-|spec|The resource spec.|[Installer Spec](./#installer-spec)|
+|metadata|The resource metadata.|[Metadata](#metadata)|
+|spec|The resource spec.|[Installer Spec](#installer-spec)|
  
 
 
@@ -403,8 +415,9 @@ spec:
 
 ### Kubernetes Cluster
 
-**Kind**: `kube_cluster`
-**Version**: `v3`
+**Kind**: kube_cluster
+
+**Version**: v3
 
 Represents a named kubernetes API endpoint.
 
@@ -416,8 +429,8 @@ Represents a named kubernetes API endpoint.
 |kind|The cluster resource kind.|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The resource metadata.|[Metadata](./#metadata)|
-|spec|The resource spec.|[Kubernetes Cluster Spec](./#kubernetes-cluster-spec)|
+|metadata|The resource metadata.|[Metadata](#metadata)|
+|spec|The resource spec.|[Kubernetes Cluster Spec](#kubernetes-cluster-spec)|
  
 
 
@@ -436,8 +449,9 @@ spec:
 
 ### Kubernetes Server
 
-**Kind**: `kube_server`
-**Version**: `v3`
+**Kind**: kube_server
+
+**Version**: v3
 
 Represents a Kubernetes server.
 
@@ -449,8 +463,8 @@ Represents a Kubernetes server.
 |kind|The Kubernetes server resource kind. Always "kube_server".|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The Kubernetes server metadata.|[Metadata](./#metadata)|
-|spec|The Kubernetes server spec.|[Kubernetes Server Spec](./#kubernetes-server-spec)|
+|metadata|The Kubernetes server metadata.|[Metadata](#metadata)|
+|spec|The Kubernetes server spec.|[Kubernetes Server Spec](#kubernetes-server-spec)|
  
 
 
@@ -469,8 +483,9 @@ spec:
 
 ### License
 
-**Kind**: `license`
-**Version**: `v3`
+**Kind**: license
+
+**Version**: v3
 
 Represents License resource version V3. When changing this, keep in mind that other consumers of teleport/api (Houston, Sales Center) might still need to generate or parse licenses for older versions of Teleport.
 
@@ -482,8 +497,8 @@ Represents License resource version V3. When changing this, keep in mind that ot
 |kind|A resource kind - always resource.|string|
 |sub_kind|A resource sub kind|string|
 |version|A resource version.|string|
-|metadata|Metadata about the resource.|[Metadata](./#metadata)|
-|spec|The specification of the resource.|[License Spec](./#license-spec)|
+|metadata|Metadata about the resource.|[Metadata](#metadata)|
+|spec|The specification of the resource.|[License Spec](#license-spec)|
  
 
 
@@ -502,8 +517,9 @@ spec:
 
 ### Lock
 
-**Kind**: `lock`
-**Version**: `v2`
+**Kind**: lock
+
+**Version**: v2
 
 Represents a lock. Locks are used to restrict access to a Teleport environment by disabling interactions involving a user, an RBAC role, a node, etc. See rfd/0009-locking.md for more details.
 
@@ -515,8 +531,8 @@ Represents a lock. Locks are used to restrict access to a Teleport environment b
 |kind|A resource kind.|string|
 |sub_kind|An optional resource sub kind, used in some resources.|string|
 |version|A resource version.|string|
-|metadata|Holds resource metadata.|[Metadata](./#metadata)|
-|spec|A Lock specification.|[Lock Spec](./#lock-spec)|
+|metadata|Holds resource metadata.|[Metadata](#metadata)|
+|spec|A Lock specification.|[Lock Spec](#lock-spec)|
  
 
 
@@ -535,8 +551,9 @@ spec:
 
 ### MFADevice
 
-**Kind**: `mfa_device`
-**Version**: `v1`
+**Kind**: mfa_device
+
+**Version**: v1
 
 A multi-factor authentication device, such as a security key or an OTP app.
 
@@ -559,8 +576,9 @@ id: 00000000-0000-0000-0000-000000000000
 
 ### Plugin Data
 
-**Kind**: `plugin_data`
-**Version**: `v3`
+**Kind**: plugin_data
+
+**Version**: v3
 
 PluginData stores a collection of values associated with a specific resource.
 
@@ -572,8 +590,8 @@ PluginData stores a collection of values associated with a specific resource.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|PluginData metadata|[Metadata](./#metadata)|
-|spec|A PluginData specification|[Plugin Data Spec](./#plugin-data-spec)|
+|metadata|PluginData metadata|[Metadata](#metadata)|
+|spec|A PluginData specification|[Plugin Data Spec](#plugin-data-spec)|
  
 
 
@@ -592,8 +610,9 @@ spec:
 
 ### Provision Token
 
-**Kind**: `token`
-**Version**: `v2`
+**Kind**: token
+
+**Version**: v2
 
 Specifies provisioning token
 
@@ -605,8 +624,8 @@ Specifies provisioning token
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A provisioning token V2 spec|[Provision Token Spec](./#provision-token-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A provisioning token V2 spec|[Provision Token Spec](#provision-token-spec)|
  
 
 
@@ -625,8 +644,9 @@ spec:
 
 ### Recovery Codes
 
-**Kind**: `recovery_codes`
-**Version**: `v1`
+**Kind**: recovery_codes
+
+**Version**: v1
 
 RecoveryCodes holds a user's recovery code information. Recovery codes allows users to regain access to their account by restoring their lost password or second factor. Once a recovery code is successfully verified, the code is mark used (which invalidates it), and lets the user begin the recovery flow. When a user successfully finishes the recovery flow, users will get a new set of codes that will replace all the previous ones.
 
@@ -638,8 +658,8 @@ RecoveryCodes holds a user's recovery code information. Recovery codes allows us
 |kind|The resource kind.|string|
 |sub_kind|An optional resource subkind. Currently unused for this resource.|string|
 |version|The resource version.|string|
-|metadata|The resource metadata.|[Metadata](./#metadata)|
-|spec|The resource spec.|[Recovery Codes Spec](./#recovery-codes-spec)|
+|metadata|The resource metadata.|[Metadata](#metadata)|
+|spec|The resource spec.|[Recovery Codes Spec](#recovery-codes-spec)|
  
 
 
@@ -658,8 +678,9 @@ spec:
 
 ### Remote Cluster
 
-**Kind**: `remote_cluster`
-**Version**: `v3`
+**Kind**: remote_cluster
+
+**Version**: v3
 
 Represents remote cluster resource specification
 
@@ -671,8 +692,8 @@ Represents remote cluster resource specification
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Resource API version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|status|A remote cluster status|[Remote Cluster Status](./#remote-cluster-status)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|status|A remote cluster status|[Remote Cluster Status](#remote-cluster-status)|
  
 
 
@@ -691,8 +712,9 @@ status:
 
 ### Reverse Tunnel
 
-**Kind**: `tunnel`
-**Version**: `v2`
+**Kind**: tunnel
+
+**Version**: v2
 
 Version 2 of the resource spec of the reverse tunnel
 
@@ -704,8 +726,8 @@ Version 2 of the resource spec of the reverse tunnel
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|A resource metadata|[Metadata](./#metadata)|
-|spec|A reverse tunnel specification|[Reverse Tunnel Spec](./#reverse-tunnel-spec)|
+|metadata|A resource metadata|[Metadata](#metadata)|
+|spec|A reverse tunnel specification|[Reverse Tunnel Spec](#reverse-tunnel-spec)|
  
 
 
@@ -724,8 +746,9 @@ spec:
 
 ### SAMLConnector
 
-**Kind**: `saml`
-**Version**: `v2`
+**Kind**: saml
+
+**Version**: v2
 
 Represents a SAML connector.
 
@@ -737,8 +760,8 @@ Represents a SAML connector.
 |kind|A resource kind.|string|
 |sub_kind|An optional resource sub kind, used in some resources.|string|
 |version|A resource version.|string|
-|metadata|Holds resource metadata.|[Metadata](./#metadata)|
-|spec|An SAML connector specification.|[SAMLConnector Spec](./#samlconnector-spec)|
+|metadata|Holds resource metadata.|[Metadata](#metadata)|
+|spec|An SAML connector specification.|[SAMLConnector Spec](#samlconnector-spec)|
  
 
 
@@ -757,8 +780,9 @@ spec:
 
 ### Semaphore
 
-**Kind**: `semaphore`
-**Version**: `v3`
+**Kind**: semaphore
+
+**Version**: v3
 
 Implements Semaphore interface
 
@@ -770,8 +794,8 @@ Implements Semaphore interface
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Semaphore metadata|[Metadata](./#metadata)|
-|spec|A lease V3 spec|[Semaphore Spec](./#semaphore-spec)|
+|metadata|Semaphore metadata|[Metadata](#metadata)|
+|spec|A lease V3 spec|[Semaphore Spec](#semaphore-spec)|
  
 
 
@@ -790,8 +814,9 @@ spec:
 
 ### Server Info
 
-**Kind**: `server_info`
-**Version**: `v1`
+**Kind**: server_info
+
+**Version**: v1
 
 Contains info that should be applied to joining Nodes.
 
@@ -803,8 +828,8 @@ Contains info that should be applied to joining Nodes.
 |kind|The resource kind.|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The resource metadata.|[Metadata](./#metadata)|
-|spec|The resource spec.|[Server Info Spec](./#server-info-spec)|
+|metadata|The resource metadata.|[Metadata](#metadata)|
+|spec|The resource spec.|[Server Info Spec](#server-info-spec)|
  
 
 
@@ -823,8 +848,9 @@ spec:
 
 ### Session Recording Config
 
-**Kind**: `session_recording_config`
-**Version**: `v2`
+**Kind**: session_recording_config
+
+**Version**: v2
 
 Contains session recording configuration.
 
@@ -836,8 +862,8 @@ Contains session recording configuration.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|A resource version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A SessionRecordingConfig specification|[Session Recording Config Spec](./#session-recording-config-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A SessionRecordingConfig specification|[Session Recording Config Spec](#session-recording-config-spec)|
  
 
 
@@ -856,8 +882,9 @@ spec:
 
 ### Static Tokens
 
-**Kind**: `static_tokens`
-**Version**: `v2`
+**Kind**: static_tokens
+
+**Version**: v2
 
 Implements the StaticTokens interface.
 
@@ -869,8 +896,8 @@ Implements the StaticTokens interface.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A provisioning token V2 spec|[Static Tokens Spec](./#static-tokens-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A provisioning token V2 spec|[Static Tokens Spec](#static-tokens-spec)|
  
 
 
@@ -889,8 +916,9 @@ spec:
 
 ### Trusted Cluster
 
-**Kind**: `trusted_cluster`
-**Version**: `v2`
+**Kind**: trusted_cluster
+
+**Version**: v2
 
 Represents a Trusted Cluster.
 
@@ -902,8 +930,8 @@ Represents a Trusted Cluster.
 |kind|A resource kind.|string|
 |sub_kind|An optional resource sub kind, used in some resources.|string|
 |version|A resource version.|string|
-|metadata|Holds resource metadata.|[Metadata](./#metadata)|
-|spec|A Trusted Cluster specification.|[Trusted Cluster Spec](./#trusted-cluster-spec)|
+|metadata|Holds resource metadata.|[Metadata](#metadata)|
+|spec|A Trusted Cluster specification.|[Trusted Cluster Spec](#trusted-cluster-spec)|
  
 
 
@@ -922,8 +950,9 @@ spec:
 
 ### Tunnel Connection
 
-**Kind**: `tunnel_connection`
-**Version**: `v2`
+**Kind**: tunnel_connection
+
+**Version**: v2
 
 Version 2 of the resource spec of the tunnel connection
 
@@ -935,8 +964,8 @@ Version 2 of the resource spec of the tunnel connection
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|A resource metadata|[Metadata](./#metadata)|
-|spec|A tunnel specification|[Tunnel Connection Spec](./#tunnel-connection-spec)|
+|metadata|A resource metadata|[Metadata](#metadata)|
+|spec|A tunnel specification|[Tunnel Connection Spec](#tunnel-connection-spec)|
  
 
 
@@ -955,8 +984,9 @@ spec:
 
 ### User Token Secrets
 
-**Kind**: `user_token_secrets`
-**Version**: `v3`
+**Kind**: user_token_secrets
+
+**Version**: v3
 
 
 
@@ -968,8 +998,8 @@ spec:
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|An resource specification|[User Token Secrets Spec](./#user-token-secrets-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|An resource specification|[User Token Secrets Spec](#user-token-secrets-spec)|
  
 
 
@@ -988,8 +1018,9 @@ spec:
 
 ### User Token
 
-**Kind**: `user_token`
-**Version**: `v3`
+**Kind**: user_token
+
+**Version**: v3
 
 
 
@@ -1001,8 +1032,8 @@ spec:
 |kind|A resource kind|string|
 |sub_kind|A resource sub kind, used to define the type of user token.|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|An resource specification|[User Token Spec](./#user-token-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|An resource specification|[User Token Spec](#user-token-spec)|
  
 
 
@@ -1021,8 +1052,9 @@ spec:
 
 ### User
 
-**Kind**: `user`
-**Version**: `v2`
+**Kind**: user
+
+**Version**: v2
 
 Version 2 resource spec of the user
 
@@ -1034,8 +1066,8 @@ Version 2 resource spec of the user
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A user specification|[User Spec](./#user-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A user specification|[User Spec](#user-spec)|
  
 
 
@@ -1054,8 +1086,9 @@ spec:
 
 ### Web Session
 
-**Kind**: `web_session`
-**Version**: `v2`
+**Kind**: web_session
+
+**Version**: v2
 
 Represents an application or UI web session.
 
@@ -1067,8 +1100,8 @@ Represents an application or UI web session.
 |kind|A resource kind.|string|
 |sub_kind|An optional resource sub kind, used in some resources.|string|
 |version|Version.|string|
-|metadata|A resource metadata.|[Metadata](./#metadata)|
-|spec|A tunnel specification.|[Web Session Spec](./#web-session-spec)|
+|metadata|A resource metadata.|[Metadata](#metadata)|
+|spec|A tunnel specification.|[Web Session Spec](#web-session-spec)|
  
 
 
@@ -1087,8 +1120,9 @@ spec:
 
 ### Web Token
 
-**Kind**: `web_token`
-**Version**: `v3`
+**Kind**: web_token
+
+**Version**: v3
 
 Describes a web token. Web tokens are used as a transport to relay bearer tokens to the client. Initially bound to a web session, these have been factored out into a separate resource to enable separate lifecycle management.
 
@@ -1100,8 +1134,8 @@ Describes a web token. Web tokens are used as a transport to relay bearer tokens
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind|string|
 |version|The resource version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|Defines the web token|[Web Token Spec](./#web-token-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|Defines the web token|[Web Token Spec](#web-token-spec)|
  
 
 
@@ -1162,18 +1196,18 @@ Contains AWS metadata about the database.
 |Field Name|Description|Type|
 |---|---|---|
 |region|A AWS cloud region.|string|
-|redshift|Contains Redshift specific metadata.|[Redshift](./#redshift)|
-|rds|Contains RDS specific metadata.|[RDS](./#rds)|
+|redshift|Contains Redshift specific metadata.|[Redshift](#redshift)|
+|rds|Contains RDS specific metadata.|[RDS](#rds)|
 |account_id|The AWS account ID this database belongs to.|string|
-|elasticache|Contains AWS ElastiCache Redis specific metadata.|[Elasti Cache](./#elasti-cache)|
-|secret_store|Contains secret store configurations.|[Secret Store](./#secret-store)|
-|memorydb|Contains AWS MemoryDB specific metadata.|[Memory DB](./#memory-db)|
-|rdsproxy|Contains AWS Proxy specific metadata.|[RDSProxy](./#rdsproxy)|
-|redshift_serverless|Contains AWS Redshift Serverless specific metadata.|[Redshift Serverless](./#redshift-serverless)|
+|elasticache|Contains AWS ElastiCache Redis specific metadata.|[Elasti Cache](#elasti-cache)|
+|secret_store|Contains secret store configurations.|[Secret Store](#secret-store)|
+|memorydb|Contains AWS MemoryDB specific metadata.|[Memory DB](#memory-db)|
+|rdsproxy|Contains AWS Proxy specific metadata.|[RDSProxy](#rdsproxy)|
+|redshift_serverless|Contains AWS Redshift Serverless specific metadata.|[Redshift Serverless](#redshift-serverless)|
 |external_id|An optional AWS external ID used to enable assuming an AWS role across accounts.|string|
 |assume_role_arn|An optional AWS role ARN to assume when accessing a database. Set this field and ExternalID to enable access across AWS accounts.|string|
-|opensearch|Contains AWS OpenSearch specific metadata.|[Open Search](./#open-search)|
-|iam_policy_status|Indicates whether the IAM Policy is configured properly for database access. If not, the user must update the AWS profile identity to allow access to the Database. Eg for an RDS Database: the underlying AWS profile allows for `rds-db:connect` for the Database.|[IAMPolicy Status](./#iampolicy-status)|
+|opensearch|Contains AWS OpenSearch specific metadata.|[Open Search](#open-search)|
+|iam_policy_status|Indicates whether the IAM Policy is configured properly for database access. If not, the user must update the AWS profile identity to allow access to the Database. Eg for an RDS Database: the underlying AWS profile allows for `rds-db:connect` for the Database.|[IAMPolicy Status](#iampolicy-status)|
  
 
 
@@ -1245,12 +1279,12 @@ A matcher for allow/deny restrictions on access-requests. Please remember to upd
 |Field Name|Description|Type|
 |---|---|---|
 |roles|The name of roles which will match the request rule.|[]string|
-|claims_to_roles|Specifies a mapping from claims (traits) to teleport roles.|[][Claim Mapping](./#claim-mapping)|
-|annotations|A collection of annotations to be programmatically appended to pending access requests at the time of their creation. These annotations serve as a mechanism to propagate extra information to plugins.  Since these annotations support variable interpolation syntax, they also offer a mechanism for forwarding claims from an external identity provider, to a plugin via `{{external.trait_name}}` style substitutions.|[Traits](./#traits)|
-|thresholds|A list of thresholds, one of which must be met in order for reviews to trigger a state-transition.  If no thresholds are provided, a default threshold of 1 for approval and denial is used.|[][Access Review Threshold](./#access-review-threshold)|
+|claims_to_roles|Specifies a mapping from claims (traits) to teleport roles.|[][Claim Mapping](#claim-mapping)|
+|annotations|A collection of annotations to be programmatically appended to pending access requests at the time of their creation. These annotations serve as a mechanism to propagate extra information to plugins.  Since these annotations support variable interpolation syntax, they also offer a mechanism for forwarding claims from an external identity provider, to a plugin via `{{external.trait_name}}` style substitutions.|[Traits](#traits)|
+|thresholds|A list of thresholds, one of which must be met in order for reviews to trigger a state-transition.  If no thresholds are provided, a default threshold of 1 for approval and denial is used.|[][Access Review Threshold](#access-review-threshold)|
 |suggested_reviewers|A list of reviewer suggestions.  These can be teleport usernames, but that is not a requirement.|[]string|
 |search_as_roles|A list of extra roles which should apply to a user while they are searching for resources as part of a Resource Access Request, and defines the underlying roles which will be requested as part of any Resource Access Request.|[]string|
-|max_duration|The amount of time the access will be granted for. If this is zero, the default duration is used.|[Duration](./#duration)|
+|max_duration|The amount of time the access will be granted for. If this is zero, the default duration is used.|[Duration](#duration)|
  
 
 
@@ -1301,23 +1335,23 @@ AccessRequestSpec is the specification for AccessRequest
 |---|---|---|
 |user|The name of the user to whom the roles will be applied.|string|
 |roles|The name of the roles being requested.|[]string|
-|state|The current state of this access request.|[Request State](./#request-state)|
-|created|Encodes the time at which the request was registered with the auth server.|[Time](./#time)|
-|expires|Constrains the maximum lifetime of any login session for which this request is active.|[Time](./#time)|
+|state|The current state of this access request.|[Request State](#request-state)|
+|created|Encodes the time at which the request was registered with the auth server.|[Time](#time)|
+|expires|Constrains the maximum lifetime of any login session for which this request is active.|[Time](#time)|
 |request_reason|An optional message explaining the reason for the request.|string|
 |resolve_reason|An optional message explaining the reason for the resolution of the request (approval, denial, etc...).|string|
-|resolve_annotations|A set of arbitrary values received from plugins or other resolving parties during approval/denial.  Importantly, these annotations are included in the access_request.update event, allowing plugins to propagate arbitrary structured data to the audit log.|[Traits](./#traits)|
-|system_annotations|A set of programmatically generated annotations attached to pending access requests by teleport.  These annotations are generated by applying variable interpolation to the RoleConditions.Request.Annotations block of a user's role(s).  These annotations serve as a mechanism for administrators to pass extra information to plugins when they process pending access requests.|[Traits](./#traits)|
-|thresholds|A list of review thresholds relevant to this request.  Order must be preserved, as thresholds are referenced by index (internal use only).|[][Access Review Threshold](./#access-review-threshold)|
-|rtm|Encodes the relationship between the requested roles and the review threshold requirements for the given role (internal use only). By storing a representation of which thresholds must pass for each requested role, we both eliminate the need to cache the requestor's roles directly, and allow future versions of teleport to become smarter about calculating more granular requirements in a backwards-compatible manner (i.e. calculation can become smarter in minor releases). Storing this relationship on the request is necessary in order to avoid unexpected or inconsistent behavior due to review submission timing.|map[string][Threshold Index Sets](./#threshold-index-sets)|
-|reviews|A list of reviews applied to this request (internal use only).|[][Access Review](./#access-review)|
+|resolve_annotations|A set of arbitrary values received from plugins or other resolving parties during approval/denial.  Importantly, these annotations are included in the access_request.update event, allowing plugins to propagate arbitrary structured data to the audit log.|[Traits](#traits)|
+|system_annotations|A set of programmatically generated annotations attached to pending access requests by teleport.  These annotations are generated by applying variable interpolation to the RoleConditions.Request.Annotations block of a user's role(s).  These annotations serve as a mechanism for administrators to pass extra information to plugins when they process pending access requests.|[Traits](#traits)|
+|thresholds|A list of review thresholds relevant to this request.  Order must be preserved, as thresholds are referenced by index (internal use only).|[][Access Review Threshold](#access-review-threshold)|
+|rtm|Encodes the relationship between the requested roles and the review threshold requirements for the given role (internal use only). By storing a representation of which thresholds must pass for each requested role, we both eliminate the need to cache the requestor's roles directly, and allow future versions of teleport to become smarter about calculating more granular requirements in a backwards-compatible manner (i.e. calculation can become smarter in minor releases). Storing this relationship on the request is necessary in order to avoid unexpected or inconsistent behavior due to review submission timing.|map[string][Threshold Index Sets](#threshold-index-sets)|
+|reviews|A list of reviews applied to this request (internal use only).|[][Access Review](#access-review)|
 |suggested_reviewers|A list of reviewer suggestions.  These can be teleport usernames, but that is not a requirement.|[]string|
-|resource_ids|A set of resources to which access is being requested.|[][Resource ID](./#resource-id)|
+|resource_ids|A set of resources to which access is being requested.|[][Resource ID](#resource-id)|
 |login_hint|Used as a hint for search-based access requests to select roles based on the login the user is attempting.|string|
 |dry_run|Indicates that the request should not actually be created, the auth server should only validate the access request.|Boolean|
-|max_duration|Indicates how long the access should be granted for.|[Time](./#time)|
-|session_ttl|SessionTLL indicated how long a certificate for a session should be valid for.|[Time](./#time)|
-|access_list|PromotedAccessListTitle is the title of the access list that this request was promoted to. Used by WebUI to display the title of the access list. This field is only populated when the request is in the PROMOTED state.|[Promoted Access List](./#promoted-access-list)|
+|max_duration|Indicates how long the access should be granted for.|[Time](#time)|
+|session_ttl|SessionTLL indicated how long a certificate for a session should be valid for.|[Time](#time)|
+|access_list|PromotedAccessListTitle is the title of the access list that this request was promoted to. Used by WebUI to display the title of the access list. This field is only populated when the request is in the PROMOTED state.|[Promoted Access List](#promoted-access-list)|
  
 
 
@@ -1395,12 +1429,12 @@ A review to be applied to an access request.
 |---|---|---|
 |author|The teleport username of the review author.|string|
 |roles|A list used for role-subselection (not yet fully supported).|[]string|
-|proposed_state|The proposed state (must be APPROVED or DENIED).|[Request State](./#request-state)|
+|proposed_state|The proposed state (must be APPROVED or DENIED).|[Request State](#request-state)|
 |reason|An optional human-readable reason for why the above state is being proposed.|string|
-|created|The time at which the review was created.|[Time](./#time)|
-|annotations|The proposed value of the request's resolve_annotations field.|[Traits](./#traits)|
+|created|The time at which the review was created.|[Time](#time)|
+|annotations|The proposed value of the request's resolve_annotations field.|[Traits](#traits)|
 |i|Stores the indexes of thresholds which this review matches (internal use only).|[]number|
-|access_list|The access list that this request was promoted to. This field is only populated when the request is in the PROMOTED state.|[Promoted Access List](./#promoted-access-list)|
+|access_list|The access list that this request was promoted to. This field is only populated when the request is in the PROMOTED state.|[Promoted Access List](#promoted-access-list)|
  
 
 
@@ -1438,7 +1472,7 @@ A matcher for allow/deny restrictions on access reviews. Please remember to upda
 |Field Name|Description|Type|
 |---|---|---|
 |roles|The name of roles which may be reviewed.|[]string|
-|claims_to_roles|Specifies a mapping from claims (traits) to teleport roles.|[][Claim Mapping](./#claim-mapping)|
+|claims_to_roles|Specifies a mapping from claims (traits) to teleport roles.|[][Claim Mapping](#claim-mapping)|
 |where|An optional predicate which further limits which requests are reviewable.|string|
 |preview_as_roles|A list of extra roles which should apply to a reviewer while they are viewing a Resource Access Request for the purposes of viewing details such as the hostname and labels of requested resources.|[]string|
  
@@ -1544,8 +1578,8 @@ The app access server spec.
 |version|The Teleport version that the server is running.|string|
 |hostname|The app server hostname.|string|
 |host_id|The app server host uuid.|string|
-|rotation|Contains the app server CA rotation information.|[Rotation](./#rotation)|
-|app|The app proxied by this app server.|[App](./#app)|
+|rotation|Contains the app server CA rotation information.|[Rotation](#rotation)|
+|app|The app proxied by this app server.|[App](#app)|
 |proxy_ids|A list of proxy IDs this server is expected to be connected to.|[]string|
  
 
@@ -1578,10 +1612,10 @@ The AppV3 resource spec.
 |---|---|---|
 |uri|The web app endpoint.|string|
 |public_addr|The public address the application is accessible at.|string|
-|dynamic_labels|The app's command labels.|map[string][Command Label](./#command-label)|
+|dynamic_labels|The app's command labels.|map[string][Command Label](#command-label)|
 |insecure_skip_verify|Disables app's TLS certificate verification.|Boolean|
-|rewrite|A list of rewriting rules to apply to requests and responses.|[Rewrite](./#rewrite)|
-|aws|Contains additional options for AWS applications.|[App AWS](./#app-aws)|
+|rewrite|A list of rewriting rules to apply to requests and responses.|[Rewrite](#rewrite)|
+|aws|Contains additional options for AWS applications.|[App AWS](#app-aws)|
 |cloud|Identifies the cloud instance the app represents.|string|
 |UserGroups|A list of user group IDs that this app is associated with.|[]string|
  
@@ -1671,21 +1705,21 @@ The actual data we care about for AuthPreference.
 |Field Name|Description|Type|
 |---|---|---|
 |type|The type of authentication.|string|
-|second_factor|The type of second factor.|[Second Factor Type](./#second-factor-type)|
+|second_factor|The type of second factor.|[Second Factor Type](#second-factor-type)|
 |connector_name|The name of the OIDC or SAML connector. If this value is not set the first connector in the backend will be used.|string|
-|u2f|The settings for the U2F device.|[U2F](./#u2f)|
-|disconnect_expired_cert|Provides disconnect expired certificate setting - if true, connections with expired client certificates will get disconnected|[Bool Option](./#bool-option)|
-|allow_local_auth|True if local authentication is enabled.|[Bool Option](./#bool-option)|
+|u2f|The settings for the U2F device.|[U2F](#u2f)|
+|disconnect_expired_cert|Provides disconnect expired certificate setting - if true, connections with expired client certificates will get disconnected|[Bool Option](#bool-option)|
+|allow_local_auth|True if local authentication is enabled.|[Bool Option](#bool-option)|
 |message_of_the_day||string|
-|locking_mode|The cluster-wide locking mode default.|[Locking Mode](./#locking-mode)|
-|webauthn|The settings for server-side Web Authentication support.|[Webauthn](./#webauthn)|
-|allow_passwordless|Enables/disables passwordless support. Passwordless requires Webauthn to work. Defaults to true if the Webauthn is configured, defaults to false otherwise.|[Bool Option](./#bool-option)|
-|require_session_mfa|The type of MFA requirement enforced for this cluster.|[Require MFAType](./#require-mfatype)|
-|device_trust|Holds settings related to trusted device verification. Requires Teleport Enterprise.|[Device Trust](./#device-trust)|
-|idp|A set of options related to accessing IdPs within Teleport. Requires Teleport Enterprise.|[Id POptions](./#id-poptions)|
-|allow_headless|Enables/disables headless support. Headless authentication requires Webauthn to work. Defaults to true if the Webauthn is configured, defaults to false otherwise.|[Bool Option](./#bool-option)|
-|default_session_ttl|The TTL to use for user certs when an explicit TTL is not requested.|[Duration](./#duration)|
-|okta|A set of options related to the Okta service in Teleport. Requires Teleport Enterprise.|[Okta Options](./#okta-options)|
+|locking_mode|The cluster-wide locking mode default.|[Locking Mode](#locking-mode)|
+|webauthn|The settings for server-side Web Authentication support.|[Webauthn](#webauthn)|
+|allow_passwordless|Enables/disables passwordless support. Passwordless requires Webauthn to work. Defaults to true if the Webauthn is configured, defaults to false otherwise.|[Bool Option](#bool-option)|
+|require_session_mfa|The type of MFA requirement enforced for this cluster.|[Require MFAType](#require-mfatype)|
+|device_trust|Holds settings related to trusted device verification. Requires Teleport Enterprise.|[Device Trust](#device-trust)|
+|idp|A set of options related to accessing IdPs within Teleport. Requires Teleport Enterprise.|[Id POptions](#id-poptions)|
+|allow_headless|Enables/disables headless support. Headless authentication requires Webauthn to work. Defaults to true if the Webauthn is configured, defaults to false otherwise.|[Bool Option](#bool-option)|
+|default_session_ttl|The TTL to use for user certs when an explicit TTL is not requested.|[Duration](#duration)|
+|okta|A set of options related to the Okta service in Teleport. Requires Teleport Enterprise.|[Okta Options](#okta-options)|
 |piv_slot|A PIV slot that Teleport clients should use instead of the default based on private key policy. For example, "9a" or "9e".|string|
  
 
@@ -1737,7 +1771,7 @@ Contains Azure specific database metadata.
 |---|---|---|
 |name|The Azure database server name.|string|
 |resource_id|The Azure fully qualified ID for the resource.|string|
-|redis|Contains Azure Cache for Redis specific database metadata.|[Azure Redis](./#azure-redis)|
+|redis|Contains Azure Cache for Redis specific database metadata.|[Azure Redis](#azure-redis)|
 |is_flexi_server|True if the database is an Azure Flexible server.|Boolean|
  
 
@@ -1812,9 +1846,9 @@ The set of CA keys.
 
 |Field Name|Description|Type|
 |---|---|---|
-|ssh|Contains SSH CA key pairs.|[][SSHKey Pair](./#sshkey-pair)|
-|tls|Contains TLS CA key/cert pairs.|[][TLSKey Pair](./#tlskey-pair)|
-|jwt|Contains JWT signing key pairs.|[][JWTKey Pair](./#jwtkey-pair)|
+|ssh|Contains SSH CA key pairs.|[][SSHKey Pair](#sshkey-pair)|
+|tls|Contains TLS CA key/cert pairs.|[][TLSKey Pair](#tlskey-pair)|
+|jwt|Contains JWT signing key pairs.|[][JWTKey Pair](#jwtkey-pair)|
  
 
 
@@ -1869,14 +1903,14 @@ A host or user certificate authority that can check and if it has private key st
 
 |Field Name|Description|Type|
 |---|---|---|
-|type|Either user or host certificate authority|[Cert Auth Type](./#cert-auth-type)|
+|type|Either user or host certificate authority|[Cert Auth Type](#cert-auth-type)|
 |cluster_name|DELETE IN(2.7.0) this field is deprecated, as resource name matches cluster name after migrations. and this property is enforced by the auth server code. ClusterName identifies cluster name this authority serves, for host authorities that means base hostname of all servers, for user authorities that means organization name|string|
 |roles|A list of roles assumed by users signed by this CA|[]string|
-|role_map|Specifies role mappings to remote roles|[][Role Mapping](./#role-mapping)|
-|rotation|A status of the certificate authority rotation|[Rotation](./#rotation)|
-|signing_alg||[Cert Authority Spec V2_Signing Alg Type](./#cert-authority-spec-v2_signing-alg-type)|
-|active_keys|The CA key sets used to sign any new certificates.|[CAKey Set](./#cakey-set)|
-|additional_trusted_keys|Additional CA key sets that can be used to verify certificates. Certificates should be verified with AdditionalTrustedKeys and ActiveKeys combined.|[CAKey Set](./#cakey-set)|
+|role_map|Specifies role mappings to remote roles|[][Role Mapping](#role-mapping)|
+|rotation|A status of the certificate authority rotation|[Rotation](#rotation)|
+|signing_alg||[Cert Authority Spec V2_Signing Alg Type](#cert-authority-spec-v2_signing-alg-type)|
+|active_keys|The CA key sets used to sign any new certificates.|[CAKey Set](#cakey-set)|
+|additional_trusted_keys|Additional CA key sets that can be used to verify certificates. Certificates should be verified with AdditionalTrustedKeys and ActiveKeys combined.|[CAKey Set](#cakey-set)|
  
 
 
@@ -1932,8 +1966,8 @@ Represents a key/value for a certificate extension
 
 |Field Name|Description|Type|
 |---|---|---|
-|type|Represents the certificate type being extended, only ssh is supported at this time.|[Cert Extension Type](./#cert-extension-type)|
-|mode|The type of extension to be used -- currently critical-option is not supported|[Cert Extension Mode](./#cert-extension-mode)|
+|type|Represents the certificate type being extended, only ssh is supported at this time.|[Cert Extension Type](#cert-extension-type)|
+|mode|The type of extension to be used -- currently critical-option is not supported|[Cert Extension Mode](#cert-extension-mode)|
 |name|Specifies the key to be used in the cert extension.|string|
 |value|Specifies the value to be used in the cert extension.|string|
  
@@ -2017,7 +2051,7 @@ Contains info about the cloud instance a server is running on, if any.
 
 |Field Name|Description|Type|
 |---|---|---|
-|aws|Info contains attributes to match to an EC2 instance.|[AWSInfo](./#awsinfo)|
+|aws|Info contains attributes to match to an EC2 instance.|[AWSInfo](#awsinfo)|
  
 
 
@@ -2041,7 +2075,7 @@ The actual data we care about for ClusterAuditConfig.
 |type|Audit backend type|string|
 |region|A region setting for audit sessions used by cloud providers|string|
 |audit_sessions_uri|A parameter where to upload sessions|string|
-|audit_events_uri|A parameter with all supported outputs for audit events|[Strings](./#strings)|
+|audit_events_uri|A parameter with all supported outputs for audit events|[Strings](#strings)|
 |continuous_backups|Used to enable (or disable) PITR (Point-In-Time Recovery).|Boolean|
 |auto_scaling|Used to enable (or disable) auto scaling policy.|Boolean|
 |read_max_capacity|The maximum provisioned read capacity.|number|
@@ -2050,8 +2084,8 @@ The actual data we care about for ClusterAuditConfig.
 |write_max_capacity|The maximum provisioned write capacity.|number|
 |write_min_capacity|The minimum provisioned write capacity.|number|
 |write_target_value|The ratio of consumed write to provisioned capacity.|number|
-|retention_period|The retention period for audit events.|[Duration](./#duration)|
-|use_fips_endpoint|Configures AWS endpoints to use FIPS.|[Cluster Audit Config Spec V2_FIPSEndpoint State](./#cluster-audit-config-spec-v2_fipsendpoint-state)|
+|retention_period|The retention period for audit events.|[Duration](#duration)|
+|use_fips_endpoint|Configures AWS endpoints to use FIPS.|[Cluster Audit Config Spec V2_FIPSEndpoint State](#cluster-audit-config-spec-v2_fipsendpoint-state)|
  
 
 
@@ -2124,16 +2158,16 @@ The actual data we care about for ClusterNetworkingConfig.
 
 |Field Name|Description|Type|
 |---|---|---|
-|client_idle_timeout|Sets global cluster default setting for client idle timeouts.|[Duration](./#duration)|
-|keep_alive_interval|The interval at which the server sends keep-alive messages to the client.|[Duration](./#duration)|
+|client_idle_timeout|Sets global cluster default setting for client idle timeouts.|[Duration](#duration)|
+|keep_alive_interval|The interval at which the server sends keep-alive messages to the client.|[Duration](#duration)|
 |keep_alive_count_max|The number of keep-alive messages that can be missed before the server disconnects the connection to the client.|number|
-|session_control_timeout|The session control lease expiry and defines the upper limit of how long a node may be out of contact with the auth server before it begins terminating controlled sessions.|[Duration](./#duration)|
+|session_control_timeout|The session control lease expiry and defines the upper limit of how long a node may be out of contact with the auth server before it begins terminating controlled sessions.|[Duration](#duration)|
 |idle_timeout_message|The message sent to the user when a connection times out.|string|
-|web_idle_timeout|Sets global cluster default setting for the web UI idle timeouts.|[Duration](./#duration)|
-|proxy_listener_mode|Proxy listener mode used by Teleport Proxies.|[Proxy Listener Mode](./#proxy-listener-mode)|
-|routing_strategy|Determines the strategy used to route to nodes.|[Routing Strategy](./#routing-strategy)|
-|tunnel_strategy|V1 determines the tunnel strategy used in the cluster.|[Tunnel Strategy](./#tunnel-strategy)|
-|proxy_ping_interval|Defines in which interval the TLS routing ping message should be sent. This is applicable only when using ping-wrapped connections, regular TLS routing connections are not affected.|[Duration](./#duration)|
+|web_idle_timeout|Sets global cluster default setting for the web UI idle timeouts.|[Duration](#duration)|
+|proxy_listener_mode|Proxy listener mode used by Teleport Proxies.|[Proxy Listener Mode](#proxy-listener-mode)|
+|routing_strategy|Determines the strategy used to route to nodes.|[Routing Strategy](#routing-strategy)|
+|tunnel_strategy|V1 determines the tunnel strategy used in the cluster.|[Tunnel Strategy](#tunnel-strategy)|
+|proxy_ping_interval|Defines in which interval the TLS routing ping message should be sent. This is applicable only when using ping-wrapped connections, regular TLS routing connections are not affected.|[Duration](#duration)|
 |assist_command_execution_workers|Determines the number of workers that will execute arbitrary Assist commands on servers in parallel|number|
 |case_insensitive_routing|Causes proxies to use case-insensitive hostname matching.|Boolean|
  
@@ -2174,7 +2208,7 @@ A label that has a value as a result of the output generated by running command,
 
 |Field Name|Description|Type|
 |---|---|---|
-|period|A time between command runs|[Duration](./#duration)|
+|period|A time between command runs|[Duration](#duration)|
 |command|A command to run|[]string|
 |result|Captures standard output|string|
  
@@ -2256,9 +2290,9 @@ Holds information about the person or agent who created the user
 
 |Field Name|Description|Type|
 |---|---|---|
-|connector|Identity if present means that user was automatically created by identity|[Connector Ref](./#connector-ref)|
-|time|Specifies when user was created|[Time](./#time)|
-|user|Holds information about user|[User Ref](./#user-ref)|
+|connector|Identity if present means that user was automatically created by identity|[Connector Ref](#connector-ref)|
+|time|Specifies when user was created|[Time](#time)|
+|user|Holds information about user|[User Ref](#user-ref)|
  
 
 
@@ -2308,8 +2342,8 @@ The database server spec.
 |version|The Teleport version that the server is running.|string|
 |hostname|The database server hostname.|string|
 |host_id|The ID of the host the database server is running on.|string|
-|rotation|Contains the server CA rotation information.|[Rotation](./#rotation)|
-|database|The database proxied by this database server.|[Database](./#database)|
+|rotation|Contains the server CA rotation information.|[Rotation](#rotation)|
+|database|The database proxied by this database server.|[Database](#database)|
 |proxy_ids|A list of proxy IDs this server is expected to be connected to.|[]string|
  
 
@@ -2343,16 +2377,16 @@ The database spec.
 |protocol|The database protocol: postgres, mysql, mongodb, etc.|string|
 |uri|The database connection endpoint.|string|
 |ca_cert|The PEM-encoded database CA certificate.  DEPRECATED: Moved to TLS.CACert. DELETE IN 10.0.|string|
-|dynamic_labels|The database dynamic labels.|map[string][Command Label](./#command-label)|
-|aws|Contains AWS specific settings for RDS/Aurora/Redshift databases.|[AWS](./#aws)|
-|gcp|Contains parameters specific to GCP Cloud SQL databases.|[GCPCloud SQL](./#gcpcloud-sql)|
-|azure|Contains Azure specific database metadata.|[Azure](./#azure)|
-|tls|The TLS configuration used when establishing connection to target database. Allows to provide custom CA cert or override server name.|[Database TLS](./#database-tls)|
-|ad|The Active Directory configuration for the database.|[AD](./#ad)|
-|mysql|An additional section with MySQL database options.|[My SQLOptions](./#my-sqloptions)|
-|admin_user|The database admin user for automatic user provisioning.|[Database Admin User](./#database-admin-user)|
-|mongo_atlas|Contains Atlas metadata about the database.|[Mongo Atlas](./#mongo-atlas)|
-|oracle|An additional Oracle configuration options.|[Oracle Options](./#oracle-options)|
+|dynamic_labels|The database dynamic labels.|map[string][Command Label](#command-label)|
+|aws|Contains AWS specific settings for RDS/Aurora/Redshift databases.|[AWS](#aws)|
+|gcp|Contains parameters specific to GCP Cloud SQL databases.|[GCPCloud SQL](#gcpcloud-sql)|
+|azure|Contains Azure specific database metadata.|[Azure](#azure)|
+|tls|The TLS configuration used when establishing connection to target database. Allows to provide custom CA cert or override server name.|[Database TLS](#database-tls)|
+|ad|The Active Directory configuration for the database.|[AD](#ad)|
+|mysql|An additional section with MySQL database options.|[My SQLOptions](#my-sqloptions)|
+|admin_user|The database admin user for automatic user provisioning.|[Database Admin User](#database-admin-user)|
+|mongo_atlas|Contains Atlas metadata about the database.|[Mongo Atlas](#mongo-atlas)|
+|oracle|An additional Oracle configuration options.|[Oracle Options](#oracle-options)|
  
 
 
@@ -2400,10 +2434,10 @@ Contains runtime information about the database.
 |Field Name|Description|Type|
 |---|---|---|
 |ca_cert|The auto-downloaded cloud database CA certificate.|string|
-|aws|The auto-discovered AWS cloud database metadata.|[AWS](./#aws)|
-|mysql|An additional section with MySQL runtime database information.|[My SQLOptions](./#my-sqloptions)|
+|aws|The auto-discovered AWS cloud database metadata.|[AWS](#aws)|
+|mysql|An additional section with MySQL runtime database information.|[My SQLOptions](#my-sqloptions)|
 |managed_users|A list of database users that are managed by Teleport.|[]string|
-|azure|The auto-discovered Azure cloud database metadata.|[Azure](./#azure)|
+|azure|The auto-discovered Azure cloud database metadata.|[Azure](#azure)|
  
 
 
@@ -2433,7 +2467,7 @@ Contains TLS configuration options.
 
 |Field Name|Description|Type|
 |---|---|---|
-|mode|A TLS connection mode. See DatabaseTLSMode for details.|[Database TLSMode](./#database-tlsmode)|
+|mode|A TLS connection mode. See DatabaseTLSMode for details.|[Database TLSMode](#database-tlsmode)|
 |ca_cert|An optional user provided CA certificate used for verifying database TLS connection.|string|
 |server_name|Allows to provide custom hostname. This value will override the servername/hostname on a certificate during validation.|string|
  
@@ -2606,9 +2640,9 @@ A Github connector specification.
 |client_id|The Github OAuth app client ID.|string|
 |client_secret|The Github OAuth app client secret.|string|
 |redirect_url|The authorization callback URL.|string|
-|teams_to_logins|Maps Github team memberships onto allowed logins/roles.  DELETE IN 11.0.0 Deprecated: use GithubTeamsToRoles instead.|[][Team Mapping](./#team-mapping)|
+|teams_to_logins|Maps Github team memberships onto allowed logins/roles.  DELETE IN 11.0.0 Deprecated: use GithubTeamsToRoles instead.|[][Team Mapping](#team-mapping)|
 |display|The connector display name.|string|
-|teams_to_roles|Maps Github team memberships onto allowed roles.|[][Team Roles Mapping](./#team-roles-mapping)|
+|teams_to_roles|Maps Github team memberships onto allowed roles.|[][Team Roles Mapping](#team-roles-mapping)|
 |endpoint_url|The URL of the GitHub instance this connector is for.|string|
 |api_endpoint_url|The URL of the API endpoint of the Github instance this connector is for.|string|
  
@@ -2686,7 +2720,7 @@ Specify options related to access Teleport IdPs.
 
 |Field Name|Description|Type|
 |---|---|---|
-|saml|Options related to the Teleport SAML IdP.|[Id PSAMLOptions](./#id-psamloptions)|
+|saml|Options related to the Teleport SAML IdP.|[Id PSAMLOptions](#id-psamloptions)|
  
 
 
@@ -2707,7 +2741,7 @@ Specifies options related to accessing the Teleport SAML IdP.
 
 |Field Name|Description|Type|
 |---|---|---|
-|enabled|Set to true if this option allows access to the Teleport SAML IdP.|[Bool Option](./#bool-option)|
+|enabled|Set to true if this option allows access to the Teleport SAML IdP.|[Bool Option](#bool-option)|
  
 
 
@@ -2778,9 +2812,9 @@ A PEM encoded keypair used for signing JWT tokens.
 
 |Field Name|Description|Type|
 |---|---|---|
-|public_key|A PEM encoded public key.|[][byte](./#byte)|
-|private_key|A PEM encoded private key.|[][byte](./#byte)|
-|private_key_type|The type of the PrivateKey.|[Private Key Type](./#private-key-type)|
+|public_key|A PEM encoded public key.|[][byte](#byte)|
+|private_key|A PEM encoded private key.|[][byte](#byte)|
+|private_key_type|The type of the PrivateKey.|[Private Key Type](#private-key-type)|
  
 
 
@@ -2904,11 +2938,11 @@ A specification for a Kubernetes cluster.
 
 |Field Name|Description|Type|
 |---|---|---|
-|dynamic_labels|The cluster's dynamic labels.|map[string][Command Label](./#command-label)|
-|kubeconfig|The kubeconfig file payload that grants access to the cluster. If multiple contexts are specified, the first will be selected.|[][byte](./#byte)|
-|azure|Holds the required Azure information for Teleport to access the cluster.|[Kube Azure](./#kube-azure)|
-|aws|Holds the required AWS information for Teleport to access the cluster.|[Kube AWS](./#kube-aws)|
-|gcp|Holds the required GCP information for Teleport to access the cluster.|[Kube GCP](./#kube-gcp)|
+|dynamic_labels|The cluster's dynamic labels.|map[string][Command Label](#command-label)|
+|kubeconfig|The kubeconfig file payload that grants access to the cluster. If multiple contexts are specified, the first will be selected.|[][byte](#byte)|
+|azure|Holds the required Azure information for Teleport to access the cluster.|[Kube Azure](#kube-azure)|
+|aws|Holds the required AWS information for Teleport to access the cluster.|[Kube AWS](#kube-aws)|
+|gcp|Holds the required GCP information for Teleport to access the cluster.|[Kube GCP](#kube-gcp)|
  
 
 
@@ -3014,8 +3048,8 @@ Represents a Kubernetes resource.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|KubernetesResourceV1 metadata|[Metadata](./#metadata)|
-|spec|Contains the Kubernetes resource data.|[Kubernetes Resource Spec](./#kubernetes-resource-spec)|
+|metadata|KubernetesResourceV1 metadata|[Metadata](#metadata)|
+|spec|Contains the Kubernetes resource data.|[Kubernetes Resource Spec](#kubernetes-resource-spec)|
  
 
 
@@ -3044,8 +3078,8 @@ The Kubernetes server spec.
 |version|The Teleport version that the server is running.|string|
 |hostname|The Kubernetes server hostname.|string|
 |host_id|The Kubernetes server host uuid.|string|
-|rotation|Contains the Kubernetes server CA rotation information.|[Rotation](./#rotation)|
-|cluster|A Kubernetes Cluster proxied by this Kubernetes server.|[Kubernetes Cluster](./#kubernetes-cluster)|
+|rotation|Contains the Kubernetes server CA rotation information.|[Rotation](#rotation)|
+|cluster|A Kubernetes Cluster proxied by this Kubernetes server.|[Kubernetes Cluster](#kubernetes-cluster)|
 |proxy_ids|A list of proxy IDs this server is expected to be connected to.|[]string|
  
 
@@ -3095,19 +3129,19 @@ The actual data we care about for LicenseV3. When changing this, keep in mind th
 |account_id|A customer account ID|string|
 |aws_pid|Limits usage to AWS instance with a product ID|string|
 |aws_account|Limits usage to AWS instance within account ID|string|
-|k8s|Turns kubernetes support on or off|[Bool](./#bool)|
-|app|Turns application access on or off Note it's a pointer for backward compatibility|[Bool](./#bool)|
-|db|Turns database access on or off|[Bool](./#bool)|
-|desktop|Turns desktop access on or off|[Bool](./#bool)|
-|usage|Turns Houston usage reporting on or off|[Bool](./#bool)|
-|reporting|Turns Sales Center usage reporting on or off|[Bool](./#bool)|
-|cloud|Turned on when teleport is hosted by Gravitational|[Bool](./#bool)|
-|moderated_sessions|Turns on moderated sessions|[Bool](./#bool)|
-|machine_id|Turns MachineID support on or off|[Bool](./#bool)|
-|resource_access_requests|Turns resource access request support on or off|[Bool](./#bool)|
-|feature_hiding|Turns feature hiding support on or off|[Bool](./#bool)|
-|trial|True for trial licenses|[Bool](./#bool)|
-|feature_source|The source of the set of enabled feature|[Feature Source](./#feature-source)|
+|k8s|Turns kubernetes support on or off|[Bool](#bool)|
+|app|Turns application access on or off Note it's a pointer for backward compatibility|[Bool](#bool)|
+|db|Turns database access on or off|[Bool](#bool)|
+|desktop|Turns desktop access on or off|[Bool](#bool)|
+|usage|Turns Houston usage reporting on or off|[Bool](#bool)|
+|reporting|Turns Sales Center usage reporting on or off|[Bool](#bool)|
+|cloud|Turned on when teleport is hosted by Gravitational|[Bool](#bool)|
+|moderated_sessions|Turns on moderated sessions|[Bool](#bool)|
+|machine_id|Turns MachineID support on or off|[Bool](#bool)|
+|resource_access_requests|Turns resource access request support on or off|[Bool](#bool)|
+|feature_hiding|Turns feature hiding support on or off|[Bool](#bool)|
+|trial|True for trial licenses|[Bool](#bool)|
+|feature_source|The source of the set of enabled feature|[Feature Source](#feature-source)|
 |custom_theme|The name of the WebUI custom theme|string|
  
 
@@ -3157,10 +3191,10 @@ Holds sensitive data used to authenticate a local user.
 
 |Field Name|Description|Type|
 |---|---|---|
-|password_hash|Encodes a combined salt & hash for password verification.|[][byte](./#byte)|
+|password_hash|Encodes a combined salt & hash for password verification.|[][byte](#byte)|
 |totp_key|Deprecated 2nd factor fields, use MFA below instead.|string|
-|mfa||[][MFADevice](./#mfadevice)|
-|webauthn|Holds settings necessary for webauthn local auth. May be null for legacy users or users that haven't yet used webauthn as their second factor.|[Webauthn Local Auth](./#webauthn-local-auth)|
+|mfa||[][MFADevice](#mfadevice)|
+|webauthn|Holds settings necessary for webauthn local auth. May be null for legacy users or users that haven't yet used webauthn as their second factor.|[Webauthn Local Auth](#webauthn-local-auth)|
  
 
 
@@ -3196,10 +3230,10 @@ A Lock specification.
 
 |Field Name|Description|Type|
 |---|---|---|
-|target|Describes the set of interactions that the lock applies to.|[Lock Target](./#lock-target)|
+|target|Describes the set of interactions that the lock applies to.|[Lock Target](#lock-target)|
 |message|The message displayed to locked-out users.|string|
-|expires|If set specifies when the lock ceases to be in force.|[Time](./#time)|
-|created_at|The date time that the lock was created.|[Time](./#time)|
+|expires|If set specifies when the lock ceases to be in force.|[Time](#time)|
+|created_at|The date time that the lock was created.|[Time](#time)|
 |created_by|The username of the author of the lock.|string|
  
 
@@ -3265,9 +3299,9 @@ A login status of the user
 |---|---|---|
 |is_locked|Tells us if user is locked|Boolean|
 |locked_message|Contains the message in case if user is locked|string|
-|locked_time|Contains time when user was locked|[Time](./#time)|
-|lock_expires|Contains time when this lock will expire|[Time](./#time)|
-|recovery_attempt_lock_expires|Contains the time when this lock will expire from reaching MaxAccountRecoveryAttempts. This field is used to determine if a user got locked from recovery attempts.|[Time](./#time)|
+|locked_time|Contains time when user was locked|[Time](#time)|
+|lock_expires|Contains time when this lock will expire|[Time](#time)|
+|recovery_attempt_lock_expires|Contains the time when this lock will expire from reaching MaxAccountRecoveryAttempts. This field is used to determine if a user got locked from recovery attempts.|[Time](#time)|
  
 
 
@@ -3323,7 +3357,7 @@ Resource metadata
 |name|An object name|string|
 |description|Object description|string|
 |labels|A set of labels|map[string]string|
-|expires|A global expiry time header can be set on any resource in the system.|[Time](./#time)|
+|expires|A global expiry time header can be set on any resource in the system.|[Time](#time)|
 |id|A record ID. Deprecated: Use revision instead.|number|
 |revision|An opaque identifier which tracks the versions of a resource over time. Clients should ignore and not alter its value but must return the revision in any updates of a resource.|string|
  
@@ -3394,8 +3428,8 @@ server_version: "string"
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|Lists the addresses that should be allowed.|[][Address Condition](./#address-condition)|
-|deny|Lists the addresses that should be denied even if they're allowed by Allow condition.|[][Address Condition](./#address-condition)|
+|allow|Lists the addresses that should be allowed.|[][Address Condition](#address-condition)|
+|deny|Lists the addresses that should be denied even if they're allowed by Allow condition.|[][Address Condition](#address-condition)|
  
 
 
@@ -3431,8 +3465,8 @@ NetworkRestrictions specifies a list of addresses to restrict (block). The deny 
 |kind|The network restrictions resource kind.|string|
 |sub_kind|An optional resource subkind.|string|
 |version|The resource version.|string|
-|metadata|The network restrictions metadata.|[Metadata](./#metadata)|
-|spec|Contains the network restrictions data|[Network Restrictions Spec](./#network-restrictions-spec)|
+|metadata|The network restrictions metadata.|[Metadata](#metadata)|
+|spec|Contains the network restrictions data|[Network Restrictions Spec](#network-restrictions-spec)|
  
 
 
@@ -3466,14 +3500,14 @@ An OIDC connector specification.  It specifies configuration for Open ID Connect
 |display|The friendly name for this provider.|string|
 |scope|Specifies additional scopes set by provider.|[]string|
 |prompt|An optional OIDC prompt. An empty string omits prompt. If not specified, it defaults to select_account for backwards compatibility.|string|
-|claims_to_roles|Specifies a dynamic mapping from claims to roles.|[][Claim Mapping](./#claim-mapping)|
+|claims_to_roles|Specifies a dynamic mapping from claims to roles.|[][Claim Mapping](#claim-mapping)|
 |google_service_account_uri|A path to a google service account uri.|string|
 |google_service_account|A string containing google service account credentials.|string|
 |google_admin_email|The email of a google admin to impersonate.|string|
-|redirect_url|A list of callback URLs which the identity provider can use to redirect the client back to the Teleport Proxy to complete authentication. This list should match the URLs on the provider's side. The URL used for a given auth request will be chosen to match the requesting Proxy's public address. If there is no match, the first url in the list will be used.|[Strings](./#strings)|
+|redirect_url|A list of callback URLs which the identity provider can use to redirect the client back to the Teleport Proxy to complete authentication. This list should match the URLs on the provider's side. The URL used for a given auth request will be chosen to match the requesting Proxy's public address. If there is no match, the first url in the list will be used.|[Strings](#strings)|
 |allow_unverified_email|Tells the connector to accept OIDC users with unverified emails.|Boolean|
 |username_claim|Specifies the name of the claim from the OIDC connector to be used as the user's username.|string|
-|max_age||[Duration](./#duration)|
+|max_age||[Duration](#duration)|
  
 
 
@@ -3522,8 +3556,8 @@ Represents an OIDC connector.
 |kind|A resource kind.|string|
 |sub_kind|An optional resource sub kind, used in some resources.|string|
 |version|A resource version.|string|
-|metadata|Holds resource metadata.|[Metadata](./#metadata)|
-|spec|An OIDC connector specification.|[OIDCConnector Spec](./#oidcconnector-spec)|
+|metadata|Holds resource metadata.|[Metadata](#metadata)|
+|spec|An OIDC connector specification.|[OIDCConnector Spec](#oidcconnector-spec)|
  
 
 
@@ -3549,7 +3583,7 @@ Specify options related to the Okta service.
 
 |Field Name|Description|Type|
 |---|---|---|
-|sync_period|The duration between synchronization calls in nanoseconds.|[Duration](./#duration)|
+|sync_period|The duration between synchronization calls in nanoseconds.|[Duration](#duration)|
  
 
 
@@ -3637,7 +3671,7 @@ PluginData stores a collection of values associated with a specific resource.
 
 |Field Name|Description|Type|
 |---|---|---|
-|entries|A collection of PluginData values organized by plugin name.|map[string][Plugin Data Entry](./#plugin-data-entry)|
+|entries|A collection of PluginData values organized by plugin name.|map[string][Plugin Data Entry](#plugin-data-entry)|
  
 
 
@@ -3700,19 +3734,19 @@ A specification for V2 token
 
 |Field Name|Description|Type|
 |---|---|---|
-|roles|A list of roles associated with the token, that will be converted to metadata in the SSH and X509 certificates issued to the user of the token|[][System Role](./#system-role)|
-|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Token Rule](./#token-rule)|
-|aws_iid_ttl|The TTL to use for AWS EC2 Instance Identity Documents used to join the cluster with this token.|[Duration](./#duration)|
-|join_method|The joining method required in order to use this token. Supported joining methods include "token", "ec2", and "iam".|[Join Method](./#join-method)|
+|roles|A list of roles associated with the token, that will be converted to metadata in the SSH and X509 certificates issued to the user of the token|[][System Role](#system-role)|
+|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Token Rule](#token-rule)|
+|aws_iid_ttl|The TTL to use for AWS EC2 Instance Identity Documents used to join the cluster with this token.|[Duration](#duration)|
+|join_method|The joining method required in order to use this token. Supported joining methods include "token", "ec2", and "iam".|[Join Method](#join-method)|
 |bot_name|The name of the bot this token grants access to, if any|string|
-|suggested_labels|A set of labels that resources should set when using this token to enroll themselves in the cluster. Currently, only node-join scripts create a configuration according to the suggestion.|[Labels](./#labels)|
-|github|Allows the configuration of options specific to the "github" join method.|[Provision Token Spec V2Git Hub](./#provision-token-spec-v2git-hub)|
-|circleci|Allows the configuration of options specific to the "circleci" join method.|[Provision Token Spec V2Circle CI](./#provision-token-spec-v2circle-ci)|
-|suggested_agent_matcher_labels|A set of labels to be used by agents to match on resources. When an agent uses this token, the agent should monitor resources that match those labels. For databases, this means adding the labels to `db_service.resources.labels`. Currently, only node-join scripts create a configuration according to the suggestion.|[Labels](./#labels)|
-|kubernetes|Allows the configuration of options specific to the "kubernetes" join method.|[Provision Token Spec V2Kubernetes](./#provision-token-spec-v2kubernetes)|
-|azure|Allows the configuration of options specific to the "azure" join method.|[Provision Token Spec V2Azure](./#provision-token-spec-v2azure)|
-|gitlab|Allows the configuration of options specific to the "gitlab" join method.|[Provision Token Spec V2Git Lab](./#provision-token-spec-v2git-lab)|
-|gcp|Allows the configuration of options specific to the "gcp" join method.|[Provision Token Spec V2GCP](./#provision-token-spec-v2gcp)|
+|suggested_labels|A set of labels that resources should set when using this token to enroll themselves in the cluster. Currently, only node-join scripts create a configuration according to the suggestion.|[Labels](#labels)|
+|github|Allows the configuration of options specific to the "github" join method.|[Provision Token Spec V2Git Hub](#provision-token-spec-v2git-hub)|
+|circleci|Allows the configuration of options specific to the "circleci" join method.|[Provision Token Spec V2Circle CI](#provision-token-spec-v2circle-ci)|
+|suggested_agent_matcher_labels|A set of labels to be used by agents to match on resources. When an agent uses this token, the agent should monitor resources that match those labels. For databases, this means adding the labels to `db_service.resources.labels`. Currently, only node-join scripts create a configuration according to the suggestion.|[Labels](#labels)|
+|kubernetes|Allows the configuration of options specific to the "kubernetes" join method.|[Provision Token Spec V2Kubernetes](#provision-token-spec-v2kubernetes)|
+|azure|Allows the configuration of options specific to the "azure" join method.|[Provision Token Spec V2Azure](#provision-token-spec-v2azure)|
+|gitlab|Allows the configuration of options specific to the "gitlab" join method.|[Provision Token Spec V2Git Lab](#provision-token-spec-v2git-lab)|
+|gcp|Allows the configuration of options specific to the "gcp" join method.|[Provision Token Spec V2GCP](#provision-token-spec-v2gcp)|
  
 
 
@@ -3766,7 +3800,7 @@ Contains the Azure-specific part of the ProvisionTokenSpecV2.
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|A list of Rules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Azure_Rule](./#provision-token-spec-v2azure_rule)|
+|allow|A list of Rules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Azure_Rule](#provision-token-spec-v2azure_rule)|
  
 
 
@@ -3817,7 +3851,7 @@ Contains the CircleCI-specific part of the ProvisionTokenSpecV2
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Circle CI_Rule](./#provision-token-spec-v2circle-ci_rule)|
+|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Circle CI_Rule](#provision-token-spec-v2circle-ci_rule)|
 |organization_id||string|
  
 
@@ -3867,7 +3901,7 @@ Contains the GCP-specific part of the ProvisionTokenSpecV2.
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|A list of Rules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2GCP_Rule](./#provision-token-spec-v2gcp_rule)|
+|allow|A list of Rules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2GCP_Rule](#provision-token-spec-v2gcp_rule)|
  
 
 
@@ -3926,7 +3960,7 @@ ProvisionTokenSpecV2Github contains the GitHub-specific part of the ProvisionTok
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Git Hub_Rule](./#provision-token-spec-v2git-hub_rule)|
+|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Git Hub_Rule](#provision-token-spec-v2git-hub_rule)|
 |enterprise_server_host|Allows joining from runners associated with a GitHub Enterprise Server instance. When unconfigured, tokens will be validated against github.com, but when configured to the host of a GHES instance, then the tokens will be validated against host.  This value should be the hostname of the GHES instance, and should not include the scheme or a path. The instance must be accessible over HTTPS at this hostname and the certificate must be trusted by the Auth Server.|string|
  
 
@@ -3988,7 +4022,7 @@ Contains the GitLab-specific part of the ProvisionTokenSpecV2
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Git Lab_Rule](./#provision-token-spec-v2git-lab_rule)|
+|allow|A list of TokenRules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Git Lab_Rule](#provision-token-spec-v2git-lab_rule)|
 |domain|The domain of your GitLab instance. This will default to `gitlab.com` - but can be set to the domain of your self-hosted GitLab e.g `gitlab.example.com`.|string|
  
 
@@ -4048,9 +4082,9 @@ Contains the Kubernetes-specific part of the ProvisionTokenSpecV2
 
 |Field Name|Description|Type|
 |---|---|---|
-|allow|A list of Rules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Kubernetes_Rule](./#provision-token-spec-v2kubernetes_rule)|
-|type|Controls which behavior should be used for validating the Kubernetes Service Account token. Support values: - `in_cluster` - `static_jwks` If unset, this defaults to `in_cluster`.|[Kubernetes Join Type](./#kubernetes-join-type)|
-|static_jwks|The configuration specific to the `static_jwks` type.|[Provision Token Spec V2Kubernetes_Static JWKSConfig](./#provision-token-spec-v2kubernetes_static-jwksconfig)|
+|allow|A list of Rules, nodes using this token must match one allow rule to use this token.|[][Provision Token Spec V2Kubernetes_Rule](#provision-token-spec-v2kubernetes_rule)|
+|type|Controls which behavior should be used for validating the Kubernetes Service Account token. Support values: - `in_cluster` - `static_jwks` If unset, this defaults to `in_cluster`.|[Kubernetes Join Type](#kubernetes-join-type)|
+|static_jwks|The configuration specific to the `static_jwks` type.|[Provision Token Spec V2Kubernetes_Static JWKSConfig](#provision-token-spec-v2kubernetes_static-jwksconfig)|
  
 
 
@@ -4120,8 +4154,8 @@ A provisioning token V1
 
 |Field Name|Description|Type|
 |---|---|---|
-|roles|A list of roles associated with the token, that will be converted to metadata in the SSH and X509 certificates issued to the user of the token|[][System Role](./#system-role)|
-|expires|A global expiry time header can be set on any resource in the system.|[Time](./#time)|
+|roles|A list of roles associated with the token, that will be converted to metadata in the SSH and X509 certificates issued to the user of the token|[][System Role](#system-role)|
+|expires|A global expiry time header can be set on any resource in the system.|[Time](#time)|
 |token|A token name|string|
  
 
@@ -4223,9 +4257,9 @@ resource_id: "string"
 
 |Field Name|Description|Type|
 |---|---|---|
-|desktop|Indicates whether desktop sessions should be recorded. It defaults to true unless explicitly set to false.|[Bool Option](./#bool-option)|
-|default|Indicates the default value for the services.|[Session Recording Mode](./#session-recording-mode)|
-|ssh|Indicates the session mode used on SSH sessions.|[Session Recording Mode](./#session-recording-mode)|
+|desktop|Indicates whether desktop sessions should be recorded. It defaults to true unless explicitly set to false.|[Bool Option](#bool-option)|
+|default|Indicates the default value for the services.|[Session Recording Mode](#session-recording-mode)|
+|ssh|Indicates the session mode used on SSH sessions.|[Session Recording Mode](#session-recording-mode)|
  
 
 
@@ -4250,7 +4284,7 @@ Describes a recovery code.
 
 |Field Name|Description|Type|
 |---|---|---|
-|hashed_code|A bcrypt hash of this recovery code.|[][byte](./#byte)|
+|hashed_code|A bcrypt hash of this recovery code.|[][byte](#byte)|
 |is_used|Determines if this recovery code was used.|Boolean|
  
 
@@ -4278,8 +4312,8 @@ The recovery codes spec.
 
 |Field Name|Description|Type|
 |---|---|---|
-|codes|Hold a list of numOfRecoveryCodes.|[][Recovery Code](./#recovery-code)|
-|created|When the set of recovery codes were generated. Updated when a new set of recovery codes are inserted.|[Time](./#time)|
+|codes|Hold a list of numOfRecoveryCodes.|[][Recovery Code](#recovery-code)|
+|created|When the set of recovery codes were generated. Updated when a new set of recovery codes are inserted.|[Time](#time)|
  
 
 
@@ -4352,7 +4386,7 @@ Represents status of the remote cluster
 |Field Name|Description|Type|
 |---|---|---|
 |connection|Represents connection status, online or offline|string|
-|last_heartbeat|Records last heartbeat of the cluster|[Time](./#time)|
+|last_heartbeat|Records last heartbeat of the cluster|[Time](#time)|
  
 
 
@@ -4447,7 +4481,7 @@ A specification for V2 reverse tunnel
 |---|---|---|
 |cluster_name|A domain name of remote cluster we are connecting to|string|
 |dial_addrs|A list of remote address to establish a connection to it's always SSH over TCP|[]string|
-|type|The type of reverse tunnel, either proxy or node.|[Tunnel Type](./#tunnel-type)|
+|type|The type of reverse tunnel, either proxy or node.|[Tunnel Type](#tunnel-type)|
  
 
 
@@ -4474,7 +4508,7 @@ A list of rewriting rules to apply to requests and responses.
 |Field Name|Description|Type|
 |---|---|---|
 |redirect|Defines a list of hosts which will be rewritten to the public address of the application if they occur in the "Location" header.|[]string|
-|headers|A list of headers to inject when passing the request over to the application.|[][Header](./#header)|
+|headers|A list of headers to inject when passing the request over to the application.|[][Header](#header)|
 |jwt_claims|Configures whether roles/traits are included in the JWT token.|string|
  
 
@@ -4507,31 +4541,31 @@ A set of conditions that must all match to be allowed or denied access.
 |Field Name|Description|Type|
 |---|---|---|
 |logins|A list of *nix system logins.|[]string|
-|node_labels|A map of node labels (used to dynamically grant access to nodes).|[Labels](./#labels)|
-|rules|A list of rules and their access levels. Rules are a high level construct used for access control.|[][Rule](./#rule)|
+|node_labels|A map of node labels (used to dynamically grant access to nodes).|[Labels](#labels)|
+|rules|A list of rules and their access levels. Rules are a high level construct used for access control.|[][Rule](#rule)|
 |kubernetes_groups|A list of kubernetes groups|[]string|
-|request||[Access Request Conditions](./#access-request-conditions)|
+|request||[Access Request Conditions](#access-request-conditions)|
 |kubernetes_users|An optional kubernetes users to impersonate|[]string|
-|app_labels|A map of labels used as part of the RBAC system.|[Labels](./#labels)|
-|cluster_labels|A map of node labels (used to dynamically grant access to clusters).|[Labels](./#labels)|
-|kubernetes_labels|A map of kubernetes cluster labels used for RBAC.|[Labels](./#labels)|
-|db_labels|Used in RBAC system to allow/deny access to databases.|[Labels](./#labels)|
+|app_labels|A map of labels used as part of the RBAC system.|[Labels](#labels)|
+|cluster_labels|A map of node labels (used to dynamically grant access to clusters).|[Labels](#labels)|
+|kubernetes_labels|A map of kubernetes cluster labels used for RBAC.|[Labels](#labels)|
+|db_labels|Used in RBAC system to allow/deny access to databases.|[Labels](#labels)|
 |db_names|A list of database names this role is allowed to connect to.|[]string|
 |db_users|A list of databases users this role is allowed to connect as.|[]string|
-|impersonate|Specifies what users and roles this role is allowed to impersonate by issuing certificates or other possible means.|[Impersonate Conditions](./#impersonate-conditions)|
-|review_requests|Defines conditions for submitting access reviews.|[Access Review Conditions](./#access-review-conditions)|
+|impersonate|Specifies what users and roles this role is allowed to impersonate by issuing certificates or other possible means.|[Impersonate Conditions](#impersonate-conditions)|
+|review_requests|Defines conditions for submitting access reviews.|[Access Review Conditions](#access-review-conditions)|
 |aws_role_arns|A list of AWS role ARNs this role is allowed to assume.|[]string|
 |windows_desktop_logins|A list of desktop login names allowed/denied for Windows desktops.|[]string|
-|windows_desktop_labels|Used in the RBAC system to allow/deny access to Windows desktops.|[Labels](./#labels)|
-|require_session_join|Specifies policies for required users to start a session.|[][Session Require Policy](./#session-require-policy)|
-|join_sessions|Specifies policies to allow users to join other sessions.|[][Session Join Policy](./#session-join-policy)|
+|windows_desktop_labels|Used in the RBAC system to allow/deny access to Windows desktops.|[Labels](#labels)|
+|require_session_join|Specifies policies for required users to start a session.|[][Session Require Policy](#session-require-policy)|
+|join_sessions|Specifies policies to allow users to join other sessions.|[][Session Join Policy](#session-join-policy)|
 |host_groups|A list of groups for created users to be added to|[]string|
 |host_sudoers|A list of entries to include in a users sudoer file|[]string|
 |azure_identities|A list of Azure identities this role is allowed to assume.|[]string|
-|kubernetes_resources|The Kubernetes Resources this Role grants access to.|[][Kubernetes Resource](./#kubernetes-resource)|
+|kubernetes_resources|The Kubernetes Resources this Role grants access to.|[][Kubernetes Resource](#kubernetes-resource)|
 |gcp_service_accounts|A list of GCP service accounts this role is allowed to assume.|[]string|
-|db_service_labels|Used in RBAC system to allow/deny access to Database Services.|[Labels](./#labels)|
-|group_labels|A map of labels used as part of the RBAC system.|[Labels](./#labels)|
+|db_service_labels|Used in RBAC system to allow/deny access to Database Services.|[Labels](#labels)|
+|group_labels|A map of labels used as part of the RBAC system.|[Labels](#labels)|
 |desktop_groups|A list of groups for created desktop users to be added to|[]string|
 |db_roles|A list of databases roles for automatic user creation.|[]string|
 |node_labels_expression|A predicate expression used to allow/deny access to SSH nodes.|string|
@@ -4695,34 +4729,34 @@ A set of role options
 
 |Field Name|Description|Type|
 |---|---|---|
-|forward_agent|SSH agent forwarding.|[Bool](./#bool)|
-|max_session_ttl|Defines how long a SSH session can last for.|[Duration](./#duration)|
-|port_forwarding|Defines if the certificate will have "permit-port-forwarding" in the certificate. PortForwarding is "yes" if not set, that's why this is a pointer|[Bool Option](./#bool-option)|
+|forward_agent|SSH agent forwarding.|[Bool](#bool)|
+|max_session_ttl|Defines how long a SSH session can last for.|[Duration](#duration)|
+|port_forwarding|Defines if the certificate will have "permit-port-forwarding" in the certificate. PortForwarding is "yes" if not set, that's why this is a pointer|[Bool Option](#bool-option)|
 |cert_format|Defines the format of the user certificate to allow compatibility with older versions of OpenSSH.|string|
-|client_idle_timeout|Sets disconnect clients on idle timeout behavior, if set to 0 means do not disconnect, otherwise is set to the idle duration.|[Duration](./#duration)|
-|disconnect_expired_cert|Sets disconnect clients on expired certificates.|[Bool](./#bool)|
+|client_idle_timeout|Sets disconnect clients on idle timeout behavior, if set to 0 means do not disconnect, otherwise is set to the idle duration.|[Duration](#duration)|
+|disconnect_expired_cert|Sets disconnect clients on expired certificates.|[Bool](#bool)|
 |enhanced_recording|Defines what events to record for the BPF-based session recorder.|[]string|
-|permit_x11_forwarding|Authorizes use of X11 forwarding.|[Bool](./#bool)|
+|permit_x11_forwarding|Authorizes use of X11 forwarding.|[Bool](#bool)|
 |max_connections|Defines the maximum number of concurrent connections a user may hold.|number|
 |max_sessions|Defines the maximum number of concurrent sessions per connection.|number|
-|request_access|Defines the access request strategy (optional|note|always) where optional is the default.|[Request Strategy](./#request-strategy)|
+|request_access|Defines the access request strategy (optional|note|always) where optional is the default.|[Request Strategy](#request-strategy)|
 |request_prompt|An optional message which tells users what they aught to request.|string|
-|lock|Specifies the locking mode (strict|best_effort) to be applied with the role.|[Locking Mode](./#locking-mode)|
-|record_session|RecordDesktopSession indicates whether desktop access sessions should be recorded. It defaults to true unless explicitly set to false.|[Record Session](./#record-session)|
-|desktop_clipboard|Indicates whether clipboard sharing is allowed between the user's workstation and the remote desktop. It defaults to true unless explicitly set to false.|[Bool Option](./#bool-option)|
-|cert_extensions|Specifies the key/values|[][Cert Extension](./#cert-extension)|
+|lock|Specifies the locking mode (strict|best_effort) to be applied with the role.|[Locking Mode](#locking-mode)|
+|record_session|RecordDesktopSession indicates whether desktop access sessions should be recorded. It defaults to true unless explicitly set to false.|[Record Session](#record-session)|
+|desktop_clipboard|Indicates whether clipboard sharing is allowed between the user's workstation and the remote desktop. It defaults to true unless explicitly set to false.|[Bool Option](#bool-option)|
+|cert_extensions|Specifies the key/values|[][Cert Extension](#cert-extension)|
 |max_kubernetes_connections|Defines the maximum number of concurrent Kubernetes sessions a user may hold.|number|
-|desktop_directory_sharing|Indicates whether directory sharing is allowed between the user's workstation and the remote desktop. It defaults to false unless explicitly set to true.|[Bool Option](./#bool-option)|
-|create_host_user|Allows users to be automatically created on a host|[Bool Option](./#bool-option)|
-|pin_source_ip|Forces the same client IP for certificate generation and usage|[Bool](./#bool)|
-|ssh_file_copy|Indicates whether remote file operations via SCP or SFTP are allowed over an SSH session. It defaults to true unless explicitly set to false.|[Bool Option](./#bool-option)|
-|require_session_mfa|The type of MFA requirement enforced for this user.|[Require MFAType](./#require-mfatype)|
+|desktop_directory_sharing|Indicates whether directory sharing is allowed between the user's workstation and the remote desktop. It defaults to false unless explicitly set to true.|[Bool Option](#bool-option)|
+|create_host_user|Allows users to be automatically created on a host|[Bool Option](#bool-option)|
+|pin_source_ip|Forces the same client IP for certificate generation and usage|[Bool](#bool)|
+|ssh_file_copy|Indicates whether remote file operations via SCP or SFTP are allowed over an SSH session. It defaults to true unless explicitly set to false.|[Bool Option](#bool-option)|
+|require_session_mfa|The type of MFA requirement enforced for this user.|[Require MFAType](#require-mfatype)|
 |device_trust_mode|The device authorization mode used for the resources associated with the role. See DeviceTrust.Mode. Reserved for future use, not yet used by Teleport.|string|
-|idp|A set of options related to accessing IdPs within Teleport. Requires Teleport Enterprise.|[Id POptions](./#id-poptions)|
-|create_desktop_user|Allows users to be automatically created on a Windows desktop|[Bool Option](./#bool-option)|
-|create_db_user|Enabled automatic database user creation.|[Bool Option](./#bool-option)|
-|create_host_user_mode|Allows users to be automatically created on a host when not set to off|[Create Host User Mode](./#create-host-user-mode)|
-|create_db_user_mode|Allows users to be automatically created on a database when not set to off.|[Create Database User Mode](./#create-database-user-mode)|
+|idp|A set of options related to accessing IdPs within Teleport. Requires Teleport Enterprise.|[Id POptions](#id-poptions)|
+|create_desktop_user|Allows users to be automatically created on a Windows desktop|[Bool Option](#bool-option)|
+|create_db_user|Enabled automatic database user creation.|[Bool Option](#bool-option)|
+|create_host_user_mode|Allows users to be automatically created on a host when not set to off|[Create Host User Mode](#create-host-user-mode)|
+|create_db_user_mode|Allows users to be automatically created on a database when not set to off.|[Create Database User Mode](#create-database-user-mode)|
  
 
 
@@ -4798,9 +4832,9 @@ Role specification for RoleV6.
 
 |Field Name|Description|Type|
 |---|---|---|
-|options|For OpenSSH options like agent forwarding.|[Role Options](./#role-options)|
-|allow|The set of conditions evaluated to grant access.|[Role Conditions](./#role-conditions)|
-|deny|The set of conditions evaluated to deny access. Deny takes priority over allow.|[Role Conditions](./#role-conditions)|
+|options|For OpenSSH options like agent forwarding.|[Role Options](#role-options)|
+|allow|The set of conditions evaluated to grant access.|[Role Conditions](#role-conditions)|
+|deny|The set of conditions evaluated to deny access. Deny takes priority over allow.|[Role Conditions](#role-conditions)|
  
 
 
@@ -4828,8 +4862,8 @@ Represents role resource specification
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A role specification|[Role Spec](./#role-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A role specification|[Role Spec](#role-spec)|
  
 
 
@@ -4859,10 +4893,10 @@ A status of the rotation of the certificate authority
 |phase|The current rotation phase.|string|
 |mode|Sets manual or automatic rotation mode.|string|
 |current_id|The ID of the rotation operation to differentiate between rotation attempts.|string|
-|started|Set to the time when rotation has been started in case if the state of the rotation is "in_progress".|[Time](./#time)|
-|grace_period|A period during which old and new CA are valid for checking purposes, but only new CA is issuing certificates.|[Duration](./#duration)|
-|last_rotated|Specifies the last time of the completed rotation.|[Time](./#time)|
-|schedule|A rotation schedule - used in automatic mode to switch between phases.|[Rotation Schedule](./#rotation-schedule)|
+|started|Set to the time when rotation has been started in case if the state of the rotation is "in_progress".|[Time](#time)|
+|grace_period|A period during which old and new CA are valid for checking purposes, but only new CA is issuing certificates.|[Duration](#duration)|
+|last_rotated|Specifies the last time of the completed rotation.|[Time](#time)|
+|schedule|A rotation schedule - used in automatic mode to switch between phases.|[Rotation Schedule](#rotation-schedule)|
  
 
 
@@ -4893,9 +4927,9 @@ A rotation schedule setting time switches for different phases.
 
 |Field Name|Description|Type|
 |---|---|---|
-|update_clients|Specifies time to switch to the "Update clients" phase|[Time](./#time)|
-|update_servers|Specifies time to switch to the "Update servers" phase.|[Time](./#time)|
-|standby|Specifies time to switch to the "Standby" phase.|[Time](./#time)|
+|update_clients|Specifies time to switch to the "Update clients" phase|[Time](#time)|
+|update_servers|Specifies time to switch to the "Update servers" phase.|[Time](#time)|
+|standby|Specifies time to switch to the "Standby" phase.|[Time](#time)|
  
 
 
@@ -4973,7 +5007,7 @@ Contains an attribute name and associated values. Defined in http://docs.oasis-o
 |friendly_name|A user readable name for the attribute.|string|
 |name|A full name for the attribute, typically an OID value.|string|
 |name_format|The format of the name.|string|
-|values|A list of attribute values.|[][SAMLAttribute Value](./#samlattribute-value)|
+|values|A list of attribute values.|[][SAMLAttribute Value](#samlattribute-value)|
  
 
 
@@ -5004,7 +5038,7 @@ S contains a type, value, and an associated name ID block. Defined in http://doc
 |---|---|---|
 |type|The type of value this attribute represents.|string|
 |value|The value of the attribute.|string|
-|name_id|A more restrictive identifier for the attribute value.|[SAMLName ID](./#samlname-id)|
+|name_id|A more restrictive identifier for the attribute value.|[SAMLName ID](#samlname-id)|
  
 
 
@@ -5036,10 +5070,10 @@ A SAML connector specification.
 |service_provider_issuer|The issuer of the service provider (Teleport).|string|
 |entity_descriptor|XML with descriptor. It can be used to supply configuration parameters in one XML file rather than supplying them in the individual elements.|string|
 |entity_descriptor_url|A URL that supplies a configuration XML.|string|
-|attributes_to_roles|A list of mappings of attribute statements to roles.|[][Attribute Mapping](./#attribute-mapping)|
-|signing_key_pair|An x509 key pair used to sign AuthnRequest.|[Asymmetric Key Pair](./#asymmetric-key-pair)|
+|attributes_to_roles|A list of mappings of attribute statements to roles.|[][Attribute Mapping](#attribute-mapping)|
+|signing_key_pair|An x509 key pair used to sign AuthnRequest.|[Asymmetric Key Pair](#asymmetric-key-pair)|
 |provider|The external identity provider.|string|
-|assertion_key_pair|A key pair used for decrypting SAML assertions.|[Asymmetric Key Pair](./#asymmetric-key-pair)|
+|assertion_key_pair|A key pair used for decrypting SAML assertions.|[Asymmetric Key Pair](#asymmetric-key-pair)|
 |allow_idp_initiated|A flag that indicates if the connector can be used for IdP-initiated logins.|Boolean|
  
 
@@ -5110,8 +5144,8 @@ Contains data for a SAML session. Based on crewjam/saml's session object: https:
 |Field Name|Description|Type|
 |---|---|---|
 |id|The identifier for the SAML session.|string|
-|create_time|The time that the session was created.|[Time](./#time)|
-|expire_time|The time that the session will expire.|[Time](./#time)|
+|create_time|The time that the session was created.|[Time](#time)|
+|expire_time|The time that the session will expire.|[Time](#time)|
 |index|The session index that allows the IdP to uniquely identify a session.|string|
 |name_id|An identifier for the session.|string|
 |name_id_format|The format of the Name ID.|string|
@@ -5123,7 +5157,7 @@ Contains data for a SAML session. Based on crewjam/saml's session object: https:
 |user_surname|The user's surname.|string|
 |user_given_name|The user's given name.|string|
 |user_scoped_affiliation|The user's scoped affiliation.|string|
-|custom_attributes|Any custom attributes associated with the request.|[][SAMLAttribute](./#samlattribute)|
+|custom_attributes|Any custom attributes associated with the request.|[][SAMLAttribute](#samlattribute)|
  
 
 
@@ -5168,9 +5202,9 @@ An SSH CA key pair.
 
 |Field Name|Description|Type|
 |---|---|---|
-|public_key|The SSH public key.|[][byte](./#byte)|
-|private_key|The SSH private key.|[][byte](./#byte)|
-|private_key_type|The type of the PrivateKey.|[Private Key Type](./#private-key-type)|
+|public_key|The SSH public key.|[][byte](#byte)|
+|private_key|The SSH private key.|[][byte](#byte)|
+|private_key_type|The type of the PrivateKey.|[Private Key Type](#private-key-type)|
  
 
 
@@ -5228,7 +5262,7 @@ Identifies an existent lease.
 |Field Name|Description|Type|
 |---|---|---|
 |lease_id|The unique ID of the lease.|string|
-|expires|The time at which the lease expires.|[Time](./#time)|
+|expires|The time at which the lease expires.|[Time](#time)|
 |holder|Identifies the lease holder.|string|
  
 
@@ -5252,7 +5286,7 @@ Contains the data about lease
 
 |Field Name|Description|Type|
 |---|---|---|
-|leases|A list of all currently acquired leases.|[][Semaphore Lease Ref](./#semaphore-lease-ref)|
+|leases|A list of all currently acquired leases.|[][Semaphore Lease Ref](#semaphore-lease-ref)|
  
 
 
@@ -5304,14 +5338,14 @@ A specification for V2 Server
 |addr|A host:port address where this server can be reached.|string|
 |public_addr|The public address where this server can be reached. DELETE IN 15.0. (joerger) Deprecated in favor of public_addrs.|string|
 |hostname|Server hostname|string|
-|cmd_labels|Server dynamic labels|map[string][Command Label](./#command-label)|
-|rotation|Specifies server rotation|[Rotation](./#rotation)|
+|cmd_labels|Server dynamic labels|map[string][Command Label](#command-label)|
+|rotation|Specifies server rotation|[Rotation](#rotation)|
 |use_tunnel|Indicates that connections to this server should occur over a reverse tunnel.|Boolean|
 |version|TeleportVersion is the teleport version that the server is running on|string|
 |peer_addr|The address a proxy server is reachable at by its peer proxies.|string|
 |proxy_ids|A list of proxy IDs this server is expected to be connected to.|[]string|
 |public_addrs|A list of public addresses where this server can be reached.|[]string|
-|cloud_metadata|Contains info about the cloud instance the server is running on, if any.|[Cloud Metadata](./#cloud-metadata)|
+|cloud_metadata|Contains info about the cloud instance the server is running on, if any.|[Cloud Metadata](#cloud-metadata)|
  
 
 
@@ -5358,8 +5392,8 @@ Represents a Node, App, Database, Proxy or Auth server in a Teleport cluster.
 |kind|A resource kind|string|
 |sub_kind|An optional resource sub kind, used in some resources|string|
 |version|Version|string|
-|metadata|Resource metadata|[Metadata](./#metadata)|
-|spec|A server spec|[Server Spec](./#server-spec)|
+|metadata|Resource metadata|[Metadata](#metadata)|
+|spec|A server spec|[Server Spec](#server-spec)|
  
 
 
@@ -5421,7 +5455,7 @@ The actual data we care about for SessionRecordingConfig.
 |Field Name|Description|Type|
 |---|---|---|
 |mode|Controls where (or if) the session is recorded.|string|
-|proxy_checks_host_keys|Used to control if the proxy will check host keys when in recording mode.|[Bool Option](./#bool-option)|
+|proxy_checks_host_keys|Used to control if the proxy will check host keys when in recording mode.|[Bool Option](#bool-option)|
  
 
 
@@ -5479,7 +5513,7 @@ The actual data we care about for StaticTokensSpecV2.
 
 |Field Name|Description|Type|
 |---|---|---|
-|static_tokens|A list of tokens that can be used to add nodes to the cluster.|[][Provision Token](./#provision-token)|
+|static_tokens|A list of tokens that can be used to add nodes to the cluster.|[][Provision Token](#provision-token)|
  
 
 
@@ -5520,9 +5554,9 @@ A TLS key pair
 
 |Field Name|Description|Type|
 |---|---|---|
-|cert|A PEM encoded TLS cert|[][byte](./#byte)|
-|key|A PEM encoded TLS key|[][byte](./#byte)|
-|key_type|The type of the Key.|[Private Key Type](./#private-key-type)|
+|cert|A PEM encoded TLS cert|[][byte](#byte)|
+|key|A PEM encoded TLS key|[][byte](#byte)|
+|key_type|The type of the Key.|[Private Key Type](#private-key-type)|
  
 
 
@@ -5644,7 +5678,7 @@ A list of threshold index sets.  Each of the individual sets must pass (i.e. thi
 
 |Field Name|Description|Type|
 |---|---|---|
-|s|The sets that make up this group.|[][Threshold Index Set](./#threshold-index-set)|
+|s|The sets that make up this group.|[][Threshold Index Set](#threshold-index-set)|
  
 
 
@@ -5704,7 +5738,7 @@ A Trusted Cluster specification.
 |token|The authorization token provided by another cluster needed by this cluster to join.|string|
 |web_proxy_addr|The address of the web proxy server of the cluster to join. If not set, it is derived from `metadata.name`:`default web proxy server port`.|string|
 |tunnel_addr|The address of the SSH proxy server of the cluster to join. If not set, it is derived from `metadata.name`:`default reverse tunnel port`.|string|
-|role_map|Specifies role mappings to remote roles.|[][Role Mapping](./#role-mapping)|
+|role_map|Specifies role mappings to remote roles.|[][Role Mapping](#role-mapping)|
  
 
 
@@ -5740,8 +5774,8 @@ A specification for V2 tunnel connection
 |---|---|---|
 |cluster_name|A name of the cluster|string|
 |proxy_name|The name of the proxy server|string|
-|last_heartbeat|A time of the last heartbeat|[Time](./#time)|
-|type|The type of reverse tunnel, either proxy or node.|[Tunnel Type](./#tunnel-type)|
+|last_heartbeat|A time of the last heartbeat|[Time](#time)|
+|type|The type of reverse tunnel, either proxy or node.|[Tunnel Type](#tunnel-type)|
  
 
 
@@ -5846,15 +5880,15 @@ A specification for V2 user
 
 |Field Name|Description|Type|
 |---|---|---|
-|oidc_identities|Lists associated OpenID Connect identities that let user log in using externally verified identity|[][External Identity](./#external-identity)|
-|saml_identities|Lists associated SAML identities that let user log in using externally verified identity|[][External Identity](./#external-identity)|
-|github_identities|List associated Github OAuth2 identities that let user log in using externally verified identity|[][External Identity](./#external-identity)|
+|oidc_identities|Lists associated OpenID Connect identities that let user log in using externally verified identity|[][External Identity](#external-identity)|
+|saml_identities|Lists associated SAML identities that let user log in using externally verified identity|[][External Identity](#external-identity)|
+|github_identities|List associated Github OAuth2 identities that let user log in using externally verified identity|[][External Identity](#external-identity)|
 |roles|A list of roles assigned to user|[]string|
-|traits|Key/value pairs received from an identity provider (through OIDC claims or SAML assertions) or from a system administrator for local accounts. Traits are used to populate role variables.|[Traits](./#traits)|
-|status|A login status of the user|[Login Status](./#login-status)|
-|expires|If set sets TTL on the user|[Time](./#time)|
-|created_by|Holds information about agent or person created this user|[Created By](./#created-by)|
-|local_auth|Holds sensitive data necessary for performing local authentication|[Local Auth Secrets](./#local-auth-secrets)|
+|traits|Key/value pairs received from an identity provider (through OIDC claims or SAML assertions) or from a system administrator for local accounts. Traits are used to populate role variables.|[Traits](#traits)|
+|status|A login status of the user|[Login Status](#login-status)|
+|expires|If set sets TTL on the user|[Time](#time)|
+|created_by|Holds information about agent or person created this user|[Created By](#created-by)|
+|local_auth|Holds sensitive data necessary for performing local authentication|[Local Auth Secrets](#local-auth-secrets)|
 |trusted_device_ids|Contains the IDs of trusted devices enrolled by the user. Managed by the Device Trust subsystem, avoid manual edits.|[]string|
  
 
@@ -5915,7 +5949,7 @@ trusted_device_ids:
 |---|---|---|
 |opt_key|Is a secret value of one time password secret generator|string|
 |qr_code|OTPKey is is a secret value of one time password secret generator|string|
-|created|Holds information about when the token was created|[Time](./#time)|
+|created|Holds information about when the token was created|[Time](#time)|
  
 
 
@@ -5940,8 +5974,8 @@ created:
 |---|---|---|
 |user|User name associated with this token|string|
 |url|This token URL|string|
-|usage|An optional field that provides more information about how this token will be used.|[User Token Usage](./#user-token-usage)|
-|created|Holds information about when the token was created|[Time](./#time)|
+|usage|An optional field that provides more information about how this token will be used.|[User Token Usage](#user-token-usage)|
+|created|Holds information about when the token was created|[Time](#time)|
  
 
 
@@ -6014,7 +6048,7 @@ Contains resource kinds confirmed by WatchEvents to be included in the event str
 
 |Field Name|Description|Type|
 |---|---|---|
-|kinds||[][Watch Kind](./#watch-kind)|
+|kinds||[][Watch Kind](#watch-kind)|
  
 
 
@@ -6043,8 +6077,8 @@ Intended to be attached to OpInit events and contain information about a success
 |kind|The resource kind.|string|
 |sub_kind|An optional resource subkind. Currently unused for this resource.|string|
 |version|The resource version.|string|
-|metadata|The resource metadata.|[Metadata](./#metadata)|
-|spec|The resource spec.|[Watch Status Spec](./#watch-status-spec)|
+|metadata|The resource metadata.|[Metadata](#metadata)|
+|spec|The resource spec.|[Watch Status Spec](#watch-status-spec)|
  
 
 
@@ -6071,16 +6105,16 @@ A specification for web session.
 |Field Name|Description|Type|
 |---|---|---|
 |user|The identity of the user to which the web session belongs.|string|
-|pub|The SSH certificate for the user.|[][byte](./#byte)|
-|priv|The SSH private key for the user.|[][byte](./#byte)|
-|tls_cert|The TLS certificate for the user.|[][byte](./#byte)|
+|pub|The SSH certificate for the user.|[][byte](#byte)|
+|priv|The SSH private key for the user.|[][byte](#byte)|
+|tls_cert|The TLS certificate for the user.|[][byte](#byte)|
 |bearer_token|A token that is paired with the session cookie for authentication. It is periodically rotated so a stolen cookie itself is not enough to steal a session. In addition it is used for CSRF mitigation.|string|
-|bearer_token_expires|The absolute time when the token expires.|[Time](./#time)|
-|expires|The absolute time when the session expires.|[Time](./#time)|
-|login_time|The time this user recently logged in.|[Time](./#time)|
-|idle_timeout|The max time a user can be inactive in a session.|[Duration](./#duration)|
+|bearer_token_expires|The absolute time when the token expires.|[Time](#time)|
+|expires|The absolute time when the session expires.|[Time](#time)|
+|login_time|The time this user recently logged in.|[Time](#time)|
+|idle_timeout|The max time a user can be inactive in a session.|[Duration](#duration)|
 |consumed_access_request_id|The ID of the access request from which additional roles to assume were obtained.|string|
-|saml_session|Data associated with a SAML IdP session.|[SAMLSession Data](./#samlsession-data)|
+|saml_session|Data associated with a SAML IdP session.|[SAMLSession Data](#samlsession-data)|
  
 
 
@@ -6185,7 +6219,7 @@ Holds settings necessary for local webauthn use.
 
 |Field Name|Description|Type|
 |---|---|---|
-|user_id|The random user handle generated for the user. See https://www.w3.org/TR/webauthn-2/#sctn-user-handle-privacy.|[][byte](./#byte)|
+|user_id|The random user handle generated for the user. See https://www.w3.org/TR/webauthn-2/#sctn-user-handle-privacy.|[][byte](#byte)|
  
 
 

@@ -33,8 +33,9 @@ var referenceTemplate string = strings.ReplaceAll(`
 {{ range .Resources }}
 ### {{ .SectionName }}
 
-**Kind**: &{{ .Kind }}&
-**Version**: &{{ .Version}}&
+**Kind**: {{ .Kind }}
+
+**Version**: {{ .Version}}
 
 {{ .Description }}
 
