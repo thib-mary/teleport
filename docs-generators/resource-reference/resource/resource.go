@@ -510,7 +510,12 @@ func makeFieldTableInfo(fields []rawField) ([]Field, error) {
 			desc = field.doc
 			typ = field.kind.formatForTable()
 		}
+		// Escape pipes so they do not affect table rendering.
+		desc = strings.ReplaceAll(desc, "|", `\|`)
+		// Remove surrounding spaces and inner line breaks.
 		desc = strings.Trim(strings.ReplaceAll(desc, "\n", " "), " ")
+		// Make angle bracket expressions code style so they render as
+		// MDX. These are often used to include placeholder values.
 		desc = bracketRE.ReplaceAllString(desc, "`")
 
 		result = append(result, Field{
