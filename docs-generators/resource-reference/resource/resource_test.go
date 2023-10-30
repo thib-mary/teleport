@@ -99,7 +99,7 @@ type Metadata struct {
     Names []string BACKTICKjson:"names"BACKTICK
     // Numbers is a list of numbers.
     Numbers []int BACKTICKjson:"numbers"BACKTICK
-    // Booleans is a list of Booleans.
+    // Booleans is a list of Boolean values.
     Booleans []bool BACKTICKjson:"booleans"BACKTICK
 }
 `,
@@ -137,7 +137,7 @@ booleans:
 						},
 						Field{
 							Name:        "booleans",
-							Description: "A list of Booleans.",
+							Description: "A list of Boolean values.",
 							Type:        "[]Boolean",
 						},
 					},
@@ -1206,6 +1206,26 @@ func TestMakeFieldTableInfo(t *testing.T) {
 				{
 					Name:        "my_field",
 					Description: "This field has a comment including `angle brackets`",
+					Type:        "string",
+				},
+			},
+		},
+		{
+			description: "field name in field description",
+			input: []rawField{
+				{
+					packageName: "mypkg",
+					doc:         "ServerName is a way of identifying the server. ServerName should never be blank.",
+					kind:        yamlString{},
+					name:        "ServerName",
+					jsonName:    "server_name",
+					tags:        "json:\"server_name\"",
+				},
+			},
+			expected: []Field{
+				{
+					Name:        "server_name",
+					Description: "A way of identifying the server. Should never be blank.",
 					Type:        "string",
 				},
 			},

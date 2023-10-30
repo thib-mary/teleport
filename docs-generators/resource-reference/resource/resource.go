@@ -533,24 +533,18 @@ func descriptionWithoutName(description, name string) string {
 		return description
 	}
 
-	var result = description
-	switch {
-	case strings.HasPrefix(description, name+" are "):
-		result = strings.TrimPrefix(description, name+" are ")
-	case strings.HasPrefix(description, name+" is "):
-		result = strings.TrimPrefix(description, name+" is ")
-	case strings.HasPrefix(description, name+" "):
-		result = strings.TrimPrefix(description, name+" ")
-	case strings.HasPrefix(description, name):
-		result = strings.TrimPrefix(description, name)
-	}
-
-	// Make sure the result begins with a capital letter
-	if len(result) > 0 {
-		result = strings.ToUpper(result[:1]) + result[1:]
-	}
-
-	return result
+	pat := regexp.MustCompile(name + `( are| is)?( .)?`)
+	return pat.ReplaceAllStringFunc(description, func(match string) string {
+		m := strings.TrimPrefix(match, name)
+		m = strings.TrimPrefix(m, " are ")
+		m = strings.TrimPrefix(m, " is ")
+		m = strings.TrimPrefix(m, " ")
+		if len(m) == 0 {
+			return m
+		}
+		// Make sure the result begins with a capital letter
+		return strings.ToUpper(m[:1]) + m[1:]
+	})
 }
 
 const yamlExampleDelimeter string = "Example YAML:\n---\n"

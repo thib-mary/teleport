@@ -1188,7 +1188,7 @@ kdc_host_name: "string"
 
 ### AWS
 
-Contains AWS metadata about the database.
+Contains Metadata about the database.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -1196,17 +1196,17 @@ Contains AWS metadata about the database.
 |Field Name|Description|Type|
 |---|---|---|
 |region|A AWS cloud region.|string|
-|redshift|Contains Redshift specific metadata.|[Redshift](#redshift)|
-|rds|Contains RDS specific metadata.|[RDS](#rds)|
+|redshift|Contains Specific metadata.|[Redshift](#redshift)|
+|rds|Contains Specific metadata.|[RDS](#rds)|
 |account_id|The AWS account ID this database belongs to.|string|
-|elasticache|Contains AWS ElastiCache Redis specific metadata.|[Elasti Cache](#elasti-cache)|
+|elasticache|Contains AWS Redis specific metadata.|[Elasti Cache](#elasti-cache)|
 |secret_store|Contains secret store configurations.|[Secret Store](#secret-store)|
-|memorydb|Contains AWS MemoryDB specific metadata.|[Memory DB](#memory-db)|
+|memorydb|Contains AWS Specific metadata.|[Memory DB](#memory-db)|
 |rdsproxy|Contains AWS Proxy specific metadata.|[RDSProxy](#rdsproxy)|
 |redshift_serverless|Contains AWS Redshift Serverless specific metadata.|[Redshift Serverless](#redshift-serverless)|
 |external_id|An optional AWS external ID used to enable assuming an AWS role across accounts.|string|
 |assume_role_arn|An optional AWS role ARN to assume when accessing a database. Set this field and ExternalID to enable access across AWS accounts.|string|
-|opensearch|Contains AWS OpenSearch specific metadata.|[Open Search](#open-search)|
+|opensearch|Contains AWS Specific metadata.|[Open Search](#open-search)|
 |iam_policy_status|Indicates whether the IAM Policy is configured properly for database access. If not, the user must update the AWS profile identity to allow access to the Database. Eg for an RDS Database: the underlying AWS profile allows for `rds-db:connect` for the Database.|[IAMPolicy Status](#iampolicy-status)|
  
 
@@ -1250,7 +1250,7 @@ Contains attributes to match to an EC2 instance.
 |---|---|---|
 |account_id|An AWS account ID.|string|
 |instance_id|An EC2 instance ID.|string|
-|region|The AWS EC2 Instance Region.|string|
+|region|The AWS EC2 Instance .|string|
 |vpc_id|The AWS VPC ID where the Instance is running.|string|
 |integration|The integration name that added this Node. When connecting to it, it will use this integration to issue AWS API calls in order to set up the connection. This includes sending an SSH Key and then opening a tunnel (EC2 Instance Connect Endpoint) so Teleport can connect to it.|string|
 |subnet_id|The Subnet ID in use by the instance.|string|
@@ -1351,7 +1351,7 @@ AccessRequestSpec is the specification for AccessRequest
 |dry_run|Indicates that the request should not actually be created, the auth server should only validate the access request.|Boolean|
 |max_duration|Indicates how long the access should be granted for.|[Time](#time)|
 |session_ttl|SessionTLL indicated how long a certificate for a session should be valid for.|[Time](#time)|
-|access_list|PromotedAccessListTitle is the title of the access list that this request was promoted to. Used by WebUI to display the title of the access list. This field is only populated when the request is in the PROMOTED state.|[Promoted Access List](#promoted-access-list)|
+|access_list|PromotedTitle is the title of the access list that this request was promoted to. Used by WebUI to display the title of the access list. This field is only populated when the request is in the PROMOTED state.|[Promoted Access List](#promoted-access-list)|
  
 
 
@@ -1535,7 +1535,7 @@ Represents a set of addresses. Presently the addresses are specified exclusively
 
 |Field Name|Description|Type|
 |---|---|---|
-|cidr|IPv4 or IPv6 address. Valid value are either CIDR ranges (e.g. "10.0.1.0/24", "fe::/8") or a single IP address (e.g "10.1.2.3")|string|
+|cidr|IPv4 or IPv6 address. Valid value are either Ranges (e.g. "10.0.1.0/24", "fe::/8") or a single IP address (e.g "10.1.2.3")|string|
  
 
 
@@ -1615,7 +1615,7 @@ The AppV3 resource spec.
 |dynamic_labels|The app's command labels.|map[string][Command Label](#command-label)|
 |insecure_skip_verify|Disables app's TLS certificate verification.|Boolean|
 |rewrite|A list of rewriting rules to apply to requests and responses.|[Rewrite](#rewrite)|
-|aws|Contains additional options for AWS applications.|[App AWS](#app-aws)|
+|aws|Contains additional options for Applications.|[App AWS](#app-aws)|
 |cloud|Identifies the cloud instance the app represents.|string|
 |UserGroups|A list of user group IDs that this app is associated with.|[]string|
  
@@ -1707,7 +1707,7 @@ The actual data we care about for AuthPreference.
 |type|The type of authentication.|string|
 |second_factor|The type of second factor.|[Second Factor Type](#second-factor-type)|
 |connector_name|The name of the OIDC or SAML connector. If this value is not set the first connector in the backend will be used.|string|
-|u2f|The settings for the U2F device.|[U2F](#u2f)|
+|u2f|The settings for the Device.|[U2F](#u2f)|
 |disconnect_expired_cert|Provides disconnect expired certificate setting - if true, connections with expired client certificates will get disconnected|[Bool Option](#bool-option)|
 |allow_local_auth|True if local authentication is enabled.|[Bool Option](#bool-option)|
 |message_of_the_day||string|
@@ -1719,7 +1719,7 @@ The actual data we care about for AuthPreference.
 |idp|A set of options related to accessing IdPs within Teleport. Requires Teleport Enterprise.|[Id POptions](#id-poptions)|
 |allow_headless|Enables/disables headless support. Headless authentication requires Webauthn to work. Defaults to true if the Webauthn is configured, defaults to false otherwise.|[Bool Option](#bool-option)|
 |default_session_ttl|The TTL to use for user certs when an explicit TTL is not requested.|[Duration](#duration)|
-|okta|A set of options related to the Okta service in Teleport. Requires Teleport Enterprise.|[Okta Options](#okta-options)|
+|okta|A set of options related to the Service in Teleport. Requires Teleport Enterprise.|[Okta Options](#okta-options)|
 |piv_slot|A PIV slot that Teleport clients should use instead of the default based on private key policy. For example, "9a" or "9e".|string|
  
 
@@ -1762,7 +1762,7 @@ piv_slot: "string"
 
 ### Azure
 
-Contains Azure specific database metadata.
+Contains Specific database metadata.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -1771,7 +1771,7 @@ Contains Azure specific database metadata.
 |---|---|---|
 |name|The Azure database server name.|string|
 |resource_id|The Azure fully qualified ID for the resource.|string|
-|redis|Contains Azure Cache for Redis specific database metadata.|[Azure Redis](#azure-redis)|
+|redis|Contains Azure Cache for Specific database metadata.|[Azure Redis](#azure-redis)|
 |is_flexi_server|True if the database is an Azure Flexible server.|Boolean|
  
 
@@ -1846,9 +1846,9 @@ The set of CA keys.
 
 |Field Name|Description|Type|
 |---|---|---|
-|ssh|Contains SSH CA key pairs.|[][SSHKey Pair](#sshkey-pair)|
-|tls|Contains TLS CA key/cert pairs.|[][TLSKey Pair](#tlskey-pair)|
-|jwt|Contains JWT signing key pairs.|[][JWTKey Pair](#jwtkey-pair)|
+|ssh|Contains CA key pairs.|[][SSHKey Pair](#sshkey-pair)|
+|tls|Contains CA key/cert pairs.|[][TLSKey Pair](#tlskey-pair)|
+|jwt|Contains Signing key pairs.|[][JWTKey Pair](#jwtkey-pair)|
  
 
 
@@ -1881,7 +1881,7 @@ jwt:
 
 ### Cert Auth Type
 
-Specifies certificate authority type. New variants should be added to CertAuthTypes and, for one major version, to NewlyAdded().
+Specifies certificate authority type. New variants should be added to s and, for one major version, to NewlyAdded().
 
 {/*Automatically generated from: trust.go*/}
 
@@ -1904,13 +1904,13 @@ A host or user certificate authority that can check and if it has private key st
 |Field Name|Description|Type|
 |---|---|---|
 |type|Either user or host certificate authority|[Cert Auth Type](#cert-auth-type)|
-|cluster_name|DELETE IN(2.7.0) this field is deprecated, as resource name matches cluster name after migrations. and this property is enforced by the auth server code. ClusterName identifies cluster name this authority serves, for host authorities that means base hostname of all servers, for user authorities that means organization name|string|
+|cluster_name|DELETE IN(2.7.0) this field is deprecated, as resource name matches cluster name after migrations. and this property is enforced by the auth server code. Identifies cluster name this authority serves, for host authorities that means base hostname of all servers, for user authorities that means organization name|string|
 |roles|A list of roles assumed by users signed by this CA|[]string|
 |role_map|Specifies role mappings to remote roles|[][Role Mapping](#role-mapping)|
 |rotation|A status of the certificate authority rotation|[Rotation](#rotation)|
 |signing_alg||[Cert Authority Spec V2_Signing Alg Type](#cert-authority-spec-v2_signing-alg-type)|
 |active_keys|The CA key sets used to sign any new certificates.|[CAKey Set](#cakey-set)|
-|additional_trusted_keys|Additional CA key sets that can be used to verify certificates. Certificates should be verified with AdditionalTrustedKeys and ActiveKeys combined.|[CAKey Set](#cakey-set)|
+|additional_trusted_keys|Additional CA key sets that can be used to verify certificates. Certificates should be verified with And ActiveKeys combined.|[CAKey Set](#cakey-set)|
  
 
 
@@ -2237,7 +2237,7 @@ Holds information about OIDC connector
 |Field Name|Description|Type|
 |---|---|---|
 |type|Connector type|string|
-|id|Connector ID|string|
+|id|Connector |string|
 |identity|External identity of the user|string|
  
 
@@ -2376,17 +2376,17 @@ The database spec.
 |---|---|---|
 |protocol|The database protocol: postgres, mysql, mongodb, etc.|string|
 |uri|The database connection endpoint.|string|
-|ca_cert|The PEM-encoded database CA certificate.  DEPRECATED: Moved to TLS.CACert. DELETE IN 10.0.|string|
+|ca_cert|The PEM-encoded database CA certificate.  DEPRECATED: Moved to TLS.. DELETE IN 10.0.|string|
 |dynamic_labels|The database dynamic labels.|map[string][Command Label](#command-label)|
-|aws|Contains AWS specific settings for RDS/Aurora/Redshift databases.|[AWS](#aws)|
-|gcp|Contains parameters specific to GCP Cloud SQL databases.|[GCPCloud SQL](#gcpcloud-sql)|
-|azure|Contains Azure specific database metadata.|[Azure](#azure)|
-|tls|The TLS configuration used when establishing connection to target database. Allows to provide custom CA cert or override server name.|[Database TLS](#database-tls)|
+|aws|Contains Specific settings for RDS/Aurora/Redshift databases.|[AWS](#aws)|
+|gcp|Contains parameters specific to Cloud SQL databases.|[GCPCloud SQL](#gcpcloud-sql)|
+|azure|Contains Specific database metadata.|[Azure](#azure)|
+|tls|The Configuration used when establishing connection to target database. Allows to provide custom CA cert or override server name.|[Database TLS](#database-tls)|
 |ad|The Active Directory configuration for the database.|[AD](#ad)|
-|mysql|An additional section with MySQL database options.|[My SQLOptions](#my-sqloptions)|
+|mysql|An additional section with Database options.|[My SQLOptions](#my-sqloptions)|
 |admin_user|The database admin user for automatic user provisioning.|[Database Admin User](#database-admin-user)|
 |mongo_atlas|Contains Atlas metadata about the database.|[Mongo Atlas](#mongo-atlas)|
-|oracle|An additional Oracle configuration options.|[Oracle Options](#oracle-options)|
+|oracle|An additional Configuration options.|[Oracle Options](#oracle-options)|
  
 
 
@@ -2434,10 +2434,10 @@ Contains runtime information about the database.
 |Field Name|Description|Type|
 |---|---|---|
 |ca_cert|The auto-downloaded cloud database CA certificate.|string|
-|aws|The auto-discovered AWS cloud database metadata.|[AWS](#aws)|
-|mysql|An additional section with MySQL runtime database information.|[My SQLOptions](#my-sqloptions)|
+|aws|The auto-discovered Cloud database metadata.|[AWS](#aws)|
+|mysql|An additional section with Runtime database information.|[My SQLOptions](#my-sqloptions)|
 |managed_users|A list of database users that are managed by Teleport.|[]string|
-|azure|The auto-discovered Azure cloud database metadata.|[Azure](#azure)|
+|azure|The auto-discovered Cloud database metadata.|[Azure](#azure)|
  
 
 
@@ -2467,7 +2467,7 @@ Contains TLS configuration options.
 
 |Field Name|Description|Type|
 |---|---|---|
-|mode|A TLS connection mode. See DatabaseTLSMode for details.|[Database TLSMode](#database-tlsmode)|
+|mode|A TLS connection mode. See DatabaseTLSFor details.|[Database TLSMode](#database-tlsmode)|
 |ca_cert|An optional user provided CA certificate used for verifying database TLS connection.|string|
 |server_name|Allows to provide custom hostname. This value will override the servername/hostname on a certificate during validation.|string|
  
@@ -2507,8 +2507,8 @@ Holds settings related to trusted device verification. Requires Teleport Enterpr
 
 |Field Name|Description|Type|
 |---|---|---|
-|mode|Of verification for trusted devices.  The following modes are supported:    - "off": disables both device authentication and authorization.   - "optional": allows both device authentication and authorization, but     doesn't enforce the presence of device extensions for sensitive     endpoints.   - "required": enforces the presence of device extensions for sensitive     endpoints.  Mode is always "off" for OSS. Defaults to "optional" for Enterprise.|string|
-|auto_enroll|Enable device auto-enroll. Auto-enroll lets any user issue a device enrollment token for a known device that is not already enrolled. `tsh` takes advantage of auto-enroll to automatically enroll devices on user login, when appropriate. The effective cluster Mode still applies: AutoEnroll=true is meaningless if Mode="off".|Boolean|
+|mode|Of verification for trusted devices.  The following modes are supported:    - "off": disables both device authentication and authorization.   - "optional": allows both device authentication and authorization, but     doesn't enforce the presence of device extensions for sensitive     endpoints.   - "required": enforces the presence of device extensions for sensitive     endpoints.  Always "off" for OSS. Defaults to "optional" for Enterprise.|string|
+|auto_enroll|Enable device auto-enroll. Auto-enroll lets any user issue a device enrollment token for a known device that is not already enrolled. `tsh` takes advantage of auto-enroll to automatically enroll devices on user login, when appropriate. The effective cluster Mode still applies: =true is meaningless if Mode="off".|Boolean|
 |ekcert_allowed_cas|Allow list of EKCert CAs in PEM format. If present, only TPM devices that present an EKCert that is signed by a CA specified here may be enrolled (existing enrollments are unchanged).  If not present, then the CA of TPM EKCerts will not be checked during enrollment, this allows any device to enroll.|[]string|
  
 
@@ -2542,7 +2542,7 @@ Example:
 
 ### Elasti Cache
 
-Contains AWS ElastiCache Redis specific metadata.
+Contains AWS Redis specific metadata.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -2720,7 +2720,7 @@ Specify options related to access Teleport IdPs.
 
 |Field Name|Description|Type|
 |---|---|---|
-|saml|Options related to the Teleport SAML IdP.|[Id PSAMLOptions](#id-psamloptions)|
+|saml|Options related to the Teleport IdP.|[Id PSAMLOptions](#id-psamloptions)|
  
 
 
@@ -2891,7 +2891,7 @@ Contains the Azure information about the cluster.
 |resource_name|The AKS cluster name.|string|
 |resource_group|The Azure resource group name.|string|
 |tenant_id|The AKS cluster Tenant ID.|string|
-|subscription_id|The AKS cluster SubscriptionID.|string|
+|subscription_id|The AKS cluster .|string|
  
 
 
@@ -2940,9 +2940,9 @@ A specification for a Kubernetes cluster.
 |---|---|---|
 |dynamic_labels|The cluster's dynamic labels.|map[string][Command Label](#command-label)|
 |kubeconfig|The kubeconfig file payload that grants access to the cluster. If multiple contexts are specified, the first will be selected.|[][byte](#byte)|
-|azure|Holds the required Azure information for Teleport to access the cluster.|[Kube Azure](#kube-azure)|
-|aws|Holds the required AWS information for Teleport to access the cluster.|[Kube AWS](#kube-aws)|
-|gcp|Holds the required GCP information for Teleport to access the cluster.|[Kube GCP](#kube-gcp)|
+|azure|Holds the required Information for Teleport to access the cluster.|[Kube Azure](#kube-azure)|
+|aws|Holds the required Information for Teleport to access the cluster.|[Kube AWS](#kube-aws)|
+|gcp|Holds the required Information for Teleport to access the cluster.|[Kube GCP](#kube-gcp)|
  
 
 
@@ -3079,7 +3079,7 @@ The Kubernetes server spec.
 |hostname|The Kubernetes server hostname.|string|
 |host_id|The Kubernetes server host uuid.|string|
 |rotation|Contains the Kubernetes server CA rotation information.|[Rotation](#rotation)|
-|cluster|A Kubernetes Cluster proxied by this Kubernetes server.|[Kubernetes Cluster](#kubernetes-cluster)|
+|cluster|A Kubernetes Proxied by this Kubernetes server.|[Kubernetes Cluster](#kubernetes-cluster)|
 |proxy_ids|A list of proxy IDs this server is expected to be connected to.|[]string|
  
 
@@ -3321,7 +3321,7 @@ recovery_attempt_lock_expires:
 
 ### Memory DB
 
-Contains AWS MemoryDB specific metadata.
+Contains AWS Specific metadata.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -3358,7 +3358,7 @@ Resource metadata
 |description|Object description|string|
 |labels|A set of labels|map[string]string|
 |expires|A global expiry time header can be set on any resource in the system.|[Time](#time)|
-|id|A record ID. Deprecated: Use revision instead.|number|
+|id|A record . Deprecated: Use revision instead.|number|
 |revision|An opaque identifier which tracks the versions of a resource over time. Clients should ignore and not alter its value but must return the revision in any updates of a resource.|string|
  
 
@@ -3495,7 +3495,7 @@ An OIDC connector specification.  It specifies configuration for Open ID Connect
 |issuer_url|The endpoint of the provider, e.g. https://accounts.google.com.|string|
 |client_id|The id of the authentication client (Teleport Auth server).|string|
 |client_secret|Used to authenticate the client.|string|
-|acr_values|An Authentication Context Class Reference value. The meaning of the ACR value is context-specific and varies for identity providers.|string|
+|acr_values|An Authentication Context Class Reference value. The meaning of the Value is context-specific and varies for identity providers.|string|
 |provider|The external identity provider.|string|
 |display|The friendly name for this provider.|string|
 |scope|Specifies additional scopes set by provider.|[]string|
@@ -3597,7 +3597,7 @@ sync_period:
 
 ### Open Search
 
-Contains AWS OpenSearch specific metadata.
+Contains AWS Specific metadata.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -3988,7 +3988,7 @@ Rule includes fields mapped from `lib/githubactions.IDToken` Not all fields shou
 
 |Field Name|Description|Type|
 |---|---|---|
-|sub|Also known as Subject is a string that roughly uniquely identifies the workload. The format of this varies depending on the type of github action run.|string|
+|sub|Also known as ject is a string that roughly uniquely identifies the workload. The format of this varies depending on the type of github action run.|string|
 |repository|The repository from where the workflow is running. This includes the name of the owner e.g `gravitational/teleport`|string|
 |repository_owner|The name of the organization in which the repository is stored.|string|
 |workflow|The name of the workflow.|string|
@@ -4193,7 +4193,7 @@ Example:
 
 ### RDS
 
-Contains AWS RDS specific database metadata.
+Contains AWS Specific database metadata.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -4259,7 +4259,7 @@ resource_id: "string"
 |---|---|---|
 |desktop|Indicates whether desktop sessions should be recorded. It defaults to true unless explicitly set to false.|[Bool Option](#bool-option)|
 |default|Indicates the default value for the services.|[Session Recording Mode](#session-recording-mode)|
-|ssh|Indicates the session mode used on SSH sessions.|[Session Recording Mode](#session-recording-mode)|
+|ssh|Indicates the session mode used on Sessions.|[Session Recording Mode](#session-recording-mode)|
  
 
 
@@ -4312,7 +4312,7 @@ The recovery codes spec.
 
 |Field Name|Description|Type|
 |---|---|---|
-|codes|Hold a list of numOfRecoveryCodes.|[][Recovery Code](#recovery-code)|
+|codes|Hold a list of numOfRecovery.|[][Recovery Code](#recovery-code)|
 |created|When the set of recovery codes were generated. Updated when a new set of recovery codes are inserted.|[Time](#time)|
  
 
@@ -4334,7 +4334,7 @@ created:
 
 ### Redshift
 
-Contains AWS Redshift specific database metadata.
+Contains AWS Specific database metadata.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -4542,7 +4542,7 @@ A set of conditions that must all match to be allowed or denied access.
 |---|---|---|
 |logins|A list of *nix system logins.|[]string|
 |node_labels|A map of node labels (used to dynamically grant access to nodes).|[Labels](#labels)|
-|rules|A list of rules and their access levels. Rules are a high level construct used for access control.|[][Rule](#rule)|
+|rules|A list of rules and their access levels. A high level construct used for access control.|[][Rule](#rule)|
 |kubernetes_groups|A list of kubernetes groups|[]string|
 |request||[Access Request Conditions](#access-request-conditions)|
 |kubernetes_users|An optional kubernetes users to impersonate|[]string|
@@ -4731,11 +4731,11 @@ A set of role options
 |---|---|---|
 |forward_agent|SSH agent forwarding.|[Bool](#bool)|
 |max_session_ttl|Defines how long a SSH session can last for.|[Duration](#duration)|
-|port_forwarding|Defines if the certificate will have "permit-port-forwarding" in the certificate. PortForwarding is "yes" if not set, that's why this is a pointer|[Bool Option](#bool-option)|
+|port_forwarding|Defines if the certificate will have "permit-port-forwarding" in the certificate. "yes" if not set, that's why this is a pointer|[Bool Option](#bool-option)|
 |cert_format|Defines the format of the user certificate to allow compatibility with older versions of OpenSSH.|string|
 |client_idle_timeout|Sets disconnect clients on idle timeout behavior, if set to 0 means do not disconnect, otherwise is set to the idle duration.|[Duration](#duration)|
 |disconnect_expired_cert|Sets disconnect clients on expired certificates.|[Bool](#bool)|
-|enhanced_recording|Defines what events to record for the BPF-based session recorder.|[]string|
+|enhanced_recording|Defines what events to record for the -based session recorder.|[]string|
 |permit_x11_forwarding|Authorizes use of X11 forwarding.|[Bool](#bool)|
 |max_connections|Defines the maximum number of concurrent connections a user may hold.|number|
 |max_sessions|Defines the maximum number of concurrent sessions per connection.|number|
@@ -4834,7 +4834,7 @@ Role specification for RoleV6.
 |---|---|---|
 |options|For OpenSSH options like agent forwarding.|[Role Options](#role-options)|
 |allow|The set of conditions evaluated to grant access.|[Role Conditions](#role-conditions)|
-|deny|The set of conditions evaluated to deny access. Deny takes priority over allow.|[Role Conditions](#role-conditions)|
+|deny|The set of conditions evaluated to deny access. Takes priority over allow.|[Role Conditions](#role-conditions)|
  
 
 
@@ -4929,7 +4929,7 @@ A rotation schedule setting time switches for different phases.
 |---|---|---|
 |update_clients|Specifies time to switch to the "Update clients" phase|[Time](#time)|
 |update_servers|Specifies time to switch to the "Update servers" phase.|[Time](#time)|
-|standby|Specifies time to switch to the "Standby" phase.|[Time](#time)|
+|standby|Specifies time to switch to the "" phase.|[Time](#time)|
  
 
 
@@ -5029,7 +5029,7 @@ values:
 
 ### SAMLAttribute Value
 
-S contains a type, value, and an associated name ID block. Defined in http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf.
+s contains a type, value, and an associated name ID block. Defined in http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -5062,7 +5062,7 @@ A SAML connector specification.
 |Field Name|Description|Type|
 |---|---|---|
 |issuer|The identity provider issuer.|string|
-|sso|The URL of the identity provider's SSO service.|string|
+|sso|The URL of the identity provider's Service.|string|
 |cert|The identity provider certificate PEM. IDP signs `Response` responses using this certificate.|string|
 |display|Controls how this connector is displayed.|string|
 |acs|A URL for assertion consumer service on the service provider (Teleport's side).|string|
@@ -5341,7 +5341,7 @@ A specification for V2 Server
 |cmd_labels|Server dynamic labels|map[string][Command Label](#command-label)|
 |rotation|Specifies server rotation|[Rotation](#rotation)|
 |use_tunnel|Indicates that connections to this server should occur over a reverse tunnel.|Boolean|
-|version|TeleportVersion is the teleport version that the server is running on|string|
+|version|TeleportThe teleport version that the server is running on|string|
 |peer_addr|The address a proxy server is reachable at by its peer proxies.|string|
 |proxy_ids|A list of proxy IDs this server is expected to be connected to.|[]string|
 |public_addrs|A list of public addresses where this server can be reached.|[]string|
@@ -5506,7 +5506,7 @@ on_leave: "string"
 
 ### Static Tokens Spec
 
-The actual data we care about for StaticTokensSpecV2.
+The actual data we care about for .
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -5733,7 +5733,7 @@ A Trusted Cluster specification.
 
 |Field Name|Description|Type|
 |---|---|---|
-|enabled|A bool that indicates if the TrustedCluster is enabled or disabled. Setting Enabled to false has a side effect of deleting the user and host certificate authority (CA).|Boolean|
+|enabled|A bool that indicates if the TrustedCluster is enabled or disabled. Setting To false has a side effect of deleting the user and host certificate authority (CA).|Boolean|
 |roles|A list of roles that users will be assuming when connecting to this cluster.|[]string|
 |token|The authorization token provided by another cluster needed by this cluster to join.|string|
 |web_proxy_addr|The address of the web proxy server of the cluster to join. If not set, it is derived from `metadata.name`:`default web proxy server port`.|string|
@@ -5823,7 +5823,7 @@ node|proxy|app|kube|db|windows_desktop|okta
 
 ### U2F
 
-Defines settings for U2F device. Deprecated: U2F is transparently converted to WebAuthn by Teleport. Prefer using WebAuthn instead.
+Defines settings for Device. Deprecated: Transparently converted to WebAuthn by Teleport. Prefer using WebAuthn instead.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -5831,7 +5831,7 @@ Defines settings for U2F device. Deprecated: U2F is transparently converted to W
 |Field Name|Description|Type|
 |---|---|---|
 |app_id|Returns the application ID for universal second factor.|string|
-|facets|Returns the facets for universal second factor. Deprecated: Kept for backwards compatibility reasons, but Facets have no effect since Teleport v10, when Webauthn replaced the U2F implementation.|[]string|
+|facets|Returns the facets for universal second factor. Deprecated: Kept for backwards compatibility reasons, but Have no effect since Teleport v10, when Webauthn replaced the U2F implementation.|[]string|
 |device_attestation_cas|Contains the trusted attestation CAs for U2F devices.|[]string|
  
 
@@ -5884,7 +5884,7 @@ A specification for V2 user
 |saml_identities|Lists associated SAML identities that let user log in using externally verified identity|[][External Identity](#external-identity)|
 |github_identities|List associated Github OAuth2 identities that let user log in using externally verified identity|[][External Identity](#external-identity)|
 |roles|A list of roles assigned to user|[]string|
-|traits|Key/value pairs received from an identity provider (through OIDC claims or SAML assertions) or from a system administrator for local accounts. Traits are used to populate role variables.|[Traits](#traits)|
+|traits|Key/value pairs received from an identity provider (through OIDC claims or SAML assertions) or from a system administrator for local accounts. Used to populate role variables.|[Traits](#traits)|
 |status|A login status of the user|[Login Status](#login-status)|
 |expires|If set sets TTL on the user|[Time](#time)|
 |created_by|Holds information about agent or person created this user|[Created By](#created-by)|
@@ -5973,7 +5973,7 @@ created:
 |Field Name|Description|Type|
 |---|---|---|
 |user|User name associated with this token|string|
-|url|This token URL|string|
+|url|This token |string|
 |usage|An optional field that provides more information about how this token will be used.|[User Token Usage](#user-token-usage)|
 |created|Holds information about when the token was created|[Time](#time)|
  
@@ -6008,7 +6008,7 @@ Example:
 
 ### Watch Kind
 
-Specifies resource kind to watch When adding fields to this struct, make sure to review/update WatchKind.Contains method.
+Specifies resource kind to watch When adding fields to this struct, make sure to review/update .Contains method.
 
 {/*Automatically generated from: types.pb.go*/}
 
@@ -6189,7 +6189,7 @@ Defines user-visible settings for server-side Web Authentication support.
 
 |Field Name|Description|Type|
 |---|---|---|
-|rp_id|The ID of the Relying Party. It should be set to the domain name of the Teleport installation.  IMPORTANT: RPID must never change in the lifetime of the cluster, because it's recorded in the registration data on the WebAuthn device. If the RPID changes, all existing WebAuthn key registrations will become invalid and all users who use WebAuthn as the second factor will need to re-register.|string|
+|rp_id|The ID of the Relying Party. It should be set to the domain name of the Teleport installation.  IMPORTANT: Must never change in the lifetime of the cluster, because it's recorded in the registration data on the WebAuthn device. If the Changes, all existing WebAuthn key registrations will become invalid and all users who use WebAuthn as the second factor will need to re-register.|string|
 |attestation_allowed_cas|Allow list of device attestation CAs in PEM format. If present, only devices whose attestation certificates match the certificates specified here may be registered (existing registrations are unchanged). If supplied in conjunction with AttestationDeniedCAs, then both conditions need to be true for registration to be allowed (the device MUST match an allowed CA and MUST NOT match a denied CA). By default all devices are allowed.|[]string|
 |attestation_denied_cas|Deny list of device attestation CAs in PEM format. If present, only devices whose attestation certificates don't match the certificates specified here may be registered (existing registrations are unchanged). If supplied in conjunction with AttestationAllowedCAs, then both conditions need to be true for registration to be allowed (the device MUST match an allowed CA and MUST NOT match a denied CA). By default no devices are denied.|[]string|
  

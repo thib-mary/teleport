@@ -4,8 +4,9 @@
 
 ### App
 
-**Kind**: `application`
-**Version**: `v3`
+**Kind**: application
+
+**Version**: v3
 
 Represents an app resource.
 
@@ -37,8 +38,9 @@ spec:
 
 ### Database
 
-**Kind**: `database`
-**Version**: `v3`
+**Kind**: database
+
+**Version**: v3
 
 Represents a single proxied database.
 
@@ -107,7 +109,7 @@ kdc_host_name: "string"
 
 ### AWS
 
-Contains AWS metadata about the database.
+Contains Metadata about the database.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -115,17 +117,17 @@ Contains AWS metadata about the database.
 |Field Name|Description|Type|
 |---|---|---|
 |region|A AWS cloud region.|string|
-|redshift|Contains Redshift specific metadata.|[Redshift](#redshift)|
-|rds|Contains RDS specific metadata.|[RDS](#rds)|
+|redshift|Contains Specific metadata.|[Redshift](#redshift)|
+|rds|Contains Specific metadata.|[RDS](#rds)|
 |account_id|The AWS account ID this database belongs to.|string|
-|elasticache|Contains AWS ElastiCache Redis specific metadata.|[Elasti Cache](#elasti-cache)|
+|elasticache|Contains AWS Redis specific metadata.|[Elasti Cache](#elasti-cache)|
 |secret_store|Contains secret store configurations.|[Secret Store](#secret-store)|
-|memorydb|Contains AWS MemoryDB specific metadata.|[Memory DB](#memory-db)|
+|memorydb|Contains AWS Specific metadata.|[Memory DB](#memory-db)|
 |rdsproxy|Contains AWS Proxy specific metadata.|[RDSProxy](#rdsproxy)|
 |redshift_serverless|Contains AWS Redshift Serverless specific metadata.|[Redshift Serverless](#redshift-serverless)|
 |external_id|An optional AWS external ID used to enable assuming an AWS role across accounts.|string|
 |assume_role_arn|An optional AWS role ARN to assume when accessing a database. Set this field and ExternalID to enable access across AWS accounts.|string|
-|opensearch|Contains AWS OpenSearch specific metadata.|[Open Search](#open-search)|
+|opensearch|Contains AWS Specific metadata.|[Open Search](#open-search)|
 |iam_policy_status|Indicates whether the IAM Policy is configured properly for database access. If not, the user must update the AWS profile identity to allow access to the Database. Eg for an RDS Database: the underlying AWS profile allows for `rds-db:connect` for the Database.|[IAMPolicy Status](#iampolicy-status)|
  
 
@@ -257,7 +259,7 @@ The AppV3 resource spec.
 |dynamic_labels|The app's command labels.|map[string][Command Label](#command-label)|
 |insecure_skip_verify|Disables app's TLS certificate verification.|Boolean|
 |rewrite|A list of rewriting rules to apply to requests and responses.|[Rewrite](#rewrite)|
-|aws|Contains additional options for AWS applications.|[App AWS](#app-aws)|
+|aws|Contains additional options for Applications.|[App AWS](#app-aws)|
 |cloud|Identifies the cloud instance the app represents.|string|
 |UserGroups|A list of user group IDs that this app is associated with.|[]string|
  
@@ -290,7 +292,7 @@ UserGroups:
 
 ### Azure
 
-Contains Azure specific database metadata.
+Contains Specific database metadata.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -299,7 +301,7 @@ Contains Azure specific database metadata.
 |---|---|---|
 |name|The Azure database server name.|string|
 |resource_id|The Azure fully qualified ID for the resource.|string|
-|redis|Contains Azure Cache for Redis specific database metadata.|[Azure Redis](#azure-redis)|
+|redis|Contains Azure Cache for Specific database metadata.|[Azure Redis](#azure-redis)|
 |is_flexi_server|True if the database is an Azure Flexible server.|Boolean|
  
 
@@ -459,17 +461,17 @@ The database spec.
 |---|---|---|
 |protocol|The database protocol: postgres, mysql, mongodb, etc.|string|
 |uri|The database connection endpoint.|string|
-|ca_cert|The PEM-encoded database CA certificate.  DEPRECATED: Moved to TLS.CACert. DELETE IN 10.0.|string|
+|ca_cert|The PEM-encoded database CA certificate.  DEPRECATED: Moved to TLS.. DELETE IN 10.0.|string|
 |dynamic_labels|The database dynamic labels.|map[string][Command Label](#command-label)|
-|aws|Contains AWS specific settings for RDS/Aurora/Redshift databases.|[AWS](#aws)|
-|gcp|Contains parameters specific to GCP Cloud SQL databases.|[GCPCloud SQL](#gcpcloud-sql)|
-|azure|Contains Azure specific database metadata.|[Azure](#azure)|
-|tls|The TLS configuration used when establishing connection to target database. Allows to provide custom CA cert or override server name.|[Database TLS](#database-tls)|
+|aws|Contains Specific settings for RDS/Aurora/Redshift databases.|[AWS](#aws)|
+|gcp|Contains parameters specific to Cloud SQL databases.|[GCPCloud SQL](#gcpcloud-sql)|
+|azure|Contains Specific database metadata.|[Azure](#azure)|
+|tls|The Configuration used when establishing connection to target database. Allows to provide custom CA cert or override server name.|[Database TLS](#database-tls)|
 |ad|The Active Directory configuration for the database.|[AD](#ad)|
-|mysql|An additional section with MySQL database options.|[My SQLOptions](#my-sqloptions)|
+|mysql|An additional section with Database options.|[My SQLOptions](#my-sqloptions)|
 |admin_user|The database admin user for automatic user provisioning.|[Database Admin User](#database-admin-user)|
 |mongo_atlas|Contains Atlas metadata about the database.|[Mongo Atlas](#mongo-atlas)|
-|oracle|An additional Oracle configuration options.|[Oracle Options](#oracle-options)|
+|oracle|An additional Configuration options.|[Oracle Options](#oracle-options)|
  
 
 
@@ -517,10 +519,10 @@ Contains runtime information about the database.
 |Field Name|Description|Type|
 |---|---|---|
 |ca_cert|The auto-downloaded cloud database CA certificate.|string|
-|aws|The auto-discovered AWS cloud database metadata.|[AWS](#aws)|
-|mysql|An additional section with MySQL runtime database information.|[My SQLOptions](#my-sqloptions)|
+|aws|The auto-discovered Cloud database metadata.|[AWS](#aws)|
+|mysql|An additional section with Runtime database information.|[My SQLOptions](#my-sqloptions)|
 |managed_users|A list of database users that are managed by Teleport.|[]string|
-|azure|The auto-discovered Azure cloud database metadata.|[Azure](#azure)|
+|azure|The auto-discovered Cloud database metadata.|[Azure](#azure)|
  
 
 
@@ -550,7 +552,7 @@ Contains TLS configuration options.
 
 |Field Name|Description|Type|
 |---|---|---|
-|mode|A TLS connection mode. See DatabaseTLSMode for details.|[Database TLSMode](#database-tlsmode)|
+|mode|A TLS connection mode. See DatabaseTLSFor details.|[Database TLSMode](#database-tlsmode)|
 |ca_cert|An optional user provided CA certificate used for verifying database TLS connection.|string|
 |server_name|Allows to provide custom hostname. This value will override the servername/hostname on a certificate during validation.|string|
  
@@ -583,7 +585,7 @@ database_tls_mode: 00000
 
 ### Elasti Cache
 
-Contains AWS ElastiCache Redis specific metadata.
+Contains AWS Redis specific metadata.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -671,7 +673,7 @@ iam_policy_status: 000000
 
 ### Memory DB
 
-Contains AWS MemoryDB specific metadata.
+Contains AWS Specific metadata.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -708,7 +710,7 @@ Resource metadata
 |description|Object description|string|
 |labels|A set of labels|map[string]string|
 |expires|A global expiry time header can be set on any resource in the system.|[Time](#time)|
-|id|A record ID. Deprecated: Use revision instead.|number|
+|id|A record . Deprecated: Use revision instead.|number|
 |revision|An opaque identifier which tracks the versions of a resource over time. Clients should ignore and not alter its value but must return the revision in any updates of a resource.|string|
  
 
@@ -771,7 +773,7 @@ server_version: "string"
 
 ### Open Search
 
-Contains AWS OpenSearch specific metadata.
+Contains AWS Specific metadata.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -815,7 +817,7 @@ audit_user: "string"
 
 ### RDS
 
-Contains AWS RDS specific database metadata.
+Contains AWS Specific database metadata.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -872,7 +874,7 @@ resource_id: "string"
 
 ### Redshift
 
-Contains AWS Redshift specific database metadata.
+Contains AWS Specific database metadata.
 
 {/*Automatically generated from: typestest.pb.go*/}
 
@@ -996,7 +998,7 @@ A rotation schedule setting time switches for different phases.
 |---|---|---|
 |update_clients|Specifies time to switch to the "Update clients" phase|[Time](#time)|
 |update_servers|Specifies time to switch to the "Update servers" phase.|[Time](#time)|
-|standby|Specifies time to switch to the "Standby" phase.|[Time](#time)|
+|standby|Specifies time to switch to the "" phase.|[Time](#time)|
  
 
 
