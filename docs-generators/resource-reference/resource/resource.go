@@ -8,6 +8,8 @@ import (
 	"go/token"
 	"regexp"
 	"strings"
+
+	"golang.org/x/tools/go/ast/astutil"
 )
 
 // Package is used to look up a Go declaration in a map of declaration names to
@@ -809,6 +811,56 @@ func getMethodName(exp ast.Expr) (string, error) {
 	}
 }
 
+// getAssignments collects all of the assignments made to fields of a method
+// reciever. Assumes that n is the function body of the method. In the resulting
+// map, each key is a field name and each value is the assignment value.
+func getAssignments(receiver string, n ast.Node) map[string]string {
+	result := make(map[string]string)
+	astutil.Apply(n, func(c *astutil.Cursor) bool {
+		n, ok := c.Node().(*ast.AssignStmt)
+		if !ok {
+			return true
+		}
+		// Do not collect assignments with more than one value.
+		// These are done done in the relevant parts of the Teleport
+		// source, and handling them complicates things.
+		if len(n.Rhs) != 1 || len(n.Lhs) != 1 {
+			return true
+		}
+
+		nt, ok := n.Rhs[0].(*ast.Ident)
+		// We don't need to process other types, such as
+		// selector expressions, on the right hand side yet.
+		if !ok {
+			return true
+		}
+		rhs := nt.Name
+
+		sel, ok := n.Lhs[0].(*ast.SelectorExpr)
+		// Does not assign one of the method receiver's
+		// fields, since it's not a selector expression.
+		if !ok {
+			return true
+		}
+
+		id, ok := sel.X.(*ast.Ident)
+		if !ok {
+			return true
+		}
+
+		// This is not an assignment of a field within
+		// the method receiver.
+		if id.Name != receiver {
+			return true
+		}
+
+		result[sel.Sel.Name] = rhs
+
+		return true
+	}, nil)
+	return result
+}
+
 func GetMethodInfo(decls []DeclarationInfo) (map[PackageInfo][]MethodInfo, error) {
 	if decls == nil || len(decls) == 0 {
 		return map[PackageInfo][]MethodInfo{}, nil
@@ -860,52 +912,12 @@ func GetMethodInfo(decls []DeclarationInfo) (map[PackageInfo][]MethodInfo, error
 			result[pi] = []MethodInfo{}
 		}
 
-		for _, l := range f.Body.List {
-			n, ok := l.(*ast.AssignStmt)
-			if !ok {
-				continue
-			}
-
-			// Do not collect assignments with more than one value.
-			// These are done done in the relevant parts of the Teleport
-			// source, and handling them complicates things.
-			if len(n.Rhs) != 1 || len(n.Lhs) != 1 {
-				continue
-			}
-
-			nt, ok := n.Rhs[0].(*ast.Ident)
-			// We don't need to process other types, such as
-			// selector expressions, on the right hand side yet.
-			if !ok {
-				continue
-			}
-			rhs := nt.Name
-
-			sel, ok := n.Lhs[0].(*ast.SelectorExpr)
-			// Does not assign one of the method receiver's
-			// fields, since it's not a selector expression.
-			if !ok {
-				continue
-			}
-
-			id, ok := sel.X.(*ast.Ident)
-			if !ok {
-				continue
-			}
-
-			// There is no method receiver name to assign to, so we
-			// won't track assignments made in this method.
-			if len(f.Recv.List[0].Names) != 1 {
-				continue
-			}
-
-			// This is not an assignment of a field within
-			// the method receiver.
-			if id.Name != f.Recv.List[0].Names[0].Name {
-				continue
-			}
-
-			mi.FieldAssignments[sel.Sel.Name] = rhs
+		// The method includes a receiver name, so we use this to
+		// collect assignments of the receiver's fields made within the
+		// method.
+		if len(f.Recv.List[0].Names) == 1 {
+			s := getAssignments(f.Recv.List[0].Names[0].Name, f)
+			mi.FieldAssignments = s
 		}
 
 		result[pi] = append(a, mi)
