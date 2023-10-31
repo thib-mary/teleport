@@ -441,8 +441,7 @@ type Label string
 					SectionName: "Server",
 					Description: "Includes information about a server registered with Teleport.",
 					SourcePath:  "myfile.go",
-					YAMLExample: `spec: 
-# [...]
+					YAMLExample: `spec: # [...]
 label_maps: 
   - 
     "string": # [...]
@@ -1501,6 +1500,32 @@ my_string: "string"
   - # [...]
   - # [...]
   - # [...]
+`,
+		},
+		{
+			description: "maps of strings to custom types",
+			input: []rawField{
+				rawField{
+					name:     "labels",
+					jsonName: "labels",
+					doc:      "labels is a map of strings to labels",
+					tags:     `json:"labels"`,
+					kind: yamlMapping{
+						keyKind: yamlString{},
+						valueKind: yamlCustomType{
+							name: "label",
+							declarationInfo: PackageInfo{
+								DeclName:    "label",
+								PackageName: "mypkg",
+							},
+						},
+					},
+				},
+			},
+			expected: `labels: 
+  "string": # [...]
+  "string": # [...]
+  "string": # [...]
 `,
 		},
 	}
