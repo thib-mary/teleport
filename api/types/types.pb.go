@@ -6269,7 +6269,7 @@ type AccessRequestSpecV3 struct {
 	MaxDuration time.Time `protobuf:"bytes,17,opt,name=MaxDuration,proto3,stdtime" json:"max_duration,omitempty"`
 	// SessionTLL indicated how long a certificate for a session should be valid for.
 	SessionTTL time.Time `protobuf:"bytes,18,opt,name=SessionTTL,proto3,stdtime" json:"session_ttl,omitempty"`
-	// PromotedAccessListTitle is the title of the access list that this request
+	// AccessList is the title of the access list that this request
 	// was promoted to. Used by WebUI to display the title of the access list.
 	// This field is only populated when the request is in the PROMOTED state.
 	AccessList           *PromotedAccessList `protobuf:"bytes,20,opt,name=accessList,proto3" json:"access_list,omitempty"`
