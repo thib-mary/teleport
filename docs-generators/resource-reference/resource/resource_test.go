@@ -924,7 +924,7 @@ type Metadata struct {
 			},
 		},
 		{
-			description: "struct field with an override",
+			description: "override for struct field",
 			source: `
 package mypkg
 
@@ -1085,6 +1085,19 @@ func (stream *streamFunc[T]) Next() bool {
 					},
 				},
 			},
+		},
+		{
+			description: "field type not declared in a loaded package",
+			source: `package mypkg
+
+type Resource struct {
+  Name string
+  Expiry time.Time
+}
+`,
+			expected:       nil,
+			declSources:    []string{},
+			errorSubstring: "not declared",
 		},
 	}
 
