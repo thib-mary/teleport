@@ -480,7 +480,7 @@ func shouldDropDBClientCAEvents(ctx context.Context, watch *types.Watch) bool {
 // KindCertAuthority and the filter is empty.
 func isWatchingCAsWithoutFilter(watch *types.Watch) bool {
 	for _, k := range watch.Kinds {
-		if k.Kind == types.KindCertAuthority && len(k.Filter) == 0 {
+		if k.Kind == types.KindCertAuthority && k.IsTrivial() {
 			return true
 		}
 	}

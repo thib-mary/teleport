@@ -989,6 +989,7 @@ func (e certAuthorityExecutor) getAll(ctx context.Context, cache *Cache, loadSec
 		if err != nil {
 			// DatabaseClientCA is special - we backported it for a security fix
 			// so it was not introduced in a single major version.
+			// TODO(gavin) DELETE IN 16.0.0
 			if !(trace.IsBadParameter(err) && (caType.NewlyAdded() || caType == types.DatabaseClientCA)) {
 				return nil, trace.Wrap(err)
 			}
