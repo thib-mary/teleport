@@ -125,9 +125,9 @@ else
 
     # set docker image appropriately
     if [[ "${PACKAGE_TYPE}" == "deb" ]]; then
-        DOCKER_IMAGE="public.ecr.aws/gravitational/fpm:debian8"
+        DOCKER_IMAGE="public.ecr.aws/gravitational/fpm:debian12-20231127-1"
     elif [[ "${PACKAGE_TYPE}" == "rpm" ]]; then
-        DOCKER_IMAGE="public.ecr.aws/gravitational/fpm:centos8"
+        DOCKER_IMAGE="public.ecr.aws/gravitational/fpm:centos8-20231127-1"
     fi
 fi
 
