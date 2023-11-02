@@ -715,7 +715,21 @@ func NewFromDecl(decl DeclarationInfo, allDecls map[PackageInfo]DeclarationInfo,
 		if f.name == "" || strings.Contains(f.doc, yamlExampleDelimeter) {
 			continue
 		}
-		deps = append(deps, f.kind.customFieldData()...)
+
+		c := f.kind.customFieldData()
+
+		for _, d := range c {
+			if _, ok := allDecls[d]; !ok {
+				return nil, fmt.Errorf(`%v: field type %v.%v of %v.%v was not declared anywhere in the source, and was probably declared in a third-party package or the standard library. Add "Example YAML:\n---\n" as a comment above fields with this type.`,
+					decl.FilePath,
+					d.PackageName,
+					d.DeclName,
+					key.PackageName,
+					key.DeclName,
+				)
+			}
+		}
+		deps = append(deps, c...)
 	}
 	for _, d := range deps {
 		gd, ok := allDecls[d]
