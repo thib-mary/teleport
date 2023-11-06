@@ -3351,8 +3351,14 @@ var xxx_messageInfo_AppAWS proto.InternalMessageInfo
 // SSHKeyPair is an SSH CA key pair.
 type SSHKeyPair struct {
 	// PublicKey is the SSH public key.
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicKey []byte `protobuf:"bytes,1,opt,name=PublicKey,proto3" json:"public_key,omitempty"`
 	// PrivateKey is the SSH private key.
+	// Example YAML:
+	// ---
+	// BASE64_PRIVATE_KEY
 	PrivateKey []byte `protobuf:"bytes,2,opt,name=PrivateKey,proto3" json:"private_key,omitempty"`
 	// PrivateKeyType is the type of the PrivateKey.
 	PrivateKeyType       PrivateKeyType `protobuf:"varint,3,opt,name=PrivateKeyType,proto3,enum=types.PrivateKeyType" json:"private_key_type,omitempty"`
@@ -3397,8 +3403,14 @@ var xxx_messageInfo_SSHKeyPair proto.InternalMessageInfo
 // TLSKeyPair is a TLS key pair
 type TLSKeyPair struct {
 	// Cert is a PEM encoded TLS cert
+	// Example YAML:
+	// ---
+	// BASE64_CERT
 	Cert []byte `protobuf:"bytes,1,opt,name=Cert,proto3" json:"cert,omitempty"`
 	// Key is a PEM encoded TLS key
+	// Example YAML:
+	// ---
+	// BASE64_KEY
 	Key []byte `protobuf:"bytes,2,opt,name=Key,proto3" json:"key,omitempty"`
 	// KeyType is the type of the Key.
 	KeyType              PrivateKeyType `protobuf:"varint,3,opt,name=KeyType,proto3,enum=types.PrivateKeyType" json:"key_type,omitempty"`
@@ -3443,8 +3455,14 @@ var xxx_messageInfo_TLSKeyPair proto.InternalMessageInfo
 // JWTKeyPair is a PEM encoded keypair used for signing JWT tokens.
 type JWTKeyPair struct {
 	// PublicKey is a PEM encoded public key.
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicKey []byte `protobuf:"bytes,1,opt,name=PublicKey,proto3" json:"public_key,omitempty"`
 	// PrivateKey is a PEM encoded private key.
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PrivateKey []byte `protobuf:"bytes,2,opt,name=PrivateKey,proto3" json:"private_key,omitempty"`
 	// PrivateKeyType is the type of the PrivateKey.
 	PrivateKeyType       PrivateKeyType `protobuf:"varint,3,opt,name=PrivateKeyType,proto3,enum=types.PrivateKeyType" json:"private_key_type,omitempty"`
@@ -4848,6 +4866,9 @@ type ClusterAuditConfigSpecV2 struct {
 	AuditSessionsURI string `protobuf:"bytes,3,opt,name=AuditSessionsURI,proto3" json:"audit_sessions_uri,omitempty"`
 	// AuditEventsURI is a parameter with all supported outputs
 	// for audit events
+	// Example YAML:
+	// ---
+	// dynamodb://audit_table_name'
 	AuditEventsURI github_com_gravitational_teleport_api_types_wrappers.Strings `protobuf:"bytes,4,opt,name=AuditEventsURI,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Strings" json:"audit_events_uri,omitempty"`
 	// EnableContinuousBackups is used to enable (or disable) PITR (Point-In-Time Recovery).
 	EnableContinuousBackups bool `protobuf:"varint,6,opt,name=EnableContinuousBackups,proto3" json:"continuous_backups,omitempty"`
@@ -5355,6 +5376,9 @@ type AuthPreferenceSpecV2 struct {
 	// Type is the type of authentication.
 	Type string `protobuf:"bytes,1,opt,name=Type,proto3" json:"type"`
 	// SecondFactor is the type of second factor.
+	// Example YAML:
+	// ---
+	// webauthn
 	SecondFactor github_com_gravitational_teleport_api_constants.SecondFactorType `protobuf:"bytes,2,opt,name=SecondFactor,proto3,casttype=github.com/gravitational/teleport/api/constants.SecondFactorType" json:"second_factor,omitempty"`
 	// ConnectorName is the name of the OIDC or SAML connector. If this value is
 	// not set the first connector in the backend will be used.
@@ -5368,6 +5392,9 @@ type AuthPreferenceSpecV2 struct {
 	AllowLocalAuth  *BoolOption `protobuf:"bytes,7,opt,name=AllowLocalAuth,proto3,customtype=BoolOption" json:"allow_local_auth,omitempty"`
 	MessageOfTheDay string      `protobuf:"bytes,8,opt,name=MessageOfTheDay,proto3" json:"message_of_the_day,omitempty"`
 	// LockingMode is the cluster-wide locking mode default.
+	// Example YAML:
+	// ---
+	// best_effort
 	LockingMode github_com_gravitational_teleport_api_constants.LockingMode `protobuf:"bytes,9,opt,name=LockingMode,proto3,casttype=github.com/gravitational/teleport/api/constants.LockingMode" json:"locking_mode,omitempty"`
 	// Webauthn are the settings for server-side Web Authentication support.
 	Webauthn *Webauthn `protobuf:"bytes,10,opt,name=Webauthn,proto3" json:"webauthn,omitempty"`
@@ -6073,6 +6100,10 @@ type AccessReview struct {
 	// "2023-01-31T00:00:00-00:00"
 	Created time.Time `protobuf:"bytes,5,opt,name=Created,proto3,stdtime" json:"created,omitempty"`
 	// Annotations is the proposed value of the request's resolve_annotations field.
+	// Example YAML:
+	// ---
+	// annotation1: value1
+	// annotation2: ["value1", "value2"]
 	Annotations github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,6,opt,name=Annotations,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"annotations,omitempty"`
 	// ThresholdIndexes stores the indexes of thresholds which this review matches
 	// (internal use only).
@@ -6278,12 +6309,20 @@ type AccessRequestSpecV3 struct {
 	// resolving parties during approval/denial.  Importantly, these annotations are
 	// included in the access_request.update event, allowing plugins to propagate
 	// arbitrary structured data to the audit log.
+	// Example YAML:
+	// ---
+	// annotation1: value1
+	// annotation2: ["value1", "value2"]
 	ResolveAnnotations github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,8,opt,name=ResolveAnnotations,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"resolve_annotations,omitempty"`
 	// SystemAnnotations is a set of programmatically generated annotations attached
 	// to pending access requests by teleport.  These annotations are generated by
 	// applying variable interpolation to the RoleConditions.Request.Annotations block
 	// of a user's role(s).  These annotations serve as a mechanism for administrators
 	// to pass extra information to plugins when they process pending access requests.
+	// Example YAML:
+	// ---
+	// annotation1: value1
+	// annotation2: ["value1", "value2"]
 	SystemAnnotations github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,9,opt,name=SystemAnnotations,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"system_annotations,omitempty"`
 	// Thresholds is a list of review thresholds relevant to this request.  Order must be
 	// preserved, as thresholds are referenced by index (internal use only).
@@ -6933,6 +6972,9 @@ type RoleOptions struct {
 	RequestPrompt string `protobuf:"bytes,12,opt,name=RequestPrompt,proto3" json:"request_prompt,omitempty"`
 	// Lock specifies the locking mode (strict|best_effort) to be applied with
 	// the role.
+	// Example YAML:
+	// ---
+	// strict
 	Lock github_com_gravitational_teleport_api_constants.LockingMode `protobuf:"bytes,14,opt,name=Lock,proto3,casttype=github.com/gravitational/teleport/api/constants.LockingMode" json:"lock,omitempty"`
 	// RecordDesktopSession indicates whether desktop access sessions should be recorded.
 	// It defaults to true unless explicitly set to false.
@@ -7020,8 +7062,14 @@ type RecordSession struct {
 	// It defaults to true unless explicitly set to false.
 	Desktop *BoolOption `protobuf:"bytes,1,opt,name=Desktop,proto3,customtype=BoolOption" json:"desktop"`
 	// Default indicates the default value for the services.
+	// Example YAML:
+	// ---
+	// strict
 	Default github_com_gravitational_teleport_api_constants.SessionRecordingMode `protobuf:"bytes,2,opt,name=Default,proto3,casttype=github.com/gravitational/teleport/api/constants.SessionRecordingMode" json:"default,omitempty"`
 	// SSH indicates the session mode used on SSH sessions.
+	// Example YAML:
+	// ---
+	// strict
 	SSH                  github_com_gravitational_teleport_api_constants.SessionRecordingMode `protobuf:"bytes,3,opt,name=SSH,proto3,casttype=github.com/gravitational/teleport/api/constants.SessionRecordingMode" json:"ssh,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                                                             `json:"-"`
 	XXX_unrecognized     []byte                                                               `json:"-"`
@@ -7405,6 +7453,10 @@ type AccessRequestConditions struct {
 	// syntax, they also offer a mechanism for forwarding claims from an
 	// external identity provider, to a plugin via `{{external.trait_name}}`
 	// style substitutions.
+	// Example YAML:
+	// ---
+	// annotation1: value1
+	// annotation2: ["value1", "value2"]
 	Annotations github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,3,opt,name=Annotations,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"annotations,omitempty"`
 	// Thresholds is a list of thresholds, one of which must be met in order for reviews
 	// to trigger a state-transition.  If no thresholds are provided, a default threshold
@@ -7893,6 +7945,10 @@ type UserSpecV2 struct {
 	// Traits are key/value pairs received from an identity provider (through
 	// OIDC claims or SAML assertions) or from a system administrator for local
 	// accounts. Traits are used to populate role variables.
+	// Example YAML:
+	// ---
+	// access: staging
+	// teams: ["dev", "sre", "web"]
 	Traits github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,5,opt,name=Traits,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"traits,omitempty"`
 	// Status is a login status of the user
 	Status LoginStatus `protobuf:"bytes,6,opt,name=Status,proto3" json:"status,omitempty"`
@@ -7905,6 +7961,9 @@ type UserSpecV2 struct {
 	CreatedBy CreatedBy `protobuf:"bytes,8,opt,name=CreatedBy,proto3" json:"created_by,omitempty"`
 	// LocalAuth holds sensitive data necessary for performing local
 	// authentication
+	// Example YAML:
+	// ---
+	// BASE64_ENCODED_BINARY_DATA
 	LocalAuth *LocalAuthSecrets `protobuf:"bytes,9,opt,name=LocalAuth,proto3" json:"local_auth,omitempty"`
 	// TrustedDeviceIDs contains the IDs of trusted devices enrolled by the user.
 	// Managed by the Device Trust subsystem, avoid manual edits.
@@ -9108,10 +9167,19 @@ type WebSessionSpecV2 struct {
 	// User is the identity of the user to which the web session belongs.
 	User string `protobuf:"bytes,1,opt,name=User,proto3" json:"user"`
 	// Pub is the SSH certificate for the user.
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	Pub []byte `protobuf:"bytes,2,opt,name=Pub,proto3" json:"pub"`
 	// Priv is the SSH private key for the user.
+	// Example YAML:
+	// ---
+	// BASE64_PRIVATE_KEY
 	Priv []byte `protobuf:"bytes,3,opt,name=Priv,proto3" json:"priv,omitempty"`
 	// TLSCert is the TLS certificate for the user.
+	// Example YAML:
+	// ---
+	// BASE64_CERT
 	TLSCert []byte `protobuf:"bytes,4,opt,name=TLSCert,proto3" json:"tls_cert,omitempty"`
 	// BearerToken is a token that is paired with the session cookie for
 	// authentication. It is periodically rotated so a stolen cookie itself
@@ -9645,6 +9713,10 @@ type KubernetesClusterSpecV3 struct {
 	DynamicLabels map[string]CommandLabelV2 `protobuf:"bytes,1,rep,name=DynamicLabels,proto3" json:"dynamic_labels,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	// Kubeconfig is the kubeconfig file payload that grants access to the cluster.
 	// If multiple contexts are specified, the first will be selected.
+	// Example YAML:
+	// ---
+	// |
+	// BASE64-ENCODED KUBECONFIG
 	Kubeconfig []byte `protobuf:"bytes,2,opt,name=Kubeconfig,proto3" json:"kubeconfig,omitempty"`
 	// Azure holds the required Azure information for Teleport to access the cluster.
 	Azure KubeAzure `protobuf:"bytes,3,opt,name=Azure,proto3" json:"azure,omitempty"`
@@ -10587,6 +10659,9 @@ type OIDCConnectorSpecV3 struct {
 	// This list should match the URLs on the provider's side. The URL used for a
 	// given auth request will be chosen to match the requesting Proxy's public
 	// address. If there is no match, the first url in the list will be used.
+	// Example YAML:
+	// ---
+	// ["https://url1.example.com", "https://url2.example.com"]
 	RedirectURLs github_com_gravitational_teleport_api_types_wrappers.Strings `protobuf:"bytes,14,opt,name=RedirectURLs,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Strings" json:"redirect_url"`
 	// AllowUnverifiedEmail tells the connector to accept OIDC users with unverified emails.
 	AllowUnverifiedEmail bool `protobuf:"varint,15,opt,name=AllowUnverifiedEmail,proto3" json:"allow_unverified_email,omitempty"`
@@ -10696,6 +10771,9 @@ type OIDCAuthRequest struct {
 	// PublicKey is an optional public key, users want these
 	// keys to be signed by auth servers user CA in case
 	// of successful auth
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicKey []byte `protobuf:"bytes,7,opt,name=PublicKey,proto3" json:"public_key"`
 	// CertTTL is the TTL of the certificate user wants to get
 	CertTTL time.Duration `protobuf:"varint,8,opt,name=CertTTL,proto3,casttype=time.Duration" json:"cert_ttl"`
@@ -10942,6 +11020,9 @@ type SAMLAuthRequest struct {
 	// PublicKey is an optional public key, users want these
 	// keys to be signed by auth servers user CA in case
 	// of successful auth.
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicKey []byte `protobuf:"bytes,6,opt,name=PublicKey,proto3" json:"public_key"`
 	// CertTTL is the TTL of the certificate user wants to get.
 	CertTTL time.Duration `protobuf:"varint,7,opt,name=CertTTL,proto3,casttype=time.Duration" json:"cert_ttl"`
@@ -11259,6 +11340,9 @@ type GithubAuthRequest struct {
 	// CSRFToken is used to protect against CSRF attacks.
 	CSRFToken string `protobuf:"bytes,4,opt,name=CSRFToken,proto3" json:"csrf_token"`
 	// PublicKey is an optional public key to sign in case of successful auth.
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicKey []byte `protobuf:"bytes,5,opt,name=PublicKey,proto3" json:"public_key"`
 	// CertTTL is TTL of the cert that's generated in case of successful auth.
 	CertTTL time.Duration `protobuf:"varint,6,opt,name=CertTTL,proto3,casttype=time.Duration" json:"cert_ttl"`
@@ -11386,6 +11470,10 @@ type CreateUserParams struct {
 	// Roles is a list of assigned roles.
 	Roles []string `protobuf:"bytes,6,rep,name=Roles,proto3" json:"roles,omitempty"`
 	// Traits is the set of traits the user is assigned.
+	// Example YAML:
+	// ---
+	// access: staging
+	// teams: ["dev", "sre", "web"]
 	Traits github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,7,opt,name=Traits,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"traits,omitempty"`
 	// SessionTTL determines the TTL.
 	SessionTTL           Duration `protobuf:"varint,8,opt,name=SessionTTL,proto3,casttype=Duration" json:"session_ttl,omitempty"`
@@ -11444,10 +11532,18 @@ type SSODiagnosticInfo struct {
 	// SAML attributes to roles.
 	SAMLAttributesToRolesWarnings *SSOWarnings `protobuf:"bytes,11,opt,name=SAMLAttributesToRolesWarnings,proto3" json:"saml_attributes_to_roles_warnings,omitempty"`
 	// SAMLAttributeStatements represents SAML attribute statements.
+	// Example YAML:
+	// ---
+	// access: staging
+	// teams: ["dev", "sre", "web"]
 	SAMLAttributeStatements github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,12,opt,name=SAMLAttributeStatements,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"saml_attribute_statements,omitempty"`
 	// SAMLAssertionInfo represents raw SAML assertion info as returned by IdP during SAML flow.
 	SAMLAssertionInfo *AssertionInfo `protobuf:"bytes,13,opt,name=SAMLAssertionInfo,proto3,customtype=AssertionInfo" json:"saml_assertion_info,omitempty"`
 	// SAMLTraitsFromAssertions represents traits translated from SAML assertions.
+	// Example YAML:
+	// ---
+	// access: staging
+	// teams: ["dev", "sre", "web"]
 	SAMLTraitsFromAssertions github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,14,opt,name=SAMLTraitsFromAssertions,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"saml_traits_from_assertions,omitempty"`
 	// SAMLConnectorTraitMapping represents connector-specific trait mapping.
 	SAMLConnectorTraitMapping []TraitMapping `protobuf:"bytes,15,rep,name=SAMLConnectorTraitMapping,proto3" json:"saml_connector_trait_mapping,omitempty"`
@@ -11461,6 +11557,10 @@ type SSODiagnosticInfo struct {
 	// OIDCIdentity represents mapped OIDC Identity.
 	OIDCIdentity *OIDCIdentity `protobuf:"bytes,23,opt,name=OIDCIdentity,proto3,customtype=OIDCIdentity" json:"oidc_identity,omitempty"`
 	// OIDCTraitsFromClaims represents traits translated from OIDC claims.
+	// Example YAML:
+	// ---
+	// access: staging
+	// teams: ["dev", "sre", "web"]
 	OIDCTraitsFromClaims github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,24,opt,name=OIDCTraitsFromClaims,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"oidc_traits_from_claims,omitempty"`
 	// OIDCConnectorTraitMapping represents connector-specific trait mapping.
 	OIDCConnectorTraitMapping []TraitMapping `protobuf:"bytes,25,rep,name=OIDCConnectorTraitMapping,proto3" json:"oidc_connector_trait_mapping,omitempty"`
@@ -11561,6 +11661,10 @@ type GithubClaims struct {
 	// Username is the user's username
 	Username string `protobuf:"bytes,1,opt,name=Username,proto3" json:"username"`
 	// OrganizationToTeams is the user's organization and team membership
+	// Example YAML:
+	// ---
+	// access: staging
+	// teams: ["dev", "sre", "web"]
 	OrganizationToTeams github_com_gravitational_teleport_api_types_wrappers.Traits `protobuf:"bytes,2,opt,name=OrganizationToTeams,proto3,customtype=github.com/gravitational/teleport/api/types/wrappers.Traits" json:"organization_to_teams"`
 	// Teams is the users team membership
 	Teams                []string `protobuf:"bytes,3,rep,name=Teams,proto3" json:"teams"`
@@ -12403,16 +12507,25 @@ type RegisterUsingTokenRequest struct {
 	DNSNames []string `protobuf:"bytes,6,rep,name=DNSNames,proto3" json:"dns_names"`
 	// PublicTLSKey is a PEM encoded public key
 	// used for TLS setup
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicTLSKey []byte `protobuf:"bytes,7,opt,name=PublicTLSKey,proto3" json:"public_tls_key"`
 	// PublicSSHKey is a SSH encoded public key,
 	// if present will be signed as a return value
 	// otherwise, new public/private key pair will be generated
+	// Example YAML:
+	// ---
+	// BASE64_PUBLIC_KEY
 	PublicSSHKey []byte `protobuf:"bytes,8,opt,name=PublicSSHKey,proto3" json:"public_ssh_key"`
 	// RemoteAddr is the remote address of the host requesting a host certificate.
 	// It is used to replace 0.0.0.0 in the list of additional principals.
 	RemoteAddr string `protobuf:"bytes,9,opt,name=RemoteAddr,proto3" json:"remote_addr"`
 	// EC2IdentityDocument is used for the EC2 join method to prove the identity
 	// of a joining EC2 instance.
+	// Example YAML:
+	// ---
+	// BASE64_IDENTITY_DOCUMENT
 	EC2IdentityDocument []byte `protobuf:"bytes,10,opt,name=EC2IdentityDocument,proto3" json:"ec2_id"`
 	// IDToken is a token provided by a workload identity provider as part of
 	// OIDC join types such as GitHub.
@@ -12567,6 +12680,9 @@ var xxx_messageInfo_RecoveryCodesSpecV1 proto.InternalMessageInfo
 // RecoveryCode describes a recovery code.
 type RecoveryCode struct {
 	// HashedCode is a bcrypt hash of this recovery code.
+	// Example YAML:
+	// ---
+	// BASE64_HASH
 	HashedCode []byte `protobuf:"bytes,1,opt,name=HashedCode,proto3" json:"hashed_code"`
 	// IsUsed determines if this recovery code was used.
 	IsUsed               bool     `protobuf:"varint,2,opt,name=IsUsed,proto3" json:"is_used"`
