@@ -60,7 +60,18 @@ service ExternalCloudAuditService {
   // resource with randomized resource names and upserts it as the current
   // draft.
   rpc GenerateDraftExternalCloudAudit(GenerateDraftExternalCloudAuditRequest) returns (GenerateDraftExternalCloudAuditResponse);
+
+  // TestDraftExternalCloudAudit tests the connection to the current draft.
+  rpc TestDraftExternalCloudAudit(TestDraftExternalCloudAuditRequest) returns (TestDraftExternalCloudAuditResponse);
 }
+
+// TestDraftExternalCloudAuditRequest is a request to test the connection of
+// the current draft external cloud audit configuration
+message TestDraftExternalCloudAuditRequest {}
+
+// TestDraftExternalCloudAuditResponse is a response from testing the connection
+// of the current draft external cloud audit configuration
+message TestDraftExternalCloudAuditResponse {}
 
 // GetDraftExternalCloudAuditRequest is a request to get the draft external
 // cloud audit configuration.
