@@ -20,12 +20,18 @@ import (
 	"context"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/athena"
+	"github.com/aws/aws-sdk-go-v2/service/glue"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gravitational/trace"
 	"github.com/sirupsen/logrus"
 
 	"github.com/gravitational/teleport/api/types/externalcloudaudit"
 	"github.com/gravitational/teleport/api/types/header"
 	"github.com/gravitational/teleport/lib/backend"
+	ecaint "github.com/gravitational/teleport/lib/integrations/externalcloudaudit"
 	"github.com/gravitational/teleport/lib/services"
 )
 
@@ -42,17 +48,63 @@ var (
 	clusterExternalCloudAuditBackendKey = backend.Key(externalCloudAuditPrefix, externalCloudAuditClusterName)
 )
 
+type ExternalCloudAuditCredentialGetter func(context.Context, string) (aws.Credentials, error)
+
 // ExternalCloudAuditService manages external cloud audit resources in the Backend.
 type ExternalCloudAuditService struct {
-	backend backend.Backend
-	logger  *logrus.Entry
+	backend          backend.Backend
+	credentialGetter ExternalCloudAuditCredentialGetter
+	logger           *logrus.Entry
 }
 
-func NewExternalCloudAuditService(backend backend.Backend) *ExternalCloudAuditService {
-	return &ExternalCloudAuditService{
-		backend: backend,
-		logger:  logrus.WithField(trace.Component, "externalcloudaudit.backend"),
+type ExternalCloudAuditServiceConfig struct {
+	Backend          backend.Backend
+	CredentialGetter ExternalCloudAuditCredentialGetter
+}
+
+func NewExternalCloudAuditService(cfg ExternalCloudAuditServiceConfig) (*ExternalCloudAuditService, error) {
+	switch {
+	case cfg.Backend == nil:
+		return nil, trace.BadParameter("Backend is required")
+	case cfg.CredentialGetter == nil:
+		return nil, trace.BadParameter("CredentialGetter is required")
 	}
+
+	return &ExternalCloudAuditService{
+		backend:          cfg.Backend,
+		credentialGetter: cfg.CredentialGetter,
+		logger:           logrus.WithField(trace.Component, "externalcloudaudit.backend"),
+	}, nil
+}
+
+// TestDraftExternalCloudAudit returns an error if testing draft external cloud audit fails
+func (s *ExternalCloudAuditService) TestDraftExternalCloudAudit(ctx context.Context) error {
+	draft, err := s.GetDraftExternalCloudAudit(ctx)
+	if err != nil {
+		return trace.Wrap(err)
+	}
+
+	creds, err := s.credentialGetter(ctx, draft.Spec.IntegrationName)
+	if err != nil {
+		return trace.Wrap(err)
+	}
+
+	cfg, err := config.LoadDefaultConfig(ctx,
+		config.WithRegion(draft.Spec.Region),
+		config.WithCredentialsProvider(aws.CredentialsProviderFunc(func(context.Context) (aws.Credentials, error) {
+			return creds, nil
+		})))
+	if err != nil {
+		return trace.Wrap(err)
+	}
+
+	err = ecaint.ConnectionTest(ctx, ecaint.ConnectionTestParams{
+		S3:     s3.NewFromConfig(cfg),
+		Athena: athena.NewFromConfig(cfg),
+		Glue:   glue.NewFromConfig(cfg),
+		Spec:   &draft.Spec,
+	})
+	return trace.Wrap(err)
 }
 
 // GetDraftExternalCloudAudit returns the draft external cloud audit resource.

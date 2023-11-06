@@ -28,6 +28,8 @@ import (
 
 var _ ExternalCloudAudits = (*externalcloudauditclient.Client)(nil)
 
+type ExternalCloudAuditTester interface{}
+
 // ExternalCloudAuditGetter defines an interface for reading external cloud audits.
 type ExternalCloudAuditGetter interface {
 	// GetDraftExternalCloudAudit returns the draft external cloud audit resource.
@@ -40,6 +42,8 @@ type ExternalCloudAuditGetter interface {
 type ExternalCloudAudits interface {
 	ExternalCloudAuditGetter
 
+	// TestDraftExternalCloudAudit tests the draft external cloud audit resource.
+	TestDraftExternalCloudAudit(context.Context) error
 	// UpsertDraftExternalCloudAudit upserts the draft external cloud audit resource.
 	UpsertDraftExternalCloudAudit(context.Context, *externalcloudaudit.ExternalCloudAudit) (*externalcloudaudit.ExternalCloudAudit, error)
 	// GenerateDraftExternalCloudAudit create a new draft external cloud audit

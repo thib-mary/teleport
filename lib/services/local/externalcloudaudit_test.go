@@ -19,6 +19,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/gravitational/trace"
@@ -43,7 +44,13 @@ func TestExternalCloudAuditService(t *testing.T) {
 	})
 	require.NoError(t, err)
 
-	service := NewExternalCloudAuditService(backend.NewSanitizer(mem))
+	service, err := NewExternalCloudAuditService(ExternalCloudAuditServiceConfig{
+		Backend: backend.NewSanitizer(mem),
+		CredentialGetter: func(ctx context.Context, s string) (aws.Credentials, error) {
+			return aws.Credentials{}, nil
+		},
+	})
+	require.NoError(t, err)
 
 	sessRecURL1 := "s3://bucket1/ses-rec-v1"
 	sessRecURL2 := "s3://bucket1/ses-rec-v2"

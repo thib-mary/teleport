@@ -36,6 +36,11 @@ func NewClient(grpcClient externalcloudauditv1.ExternalCloudAuditServiceClient) 
 	}
 }
 
+func (c *Client) TestDraftExternalCloudAudit(ctx context.Context) error {
+	_, err := c.grpcClient.TestDraftExternalCloudAudit(ctx, &externalcloudauditv1.TestDraftExternalCloudAuditRequest{})
+	return trace.Wrap(err)
+}
+
 // GetDraftExternalCloudAudit returns the draft external cloud audit configuration resource.
 func (c *Client) GetDraftExternalCloudAudit(ctx context.Context) (*externalcloudaudit.ExternalCloudAudit, error) {
 	resp, err := c.grpcClient.GetDraftExternalCloudAudit(ctx, &externalcloudauditv1.GetDraftExternalCloudAuditRequest{})
