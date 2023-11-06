@@ -20,7 +20,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/url"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -275,47 +274,6 @@ func createGlueInfra(ctx context.Context, clt BootstrapGlueClient, table, databa
 	}
 
 	return nil
-}
-
-// validateAndParseS3Input parses and checks s3 input uris against our strict rules.
-// We currently enforce two buckets one for long term storage and one for transient short term storage.
-func validateAndParseS3Input(input *ecatypes.ExternalCloudAuditSpec) (auditHost, resultHost string, err error) {
-	auditEventsBucket, err := url.Parse(input.AuditEventsLongTermURI)
-	if err != nil {
-		return "", "", trace.Wrap(err, "parsing audit events URI")
-	}
-	if auditEventsBucket.Scheme != "s3" {
-		return "", "", trace.BadParameter("invalid scheme for audit events bucket URI")
-	}
-	auditHost = auditEventsBucket.Host
-
-	sessionBucket, err := url.Parse(input.SessionsRecordingsURI)
-	if err != nil {
-		return "", "", trace.Wrap(err, "parsing session recordings URI")
-	}
-	if sessionBucket.Scheme != "s3" {
-		return "", "", trace.BadParameter("invalid scheme for session bucket URI")
-	}
-	sessionHost := sessionBucket.Host
-
-	resultBucket, err := url.Parse(input.AthenaResultsURI)
-	if err != nil {
-		return "", "", trace.Wrap(err, "parsing athena results URI")
-	}
-	if resultBucket.Scheme != "s3" {
-		return "", "", trace.BadParameter("invalid scheme for athena results bucket URI")
-	}
-	resultHost = resultBucket.Host
-
-	if auditHost != sessionHost {
-		return "", "", trace.BadParameter("audit events bucket URI must match session bucket URI")
-	}
-
-	if resultHost == auditHost {
-		return "", "", trace.BadParameter("athena results bucket URI must not match audit events or session bucket URI")
-	}
-
-	return auditHost, resultHost, nil
 }
 
 // getGlueTableInput returns glue table input for both creating and updating a glue table.
