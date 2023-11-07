@@ -134,6 +134,7 @@ import (
 	"github.com/gravitational/teleport/lib/srv/ingress"
 	"github.com/gravitational/teleport/lib/srv/regular"
 	"github.com/gravitational/teleport/lib/srv/transport/transportv1"
+	"github.com/gravitational/teleport/lib/sshutils"
 	"github.com/gravitational/teleport/lib/system"
 	usagereporter "github.com/gravitational/teleport/lib/usagereporter/teleport"
 	"github.com/gravitational/teleport/lib/utils"
@@ -2634,7 +2635,7 @@ func (process *TeleportProcess) initSSH() error {
 		defer func() { warnOnErr(s.Close(), log) }()
 
 		var agentPool *reversetunnel.AgentPool
-		resumeHandler := resume.NewResumableSSHServer(s, cfg.HostUUID)
+		resumeHandler := resume.NewResumableSSHServer(s, sshutils.SSHVersionPrefix, cfg.HostUUID)
 		if !conn.UseTunnel() {
 			listener, err := process.importOrCreateListener(ListenerNodeSSH, cfg.SSH.Addr.Addr)
 			if err != nil {
