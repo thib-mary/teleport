@@ -62,7 +62,7 @@ func (s *Server) generateDatabaseServerCert(ctx context.Context, req *proto.Data
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	// databases should be configured to should trust the DatabaseClientCA when
+	// databases should be configured to trust the DatabaseClientCA when
 	// clients connect so return DatabaseClientCA in the response.
 	dbClientCA, err := s.GetCertAuthority(ctx, types.CertAuthID{
 		Type:       types.DatabaseClientCA,

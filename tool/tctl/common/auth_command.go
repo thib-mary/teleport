@@ -354,11 +354,11 @@ func (a *AuthCommand) generateSnowflakeKey(ctx context.Context, clusterAPI auth.
 		return trace.Wrap(err)
 	}
 
-	dbClientCAs, err := getDatabaseClientCA(ctx, clusterAPI)
+	dbClientCA, err := getDatabaseClientCA(ctx, clusterAPI)
 	if err != nil {
 		return trace.Wrap(err)
 	}
-	key.TrustedCerts = []auth.TrustedCerts{{TLSCertificates: services.GetTLSCerts(dbClientCAs)}}
+	key.TrustedCerts = []auth.TrustedCerts{{TLSCertificates: services.GetTLSCerts(dbClientCA)}}
 
 	filesWritten, err := identityfile.Write(ctx, identityfile.WriteConfig{
 		OutputPath:           a.output,
@@ -1148,12 +1148,11 @@ func getDatabaseClientCA(ctx context.Context, clusterAPI auth.ClientI) (types.Ce
 	if err == nil {
 		return dbClientCA, nil
 	}
-	if !trace.IsBadParameter(err) {
+	if !types.IsUnsupportedAuthorityErr(err) {
 		return nil, trace.Wrap(err)
 	}
 
-	// fallback to DatabaseCA if DatabaseClientCA isn't found
-	// in backend.
+	// fallback to DatabaseCA if DatabaseClientCA isn't supported by backend.
 	dbServerCA, err := clusterAPI.GetCertAuthority(ctx, types.CertAuthID{
 		Type:       types.DatabaseCA,
 		DomainName: cn.GetClusterName(),

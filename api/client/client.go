@@ -3204,7 +3204,8 @@ func (c *Client) CreateRegisterChallenge(ctx context.Context, in *proto.CreateRe
 // GenerateCertAuthorityCRL generates an empty CRL for a CA.
 func (c *Client) GenerateCertAuthorityCRL(ctx context.Context, req *proto.CertAuthorityRequest) (*proto.CRL, error) {
 	resp, err := c.grpc.GenerateCertAuthorityCRL(ctx, req)
-	if req.Type == types.DatabaseClientCA && trace.IsBadParameter(err) {
+	// TODO(gavin): DELETE IN 16.0.0
+	if req.Type == types.DatabaseClientCA && types.IsUnsupportedAuthorityErr(err) {
 		// fallback to DatabaseCA if DatabaseClientCA is not supported upstream.
 		req := *req
 		req.Type = types.DatabaseCA

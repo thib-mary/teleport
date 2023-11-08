@@ -84,6 +84,15 @@ func (c CertAuthType) addedInMajorVer() int64 {
 	}
 }
 
+// IsUnsupportedAuthorityErr returns whether an error is due to an unsupported
+// CertAuthType.
+func IsUnsupportedAuthorityErr(err error) bool {
+	return err != nil && trace.IsBadParameter(err) &&
+		strings.Contains(err.Error(), authTypeNotSupported)
+}
+
+const authTypeNotSupported string = "authority type is not supported"
+
 // Check checks if certificate authority type value is correct
 func (c CertAuthType) Check() error {
 	for _, caType := range CertAuthTypes {
@@ -92,7 +101,7 @@ func (c CertAuthType) Check() error {
 		}
 	}
 
-	return trace.BadParameter("%q authority type is not supported", c)
+	return trace.BadParameter("%q %s", c, authTypeNotSupported)
 }
 
 // CertAuthID - id of certificate authority (it's type and domain name)

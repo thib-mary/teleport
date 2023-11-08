@@ -250,7 +250,7 @@ func exportTLSAuthority(ctx context.Context, client auth.ClientI, req exportTLSA
 		req.ExportPrivateKeys,
 	)
 	// TODO(gavin): DELETE IN 16.0.0.
-	if err != nil && req.AuthType == types.DatabaseClientCA && trace.IsBadParameter(err) {
+	if req.AuthType == types.DatabaseClientCA && types.IsUnsupportedAuthorityErr(err) {
 		// fallback to DatabaseCA for compatibility.
 		certAuthority, err = client.GetCertAuthority(ctx, types.CertAuthID{
 			Type:       types.DatabaseCA,

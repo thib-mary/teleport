@@ -152,11 +152,7 @@ func TestDBCertSigning(t *testing.T) {
 			RequesterName: tt.requester,
 		})
 		require.NoError(t, err)
-		require.NotNil(t, certResp.Cert)
-		require.Len(t, certResp.CACerts, len(tt.wantCACertsSigners))
-		for i, rootPEM := range tt.wantCACertsSigners {
-			mustVerifyCert(t, rootPEM, certResp.CACerts[i], "failed for wantCACertsSigners: %d", i)
-		}
+		require.Equal(t, tt.wantCACertsSigners, certResp.CACerts)
 
 		// verify that the response cert is a DB CA cert.
 		mustVerifyCert(t, tt.wantCertSigner, certResp.Cert)
