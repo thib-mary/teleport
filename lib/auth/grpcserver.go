@@ -387,11 +387,11 @@ func (g *GRPCServer) WatchEvents(watch *authpb.Watch, stream authpb.AuthService_
 		AllowPartialSuccess: watch.AllowPartialSuccess,
 	}
 
+	opInitHandler := maybeFilterCertAuthorityWatches(stream.Context(), &servicesWatch)
 	events, err := auth.NewStream(stream.Context(), servicesWatch)
 	if err != nil {
 		return trace.Wrap(err)
 	}
-	dropDBClientCAEvents := shouldDropDBClientCAEvents(stream.Context(), &servicesWatch)
 
 	defer func() {
 		serr := events.Done()
@@ -402,20 +402,15 @@ func (g *GRPCServer) WatchEvents(watch *authpb.Watch, stream authpb.AuthService_
 
 	for events.Next() {
 		event := events.Item()
+		if event.Type == types.OpInit && opInitHandler != nil {
+			opInitHandler(&event)
+		}
 		if role, ok := event.Resource.(*types.RoleV6); ok {
 			downgraded, err := maybeDowngradeRole(stream.Context(), role)
 			if err != nil {
 				return trace.Wrap(err)
 			}
 			event.Resource = downgraded
-		}
-		if dropDBClientCAEvents {
-			if ca, ok := event.Resource.(types.CertAuthority); ok {
-				if ca.GetType() == types.DatabaseClientCA {
-					log.Debugf("Dropping event %s", event)
-					continue
-				}
-			}
 		}
 		out, err := client.EventToGRPC(event)
 		if err != nil {
@@ -435,56 +430,63 @@ func (g *GRPCServer) WatchEvents(watch *authpb.Watch, stream authpb.AuthService_
 	return nil
 }
 
-// shouldDropDBClientCAEvents returns true if we should drop DatabaseClientCA
-// events, e.g. during a rotation when OpPut events are sent.
-// These CA events should be dropped if the client version does not support
-// the DatabaseClientCA and is watching CAs without a filter.
+// dbClientCAVersionCutoff is the version starting from which we stop
+// injecting a filter that drops DatabaseClientCA events.
 //
-// We drop the events instead of adding a filter to the watch, because the cache
-// system will notice that the upstream filter was changed and then
-// refuse to watch CAs if the watch they requested does not have a filter that
-// is as narrow or narrower than the modified filter. This fix is specifically
-// to avoid cache re-init in services that don't use a filter - meaning, if
-// we installed a filter then it would actually break those services entirely.
-// Instead, we simply drop the DatabaseClientCA events for clients that don't
-// support that CA type.
+// TODO(gavin): adjust for release!
+var dbClientCACutoffVersion = semver.Version{Major: 14, Minor: 2, Patch: 0}
+
+// maybeFilterCertAuthorityWatches will inject a CA filter and return a
+// function that removes the filter from the OpInit event if the client version
+// does not support DatabaseClientCA type and if the client's CA WatchKind is
+// trivial, i.e. it's not already filtering. Otherwise we assume that the client
+// knows what it's doing and this function does nothing.
+// This is a hack to avoid client cache re-init during CA rotation in older
+// services that don't use a CA watch filter, i.e. every service except Node
+// since v9.
+// The returned function, if non-nil, must be called on the OpInit event, to
+// remove the injected filter from the OpInit event's WatchStatus. This is to
+// maintain the illusion to the client that CA events have not been filtered.
+// If we did not remove the injected filter, then validateWatchRequest would
+// fail on the client side because the confirmed kind filter is not as narrow or
+// narrower than a trivial WatchKind.
 //
 // TODO(gavin): DELETE IN 16.0.0 - no supported clients will require this at
 // that point.
-func shouldDropDBClientCAEvents(ctx context.Context, watch *types.Watch) bool {
-	// next check if this watch is even for cert authorities.
-	if !isWatchingCAsWithoutFilter(watch) {
-		return false
-	}
-
-	// next check client version to see if it knows the DatabaseClientCA type.
-	clientVersionString, ok := metadata.ClientVersionFromContext(ctx)
-	if !ok {
-		log.Debug("no client version found in grpc context")
-		return false
-	}
-	clientVersion, err := semver.NewVersion(clientVersionString)
+func maybeFilterCertAuthorityWatches(ctx context.Context, watch *types.Watch) func(*types.Event) {
+	// check client version to see if it knows the DatabaseClientCA type.
+	clientVersion, err := getClientVersion(ctx)
 	if err != nil {
-		log.WithError(err).Debugf("couldn't parse client version %q", clientVersionString)
-		return false
+		log.Debugf("Unable to determine client version: %v", err)
+		return nil
 	}
 	if versionSupportsDatabaseClientCA(*clientVersion) {
-		return false
+		// don't need to inject a CA filter if the client support DB Client CA.
+		return nil
 	}
-	log.Debugf("Dropping all %s CA events for client version %s",
-		types.DatabaseClientCA, clientVersionString)
-	return true
+
+	// search for a trivial CA WatchKind to inject a filter into.
+	target := getFilterInjectionTarget(watch.Kinds)
+	if target == nil {
+		return nil
+	}
+
+	log.Debugf("Injecting filter for CertAuthority watcher with version %s", clientVersion)
+	injectFilter(target)
+
+	// return a func that removes the injected filter from the OpInit event.
+	// otherwise, client watchers may get confused by the upstream confirmed
+	// kinds.
+	return removeFilterFromOpInitEvent
 }
 
-// isWatchingCAsWithoutFilter returns true if the watch kinds include
-// KindCertAuthority and the filter is empty.
-func isWatchingCAsWithoutFilter(watch *types.Watch) bool {
-	for _, k := range watch.Kinds {
-		if k.Kind == types.KindCertAuthority && k.IsTrivial() {
-			return true
-		}
+func getClientVersion(ctx context.Context) (*semver.Version, error) {
+	clientVersionString, ok := metadata.ClientVersionFromContext(ctx)
+	if !ok {
+		return nil, trace.NotFound("no client version found in grpc context")
 	}
-	return false
+	clientVersion, err := semver.NewVersion(clientVersionString)
+	return clientVersion, trace.Wrap(err)
 }
 
 // versionSupportsDatabaseClientCA returns true if the client version supports
@@ -502,11 +504,66 @@ func versionSupportsDatabaseClientCA(v semver.Version) bool {
 	return !v.LessThan(dbClientCACutoffVersion)
 }
 
-// dbClientCAVersionCutoff is the version starting from which we stop
-// dropping DatabaseClientCA events.
-//
-// TODO(gavin): adjust for release!
-var dbClientCACutoffVersion = semver.Version{Major: 14, Minor: 2, Patch: 0}
+func getFilterInjectionTarget(kinds []types.WatchKind) *types.WatchKind {
+	var haveCAWatchKind bool
+	var target *types.WatchKind
+	for i, k := range kinds {
+		if k.Kind != types.KindCertAuthority {
+			continue
+		}
+
+		// We need exactly one trivial CA watch kind so we can
+		// confidently remove the injected filter from the OpInit event
+		// later.
+		// As a precaution, do nothing when there are multiple WatchKind for
+		// CAs.
+		if haveCAWatchKind {
+			return nil
+		}
+		haveCAWatchKind = true
+
+		if !k.IsTrivial() {
+			continue
+		}
+		target = &kinds[i]
+	}
+	return target
+}
+
+func injectFilter(target *types.WatchKind) {
+	caFilter := make(types.CertAuthorityFilter, len(types.CertAuthTypes)-1)
+	for _, caType := range types.CertAuthTypes {
+		// exclude db client CA.
+		if caType == types.DatabaseClientCA {
+			continue
+		}
+		caFilter[caType] = types.Wildcard
+	}
+	filter := caFilter.IntoMap()
+	target.Filter = filter
+}
+
+func removeFilterFromOpInitEvent(e *types.Event) {
+	// this is paranoid, but make sure we don't panic or modify events that
+	// aren't OpInit.
+	if e == nil || e.Resource == nil || e.Type != types.OpInit {
+		return
+	}
+	status, ok := e.Resource.(types.WatchStatus)
+	if !ok || status == nil {
+		return
+	}
+
+	kinds := status.GetKinds()
+	for i, k := range kinds {
+		if k.Kind != types.KindCertAuthority {
+			continue
+		}
+		kinds[i].Filter = nil
+		status.SetKinds(kinds)
+		return
+	}
+}
 
 // resourceLabel returns the label for the provided types.Event
 func resourceLabel(event types.Event) string {

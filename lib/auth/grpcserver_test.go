@@ -4246,9 +4246,10 @@ func TestDropDBClientCAEvents(t *testing.T) {
 					metadata.VersionKey: test.clientVersion,
 				})
 
+			requestedKind := types.WatchKind{Kind: types.KindCertAuthority, LoadSecrets: false}
 			watcher, err := client.NewWatcher(clientCtx, types.Watch{
 				Name:  "cas",
-				Kinds: []types.WatchKind{{Kind: types.KindCertAuthority, LoadSecrets: false}},
+				Kinds: []types.WatchKind{requestedKind},
 			})
 			require.NoError(t, err)
 			defer watcher.Close()
@@ -4256,6 +4257,15 @@ func TestDropDBClientCAEvents(t *testing.T) {
 			// Swallow the init event
 			e := <-watcher.Events()
 			require.Equal(t, types.OpInit, e.Type)
+			status, ok := e.Resource.(types.WatchStatus)
+			require.True(t, ok)
+			require.NotNil(t, status)
+			kinds := status.GetKinds()
+			for _, k := range kinds {
+				if k.Kind == types.KindCertAuthority {
+					require.Equal(t, requestedKind, k)
+				}
+			}
 
 			// update the db client ca so the watcher gets an OpPut event
 			dbClientCAs[0].SetName(fmt.Sprintf("stub_%v", i))
@@ -4282,11 +4292,11 @@ func TestDropDBClientCAEvents(t *testing.T) {
 			require.NoError(t, err)
 			if test.expectDrop {
 				// the watcher should only see the second ca event.
-				require.Equal(t, types.DatabaseCA, gotCA.GetType(), "db client CA event was dropped")
+				require.Equal(t, types.DatabaseCA, gotCA.GetType(), "db client CA event was supposed to be dropped")
 				return
 			}
 			// watcher should see the first event if it wasn't dropped.
-			require.Equal(t, types.DatabaseClientCA, gotCA.GetType(), "db client CA event was not dropped")
+			require.Equal(t, types.DatabaseClientCA, gotCA.GetType(), "db client CA event was not supposed to be dropped")
 		})
 	}
 }
