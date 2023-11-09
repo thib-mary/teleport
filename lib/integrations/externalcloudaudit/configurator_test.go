@@ -150,14 +150,14 @@ func TestConfiguratorIsUsed(t *testing.T) {
 			_, err = integrationSvc.CreateIntegration(ctx, testOIDCIntegration(t))
 			require.NoError(t, err)
 
-			svc := local.NewExternalCloudAuditService(mem)
+			ecaSvc := local.NewExternalCloudAuditService(mem)
 			if tt.resourceServiceFn != nil {
-				tt.resourceServiceFn(t, svc)
+				tt.resourceServiceFn(t, ecaSvc)
 			}
 
 			modules.SetTestModules(t, tt.modules)
 
-			c, err := NewConfigurator(ctx, mem)
+			c, err := NewConfigurator(ctx, ecaSvc, integrationSvc)
 			require.NoError(t, err)
 			require.Equal(t, tt.wantIsUsed, c.IsUsed(),
 				"Configurator.IsUsed() = %v, want %v", c.IsUsed(), tt.wantIsUsed)
@@ -204,7 +204,7 @@ func TestCredentialsCache(t *testing.T) {
 	}
 
 	// Create a configurator with a fake clock and STS client.
-	c, err := NewConfigurator(ctx, mem, WithClock(clock), WithSTSClient(stsClient))
+	c, err := NewConfigurator(ctx, svc, integrationSvc, WithClock(clock), WithSTSClient(stsClient))
 	require.NoError(t, err)
 	require.True(t, c.IsUsed())
 
@@ -302,6 +302,63 @@ func TestCredentialsCache(t *testing.T) {
 		checkRetrieveCredentials(t, nil)
 
 	}
+}
+
+// TestDraftConfigurator models the way the connection tester will use the
+// configurator to synchronously get credentials for the current draft
+// ExternalCloudAuditSpec.
+func TestDraftConfigurator(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	modules.SetTestModules(t, &modules.TestModules{
+		TestFeatures: modules.Features{
+			Cloud:               true,
+			IsUsageBasedBilling: false,
+		},
+	})
+
+	mem, err := memory.New(memory.Config{})
+	require.NoError(t, err)
+
+	// Pre-req: existing AWS OIDC integration
+	integrationSvc, err := local.NewIntegrationsService(mem)
+	require.NoError(t, err)
+	oidcIntegration := testOIDCIntegration(t)
+	_, err = integrationSvc.CreateIntegration(ctx, oidcIntegration)
+	require.NoError(t, err)
+
+	// Pre-req: existing draft ExternalCloudAudit configuration
+	draftConfig := testDraftExternalCloudAudit(t)
+	svc := local.NewExternalCloudAuditService(mem)
+	_, err = svc.UpsertDraftExternalCloudAudit(ctx, draftConfig)
+	require.NoError(t, err)
+
+	clock := clockwork.NewFakeClock()
+	stsClient := &fakeSTSClient{
+		clock: clock,
+	}
+
+	// Create a draft configurator with a fake clock and STS client.
+	c, err := NewDraftConfigurator(ctx, svc, integrationSvc, WithClock(clock), WithSTSClient(stsClient))
+	require.NoError(t, err)
+	require.True(t, c.IsUsed())
+
+	// Set the GenerateOIDCTokenFn to a faked function for the test.
+	c.SetGenerateOIDCTokenFn(func(ctx context.Context) (string, error) {
+		// Can sleep here to confirm that WaitForFirstCredentials works.
+		// time.Sleep(time.Second)
+		return uuid.NewString(), nil
+	})
+
+	// Wait for the first set of credentials to be ready.
+	c.WaitForFirstCredentials(ctx)
+
+	// Get credentials, make sure there's no error and the expiry looks right.
+	provider := c.CredentialsProvider()
+	creds, err := provider.Retrieve(ctx)
+	require.NoError(t, err)
+	require.WithinDuration(t, clock.Now().Add(TokenLifetime), creds.Expires, time.Minute)
 }
 
 type fakeSTSClient struct {

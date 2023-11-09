@@ -30,9 +30,8 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/gravitational/teleport/api/types/externalcloudaudit"
-	"github.com/gravitational/teleport/lib/backend"
 	"github.com/gravitational/teleport/lib/modules"
-	"github.com/gravitational/teleport/lib/services/local"
+	"github.com/gravitational/teleport/lib/services"
 )
 
 const (
@@ -122,12 +121,11 @@ func WithSTSClient(clt stscreds.AssumeRoleWithWebIdentityAPIClient) func(*Option
 }
 
 // NewConfigurator returns a new Configurator set up with the current active
-// cluster ExternalCloudAudit spec from [bk].
+// cluster ExternalCloudAudit spec from [ecaSvc].
 //
 // If the External Cloud Audit feature is not used in this cluster then a valid
 // instance will be returned where IsUsed() will return false.
-func NewConfigurator(ctx context.Context, bk backend.Backend, optFns ...func(*Options)) (*Configurator, error) {
-	ecaSvc := local.NewExternalCloudAuditService(bk)
+func NewConfigurator(ctx context.Context, ecaSvc services.ExternalCloudAuditGetter, integrationSvc services.IntegrationsGetter, optFns ...func(*Options)) (*Configurator, error) {
 	active, err := ecaSvc.GetClusterExternalCloudAudit(ctx)
 	if err != nil {
 		if trace.IsNotFound(err) {
@@ -135,7 +133,7 @@ func NewConfigurator(ctx context.Context, bk backend.Backend, optFns ...func(*Op
 		}
 		return nil, trace.Wrap(err)
 	}
-	return newConfigurator(ctx, bk, &active.Spec, optFns...)
+	return newConfigurator(ctx, &active.Spec, integrationSvc, optFns...)
 }
 
 // NewDraftConfigurator is equivalent to NewConfigurator but is based on the
@@ -144,25 +142,20 @@ func NewConfigurator(ctx context.Context, bk backend.Backend, optFns ...func(*Op
 //
 // If a draft ExternalCloudAudit configuration is not found, an error will be
 // returned.
-func NewDraftConfigurator(ctx context.Context, bk backend.Backend, optFns ...func(*Options)) (*Configurator, error) {
-	ecaSvc := local.NewExternalCloudAuditService(bk)
+func NewDraftConfigurator(ctx context.Context, ecaSvc services.ExternalCloudAuditGetter, integrationSvc services.IntegrationsGetter, optFns ...func(*Options)) (*Configurator, error) {
 	draft, err := ecaSvc.GetDraftExternalCloudAudit(ctx)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	return newConfigurator(ctx, bk, &draft.Spec, optFns...)
+	return newConfigurator(ctx, &draft.Spec, integrationSvc, optFns...)
 }
 
-func newConfigurator(ctx context.Context, bk backend.Backend, spec *externalcloudaudit.ExternalCloudAuditSpec, optFns ...func(*Options)) (*Configurator, error) {
+func newConfigurator(ctx context.Context, spec *externalcloudaudit.ExternalCloudAuditSpec, integrationSvc services.IntegrationsGetter, optFns ...func(*Options)) (*Configurator, error) {
 	// ExternalCloudAudit is only available in Cloud (not Teleport Team).
 	if !modules.GetModules().Features().Cloud || modules.GetModules().Features().IsUsageBasedBilling {
 		return &Configurator{isUsed: false}, nil
 	}
 
-	integrationSvc, err := local.NewIntegrationsService(bk)
-	if err != nil {
-		return nil, trace.Wrap(err)
-	}
 	oidcIntegrationName := spec.IntegrationName
 	integration, err := integrationSvc.GetIntegration(ctx, oidcIntegrationName)
 	if err != nil {
@@ -235,6 +228,15 @@ func (p *Configurator) CredentialsProviderSDKV1() credentials.ProviderWithContex
 	return &v1Adapter{cc: p.credentialsCache}
 }
 
+// WaitForFirstCredentials waits for the internal credentials cache to finish
+// fetching its first credentials (or getting an error attempting to do so).
+// This can be called after SetGenerateOIDCTokenFn to make sure any returned
+// credential providers won't return errors simply due to the cache not being
+// ready yet.
+func (p *Configurator) WaitForFirstCredentials(ctx context.Context) {
+	p.credentialsCache.waitForFirstCredsOrErr(ctx)
+}
+
 // credentialsCache is used to store and refresh AWS credentials used with
 // AWS OIDC integration.
 //
@@ -255,9 +257,14 @@ type credentialsCache struct {
 	// generateOIDCTokenFn is dynamically set after auth is initialized.
 	generateOIDCTokenFn GenerateOIDCTokenFn
 
-	// initialized is used to communicate (via closing channel) that cache is
-	// initialized, after retrieveFn is set.
-	initialized chan struct{}
+	// initialized communicates (via closing channel) that generateOIDCTokenFn is set.
+	initialized      chan struct{}
+	closeInitialized func()
+
+	// gotFirstCredsOrErr communicates (via closing channel) that the first
+	// credsOrErr has been set.
+	gotFirstCredsOrErr      chan struct{}
+	closeGotFirstCredsOrErr func()
 
 	credsOrErr   credsOrErr
 	credsOrErrMu sync.RWMutex
@@ -272,10 +279,15 @@ type credsOrErr struct {
 }
 
 func newCredentialsCache(ctx context.Context, region, roleARN string, options *Options) (*credentialsCache, error) {
+	initialized := make(chan struct{})
+	gotFirstCredsOrErr := make(chan struct{})
 	return &credentialsCache{
-		roleARN:     roleARN,
-		log:         logrus.WithField(trace.Component, "ExternalCloudAudit.CredentialsCache"),
-		initialized: make(chan struct{}),
+		roleARN:                 roleARN,
+		log:                     logrus.WithField(trace.Component, "ExternalCloudAudit.CredentialsCache"),
+		initialized:             initialized,
+		closeInitialized:        sync.OnceFunc(func() { close(initialized) }),
+		gotFirstCredsOrErr:      gotFirstCredsOrErr,
+		closeGotFirstCredsOrErr: sync.OnceFunc(func() { close(gotFirstCredsOrErr) }),
 		credsOrErr: credsOrErr{
 			err: errors.New("ExternalCloudAudit: credential cache not yet initialized"),
 		},
@@ -286,7 +298,7 @@ func newCredentialsCache(ctx context.Context, region, roleARN string, options *O
 
 func (cc *credentialsCache) setGenerateOIDCTokenFn(fn GenerateOIDCTokenFn) {
 	cc.generateOIDCTokenFn = fn
-	close(cc.initialized)
+	cc.closeInitialized()
 }
 
 // Retrieve implements [aws.CredentialsProvider] and returns the latest cached
@@ -343,16 +355,19 @@ func (cc *credentialsCache) refreshIfNeeded(ctx context.Context) {
 			return
 		}
 		// If existing creds are expired, update cached error.
-		cc.credsOrErrMu.Lock()
-		cc.credsOrErr = credsOrErr{err: trace.Wrap(err)}
-		cc.credsOrErrMu.Unlock()
+		cc.setCredsOrErr(credsOrErr{err: trace.Wrap(err)})
 		return
 	}
 	// Refresh went well, update cached creds.
-	cc.credsOrErrMu.Lock()
-	cc.credsOrErr = credsOrErr{creds: creds}
-	cc.credsOrErrMu.Unlock()
+	cc.setCredsOrErr(credsOrErr{creds: creds})
 	cc.log.Debugf("Successfully refreshed credentials, new expiry at %v", creds.Expires)
+}
+
+func (cc *credentialsCache) setCredsOrErr(coe credsOrErr) {
+	cc.credsOrErrMu.Lock()
+	defer cc.credsOrErrMu.Unlock()
+	cc.credsOrErr = coe
+	cc.closeGotFirstCredsOrErr()
 }
 
 func (cc *credentialsCache) refresh(ctx context.Context) (aws.Credentials, error) {
@@ -375,6 +390,13 @@ func (cc *credentialsCache) refresh(ctx context.Context) (aws.Credentials, error
 
 	creds, err := roleProvider.Retrieve(ctx)
 	return creds, trace.Wrap(err)
+}
+
+func (cc *credentialsCache) waitForFirstCredsOrErr(ctx context.Context) {
+	select {
+	case <-ctx.Done():
+	case <-cc.gotFirstCredsOrErr:
+	}
 }
 
 // identityToken is an implementation of [stscreds.IdentityTokenRetriever] for returning a static token.
