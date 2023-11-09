@@ -19,7 +19,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/gravitational/trace"
@@ -46,8 +45,8 @@ func TestExternalCloudAuditService(t *testing.T) {
 
 	service, err := NewExternalCloudAuditService(ExternalCloudAuditServiceConfig{
 		Backend: backend.NewSanitizer(mem),
-		CredentialGetter: func(ctx context.Context, s string) (aws.Credentials, error) {
-			return aws.Credentials{}, nil
+		OIDCTokenFn: func(ctx context.Context) (string, error) {
+			return "testtoken", nil
 		},
 	})
 	require.NoError(t, err)

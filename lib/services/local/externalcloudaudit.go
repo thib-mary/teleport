@@ -20,7 +20,6 @@ import (
 	"context"
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/athena"
 	"github.com/aws/aws-sdk-go-v2/service/glue"
@@ -48,52 +47,52 @@ var (
 	clusterExternalCloudAuditBackendKey = backend.Key(externalCloudAuditPrefix, externalCloudAuditClusterName)
 )
 
-type ExternalCloudAuditCredentialGetter func(context.Context, string) (aws.Credentials, error)
-
 // ExternalCloudAuditService manages external cloud audit resources in the Backend.
 type ExternalCloudAuditService struct {
-	backend          backend.Backend
-	credentialGetter ExternalCloudAuditCredentialGetter
-	logger           *logrus.Entry
+	backend     backend.Backend
+	oidcTokenFn ecaint.GenerateOIDCTokenFn
+	logger      *logrus.Entry
 }
 
 type ExternalCloudAuditServiceConfig struct {
-	Backend          backend.Backend
-	CredentialGetter ExternalCloudAuditCredentialGetter
+	Backend     backend.Backend
+	OIDCTokenFn ecaint.GenerateOIDCTokenFn
 }
 
 func NewExternalCloudAuditService(cfg ExternalCloudAuditServiceConfig) (*ExternalCloudAuditService, error) {
 	switch {
 	case cfg.Backend == nil:
 		return nil, trace.BadParameter("Backend is required")
-	case cfg.CredentialGetter == nil:
-		return nil, trace.BadParameter("CredentialGetter is required")
+	case cfg.OIDCTokenFn == nil:
+		return nil, trace.BadParameter("OIDCTokenFn is required")
 	}
 
 	return &ExternalCloudAuditService{
-		backend:          cfg.Backend,
-		credentialGetter: cfg.CredentialGetter,
-		logger:           logrus.WithField(trace.Component, "externalcloudaudit.backend"),
+		backend:     cfg.Backend,
+		oidcTokenFn: cfg.OIDCTokenFn,
+		logger:      logrus.WithField(trace.Component, "externalcloudaudit.backend"),
 	}, nil
 }
 
 // TestDraftExternalCloudAudit returns an error if testing draft external cloud audit fails
 func (s *ExternalCloudAuditService) TestDraftExternalCloudAudit(ctx context.Context) error {
-	draft, err := s.GetDraftExternalCloudAudit(ctx)
+	integrationSvc, err := NewIntegrationsService(s.backend)
+	if err != nil {
+		return trace.Wrap(err, "failed to fetch OIDC integration")
+	}
+	configurator, err := ecaint.NewDraftConfigurator(ctx, s, integrationSvc)
 	if err != nil {
 		return trace.Wrap(err)
 	}
+	configurator.SetGenerateOIDCTokenFn(s.oidcTokenFn)
 
-	creds, err := s.credentialGetter(ctx, draft.Spec.IntegrationName)
-	if err != nil {
-		return trace.Wrap(err)
-	}
+	// Wait for the credential cache to run and get a set of credentials ready.
+	configurator.WaitForFirstCredentials(ctx)
 
 	cfg, err := config.LoadDefaultConfig(ctx,
-		config.WithRegion(draft.Spec.Region),
-		config.WithCredentialsProvider(aws.CredentialsProviderFunc(func(context.Context) (aws.Credentials, error) {
-			return creds, nil
-		})))
+		config.WithRegion(configurator.GetSpec().Region),
+		config.WithCredentialsProvider(configurator.CredentialsProvider()),
+	)
 	if err != nil {
 		return trace.Wrap(err)
 	}
@@ -102,7 +101,7 @@ func (s *ExternalCloudAuditService) TestDraftExternalCloudAudit(ctx context.Cont
 		S3:     s3.NewFromConfig(cfg),
 		Athena: athena.NewFromConfig(cfg),
 		Glue:   glue.NewFromConfig(cfg),
-		Spec:   &draft.Spec,
+		Spec:   configurator.GetSpec(),
 	})
 	return trace.Wrap(err)
 }
