@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/url"
 	"os"
 	"os/user"
@@ -78,7 +79,7 @@ func Run(options Options) (app *kingpin.Application, executedCommand string, con
 	}
 	// configure logger for a typical CLI scenario until configuration file is
 	// parsed
-	utils.InitLogger(utils.LoggingForDaemon, log.ErrorLevel)
+	utils.InitLogger(utils.LoggingForDaemon, slog.LevelError)
 	app = utils.InitCLIParser("teleport", "Teleport Access Platform. Learn more at https://goteleport.com")
 
 	// define global flags:

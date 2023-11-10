@@ -17,6 +17,7 @@ package servicecfg
 
 import (
 	"io"
+	"log/slog"
 	"net"
 	"os"
 	"path/filepath"
@@ -211,7 +212,8 @@ type Config struct {
 	Kube KubeConfig
 
 	// Log optionally specifies the logger
-	Log utils.Logger
+	Log    utils.Logger
+	Logger *slog.Logger
 
 	// PluginRegistry allows adding enterprise logic to Teleport services
 	PluginRegistry plugin.Registry
@@ -500,6 +502,10 @@ func ApplyDefaults(cfg *Config) {
 
 	if cfg.Log == nil {
 		cfg.Log = utils.NewLogger()
+	}
+
+	if cfg.Logger == nil {
+		cfg.Logger = slog.Default()
 	}
 
 	// Remove insecure and (borderline insecure) cryptographic primitives from

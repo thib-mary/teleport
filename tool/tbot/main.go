@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"os/signal"
 	"strings"
@@ -377,9 +378,9 @@ func handleSignals(log logrus.FieldLogger, cancel context.CancelFunc, reloadCh c
 }
 
 func setupLogger(debug bool, format string) error {
-	level := logrus.InfoLevel
+	level := slog.LevelInfo
 	if debug {
-		level = logrus.DebugLevel
+		level = slog.LevelDebug
 	}
 	utils.InitLogger(utils.LoggingForDaemon, level)
 
