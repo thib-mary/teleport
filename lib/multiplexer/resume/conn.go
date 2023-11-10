@@ -35,19 +35,16 @@ const (
 	maxFrameSize = 128 * 1024
 )
 
-func NewConn(localAddr, remoteAddr net.Addr, earlyData []byte, skipWrite uint64) *Conn {
+func NewConn(localAddr, remoteAddr net.Addr) *Conn {
 	c := &Conn{
 		localAddr:  localAddr,
 		remoteAddr: remoteAddr,
 
 		receive: window{data: make([]byte, 4096)},
 		replay:  window{data: make([]byte, 4096)},
-
-		skipWrite: skipWrite,
 	}
 	c.cond.L = &c.mu
-	c.receive.Append(earlyData)
-	c.replay.Advance(skipWrite)
+
 	return c
 }
 
@@ -68,8 +65,6 @@ type Conn struct {
 
 	receive window
 	replay  window
-
-	skipWrite uint64
 }
 
 var _ net.Conn = (*Conn)(nil)
@@ -167,9 +162,9 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 
 	c.mu.Lock()
 	sentReceivePosition := c.receive.End()
-	peerReceivePosition := c.replay.Start()
 	c.mu.Unlock()
 
+	var peerReceivePosition uint64
 	if !firstRun {
 		if err := binary.Write(nc, binary.BigEndian, sentReceivePosition); err != nil {
 			return trace.ConnectionProblem(err, "writing position during handshake: %v", err)
@@ -178,26 +173,28 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 		if err := binary.Read(ncReader, binary.BigEndian, &peerReceivePosition); err != nil {
 			return trace.ConnectionProblem(err, "reading position during handshake: %v", err)
 		}
-
-		c.mu.Lock()
-		if peerReceivePosition < c.replay.Start() || peerReceivePosition > c.replay.End() {
-			// we advanced our replay buffer past the read point of the peer, or the
-			// read point of the peer is in the future - can't continue, either way
-			c.mu.Unlock()
-			closeOnReturn = true
-			_, _ = nc.Write(binary.AppendUvarint(nil, 0xffff_ffff_ffff_ffff))
-			return trace.BadParameter("incompatible resume position")
-		}
-
-		if c.replay.Start() != peerReceivePosition {
-			c.replay.Advance(peerReceivePosition - c.replay.Start())
-			c.cond.Broadcast()
-		}
-		c.mu.Unlock()
-
-		logrus.Error("handshake completed successfully")
 	} else {
 		logrus.Error("first run, skipped handshake")
+	}
+
+	c.mu.Lock()
+	if peerReceivePosition < c.replay.Start() || peerReceivePosition > c.replay.End() {
+		// we advanced our replay buffer past the read point of the peer, or the
+		// read point of the peer is in the future - can't continue, either way
+		c.mu.Unlock()
+		closeOnReturn = true
+		_, _ = nc.Write(binary.AppendUvarint(nil, 0xffff_ffff_ffff_ffff))
+		return trace.BadParameter("incompatible resume position")
+	}
+
+	if c.replay.Start() != peerReceivePosition {
+		c.replay.Advance(peerReceivePosition - c.replay.Start())
+		c.cond.Broadcast()
+	}
+	c.mu.Unlock()
+
+	if !firstRun {
+		logrus.Error("handshake completed successfully")
 	}
 
 	var eg errgroup.Group
@@ -455,17 +452,8 @@ func (c *Conn) Write(b []byte) (n int, err error) {
 		return 0, os.ErrDeadlineExceeded
 	}
 
-	if len64(b) <= c.skipWrite {
-		c.skipWrite -= len64(b)
-		return len(b), nil
-	}
-
 	for {
 		if c.replay.Len() < writeBufferSize {
-			b = b[c.skipWrite:]
-			n += int(c.skipWrite)
-			c.skipWrite = 0
-
 			s := min(writeBufferSize-c.replay.Len(), len64(b))
 			c.replay.Append(b[:s])
 			b = b[s:]

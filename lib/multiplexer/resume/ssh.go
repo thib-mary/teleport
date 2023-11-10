@@ -15,10 +15,12 @@
 package resume
 
 import (
-	"bytes"
 	"context"
+	"crypto/ecdh"
 	"crypto/rand"
-	"encoding/hex"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/base64"
 	"fmt"
 	"io"
 	"net"
@@ -30,7 +32,6 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/gravitational/teleport/lib/multiplexer"
-	"github.com/gravitational/teleport/lib/utils"
 )
 
 const (
@@ -44,6 +45,8 @@ const (
 	maxU64      = 0xffff_ffff_ffff_ffff
 )
 
+const ecdhP256UncompressedSize = 65
+
 type connectionHandler interface {
 	HandleConnection(net.Conn)
 }
@@ -51,35 +54,29 @@ type connectionHandler interface {
 func NewResumableSSHServer(sshServer connectionHandler, serverVersion, hostID string) *ResumableSSHServer {
 	return &ResumableSSHServer{
 		sshServer: sshServer,
-
-		serverVersion: serverVersion,
-		hostID:        hostID,
+		hostID:    hostID,
 
 		log: logrus.WithField(trace.Component, "resume"),
 
-		conns: make(map[token]*Conn),
+		conns: make(map[token]keyAndConn),
 	}
 }
 
 type token = [8]byte
 
-func newToken() token {
-	var t token
-	if _, err := rand.Read(t[:]); err != nil {
-		panic(err)
-	}
-	return t
+type keyAndConn = struct {
+	key  token
+	conn *Conn
 }
 
 type ResumableSSHServer struct {
 	sshServer connectionHandler
 	log       logrus.FieldLogger
 
-	serverVersion string
-	hostID        string
+	hostID string
 
 	mu    sync.Mutex
-	conns map[token]*Conn
+	conns map[token]keyAndConn
 }
 
 var _ connectionHandler = (*ResumableSSHServer)(nil)
@@ -92,121 +89,159 @@ func multiplexerConn(nc net.Conn) *multiplexer.Conn {
 }
 
 func (r *ResumableSSHServer) HandleConnection(nc net.Conn) {
-	thisToken := newToken()
+	dhKey, err := ecdh.P256().GenerateKey(rand.Reader)
+	if err != nil {
+		r.log.Warn("Failed to generate ECDH key, proceeding without resumption (this is a bug).")
+		r.sshServer.HandleConnection(nc)
+		return
+	}
 
 	conn := multiplexerConn(nc)
-	if _, err := conn.Write([]byte(fmt.Sprintf("%v %x %v\r\n%v\r\n", protocolString, thisToken, r.hostID, r.serverVersion))); err != nil {
-		if !utils.IsOKNetworkError(err) {
-			r.log.WithError(err).Error("Error while writing resumption prelude.")
+	defer func() {
+		if conn != nil {
+			conn.Close()
 		}
-		conn.Close()
+	}()
+
+	if _, err := fmt.Fprintf(conn, "%v %v %v\r\n", protocolString, base64.RawStdEncoding.EncodeToString(dhKey.PublicKey().Bytes()), r.hostID); err != nil {
+		r.log.WithError(err).Error("Error while writing resumption prelude.")
 		return
 	}
 
 	isResume, err := conn.ReadPrelude(clientPrelude)
 	if err != nil {
-		if !utils.IsOKNetworkError(err) {
-			r.log.WithError(err).Error("Error while reading resumption prelude.")
-		}
-		conn.Close()
+		r.log.WithError(err).Error("Error while reading resumption prelude.")
 		return
 	}
 
 	if !isResume {
 		r.log.Info("Handling non-resumable connection.")
-		r.sshServer.HandleConnection(newWriteSkipConn(conn, uint32(len(r.serverVersion)+len("\r\n"))))
+		r.sshServer.HandleConnection(conn)
+		conn = nil
 		return
 	}
 
-	var resumptionToken token
-	if _, err := io.ReadFull(conn, resumptionToken[:]); err != nil {
-		if !utils.IsOKNetworkError(err) {
-			r.log.WithError(err).Error("Error while reading resumption handshake.")
-		}
-		conn.Close()
+	var buf [ecdhP256UncompressedSize]byte
+	if _, err := io.ReadFull(conn, buf[:]); err != nil {
+		r.log.WithError(err).Error("Error while reading resumption handshake.")
 		return
 	}
 
-	if resumptionToken == thisToken {
+	dhPub, err := ecdh.P256().NewPublicKey(buf[:])
+	if err != nil {
+		r.log.WithError(err).Error("Received invalid ECDH key.")
+		return
+	}
+
+	dhSecret, err := dhKey.ECDH(dhPub)
+	if err != nil {
+		r.log.WithError(err).Error("Received invalid ECDH key.")
+		return
+	}
+
+	otp := sha256.Sum256(dhSecret)
+
+	tag, err := conn.ReadByte()
+	if err != nil {
+		r.log.WithError(err).Error("Error while reading resumption handshake.")
+		return
+	}
+
+	switch tag {
+	default:
+		r.log.Error("Unknown tag in handshake: %v.")
+		return
+	case 0:
 		r.log.Info("Handling new resumable SSH connection.")
 
-		resumableConn := NewConn(conn.LocalAddr(), conn.RemoteAddr(), nil, uint64(len(r.serverVersion)+len("\r\n")))
+		resumableConn := NewConn(conn.LocalAddr(), conn.RemoteAddr())
 		r.mu.Lock()
-		r.conns[thisToken] = resumableConn
+		r.conns[token(otp[:8])] = keyAndConn{
+			key:  token(otp[8:16]),
+			conn: resumableConn,
+		}
 		r.mu.Unlock()
 
 		go r.sshServer.HandleConnection(resumableConn)
 		r.log.Debugf("Handling new resumable connection: %v", resumableConn.Attach(conn, true))
 		return
+	case 1:
+	}
+
+	if _, err := io.ReadFull(conn, buf[:16]); err != nil {
+		r.log.WithError(err).Error("Error while reading resumption handshake.")
+		return
+	}
+
+	for i := 0; i < 16; i++ {
+		buf[i] ^= otp[i]
 	}
 
 	r.log.Info("===== REATTACHING CONNECTION ======")
 
 	r.mu.Lock()
-	resumableConn := r.conns[resumptionToken]
+	keyConn := r.conns[token(buf[:8])]
 	r.mu.Unlock()
-	if resumableConn == nil {
+
+	if subtle.ConstantTimeCompare(keyConn.key[:], buf[8:16]) == 0 || keyConn.conn == nil {
 		// sentinel value for the handshake to signify "unknown resumption token
 		// or invalid resumption point"
 		_, _ = conn.Write([]byte(maxU64Bytes))
-		conn.Close()
 		r.log.Info("===== UNKNOWN RESUMPTION TOKEN =====")
 		return
 	}
 
-	r.log.Debugf("Handling existing resumable connection: %v", resumableConn.Attach(conn, false))
+	r.log.Debugf("Handling existing resumable connection: %v", keyConn.conn.Attach(conn, false))
+	conn = nil
 }
 
-var resumablePreludeLine = regexp.MustCompile(`^` + regexp.QuoteMeta(protocolString) + ` ([0-9a-f]{16}) ([0-9a-z\-]+)\r\n$`)
+var resumablePreludeLine = regexp.MustCompile(`^` + regexp.QuoteMeta(protocolString) + ` ([0-9A-Za-z+/]{87}) ([0-9a-z\-]+)\r\n$`)
 
-// readVersionExchange will read LF-terminated lines from the conn until it
-// either finds a SSH- one, which indicates the end of the SSH version exchange,
-// or it finds a match for a resumption protocol version line, from which it'll
-// extract the included values, and it will then peek the next line as the early
-// data for the resumable connection. Since the LF-delimited early data is a
-// requirement of the protocol, the version exchange indicates a success with a
-// non-empty earlyData return value.
-func readVersionExchange(conn *multiplexer.Conn) (resumptionToken token, hostID string, earlyData []byte, err error) {
-	// as per RFC 4253 section 4.2, the maximum amount of data in the version
-	// exchange is 255 bytes
-	maxLength := 255
-
-	for {
-		var line []byte
-		line, err = conn.PeekLine(maxLength)
-		if err != nil {
-			return
-		}
-		maxLength -= len(line)
-
-		if bytes.HasPrefix(line, []byte("SSH-")) {
-			// we got to the (final) SSH line without encountering the
-			// resumption line, we return with an empty earlyData to signify
-			// that the connection is normal
-			return
-		}
-
-		match := resumablePreludeLine.FindSubmatch(line)
-		if match == nil {
-			// discard is guaranteed to work for the line we just peeked
-			_, _ = conn.Discard(len(line))
-			continue
-		}
-
-		// the regexp guarantees that we have an even number of hex characters
-		_, _ = hex.Decode(resumptionToken[:], match[1])
-		hostID = string(match[2])
-
-		// discard is guaranteed to work for the line we just peeked
-		_, _ = conn.Discard(len(line))
-		break
+func readVersionExchange(conn *multiplexer.Conn) (dhPubKey *ecdh.PublicKey, hostID string, err error) {
+	line, err := conn.PeekLine(255)
+	if err != nil {
+		return
 	}
 
-	earlyData, err = conn.PeekLine(maxLength)
+	match := resumablePreludeLine.FindSubmatch(line)
+	if match == nil {
+		return nil, "", nil
+	}
+
+	var buf [ecdhP256UncompressedSize]byte
+	if n, err := base64.RawStdEncoding.Decode(buf[:], match[1]); err != nil {
+		return nil, "", trace.Wrap(err)
+	} else if n != ecdhP256UncompressedSize {
+		return nil, "", trace.Wrap(io.ErrUnexpectedEOF, "short ECDH encoding")
+	}
+
+	dhPubKey, err = ecdh.P256().NewPublicKey(buf[:])
+	if err != nil {
+		return nil, "", trace.Wrap(err)
+	}
+
+	hostID = string(match[2])
+
+	// discard is guaranteed to work for the line we just peeked
+	_, _ = conn.Discard(len(line))
+
 	return
 }
 
 func MaybeResumableSSHClientConn(nc net.Conn, connCtx context.Context, dial func(connCtx context.Context, hostID string) (net.Conn, error)) (net.Conn, error) {
+	dhC := make(chan *ecdh.PrivateKey, 1)
+	go func() {
+		k, err := ecdh.P256().GenerateKey(rand.Reader)
+		if err != nil {
+			logrus.Warnf("Failed to generate ECDH key: %v.", err.Error())
+			dhC <- nil
+			return
+		}
+		// this precalculates the public key, which we hope we have to send
+		_ = k.PublicKey()
+		dhC <- k
+	}()
+
 	conn := multiplexerConn(nc)
 
 	// we must send the first 8 bytes of the version string; thankfully, no
@@ -218,30 +253,46 @@ func MaybeResumableSSHClientConn(nc net.Conn, connCtx context.Context, dial func
 		return nil, trace.Wrap(err)
 	}
 
-	resumptionToken, hostID, earlyData, err := readVersionExchange(conn)
+	dhPub, hostID, err := readVersionExchange(conn)
 	if err != nil {
 		conn.Close()
 		return nil, trace.Wrap(err)
 	}
-	if len(earlyData) == 0 {
+
+	if dhPub == nil {
 		// regular SSH connection, conn is about to read the SSH- line from the
 		// server but we've sent sshPrefix already, so we have to skip it from
 		// the application side writes
 		return newWriteSkipConn(conn, uint32(len(sshPrefix))), nil
 	}
 
+	dhKey := <-dhC
+	if dhKey == nil {
+		// failed ECDH key generation somehow, can continue as a normal connection
+		return newWriteSkipConn(conn, uint32(len(sshPrefix))), nil
+	}
+
+	dhSecret, err := dhKey.ECDH(dhPub)
+	if err != nil {
+		logrus.Warnf("Failed to complete ECDH key exchange: %v.", err.Error())
+		return newWriteSkipConn(conn, uint32(len(sshPrefix))), nil
+	}
+
+	otp := sha256.Sum256(dhSecret)
+
 	if _, err := conn.Write([]byte(clientSuffix)); err != nil {
 		conn.Close()
 		return nil, trace.Wrap(err)
 	}
 
-	if _, err := conn.Write(resumptionToken[:]); err != nil {
+	if _, err := conn.Write(append(dhKey.PublicKey().Bytes(), 0)); err != nil {
 		conn.Close()
 		return nil, trace.Wrap(err)
 	}
 
-	resumableConn := NewConn(conn.LocalAddr(), conn.RemoteAddr(), earlyData, 0)
-	_, _ = conn.Discard(len(earlyData))
+	resumptionToken := otp[:16]
+
+	resumableConn := NewConn(conn.LocalAddr(), conn.RemoteAddr())
 	resumableConn.AllowRoaming()
 
 	detached := make(chan struct{})
@@ -281,6 +332,13 @@ func MaybeResumableSSHClientConn(nc net.Conn, connCtx context.Context, dial func
 			if connCtx.Err() != nil {
 				return
 			}
+
+			dhKey, err := ecdh.P256().GenerateKey(rand.Reader)
+			if err != nil {
+				logrus.Errorf("Failed to generate ECDH key: %v.", err.Error())
+				continue
+			}
+
 			logrus.Debug("Dialing.")
 			nc, err := dial(connCtx, hostID)
 			if err != nil {
@@ -294,24 +352,42 @@ func MaybeResumableSSHClientConn(nc net.Conn, connCtx context.Context, dial func
 				c.Close()
 				continue
 			}
-			if _, err := c.Write(resumptionToken[:]); err != nil {
-				logrus.Errorf("Error writing resumption token: %v.", err)
+			if _, err := c.Write(append(dhKey.PublicKey().Bytes(), 1)); err != nil {
+				logrus.Errorf("Error writing resumption exchange: %v.", err)
 				c.Close()
 				continue
 			}
 
-			_, _, earlyData, err := readVersionExchange(c)
+			dhPub, _, err := readVersionExchange(c)
 			if err != nil {
 				logrus.Errorf("Error reading resumption version exchange: %v.", err)
 				c.Close()
 				continue
 			}
-			if len(earlyData) == 0 {
+			if dhPub == nil {
 				logrus.Errorf("Somehow not a resumable connection on resumption.")
 				c.Close()
 				continue
 			}
-			_, _ = c.Discard(len(earlyData))
+
+			dhSecret, err := dhKey.ECDH(dhPub)
+			if err != nil {
+				logrus.Errorf("Failed to complete ECDH key exchange: %v.", err)
+				c.Close()
+				continue
+			}
+
+			otp := sha256.Sum256(dhSecret)
+
+			for i := 0; i < 16; i++ {
+				otp[i] ^= resumptionToken[i]
+			}
+
+			if _, err := c.Write(otp[:16]); err != nil {
+				logrus.Errorf("Error writing resumption exchange: %v.", err)
+				c.Close()
+				continue
+			}
 
 			if fail, err := c.ReadPrelude(maxU64Bytes); err != nil {
 				logrus.Errorf("Error receiving resumption handshake: %v.", err)
