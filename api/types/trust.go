@@ -75,9 +75,7 @@ func (c CertAuthType) addedInMajorVer() int64 {
 	case OpenSSHCA, SAMLIDPCA, OIDCIdPCA:
 		return 12
 	case DatabaseClientCA:
-		// NOTE: technically, the oldest major ver that has db client CA is
-		// v12, however we backported it to v12, v13, v14 in minor releases.
-		return 12
+		return 15
 	default:
 		// We don't care about other CAs added before v4.0.0
 		return 4

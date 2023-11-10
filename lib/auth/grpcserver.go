@@ -465,19 +465,47 @@ func maybeFilterCertAuthorityWatches(ctx context.Context, watch *types.Watch) fu
 		return nil
 	}
 
-	// search for a trivial CA WatchKind to inject a filter into.
-	target := getFilterInjectionTarget(watch.Kinds)
-	if target == nil {
+	// search for trivial CA WatchKinds to inject a filter into - all of them
+	// must be trivial so we can remove the filter(s) from OpInit later.
+	var targets []*types.WatchKind
+	for i, k := range watch.Kinds {
+		if k.Kind != types.KindCertAuthority {
+			continue
+		}
+
+		if !k.IsTrivial() {
+			// We need to remove the injected filter(s) from the OpInit event
+			// later.
+			// As a precaution, do nothing when any of the CA WatchKind(s) are
+			// non-trivial.
+			log.Warnf("Cannot inject filter into non-trivial CertAuthority watcher with client version %s.", clientVersion)
+			return nil
+		}
+		targets = append(targets, &watch.Kinds[i])
+	}
+	if len(targets) == 0 {
 		return nil
 	}
 
-	log.Debugf("Injecting filter for CertAuthority watcher with version %s", clientVersion)
-	injectFilter(target)
+	// create a CA filter that excludes DatabaseClientCA.
+	caFilter := make(types.CertAuthorityFilter, len(types.CertAuthTypes)-1)
+	for _, caType := range types.CertAuthTypes {
+		// exclude db client CA.
+		if caType == types.DatabaseClientCA {
+			continue
+		}
+		caFilter[caType] = types.Wildcard
+	}
+
+	log.Debugf("Injecting filter for CertAuthority watcher with client version %s.", clientVersion)
+	for _, t := range targets {
+		t.Filter = caFilter.IntoMap()
+	}
 
 	// return a func that removes the injected filter from the OpInit event.
 	// otherwise, client watchers may get confused by the upstream confirmed
 	// kinds.
-	return removeFilterFromOpInitEvent
+	return removeOpInitWatchStatusCAFilters
 }
 
 func getClientVersion(ctx context.Context) (*semver.Version, error) {
@@ -504,46 +532,7 @@ func versionSupportsDatabaseClientCA(v semver.Version) bool {
 	return !v.LessThan(dbClientCACutoffVersion)
 }
 
-func getFilterInjectionTarget(kinds []types.WatchKind) *types.WatchKind {
-	var haveCAWatchKind bool
-	var target *types.WatchKind
-	for i, k := range kinds {
-		if k.Kind != types.KindCertAuthority {
-			continue
-		}
-
-		// We need exactly one trivial CA watch kind so we can
-		// confidently remove the injected filter from the OpInit event
-		// later.
-		// As a precaution, do nothing when there are multiple WatchKind for
-		// CAs.
-		if haveCAWatchKind {
-			return nil
-		}
-		haveCAWatchKind = true
-
-		if !k.IsTrivial() {
-			continue
-		}
-		target = &kinds[i]
-	}
-	return target
-}
-
-func injectFilter(target *types.WatchKind) {
-	caFilter := make(types.CertAuthorityFilter, len(types.CertAuthTypes)-1)
-	for _, caType := range types.CertAuthTypes {
-		// exclude db client CA.
-		if caType == types.DatabaseClientCA {
-			continue
-		}
-		caFilter[caType] = types.Wildcard
-	}
-	filter := caFilter.IntoMap()
-	target.Filter = filter
-}
-
-func removeFilterFromOpInitEvent(e *types.Event) {
+func removeOpInitWatchStatusCAFilters(e *types.Event) {
 	// this is paranoid, but make sure we don't panic or modify events that
 	// aren't OpInit.
 	if e == nil || e.Resource == nil || e.Type != types.OpInit {
@@ -560,9 +549,8 @@ func removeFilterFromOpInitEvent(e *types.Event) {
 			continue
 		}
 		kinds[i].Filter = nil
-		status.SetKinds(kinds)
-		return
 	}
+	status.SetKinds(kinds)
 }
 
 // resourceLabel returns the label for the provided types.Event
