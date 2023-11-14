@@ -351,6 +351,7 @@ func (h *AuthHandlers) UserKeyAuth(conn ssh.ConnMetadata, key ssh.PublicKey) (*s
 				Login:         conn.User(),
 				User:          teleportUser,
 				TrustedDevice: eventDeviceMetadataFromCert(cert),
+				LoginID:       eventLoginIDFromCert(cert),
 			},
 			ConnectionMetadata: apievents.ConnectionMetadata{
 				LocalAddr:  conn.LocalAddr().String(),

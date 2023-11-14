@@ -1066,6 +1066,7 @@ func (id Identity) GetUserMetadata() events.UserMetadata {
 		GCPServiceAccount: id.RouteToApp.GCPServiceAccount,
 		AccessRequests:    id.ActiveRequests,
 		TrustedDevice:     device,
+		LoginID:           id.LoginID,
 	}
 }
 

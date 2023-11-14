@@ -1173,6 +1173,14 @@ func (c *ServerContext) ExecCommand() (*ExecCommand, error) {
 	}, nil
 }
 
+func eventLoginIDFromCert(cert *ssh.Certificate) string {
+	if cert == nil {
+		return ""
+	}
+	loginID := cert.Extensions[teleport.CertExtensionLoginID]
+	return loginID
+}
+
 func eventDeviceMetadataFromCert(cert *ssh.Certificate) *apievents.DeviceMetadata {
 	if cert == nil {
 		return nil
