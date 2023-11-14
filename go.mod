@@ -209,6 +209,11 @@ require (
 )
 
 require (
+	github.com/oschwald/geoip2-golang v1.9.0
+	github.com/oschwald/maxminddb-golang v1.12.0 // indirect
+)
+
+require (
 	cloud.google.com/go v0.110.8 // indirect
 	cloud.google.com/go/longrunning v0.5.2 // indirect
 	cloud.google.com/go/pubsub v1.33.0 // indirect
