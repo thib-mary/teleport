@@ -83,12 +83,6 @@ func (h *Handler) desktopConnectHandle(
 	return nil, nil
 }
 
-const (
-	// https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/cbe1ed0a-d320-4ea5-be5a-f2eb6e032853#Appendix_A_45
-	maxRDPScreenWidth  = 8192
-	maxRDPScreenHeight = 8192
-)
-
 func (h *Handler) createDesktopConnection(
 	w http.ResponseWriter,
 	r *http.Request,
@@ -130,10 +124,10 @@ func (h *Handler) createDesktopConnection(
 		return sendTDPError(trace.BadParameter("height missing or invalid"))
 	}
 
-	if width > maxRDPScreenWidth || height > maxRDPScreenHeight {
+	if width > types.MaxRDPScreenWidth || height > types.MaxRDPScreenHeight {
 		return sendTDPError(trace.BadParameter(
 			"screen size of %d x %d is greater than the maximum allowed by RDP (%d x %d)",
-			width, height, maxRDPScreenWidth, maxRDPScreenHeight,
+			width, height, types.MaxRDPScreenWidth, types.MaxRDPScreenHeight,
 		))
 	}
 

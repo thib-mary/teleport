@@ -224,9 +224,16 @@ func (c *Client) readClientSize() error {
 			c.cfg.Log.Debugf("Expected ClientScreenSpec message, got %T", msg)
 			continue
 		}
-		c.cfg.Log.Debugf("Got RDP screen size %dx%d", s.Width, s.Height)
-		c.clientWidth = uint16(s.Width)
-		c.clientHeight = uint16(s.Height)
+		if c.cfg.Width != 0 && c.cfg.Height != 0 {
+			c.cfg.Log.Debugf("Forcing a screen size of %dx%d", c.cfg.Width, c.cfg.Height)
+			c.clientWidth = uint16(c.cfg.Width)
+			c.clientHeight = uint16(c.cfg.Height)
+		} else {
+			c.cfg.Log.Debugf("Got RDP screen size %dx%d", s.Width, s.Height)
+			c.clientWidth = uint16(s.Width)
+			c.clientHeight = uint16(s.Height)
+		}
+
 		return nil
 	}
 }
