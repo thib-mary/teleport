@@ -6307,7 +6307,9 @@ func (a *Server) checkIfUserMetadataExistsAndAssignData(evt apievents.AuditEvent
 	if !ok {
 		return trace.BadParameter("UserMetadata field is not of type apievents.UserMetadata")
 	}
-
+	if connMetadata.RemoteAddr == "" {
+		return nil
+	}
 	err := a.anomalyDetection.FillAuditEventMetadata(connMetadata.RemoteAddr, userMetadata.GeoLocationData)
 	return trace.Wrap(err)
 }
