@@ -211,8 +211,8 @@ func (g *GRPCServer) checkIfUserMetadataExistsAndAssignData(evt apievents.AuditE
 		userMetadata.GeoLocationData = &apievents.GeoLocationData{}
 	}
 	connectionMetdataValue := ref.FieldByName("ConnectionMetadata")
-	if connectionMetdataValue.IsZero() {
-		// UserMetadata didn't exist in the event
+	if (connectionMetdataValue == reflect.Value{}) {
+		// ConnectionMetadata didn't exist in the event
 		return nil
 	}
 	connMetadata, ok := connectionMetdataValue.Interface().(apievents.ConnectionMetadata)
