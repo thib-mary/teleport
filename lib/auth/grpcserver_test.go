@@ -43,6 +43,7 @@ import (
 	otlpcommonv1 "go.opentelemetry.io/proto/otlp/common/v1"
 	otlpresourcev1 "go.opentelemetry.io/proto/otlp/resource/v1"
 	otlptracev1 "go.opentelemetry.io/proto/otlp/trace/v1"
+	_ "google.golang.org/grpc/encoding/gzip"
 	"google.golang.org/protobuf/testing/protocmp"
 	"google.golang.org/protobuf/types/known/emptypb"
 
@@ -55,9 +56,11 @@ import (
 	"github.com/gravitational/teleport/api/metadata"
 	"github.com/gravitational/teleport/api/observability/tracing"
 	"github.com/gravitational/teleport/api/types"
+	apievents "github.com/gravitational/teleport/api/types/events"
 	"github.com/gravitational/teleport/api/types/installers"
 	"github.com/gravitational/teleport/api/utils"
 	"github.com/gravitational/teleport/api/utils/sshutils"
+	anomalydetection "github.com/gravitational/teleport/lib/anomaly_detection"
 	"github.com/gravitational/teleport/lib/auth/mocku2f"
 	"github.com/gravitational/teleport/lib/auth/testauthority"
 	wantypes "github.com/gravitational/teleport/lib/auth/webauthntypes"
@@ -1808,10 +1811,9 @@ func TestIsMFARequired(t *testing.T) {
 
 					// If auth pref or role require session MFA, and MFA is not already
 					// verified according to private key policy, expect MFA required.
-					wantRequired :=
-						(role.GetOptions().RequireMFAType.IsSessionMFARequired() || authPref.GetRequireMFAType().IsSessionMFARequired()) &&
-							!role.GetPrivateKeyPolicy().MFAVerified() &&
-							!authPref.GetPrivateKeyPolicy().MFAVerified()
+					wantRequired := (role.GetOptions().RequireMFAType.IsSessionMFARequired() || authPref.GetRequireMFAType().IsSessionMFARequired()) &&
+						!role.GetPrivateKeyPolicy().MFAVerified() &&
+						!authPref.GetPrivateKeyPolicy().MFAVerified()
 					var wantMFARequired proto.MFARequired
 					if wantRequired {
 						wantMFARequired = proto.MFARequired_MFA_REQUIRED_YES
@@ -4173,4 +4175,86 @@ func TestUpsertApplicationServerOrigin(t *testing.T) {
 	ctx = authz.ContextWithUser(parentCtx, node.I)
 	_, err = client.UpsertApplicationServer(ctx, appServer)
 	require.NoError(t, err)
+}
+
+func TestGRPCServer_checkIfUserMetadataExists(t *testing.T) {
+	tests := []struct {
+		name string
+
+		evt  apievents.AuditEvent
+		want apievents.AuditEvent
+	}{
+		{
+			name: "user metadata exists",
+			evt: &apievents.UserLogin{
+				UserMetadata: apievents.UserMetadata{
+					User:            "test",
+					GeoLocationData: &apievents.GeoLocationData{},
+				},
+				ConnectionMetadata: apievents.ConnectionMetadata{
+					RemoteAddr: "45.66.22.210:5555",
+				},
+			},
+			want: &apievents.UserLogin{
+				UserMetadata: apievents.UserMetadata{
+					User: "test",
+					GeoLocationData: &apievents.GeoLocationData{
+						Country:     "Poland",
+						CountryCode: "PL",
+						Region:      "Lesser Poland",
+						City:        "Krakow",
+					},
+				},
+				ConnectionMetadata: apievents.ConnectionMetadata{
+					RemoteAddr: "45.66.22.210:5555",
+				},
+			},
+		},
+		{
+			name: "user metadata exists",
+			evt: &apievents.UserLogin{
+				UserMetadata: apievents.UserMetadata{
+					User: "test",
+				},
+				ConnectionMetadata: apievents.ConnectionMetadata{
+					RemoteAddr: "45.66.22.210:5555",
+				},
+			},
+			want: &apievents.UserLogin{
+				UserMetadata: apievents.UserMetadata{
+					User: "test",
+					GeoLocationData: &apievents.GeoLocationData{
+						Country:     "Poland",
+						CountryCode: "PL",
+						Region:      "Lesser Poland",
+						City:        "Krakow",
+					},
+				},
+				ConnectionMetadata: apievents.ConnectionMetadata{
+					RemoteAddr: "45.66.22.210:5555",
+				},
+			},
+		},
+		{
+			name: "test for panic when user metadata doesnt exist",
+			evt: &apievents.BotJoin{
+				BotName: "test",
+			},
+			want: &apievents.BotJoin{
+				BotName: "test",
+			},
+		},
+	}
+	db, err := anomalydetection.NewAnomalyDetection("/Users/tiago/code/teleport/lib/anomaly_detection/maxminddb/db.mmdb")
+	require.NoError(t, err)
+	g := &GRPCServer{
+		anomalyDetection: db,
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := g.checkIfUserMetadataExistsAndAssignData(tt.evt)
+			require.NoError(t, err)
+			require.Equal(t, tt.want, tt.evt)
+		})
+	}
 }

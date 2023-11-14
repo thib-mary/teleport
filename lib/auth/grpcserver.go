@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"reflect"
 	"time"
 
 	"github.com/coreos/go-semver/semver"
@@ -61,6 +62,7 @@ import (
 	apievents "github.com/gravitational/teleport/api/types/events"
 	"github.com/gravitational/teleport/api/types/installers"
 	"github.com/gravitational/teleport/api/types/wrappers"
+	anomalydetection "github.com/gravitational/teleport/lib/anomaly_detection"
 	"github.com/gravitational/teleport/lib/auth/assist/assistv1"
 	"github.com/gravitational/teleport/lib/auth/discoveryconfig/discoveryconfigv1"
 	integrationService "github.com/gravitational/teleport/lib/auth/integration/integrationv1"
@@ -132,6 +134,8 @@ type GRPCServer struct {
 	// TraceServiceServer exposes the exporter server so that the auth server may
 	// collect and forward spans
 	collectortracepb.TraceServiceServer
+
+	anomalyDetection *anomalydetection.AnomalyDetection
 }
 
 func (g *GRPCServer) serverContext() context.Context {
@@ -173,11 +177,51 @@ func (g *GRPCServer) EmitAuditEvent(ctx context.Context, req *apievents.OneOf) (
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
+
+	if err := g.checkIfUserMetadataExistsAndAssignData(event); err != nil {
+		return nil, trace.Wrap(err)
+	}
+
 	err = auth.EmitAuditEvent(ctx, event)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 	return &emptypb.Empty{}, nil
+}
+
+// please fix me to remove ref
+func (g *GRPCServer) checkIfUserMetadataExistsAndAssignData(evt apievents.AuditEvent) error {
+	if g.anomalyDetection == nil {
+		return nil
+	}
+	ref := reflect.ValueOf(evt).Elem()
+	userMetadataValue := ref.FieldByName("UserMetadata")
+	if (userMetadataValue == reflect.Value{}) || !userMetadataValue.CanAddr() {
+		// UserMetadata didn't exist in the event or was not addressable
+		// return nil to not fail the event
+		// UserMetadata does not exist in all events but for those that it does
+		// it should never be nil
+		return nil
+	}
+	userMetadata, ok := userMetadataValue.Addr().Interface().(*apievents.UserMetadata)
+	if !ok {
+		return trace.BadParameter("UserMetadata field is not of type apievents.UserMetadata")
+	}
+	if userMetadata.GeoLocationData == nil {
+		userMetadata.GeoLocationData = &apievents.GeoLocationData{}
+	}
+	connectionMetdataValue := ref.FieldByName("ConnectionMetadata")
+	if connectionMetdataValue.IsZero() {
+		// UserMetadata didn't exist in the event
+		return nil
+	}
+	connMetadata, ok := connectionMetdataValue.Interface().(apievents.ConnectionMetadata)
+	if !ok {
+		return trace.BadParameter("UserMetadata field is not of type apievents.UserMetadata")
+	}
+
+	err := g.anomalyDetection.FillAuditEventMetadata(connMetadata.RemoteAddr, userMetadata.GeoLocationData)
+	return trace.Wrap(err)
 }
 
 // SendKeepAlives allows node to send a stream of keep alive requests
@@ -4659,7 +4703,6 @@ func (g *GRPCServer) ListUnifiedResources(ctx context.Context, req *authpb.ListU
 	}
 
 	return auth.ListUnifiedResources(ctx, req)
-
 }
 
 // ListResources retrieves a paginated list of resources.
@@ -5535,6 +5578,7 @@ type GRPCServerConfig struct {
 	UnaryInterceptors []grpc.UnaryServerInterceptor
 	// StreamInterceptors is the gRPC stream interceptor chain.
 	StreamInterceptors []grpc.StreamServerInterceptor
+	MaxMindDB          string
 }
 
 // CheckAndSetDefaults checks and sets default values
@@ -5619,7 +5663,14 @@ func NewGRPCServer(cfg GRPCServerConfig) (*GRPCServer, error) {
 		server:       server,
 		usersService: usersService,
 	}
-
+	if len(cfg.MaxMindDB) > 0 {
+		authServer.anomalyDetection, err = anomalydetection.NewAnomalyDetection(
+			cfg.MaxMindDB,
+		)
+		if err != nil {
+			return nil, trace.Wrap(err)
+		}
+	}
 	authpb.RegisterAuthServiceServer(server, authServer)
 	collectortracepb.RegisterTraceServiceServer(server, authServer)
 	auditlogpb.RegisterAuditLogServiceServer(server, authServer)

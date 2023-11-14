@@ -1985,6 +1985,7 @@ func (process *TeleportProcess) initAuthService() error {
 		ID:            process.id,
 		Listener:      mux.TLS(),
 		Metrics:       authMetrics,
+		MaxMindDB:     cfg.Auth.MaxMindDB,
 	})
 	if err != nil {
 		return trace.Wrap(err)

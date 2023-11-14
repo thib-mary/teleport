@@ -748,7 +748,7 @@ func applyAuthConfig(fc *FileConfig, cfg *servicecfg.Config) error {
 			"been moved to proxy_service section. This setting is ignored."
 		log.Warning(warningMessage)
 	}
-
+	cfg.Auth.MaxMindDB = fc.Auth.MaxMindDB
 	cfg.Auth.PROXYProtocolMode = multiplexer.PROXYProtocolUnspecified
 	if fc.Auth.ProxyProtocol != "" {
 		val := multiplexer.PROXYProtocolMode(fc.Auth.ProxyProtocol)

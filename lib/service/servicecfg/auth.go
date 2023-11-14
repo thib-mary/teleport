@@ -116,6 +116,8 @@ type AuthConfig struct {
 
 	// AccessMonitoring configures access monitoring.
 	AccessMonitoring *AccessMonitoringOptions
+
+	MaxMindDB string
 }
 
 // AccessMonitoringOptions configures access monitoring.

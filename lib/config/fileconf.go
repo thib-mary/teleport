@@ -809,6 +809,8 @@ type Auth struct {
 
 	// AccessMonitoring is a set of options related to the Access Monitoring feature.
 	AccessMonitoring *servicecfg.AccessMonitoringOptions `yaml:"access_monitoring,omitempty"`
+
+	MaxMindDB string `yaml:"maxmind_db,omitempty"`
 }
 
 // PluginService represents the configuration for the plugin service.
