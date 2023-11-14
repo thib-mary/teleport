@@ -432,7 +432,7 @@ type UserMetadata struct {
 	TrustedDevice *DeviceMetadata `protobuf:"bytes,8,opt,name=TrustedDevice,proto3" json:"trusted_device,omitempty"`
 	// RequiredPrivateKeyPolicy is the private key policy enforced for this login.
 	RequiredPrivateKeyPolicy string `protobuf:"bytes,9,opt,name=RequiredPrivateKeyPolicy,proto3" json:"required_private_key_policy,omitempty"`
-	//
+	// GeoLocation is the location of the user.
 	*GeoLocationData     `protobuf:"bytes,10,opt,name=GeoLocation,proto3,embedded=GeoLocation" json:"geo_location"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -472,11 +472,16 @@ func (m *UserMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UserMetadata proto.InternalMessageInfo
 
+// GeoLocationData contains information about the user's location.
 type GeoLocationData struct {
-	City        string `protobuf:"bytes,1,opt,name=City,proto3" json:"city,omitempty"`
-	Country     string `protobuf:"bytes,2,opt,name=Country,proto3" json:"country,omitempty"`
+	// City is the city the user is in.
+	City string `protobuf:"bytes,1,opt,name=City,proto3" json:"city,omitempty"`
+	// Country is the country the user is in.
+	Country string `protobuf:"bytes,2,opt,name=Country,proto3" json:"country,omitempty"`
+	// CountryCode is the country code the user is in.
 	CountryCode string `protobuf:"bytes,3,opt,name=CountryCode,proto3" json:"country_code,omitempty"`
-	Region      string `protobuf:"bytes,4,opt,name=Region,proto3" json:"region,omitempty"`
+	// Region is the region the user is in.
+	Region string `protobuf:"bytes,4,opt,name=Region,proto3" json:"region,omitempty"`
 	// LoginID is a login ID of the user.
 	LoginID              string   `protobuf:"bytes,5,opt,name=LoginID,proto3" json:"login_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`

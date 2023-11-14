@@ -93,7 +93,7 @@ message UserMetadata {
   // RequiredPrivateKeyPolicy is the private key policy enforced for this login.
   string RequiredPrivateKeyPolicy = 9 [(gogoproto.jsontag) = "required_private_key_policy,omitempty"];
 
-  //
+  // GeoLocation is the location of the user.
   GeoLocationData GeoLocation = 10 [
     (gogoproto.nullable) = true,
     (gogoproto.embed) = true,
@@ -101,10 +101,15 @@ message UserMetadata {
   ];
 }
 
+// GeoLocationData contains information about the user's location.
 message GeoLocationData {
+  // City is the city the user is in.
   string City = 1 [(gogoproto.jsontag) = "city,omitempty"];
+  // Country is the country the user is in.
   string Country = 2 [(gogoproto.jsontag) = "country,omitempty"];
+  // CountryCode is the country code the user is in.
   string CountryCode = 3 [(gogoproto.jsontag) = "country_code,omitempty"];
+  // Region is the region the user is in.
   string Region = 4 [(gogoproto.jsontag) = "region,omitempty"];
 
   // LoginID is a login ID of the user.
