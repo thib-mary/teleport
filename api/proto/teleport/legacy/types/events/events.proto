@@ -92,6 +92,22 @@ message UserMetadata {
 
   // RequiredPrivateKeyPolicy is the private key policy enforced for this login.
   string RequiredPrivateKeyPolicy = 9 [(gogoproto.jsontag) = "required_private_key_policy,omitempty"];
+
+  //
+  GeoLocationData GeoLocation = 10 [ (gogoproto.nullable) = true,
+    (gogoproto.embed) = true,
+    (gogoproto.jsontag) = "geo_location"];
+
+}
+
+message GeoLocationData{
+  string City = 1[(gogoproto.jsontag) = "city,omitempty"];
+  string Country =2  [(gogoproto.jsontag) = "country,omitempty"];
+  string CountryCode = 3 [(gogoproto.jsontag) = "country_code,omitempty"];
+  string Region =4 [(gogoproto.jsontag) = "region,omitempty"];
+
+  // LoginID is a login ID of the user.
+  string LoginID = 5 [(gogoproto.jsontag) = "login_id,omitempty"];
 }
 
 // Server is a server metadata
@@ -134,6 +150,7 @@ message ConnectionMetadata {
 
   // Protocol specifies protocol that was captured
   string Protocol = 3 [(gogoproto.jsontag) = "proto,omitempty"];
+
 }
 
 // ClientMetadata identifies the originating client for an event.
