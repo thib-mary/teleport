@@ -99,6 +99,9 @@ message UserMetadata {
     (gogoproto.embed) = true,
     (gogoproto.jsontag) = "geo_location"
   ];
+
+  // LoginID is a login ID of the user.
+  string LoginID = 11 [(gogoproto.jsontag) = "login_id,omitempty"];
 }
 
 // GeoLocationData contains information about the user's location.
@@ -111,9 +114,6 @@ message GeoLocationData {
   string CountryCode = 3 [(gogoproto.jsontag) = "country_code,omitempty"];
   // Region is the region the user is in.
   string Region = 4 [(gogoproto.jsontag) = "region,omitempty"];
-
-  // LoginID is a login ID of the user.
-  string LoginID = 5 [(gogoproto.jsontag) = "login_id,omitempty"];
 }
 
 // Server is a server metadata
@@ -3808,6 +3808,10 @@ message Identity {
   repeated string GCPServiceAccounts = 25 [(gogoproto.jsontag) = "gcp_service_accounts,omitempty"];
   // PrivateKeyPolicy is the private key policy of the user's private key.
   string PrivateKeyPolicy = 26 [(gogoproto.jsontag) = "private_key_policy,omitempty"];
+
+  // LoginID is a UUID generated when the user initially authenticates against
+  // the cluster and is kept between certificate reissues.
+  string LoginID = 27 [(gogoproto.jsontag) = "login_id,omitempty"];
 }
 
 // RouteToApp contains parameters for application access certificate requests.

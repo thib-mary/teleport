@@ -41,7 +41,7 @@ func (a *Server) UpsertOIDCConnector(ctx context.Context, connector types.OIDCCo
 	if err := a.Services.UpsertOIDCConnector(ctx, connector); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.OIDCConnectorCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.OIDCConnectorCreate{
 		Metadata: apievents.Metadata{
 			Type: events.OIDCConnectorCreatedEvent,
 			Code: events.OIDCConnectorCreatedCode,
@@ -63,7 +63,7 @@ func (a *Server) UpdateOIDCConnector(ctx context.Context, connector types.OIDCCo
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.OIDCConnectorUpdate{
+	if err := a.emitAuditEvent(ctx, &apievents.OIDCConnectorUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.OIDCConnectorUpdatedEvent,
 			Code: events.OIDCConnectorUpdatedCode,
@@ -85,7 +85,7 @@ func (a *Server) CreateOIDCConnector(ctx context.Context, connector types.OIDCCo
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.OIDCConnectorCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.OIDCConnectorCreate{
 		Metadata: apievents.Metadata{
 			Type: events.OIDCConnectorCreatedEvent,
 			Code: events.OIDCConnectorCreatedCode,
@@ -106,7 +106,7 @@ func (a *Server) DeleteOIDCConnector(ctx context.Context, connectorName string) 
 	if err := a.Services.DeleteOIDCConnector(ctx, connectorName); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.OIDCConnectorDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.OIDCConnectorDelete{
 		Metadata: apievents.Metadata{
 			Type: events.OIDCConnectorDeletedEvent,
 			Code: events.OIDCConnectorDeletedCode,

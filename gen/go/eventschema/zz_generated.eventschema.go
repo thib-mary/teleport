@@ -867,11 +867,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -891,6 +886,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -1097,11 +1097,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1121,6 +1116,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -1244,11 +1244,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1278,6 +1273,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -1467,11 +1467,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1486,6 +1481,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -1629,11 +1629,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1648,6 +1643,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -1831,11 +1831,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1850,6 +1845,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -2093,11 +2093,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -2112,6 +2107,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -2310,11 +2310,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -2329,6 +2324,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -2662,11 +2662,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -2681,6 +2676,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -2904,11 +2904,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -2923,6 +2918,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -3076,11 +3076,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3095,6 +3090,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -3258,11 +3258,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3277,6 +3272,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -3415,11 +3415,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3434,6 +3429,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -3557,11 +3557,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3576,6 +3571,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -3699,11 +3699,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3718,6 +3713,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -4030,11 +4030,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -4054,6 +4049,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -4270,11 +4270,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -4289,6 +4284,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -4510,11 +4510,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -4534,6 +4529,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -4763,11 +4763,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -4782,6 +4777,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -5004,6 +5004,11 @@ var events = map[string]*Event{
 						Items: &EventField{
 							Type: "string",
 						},
+					},
+					{
+						Name:        "login_id",
+						Description: "is a UUID generated when the user initially authenticates against the cluster and is kept between certificate reissues",
+						Type:        "string",
 					},
 					{
 						Name:        "logins",
@@ -5229,11 +5234,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -5248,6 +5248,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -5504,11 +5509,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -5523,6 +5523,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -5666,11 +5671,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -5685,6 +5685,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -5901,11 +5906,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -5920,6 +5920,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -6136,11 +6141,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -6155,6 +6155,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -6389,11 +6394,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -6408,6 +6408,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -6654,11 +6659,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -6673,6 +6673,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -6949,11 +6954,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -6968,6 +6968,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -7121,11 +7126,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7145,6 +7145,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -7303,11 +7308,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7327,6 +7327,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -7545,11 +7550,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7569,6 +7569,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -7757,11 +7762,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7776,6 +7776,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -7964,11 +7969,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7988,6 +7988,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -8215,11 +8220,6 @@ var events = map[string]*Event{
 								Type:        "string",
 							},
 							{
-								Name:        "login_id",
-								Description: "is a login ID of the user",
-								Type:        "string",
-							},
-							{
 								Name:        "region",
 								Description: "is the region the user is in",
 								Type:        "string",
@@ -8234,6 +8234,11 @@ var events = map[string]*Event{
 					{
 						Name:        "login",
 						Description: "is OS login",
+						Type:        "string",
+					},
+					{
+						Name:        "login_id",
+						Description: "is a login ID of the user",
 						Type:        "string",
 					},
 					{
@@ -8386,11 +8391,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -8405,6 +8405,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -8621,11 +8626,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -8640,6 +8640,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -8885,11 +8890,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -8909,6 +8909,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -9107,11 +9112,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9187,6 +9187,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -9375,11 +9380,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9394,6 +9394,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -9537,11 +9542,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9556,6 +9556,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -9699,11 +9704,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9718,6 +9718,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -9956,11 +9961,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10011,6 +10011,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -10234,11 +10239,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10268,6 +10268,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -10411,11 +10416,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10430,6 +10430,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -10573,11 +10578,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10607,6 +10607,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -10750,11 +10755,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10769,6 +10769,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -10964,11 +10969,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10983,6 +10983,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -11126,11 +11131,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11145,6 +11145,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -11288,11 +11293,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11307,6 +11307,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -11445,11 +11450,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11464,6 +11464,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -11602,11 +11607,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11621,6 +11621,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -11837,11 +11842,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11856,6 +11856,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -12077,11 +12082,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -12096,6 +12096,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -12312,11 +12317,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -12331,6 +12331,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -12552,11 +12557,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -12571,6 +12571,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -12792,11 +12797,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -12811,6 +12811,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -13032,11 +13037,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13051,6 +13051,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -13272,11 +13277,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13291,6 +13291,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -13507,11 +13512,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13526,6 +13526,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -13755,11 +13760,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13774,6 +13774,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -13995,11 +14000,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14014,6 +14014,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -14243,11 +14248,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14262,6 +14262,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -14488,11 +14493,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14507,6 +14507,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -14728,11 +14733,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14747,6 +14747,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -14973,11 +14978,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14992,6 +14992,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -15145,11 +15150,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -15164,6 +15164,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -15307,11 +15312,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -15326,6 +15326,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -15469,11 +15474,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -15488,6 +15488,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -16094,11 +16099,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -16118,6 +16118,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -16306,11 +16311,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -16325,6 +16325,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -16541,11 +16546,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -16560,6 +16560,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -16794,11 +16799,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -16813,6 +16813,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -17039,11 +17044,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17058,6 +17058,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -17292,11 +17297,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17311,6 +17311,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -17527,11 +17532,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17546,6 +17546,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -17699,11 +17704,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17722,6 +17722,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -17867,11 +17872,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17886,6 +17886,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -18014,11 +18019,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18033,6 +18033,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -18166,11 +18171,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18185,6 +18185,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -18323,11 +18328,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18403,6 +18403,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -18596,11 +18601,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18615,6 +18615,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -18758,11 +18763,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18777,6 +18777,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -18920,11 +18925,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18939,6 +18939,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -19082,11 +19087,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19101,6 +19101,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -19244,11 +19249,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19263,6 +19263,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -19406,11 +19411,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19425,6 +19425,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -19568,11 +19573,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19587,6 +19587,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -20030,11 +20035,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20049,6 +20049,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -20332,11 +20337,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20351,6 +20351,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -20627,11 +20632,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20646,6 +20646,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -20902,11 +20907,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20921,6 +20921,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -21092,11 +21097,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -21111,6 +21111,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -21424,11 +21429,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -21443,6 +21443,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -21651,11 +21656,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -21670,6 +21670,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -21888,11 +21893,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -21981,6 +21981,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -22202,11 +22207,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -22257,6 +22257,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -22455,11 +22460,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -22474,6 +22474,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -22682,11 +22687,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -22701,6 +22701,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -22959,11 +22964,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -22978,6 +22978,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -23121,11 +23126,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -23140,6 +23140,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -23333,11 +23338,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -23421,6 +23421,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -23684,11 +23689,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -23703,6 +23703,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -23841,11 +23846,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -23860,6 +23860,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -24003,11 +24008,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24022,6 +24022,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -24165,11 +24170,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24184,6 +24184,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -24372,11 +24377,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24391,6 +24391,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -24544,11 +24549,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24563,6 +24563,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -24714,11 +24719,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24733,6 +24733,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -24899,11 +24904,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24918,6 +24918,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -25088,11 +25093,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -25107,6 +25107,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -25235,11 +25240,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -25254,6 +25254,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -25402,11 +25407,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -25421,6 +25421,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -25592,11 +25597,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -25611,6 +25611,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -25832,11 +25837,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -25851,6 +25851,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{
@@ -26034,11 +26039,6 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
-						Name:        "login_id",
-						Description: "is a login ID of the user",
-						Type:        "string",
-					},
-					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -26053,6 +26053,11 @@ var events = map[string]*Event{
 			{
 				Name:        "login",
 				Description: "is OS login",
+				Type:        "string",
+			},
+			{
+				Name:        "login_id",
+				Description: "is a login ID of the user",
 				Type:        "string",
 			},
 			{

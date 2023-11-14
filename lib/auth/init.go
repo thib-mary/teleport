@@ -270,6 +270,8 @@ type InitConfig struct {
 
 	// AccessMonitoringEnabled is true if access monitoring is enabled.
 	AccessMonitoringEnabled bool
+
+	MaxMindDB string
 }
 
 // Init instantiates and configures an instance of AuthServer

@@ -494,6 +494,10 @@ const (
 	// by the device to authenticate itself.
 	CertExtensionDeviceCredentialID = "teleport-device-credential-id"
 
+	// CertExtensionDeviceCredentialID is the identifier for the credential used
+	// by the device to authenticate itself.
+	CertExtensionLoginID = "teleport-login-id"
+
 	// CertCriticalOptionSourceAddress is a critical option that defines IP addresses (in CIDR notation)
 	// from which this certificate is accepted for authentication.
 	// See: https://cvsweb.openbsd.org/src/usr.bin/ssh/PROTOCOL.certkeys?annotate=HEAD.

@@ -374,6 +374,10 @@ type UserCertParams struct {
 	// DeviceCredentialID is the identifier for the credential used by the device
 	// to authenticate itself.
 	DeviceCredentialID string
+	// LoginID is the login ID we defined for the user when he initially issued
+	// the certificate. Subsequent certificate renewals will copy this value over
+	// from the previous certificate.
+	LoginID string
 }
 
 // CheckAndSetDefaults checks the user certificate parameters

@@ -170,7 +170,7 @@ func (a *Server) CreateResetPasswordToken(ctx context.Context, req CreateUserTok
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.UserTokenCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.UserTokenCreate{
 		Metadata: apievents.Metadata{
 			Type: events.ResetPasswordTokenCreateEvent,
 			Code: events.ResetPasswordTokenCreateCode,
@@ -430,7 +430,7 @@ func (a *Server) createRecoveryToken(ctx context.Context, username, tokenType st
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.UserTokenCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.UserTokenCreate{
 		Metadata: apievents.Metadata{
 			Type: events.RecoveryTokenCreateEvent,
 			Code: events.RecoveryTokenCreateCode,
@@ -509,7 +509,7 @@ func (a *Server) createPrivilegeToken(ctx context.Context, username, tokenKind s
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.UserTokenCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.UserTokenCreate{
 		Metadata: apievents.Metadata{
 			Type: events.PrivilegeTokenCreateEvent,
 			Code: events.PrivilegeTokenCreateCode,

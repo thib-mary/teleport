@@ -81,8 +81,7 @@ type TLSServerConfig struct {
 	// ID is an optional debugging ID
 	ID string
 	// Metrics are optional TLSServer metrics
-	Metrics   *Metrics
-	MaxMindDB string
+	Metrics *Metrics
 }
 
 // CheckAndSetDefaults checks and sets default values
@@ -211,7 +210,6 @@ func NewTLSServer(ctx context.Context, cfg TLSServerConfig) (*TLSServer, error) 
 		APIConfig:          cfg.APIConfig,
 		UnaryInterceptors:  authMiddleware.UnaryInterceptors(),
 		StreamInterceptors: authMiddleware.StreamInterceptors(),
-		MaxMindDB:          cfg.MaxMindDB,
 	})
 	if err != nil {
 		return nil, trace.Wrap(err)

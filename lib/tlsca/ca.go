@@ -193,6 +193,8 @@ type Identity struct {
 
 	// UserType indicates if the User was created by an SSO Provider or locally.
 	UserType types.UserType
+	// LoginID is the login ID of the user.
+	LoginID string
 }
 
 // RouteToApp holds routing information for applications.
@@ -419,6 +421,10 @@ var (
 	// GCPServiceAccountsASN1ExtensionOID is an extension ID used when encoding/decoding
 	// the list of allowed GCP service accounts into a certificate.
 	GCPServiceAccountsASN1ExtensionOID = asn1.ObjectIdentifier{1, 3, 9999, 1, 19}
+
+	// LoginIDASN1ExtensionOID is an extension ID used when encoding/decoding
+	// the client's login ID into certificates.
+	LoginIDASN1ExtensionOID = asn1.ObjectIdentifier{1, 3, 9999, 1, 20}
 
 	// DatabaseServiceNameASN1ExtensionOID is an extension ID used when encoding/decoding
 	// database service name into certificates.
@@ -808,6 +814,13 @@ func (id *Identity) Subject() (pkix.Name, error) {
 		})
 	}
 
+	if id.LoginID != "" {
+		subject.ExtraNames = append(subject.ExtraNames,
+			pkix.AttributeTypeAndValue{
+				Type:  LoginIDASN1ExtensionOID,
+				Value: id.LoginID,
+			})
+	}
 	return subject, nil
 }
 
@@ -1021,6 +1034,10 @@ func FromSubject(subject pkix.Name, expires time.Time) (*Identity, error) {
 		case attr.Type.Equal(PinnedIPASN1ExtensionOID):
 			if val, ok := attr.Value.(string); ok {
 				id.PinnedIP = val
+			}
+		case attr.Type.Equal(LoginIDASN1ExtensionOID):
+			if val, ok := attr.Value.(string); ok {
+				id.LoginID = val
 			}
 		}
 	}

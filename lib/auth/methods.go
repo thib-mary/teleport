@@ -23,6 +23,7 @@ import (
 	"net"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/gravitational/trace"
 	"golang.org/x/crypto/ssh"
 
@@ -114,7 +115,7 @@ type SessionCreds struct {
 
 // AuthenticateUser authenticates user based on the request type.
 // Returns the username of the authenticated user.
-func (a *Server) AuthenticateUser(ctx context.Context, req AuthenticateUserRequest) (services.UserState, services.AccessChecker, error) {
+func (a *Server) AuthenticateUser(ctx context.Context, req AuthenticateUserRequest, loginID string) (services.UserState, services.AccessChecker, error) {
 	username := req.Username
 
 	mfaDev, actualUsername, err := a.authenticateUser(ctx, req)
@@ -124,7 +125,7 @@ func (a *Server) AuthenticateUser(ctx context.Context, req AuthenticateUserReque
 			username:       req.Username,
 			clientMetadata: req.ClientMetadata,
 			authErr:        err,
-		}); err != nil {
+		}, loginID); err != nil {
 			log.WithError(err).Warn("Failed to emit login event.")
 		}
 		return nil, nil, trace.Wrap(err)
@@ -171,7 +172,7 @@ func (a *Server) AuthenticateUser(ctx context.Context, req AuthenticateUserReque
 		clientMetadata: req.ClientMetadata,
 		mfaDevice:      mfaDev,
 		checker:        checker,
-	}); err != nil {
+	}, loginID); err != nil {
 		log.WithError(err).Warn("Failed to emit login event.")
 	}
 
@@ -186,7 +187,7 @@ type authAuditProps struct {
 	authErr        error
 }
 
-func (a *Server) emitAuthAuditEvent(ctx context.Context, props authAuditProps) error {
+func (a *Server) emitAuthAuditEvent(ctx context.Context, props authAuditProps, loginID string) error {
 	event := &apievents.UserLogin{
 		Metadata: apievents.Metadata{
 			Type: events.UserLoginEvent,
@@ -196,7 +197,8 @@ func (a *Server) emitAuthAuditEvent(ctx context.Context, props authAuditProps) e
 			Success: true,
 		},
 		UserMetadata: apievents.UserMetadata{
-			User: props.username,
+			User:    props.username,
+			LoginID: loginID,
 		},
 		Method: events.LoginMethodLocal,
 	}
@@ -234,7 +236,14 @@ func (a *Server) emitAuthAuditEvent(ctx context.Context, props authAuditProps) e
 		event.RequiredPrivateKeyPolicy = string(privateKeyPolicy)
 	}
 
-	return trace.Wrap(a.emitter.EmitAuditEvent(a.closeCtx, event))
+	return trace.Wrap(a.emitAuditEvent(a.closeCtx, event))
+}
+
+func (a *Server) emitAuditEvent(ctx context.Context, evt apievents.AuditEvent) error {
+	if err := a.checkIfUserMetadataExistsAndAssignData(evt); err != nil {
+		return trace.Wrap(err)
+	}
+	return trace.Wrap(a.emitter.EmitAuditEvent(a.closeCtx, evt))
 }
 
 var (
@@ -550,7 +559,7 @@ func (a *Server) AuthenticateWebUser(ctx context.Context, req AuthenticateUserRe
 		return session, nil
 	}
 
-	user, _, err := a.AuthenticateUser(ctx, req)
+	user, _, err := a.AuthenticateUser(ctx, req, "")
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -668,7 +677,7 @@ func AuthoritiesToTrustedCerts(authorities []types.CertAuthority) []TrustedCerts
 // certificates for the public key in req.
 func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHRequest) (*SSHLoginResponse, error) {
 	username := req.Username // Empty if passwordless.
-
+	loginID := uuid.New().String()
 	authPref, err := a.GetAuthPreference(ctx)
 	if err != nil {
 		return nil, trace.Wrap(err)
@@ -685,7 +694,7 @@ func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHReq
 
 	// It's safe to extract the roles and traits directly from services.User as
 	// this endpoint is only used for local accounts.
-	user, checker, err := a.AuthenticateUser(ctx, req.AuthenticateUserRequest)
+	user, checker, err := a.AuthenticateUser(ctx, req.AuthenticateUserRequest, loginID)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -725,6 +734,7 @@ func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHReq
 		kubernetesCluster:    req.KubernetesCluster,
 		loginIP:              clientIP,
 		attestationStatement: req.AttestationStatement,
+		loginID:              loginID,
 	}
 
 	// For headless authentication, a short-lived mfa-verified cert should be generated.
@@ -755,7 +765,7 @@ func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHReq
 
 // emitNoLocalAuthEvent creates and emits a local authentication is disabled message.
 func (a *Server) emitNoLocalAuthEvent(username string) {
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.AuthAttempt{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.AuthAttempt{
 		Metadata: apievents.Metadata{
 			Type: events.AuthAttemptEvent,
 			Code: events.AuthAttemptFailureCode,

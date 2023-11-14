@@ -37,7 +37,7 @@ func (a *Server) CreateRole(ctx context.Context, role types.Role) (types.Role, e
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.RoleCreate{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.RoleCreate{
 		Metadata: apievents.Metadata{
 			Type: events.RoleCreatedEvent,
 			Code: events.RoleCreatedCode,
@@ -59,7 +59,7 @@ func (a *Server) UpdateRole(ctx context.Context, role types.Role) (types.Role, e
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.RoleUpdate{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.RoleUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.RoleUpdatedEvent,
 			Code: events.RoleUpdatedCode,
@@ -81,7 +81,7 @@ func (a *Server) UpsertRole(ctx context.Context, role types.Role) (types.Role, e
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.RoleCreate{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.RoleCreate{
 		Metadata: apievents.Metadata{
 			Type: events.RoleCreatedEvent,
 			Code: events.RoleCreatedCode,
@@ -167,7 +167,7 @@ func (a *Server) DeleteRole(ctx context.Context, name string) error {
 		return trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.RoleDelete{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.RoleDelete{
 		Metadata: apievents.Metadata{
 			Type: events.RoleDeletedEvent,
 			Code: events.RoleDeletedCode,
@@ -189,7 +189,7 @@ func (a *Server) UpsertLock(ctx context.Context, lock types.Lock) error {
 	}
 
 	um := authz.ClientUserMetadata(ctx)
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.LockCreate{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.LockCreate{
 		Metadata: apievents.Metadata{
 			Type: events.LockCreatedEvent,
 			Code: events.LockCreatedCode,
@@ -212,7 +212,7 @@ func (a *Server) DeleteLock(ctx context.Context, lockName string) error {
 		return trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.LockDelete{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.LockDelete{
 		Metadata: apievents.Metadata{
 			Type: events.LockDeletedEvent,
 			Code: events.LockDeletedCode,

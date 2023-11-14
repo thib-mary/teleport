@@ -1775,6 +1775,7 @@ func (process *TeleportProcess) initAuthService() error {
 			EmbeddingRetriever:      embeddingsRetriever,
 			EmbeddingClient:         embedderClient,
 			Tracer:                  process.TracingProvider.Tracer(teleport.ComponentAuth),
+			MaxMindDB:               cfg.Auth.MaxMindDB,
 		}, func(as *auth.Server) error {
 			if !process.Config.CachePolicy.Enabled {
 				return nil
@@ -1985,7 +1986,6 @@ func (process *TeleportProcess) initAuthService() error {
 		ID:            process.id,
 		Listener:      mux.TLS(),
 		Metrics:       authMetrics,
-		MaxMindDB:     cfg.Auth.MaxMindDB,
 	})
 	if err != nil {
 		return trace.Wrap(err)

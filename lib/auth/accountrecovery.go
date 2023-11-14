@@ -209,14 +209,14 @@ func (a *Server) verifyRecoveryCode(ctx context.Context, user string, givenCode 
 		event.Status.Error = traceErr.Error()
 		event.Status.UserMessage = traceErr.Error()
 
-		if err := a.emitter.EmitAuditEvent(a.closeCtx, event); err != nil {
+		if err := a.emitAuditEvent(a.closeCtx, event); err != nil {
 			log.WithFields(logrus.Fields{"user": user}).Warn("Failed to emit account recovery code used failed event.")
 		}
 
 		return trace.AccessDenied(startRecoveryBadAuthnErrMsg)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, event); err != nil {
+	if err := a.emitAuditEvent(a.closeCtx, event); err != nil {
 		log.WithFields(logrus.Fields{"user": user}).Warn("Failed to emit account recovery code used event.")
 	}
 
@@ -553,7 +553,7 @@ func (a *Server) generateAndUpsertRecoveryCodes(ctx context.Context, username st
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.RecoveryCodeGenerate{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.RecoveryCodeGenerate{
 		Metadata: apievents.Metadata{
 			Type: events.RecoveryCodeGeneratedEvent,
 			Code: events.RecoveryCodesGenerateCode,

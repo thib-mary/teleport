@@ -36,6 +36,7 @@ import (
 	"math/big"
 	insecurerand "math/rand"
 	"os"
+	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -55,6 +56,8 @@ import (
 	"golang.org/x/exp/slices"
 	"golang.org/x/time/rate"
 	"google.golang.org/protobuf/types/known/durationpb"
+
+	anomalydetection "github.com/gravitational/teleport/lib/anomaly_detection"
 
 	"github.com/gravitational/teleport"
 	"github.com/gravitational/teleport/api/client"
@@ -379,6 +382,16 @@ func NewServer(cfg *InitConfig, opts ...ServerOption) (*Server, error) {
 	}
 	if as.clock == nil {
 		as.clock = clockwork.NewRealClock()
+	}
+	if cfg.MaxMindDB != "" {
+
+		as.anomalyDetection, err = anomalydetection.NewAnomalyDetection(
+			cfg.MaxMindDB,
+		)
+		if err != nil {
+			return nil, trace.Wrap(err)
+		}
+
 	}
 	as.githubOrgSSOCache, err = utils.NewFnCache(utils.FnCacheConfig{
 		TTL: githubCacheTimeout,
@@ -805,6 +818,8 @@ type Server struct {
 
 	// ulsGenerator is the user login state generator.
 	ulsGenerator *userloginstate.Generator
+
+	anomalyDetection *anomalydetection.AnomalyDetection
 }
 
 // SetSAMLService registers svc as the SAMLService that provides the SAML
@@ -1530,7 +1545,7 @@ func (a *Server) SetEmitter(emitter apievents.Emitter) {
 // emitter rather than falling back to the implementation from [Services] (using
 // the audit log directly, which is almost never what you want).
 func (a *Server) EmitAuditEvent(ctx context.Context, e apievents.AuditEvent) error {
-	return trace.Wrap(a.emitter.EmitAuditEvent(ctx, e))
+	return trace.Wrap(a.emitAuditEvent(ctx, e))
 }
 
 // SetUsageReporter sets the server's usage reporter. Note that this is only
@@ -1744,6 +1759,8 @@ type certRequest struct {
 	skipAttestation bool
 	// deviceExtensions holds device-aware user certificate extensions.
 	deviceExtensions DeviceExtensions
+	// loginID is the login ID of the user requesting the certificate.
+	loginID string
 }
 
 // check verifies the cert request is valid.
@@ -2496,6 +2513,7 @@ func generateCert(a *Server, req certRequest, caType types.CertAuthType) (*proto
 		DeviceID:                req.deviceExtensions.DeviceID,
 		DeviceAssetTag:          req.deviceExtensions.AssetTag,
 		DeviceCredentialID:      req.deviceExtensions.CredentialID,
+		LoginID:                 req.loginID,
 	}
 	signedSSHCert, err := a.GenerateUserCert(params)
 	if err != nil {
@@ -2594,6 +2612,7 @@ func generateCert(a *Server, req certRequest, caType types.CertAuthType) (*proto
 			CredentialID: req.deviceExtensions.CredentialID,
 		},
 		UserType: req.user.GetUserType(),
+		LoginID:  req.loginID,
 	}
 
 	var signedTLSCert []byte
@@ -2627,7 +2646,8 @@ func generateCert(a *Server, req certRequest, caType types.CertAuthType) (*proto
 
 	eventIdentity := identity.GetEventIdentity()
 	eventIdentity.Expires = notAfter
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.CertificateCreate{
+	eventIdentity.LoginID = req.loginID
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.CertificateCreate{
 		Metadata: apievents.Metadata{
 			Type: events.CertificateCreateEvent,
 			Code: events.CertificateCreateCode,
@@ -3211,7 +3231,7 @@ func (a *Server) deleteMFADeviceSafely(ctx context.Context, user, deviceName str
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.MFADeviceDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.MFADeviceDelete{
 		Metadata: apievents.Metadata{
 			Type:        events.MFADeviceDeleteEvent,
 			Code:        events.MFADeviceDeleteEventCode,
@@ -3331,7 +3351,7 @@ func (a *Server) verifyMFARespAndAddDevice(ctx context.Context, req *newMFADevic
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.MFADeviceAdd{
+	if err := a.emitAuditEvent(ctx, &apievents.MFADeviceAdd{
 		Metadata: apievents.Metadata{
 			Type:        events.MFADeviceAddEvent,
 			Code:        events.MFADeviceAddEventCode,
@@ -4347,7 +4367,7 @@ func (a *Server) CreateAccessRequestV2(ctx context.Context, req types.AccessRequ
 	if _, err := a.Services.CreateAccessRequestV2(ctx, req); err != nil {
 		return nil, trace.Wrap(err)
 	}
-	err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.AccessRequestCreate{
+	err := a.emitAuditEvent(a.closeCtx, &apievents.AccessRequestCreate{
 		Metadata: apievents.Metadata{
 			Type: events.AccessRequestCreateEvent,
 			Code: events.AccessRequestCreateCode,
@@ -4429,7 +4449,7 @@ func (a *Server) DeleteAccessRequest(ctx context.Context, name string) error {
 	if err := a.Services.DeleteAccessRequest(ctx, name); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.AccessRequestDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.AccessRequestDelete{
 		Metadata: apievents.Metadata{
 			Type: events.AccessRequestDeleteEvent,
 			Code: events.AccessRequestDeleteCode,
@@ -4474,7 +4494,7 @@ func (a *Server) SetAccessRequestState(ctx context.Context, params types.AccessR
 			event.Annotations = annotations
 		}
 	}
-	err = a.emitter.EmitAuditEvent(a.closeCtx, event)
+	err = a.emitAuditEvent(a.closeCtx, event)
 	if err != nil {
 		log.WithError(err).Warn("Failed to emit access request update event.")
 	}
@@ -4557,7 +4577,7 @@ func (a *Server) submitAccessReview(
 			event.Annotations = annotations
 		}
 	}
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, event); err != nil {
+	if err := a.emitAuditEvent(a.closeCtx, event); err != nil {
 		log.WithError(err).Warn("Failed to emit access request update event.")
 	}
 
@@ -4944,7 +4964,7 @@ func (a *Server) CreateApp(ctx context.Context, app types.Application) error {
 	if err := a.Services.CreateApp(ctx, app); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.AppCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.AppCreate{
 		Metadata: apievents.Metadata{
 			Type: events.AppCreateEvent,
 			Code: events.AppCreateCode,
@@ -4970,7 +4990,7 @@ func (a *Server) UpdateApp(ctx context.Context, app types.Application) error {
 	if err := a.Services.UpdateApp(ctx, app); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.AppUpdate{
+	if err := a.emitAuditEvent(ctx, &apievents.AppUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.AppUpdateEvent,
 			Code: events.AppUpdateCode,
@@ -4996,7 +5016,7 @@ func (a *Server) DeleteApp(ctx context.Context, name string) error {
 	if err := a.Services.DeleteApp(ctx, name); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.AppDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.AppDelete{
 		Metadata: apievents.Metadata{
 			Type: events.AppDeleteEvent,
 			Code: events.AppDeleteCode,
@@ -5030,7 +5050,7 @@ func (a *Server) CreateDatabase(ctx context.Context, database types.Database) er
 	if err := a.Services.CreateDatabase(ctx, database); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.DatabaseCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.DatabaseCreate{
 		Metadata: apievents.Metadata{
 			Type: events.DatabaseCreateEvent,
 			Code: events.DatabaseCreateCode,
@@ -5060,7 +5080,7 @@ func (a *Server) UpdateDatabase(ctx context.Context, database types.Database) er
 	if err := a.Services.UpdateDatabase(ctx, database); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.DatabaseUpdate{
+	if err := a.emitAuditEvent(ctx, &apievents.DatabaseUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.DatabaseUpdateEvent,
 			Code: events.DatabaseUpdateCode,
@@ -5090,7 +5110,7 @@ func (a *Server) DeleteDatabase(ctx context.Context, name string) error {
 	if err := a.Services.DeleteDatabase(ctx, name); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.DatabaseDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.DatabaseDelete{
 		Metadata: apievents.Metadata{
 			Type: events.DatabaseDeleteEvent,
 			Code: events.DatabaseDeleteCode,
@@ -5154,7 +5174,7 @@ func (a *Server) CreateKubernetesCluster(ctx context.Context, kubeCluster types.
 	if err := a.Services.CreateKubernetesCluster(ctx, kubeCluster); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.KubernetesClusterCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.KubernetesClusterCreate{
 		Metadata: apievents.Metadata{
 			Type: events.KubernetesClusterCreateEvent,
 			Code: events.KubernetesClusterCreateCode,
@@ -5181,7 +5201,7 @@ func (a *Server) UpdateKubernetesCluster(ctx context.Context, kubeCluster types.
 	if err := a.Kubernetes.UpdateKubernetesCluster(ctx, kubeCluster); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.KubernetesClusterUpdate{
+	if err := a.emitAuditEvent(ctx, &apievents.KubernetesClusterUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.KubernetesClusterUpdateEvent,
 			Code: events.KubernetesClusterUpdateCode,
@@ -5205,7 +5225,7 @@ func (a *Server) DeleteKubernetesCluster(ctx context.Context, name string) error
 	if err := a.Kubernetes.DeleteKubernetesCluster(ctx, name); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.KubernetesClusterDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.KubernetesClusterDelete{
 		Metadata: apievents.Metadata{
 			Type: events.KubernetesClusterDeleteEvent,
 			Code: events.KubernetesClusterDeleteCode,
@@ -6255,4 +6275,39 @@ func DefaultDNSNamesForRole(role types.SystemRole) []string {
 		}
 	}
 	return nil
+}
+
+// please fix me to remove ref
+func (a *Server) checkIfUserMetadataExistsAndAssignData(evt apievents.AuditEvent) error {
+	if a.anomalyDetection == nil {
+		return nil
+	}
+	ref := reflect.ValueOf(evt).Elem()
+	userMetadataValue := ref.FieldByName("UserMetadata")
+	if (userMetadataValue == reflect.Value{}) || !userMetadataValue.CanAddr() {
+		// UserMetadata didn't exist in the event or was not addressable
+		// return nil to not fail the event
+		// UserMetadata does not exist in all events but for those that it does
+		// it should never be nil
+		return nil
+	}
+	userMetadata, ok := userMetadataValue.Addr().Interface().(*apievents.UserMetadata)
+	if !ok {
+		return trace.BadParameter("UserMetadata field is not of type apievents.UserMetadata")
+	}
+	if userMetadata.GeoLocationData == nil {
+		userMetadata.GeoLocationData = &apievents.GeoLocationData{}
+	}
+	connectionMetdataValue := ref.FieldByName("ConnectionMetadata")
+	if (connectionMetdataValue == reflect.Value{}) {
+		// ConnectionMetadata didn't exist in the event
+		return nil
+	}
+	connMetadata, ok := connectionMetdataValue.Interface().(apievents.ConnectionMetadata)
+	if !ok {
+		return trace.BadParameter("UserMetadata field is not of type apievents.UserMetadata")
+	}
+
+	err := a.anomalyDetection.FillAuditEventMetadata(connMetadata.RemoteAddr, userMetadata.GeoLocationData)
+	return trace.Wrap(err)
 }

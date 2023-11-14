@@ -4247,7 +4247,7 @@ func TestGRPCServer_checkIfUserMetadataExists(t *testing.T) {
 	}
 	db, err := anomalydetection.NewAnomalyDetection("/Users/tiago/code/teleport/lib/anomaly_detection/maxminddb/db.mmdb")
 	require.NoError(t, err)
-	g := &GRPCServer{
+	g := &Server{
 		anomalyDetection: db,
 	}
 	for _, tt := range tests {

@@ -157,7 +157,7 @@ func (a *Server) upsertGithubConnector(ctx context.Context, connector types.Gith
 	if err := a.UpsertGithubConnector(ctx, connector); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.GithubConnectorCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.GithubConnectorCreate{
 		Metadata: apievents.Metadata{
 			Type: events.GithubConnectorCreatedEvent,
 			Code: events.GithubConnectorCreatedCode,
@@ -183,7 +183,7 @@ func (a *Server) createGithubConnector(ctx context.Context, connector types.Gith
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.GithubConnectorCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.GithubConnectorCreate{
 		Metadata: apievents.Metadata{
 			Type: events.GithubConnectorCreatedEvent,
 			Code: events.GithubConnectorCreatedCode,
@@ -209,7 +209,7 @@ func (a *Server) updateGithubConnector(ctx context.Context, connector types.Gith
 		return nil, trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.GithubConnectorUpdate{
+	if err := a.emitAuditEvent(ctx, &apievents.GithubConnectorUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.GithubConnectorUpdatedEvent,
 			Code: events.GithubConnectorUpdatedCode,
@@ -363,7 +363,7 @@ func (a *Server) deleteGithubConnector(ctx context.Context, connectorName string
 		return trace.Wrap(err)
 	}
 
-	if err := a.emitter.EmitAuditEvent(a.closeCtx, &apievents.GithubConnectorDelete{
+	if err := a.emitAuditEvent(a.closeCtx, &apievents.GithubConnectorDelete{
 		Metadata: apievents.Metadata{
 			Type: events.GithubConnectorDeletedEvent,
 			Code: events.GithubConnectorDeletedCode,

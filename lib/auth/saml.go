@@ -59,7 +59,7 @@ func (a *Server) UpsertSAMLConnector(ctx context.Context, connector types.SAMLCo
 	if err := a.Services.UpsertSAMLConnector(ctx, connector); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.SAMLConnectorCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.SAMLConnectorCreate{
 		Metadata: apievents.Metadata{
 			Type: events.SAMLConnectorCreatedEvent,
 			Code: events.SAMLConnectorCreatedCode,
@@ -87,7 +87,7 @@ func (a *Server) UpdateSAMLConnector(ctx context.Context, connector types.SAMLCo
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.SAMLConnectorUpdate{
+	if err := a.emitAuditEvent(ctx, &apievents.SAMLConnectorUpdate{
 		Metadata: apievents.Metadata{
 			Type: events.SAMLConnectorUpdatedEvent,
 			Code: events.SAMLConnectorUpdatedCode,
@@ -115,7 +115,7 @@ func (a *Server) CreateSAMLConnector(ctx context.Context, connector types.SAMLCo
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.SAMLConnectorCreate{
+	if err := a.emitAuditEvent(ctx, &apievents.SAMLConnectorCreate{
 		Metadata: apievents.Metadata{
 			Type: events.SAMLConnectorCreatedEvent,
 			Code: events.SAMLConnectorCreatedCode,
@@ -136,7 +136,7 @@ func (a *Server) DeleteSAMLConnector(ctx context.Context, connectorID string) er
 	if err := a.Services.DeleteSAMLConnector(ctx, connectorID); err != nil {
 		return trace.Wrap(err)
 	}
-	if err := a.emitter.EmitAuditEvent(ctx, &apievents.SAMLConnectorDelete{
+	if err := a.emitAuditEvent(ctx, &apievents.SAMLConnectorDelete{
 		Metadata: apievents.Metadata{
 			Type: events.SAMLConnectorDeletedEvent,
 			Code: events.SAMLConnectorDeletedCode,
