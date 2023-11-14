@@ -867,6 +867,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1097,6 +1102,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1242,6 +1252,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -1467,6 +1482,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -1627,6 +1647,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -1829,6 +1854,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -2093,6 +2123,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -2308,6 +2343,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -2662,6 +2702,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -2904,6 +2949,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3074,6 +3124,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -3258,6 +3313,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3415,6 +3475,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3557,6 +3622,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -3697,6 +3767,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -4030,6 +4105,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -4270,6 +4350,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -4508,6 +4593,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -4761,6 +4851,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -5234,6 +5329,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -5509,6 +5609,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -5669,6 +5774,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -5906,6 +6016,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -6139,6 +6254,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -6392,6 +6512,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -6657,6 +6782,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -6954,6 +7084,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7124,6 +7259,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -7306,6 +7446,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -7550,6 +7695,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7762,6 +7912,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -7967,6 +8122,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -8220,6 +8380,11 @@ var events = map[string]*Event{
 								Type:        "string",
 							},
 							{
+								Name:        "latitude",
+								Description: "is the longitude of the user",
+								Type:        "number",
+							},
+							{
 								Name:        "region",
 								Description: "is the region the user is in",
 								Type:        "string",
@@ -8389,6 +8554,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -8624,6 +8794,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -8890,6 +9065,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9110,6 +9290,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -9380,6 +9565,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9542,6 +9732,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -9702,6 +9897,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -9959,6 +10159,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -10239,6 +10444,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10416,6 +10626,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -10576,6 +10791,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -10753,6 +10973,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -10969,6 +11194,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11129,6 +11359,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -11293,6 +11528,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11450,6 +11690,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -11605,6 +11850,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -11840,6 +12090,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -12082,6 +12337,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -12315,6 +12575,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -12557,6 +12822,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -12795,6 +13065,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -13037,6 +13312,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13277,6 +13557,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13510,6 +13795,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -13760,6 +14050,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -13998,6 +14293,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -14248,6 +14548,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14493,6 +14798,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -14731,6 +15041,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -14978,6 +15293,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -15150,6 +15470,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -15312,6 +15637,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -15472,6 +15802,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -16099,6 +16434,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -16309,6 +16649,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -16544,6 +16889,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -16799,6 +17149,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17042,6 +17397,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -17297,6 +17657,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17532,6 +17897,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17704,6 +18074,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -17872,6 +18247,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18017,6 +18397,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -18169,6 +18554,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -18326,6 +18716,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -18601,6 +18996,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -18761,6 +19161,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -18925,6 +19330,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19085,6 +19495,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -19249,6 +19664,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19411,6 +19831,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -19571,6 +19996,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -20035,6 +20465,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20337,6 +20772,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20632,6 +21072,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -20907,6 +21352,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -21095,6 +21545,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -21429,6 +21884,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -21654,6 +22114,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -21891,6 +22356,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -22207,6 +22677,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -22460,6 +22935,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -22685,6 +23165,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -22964,6 +23449,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -23124,6 +23614,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -23336,6 +23831,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -23689,6 +24189,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -23844,6 +24349,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -24008,6 +24518,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24168,6 +24683,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -24377,6 +24897,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24549,6 +25074,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -24717,6 +25247,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -24902,6 +25437,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -25093,6 +25633,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -25238,6 +25783,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -25405,6 +25955,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -25595,6 +26150,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",
@@ -25837,6 +26397,11 @@ var events = map[string]*Event{
 						Type:        "string",
 					},
 					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
+					},
+					{
 						Name:        "region",
 						Description: "is the region the user is in",
 						Type:        "string",
@@ -26037,6 +26602,11 @@ var events = map[string]*Event{
 						Name:        "country_code",
 						Description: "is the country code the user is in",
 						Type:        "string",
+					},
+					{
+						Name:        "latitude",
+						Description: "is the longitude of the user",
+						Type:        "number",
 					},
 					{
 						Name:        "region",

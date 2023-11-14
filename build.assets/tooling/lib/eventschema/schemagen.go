@@ -188,6 +188,9 @@ func (generator *SchemaGenerator) singularProp(field *tree.Field, prop *apiextv1
 	case field.IsInt64() || field.IsUint64():
 		prop.Type = "integer"
 		prop.Format = "int64"
+	case field.IsDouble():
+		prop.Type = "number"
+		prop.Format = "double"
 	case field.IsBytes():
 		// We ignore the bytes?
 		prop.Type = "null"

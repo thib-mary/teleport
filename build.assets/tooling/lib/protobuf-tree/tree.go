@@ -143,7 +143,6 @@ func (forest *Forest) addMessageFromDesc(msgDesc *gogodesc.DescriptorProto, inde
 	}
 
 	return &message
-
 }
 
 func (file File) Forest() *Forest {
@@ -288,6 +287,10 @@ func (field Field) IsBytes() bool {
 
 func (field Field) IsEnum() bool {
 	return field.desc.IsEnum()
+}
+
+func (field Field) IsDouble() bool {
+	return field.desc.GetType() == gogodesc.FieldDescriptorProto_TYPE_DOUBLE
 }
 
 func (field Field) IsInt64() bool {
