@@ -45,6 +45,8 @@ func (a *AnomalyDetection) FillAuditEventMetadata(ipAddrWithPort string, evt *ev
 		evt.Region = pickEnOrFirstEntry(city.Subdivisions[0].Names)
 	}
 	evt.City = pickEnOrFirstEntry(city.City.Names)
+	evt.Latitude = city.Location.Latitude
+	evt.Longitude = city.Location.Longitude
 	return nil
 }
 
