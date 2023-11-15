@@ -4252,7 +4252,7 @@ func TestGRPCServer_checkIfUserMetadataExists(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := g.checkIfUserMetadataExistsAndAssignData(tt.evt)
+			err := g.checkIfUserMetadataExistsAndAssignData(context.TODO(), tt.evt)
 			require.NoError(t, err)
 			require.Equal(t, tt.want, tt.evt)
 		})
