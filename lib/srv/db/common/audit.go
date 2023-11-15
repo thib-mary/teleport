@@ -100,16 +100,24 @@ func NewAudit(config AuditConfig) (Audit, error) {
 	}, nil
 }
 
+func MakeConnectionMetadata(sess *Session) events.ConnectionMetadata {
+	return events.ConnectionMetadata{
+		RemoteAddr: sess.RemoteAddress,
+		Protocol:   sess.Database.GetProtocol(),
+	}
+}
+
 // OnSessionStart emits an audit event when database session starts.
 func (a *audit) OnSessionStart(ctx context.Context, session *Session, sessionErr error) {
 	event := &events.DatabaseSessionStart{
 		Metadata: MakeEventMetadata(session,
 			libevents.DatabaseSessionStartEvent,
 			libevents.DatabaseSessionStartCode),
-		ServerMetadata:   MakeServerMetadata(session),
-		UserMetadata:     MakeUserMetadata(session),
-		SessionMetadata:  MakeSessionMetadata(session),
-		DatabaseMetadata: MakeDatabaseMetadata(session),
+		ServerMetadata:     MakeServerMetadata(session),
+		UserMetadata:       MakeUserMetadata(session),
+		SessionMetadata:    MakeSessionMetadata(session),
+		DatabaseMetadata:   MakeDatabaseMetadata(session),
+		ConnectionMetadata: MakeConnectionMetadata(session),
 		Status: events.Status{
 			Success: true,
 		},

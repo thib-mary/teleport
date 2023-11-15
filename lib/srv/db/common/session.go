@@ -58,7 +58,9 @@ type Session struct {
 	// LockTargets is a list of lock targets applicable to this session.
 	LockTargets []types.LockTarget
 	// AuthContext is the identity context of the user.
-	AuthContext *authz.Context
+	AuthContext   *authz.Context
+	RemoteAddress string
+	LocalAddress  string
 }
 
 // String returns string representation of the session parameters.
