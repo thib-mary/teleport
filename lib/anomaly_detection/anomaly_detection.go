@@ -2,6 +2,7 @@ package anomalydetection
 
 import (
 	"net"
+	"strconv"
 
 	"github.com/gravitational/trace"
 	maxminddb "github.com/oschwald/geoip2-golang"
@@ -68,8 +69,8 @@ func (a *AnomalyDetection) FillAuditEventMetadata(ipAddrWithPort string, evt *ev
 	evt.CountryCode = rec.CountryCode
 	evt.Region = rec.Region
 	evt.City = rec.City
-	evt.Latitude = rec.Latitude
-	evt.Longitude = rec.Longitude
+	evt.Latitude = strconv.FormatFloat(rec.Latitude, 'f', -1, 64)
+	evt.Longitude = strconv.FormatFloat(rec.Longitude, 'f', -1, 64)
 	return nil
 }
 

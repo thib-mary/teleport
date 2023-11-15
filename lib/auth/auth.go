@@ -6322,7 +6322,7 @@ func (a *Server) checkIfUserMetadataExistsAndAssignData(ctx context.Context, evt
 
 func (a *Server) createLockOnDataMismatch(ctx context.Context, userMetadata *apievents.UserMetadata) error {
 	data, err := a.GetSessionLocationEntry(ctx, userMetadata.LoginID)
-	if err == nil {
+	if err != nil || data == nil {
 		log.Warnf("session location data not found %v", err)
 		return nil
 	}

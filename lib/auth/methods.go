@@ -756,21 +756,22 @@ func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHReq
 		return nil, trace.Wrap(err)
 	}
 	UserLoginCount.Inc()
-
-	metadata, err := a.anomalyDetection.GetLocationMetadata(req.ClientMetadata.RemoteAddr)
-	if err != nil {
-		return nil, trace.Wrap(err)
-	}
-	if err = a.CreateSessionLocationEntry(ctx,
-		types.LocationEntry{
-			LoginID:    loginID,
-			LoginTime:  a.clock.Now().UTC(),
-			Country:    metadata.Country,
-			City:       metadata.City,
-			Expiration: a.clock.Now().UTC().Add(certReq.ttl),
-		},
-	); err != nil {
-		return nil, trace.Wrap(err)
+	if a.anomalyDetection != nil {
+		metadata, err := a.anomalyDetection.GetLocationMetadata(req.ClientMetadata.RemoteAddr)
+		if err != nil {
+			return nil, trace.Wrap(err)
+		}
+		if err = a.CreateSessionLocationEntry(ctx,
+			types.LocationEntry{
+				LoginID:    loginID,
+				LoginTime:  a.clock.Now().UTC(),
+				Country:    metadata.Country,
+				City:       metadata.City,
+				Expiration: a.clock.Now().UTC().Add(certReq.ttl),
+			},
+		); err != nil {
+			return nil, trace.Wrap(err)
+		}
 	}
 
 	return &SSHLoginResponse{

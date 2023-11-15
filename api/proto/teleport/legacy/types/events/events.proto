@@ -115,9 +115,9 @@ message GeoLocationData {
   // Region is the region the user is in.
   string Region = 4 [(gogoproto.jsontag) = "region,omitempty"];
   // Latitude is the latitude of the user connection.
-  double Latitude = 5 [(gogoproto.jsontag) = "latitude,omitempty"];
+  string Latitude = 5 [(gogoproto.jsontag) = "latitude,omitempty"];
   // Longitude is the longitude of the user connection.
-  double Longitude = 6 [(gogoproto.jsontag) = "longitude,omitempty"];
+  string Longitude = 6 [(gogoproto.jsontag) = "longitude,omitempty"];
 }
 
 // Server is a server metadata

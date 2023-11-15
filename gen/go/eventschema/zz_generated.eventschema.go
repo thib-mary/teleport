@@ -869,12 +869,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -1109,12 +1109,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -1266,12 +1266,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -1499,12 +1499,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -1671,12 +1671,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -1883,12 +1883,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -2155,12 +2155,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -2382,12 +2382,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -2744,12 +2744,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -2996,12 +2996,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -3178,12 +3178,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -3370,12 +3370,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -3537,12 +3537,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -3689,12 +3689,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -3841,12 +3841,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -4182,12 +4182,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -4432,12 +4432,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -4682,12 +4682,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -4945,12 +4945,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -5426,12 +5426,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -5711,12 +5711,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -5883,12 +5883,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -6128,12 +6128,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -6373,12 +6373,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -6636,12 +6636,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -6911,12 +6911,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -7216,12 +7216,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -7398,12 +7398,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -7590,12 +7590,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -7842,12 +7842,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -8064,12 +8064,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -8281,12 +8281,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -8542,12 +8542,12 @@ var events = map[string]*Event{
 							{
 								Name:        "latitude",
 								Description: "is the latitude of the user connection",
-								Type:        "number",
+								Type:        "string",
 							},
 							{
 								Name:        "longitude",
 								Description: "is the longitude of the user connection",
-								Type:        "number",
+								Type:        "string",
 							},
 							{
 								Name:        "region",
@@ -8723,12 +8723,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -8968,12 +8968,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -9242,12 +9242,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -9474,12 +9474,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -9752,12 +9752,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -9924,12 +9924,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -10096,12 +10096,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -10363,12 +10363,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -10651,12 +10651,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -10838,12 +10838,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -11010,12 +11010,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -11197,12 +11197,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -11426,12 +11426,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -11598,12 +11598,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -11770,12 +11770,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -11937,12 +11937,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -12104,12 +12104,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -12349,12 +12349,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -12599,12 +12599,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -12844,12 +12844,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -13094,12 +13094,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -13344,12 +13344,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -13594,12 +13594,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -13844,12 +13844,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -14089,12 +14089,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -14347,12 +14347,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -14597,12 +14597,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -14855,12 +14855,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -15110,12 +15110,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -15360,12 +15360,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -15615,12 +15615,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -15797,12 +15797,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -15969,12 +15969,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -16141,12 +16141,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -16776,12 +16776,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -16998,12 +16998,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -17243,12 +17243,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -17506,12 +17506,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -17761,12 +17761,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -18024,12 +18024,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -18269,12 +18269,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -18451,12 +18451,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -18629,12 +18629,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -18786,12 +18786,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -18948,12 +18948,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -19115,12 +19115,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -19398,12 +19398,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -19570,12 +19570,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -19742,12 +19742,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -19914,12 +19914,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -20086,12 +20086,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -20258,12 +20258,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -20430,12 +20430,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -20902,12 +20902,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -21214,12 +21214,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -21519,12 +21519,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -21804,12 +21804,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -22004,12 +22004,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -22346,12 +22346,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -22583,12 +22583,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -22830,12 +22830,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -23154,12 +23154,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -23417,12 +23417,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -23654,12 +23654,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -23941,12 +23941,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -24113,12 +24113,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -24335,12 +24335,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -24696,12 +24696,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -24863,12 +24863,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -25035,12 +25035,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -25207,12 +25207,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -25424,12 +25424,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -25606,12 +25606,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -25786,12 +25786,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -25981,12 +25981,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -26180,12 +26180,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -26337,12 +26337,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -26514,12 +26514,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -26714,12 +26714,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -26964,12 +26964,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
@@ -27176,12 +27176,12 @@ var events = map[string]*Event{
 					{
 						Name:        "latitude",
 						Description: "is the latitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "longitude",
 						Description: "is the longitude of the user connection",
-						Type:        "number",
+						Type:        "string",
 					},
 					{
 						Name:        "region",
