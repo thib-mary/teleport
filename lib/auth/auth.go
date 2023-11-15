@@ -2230,6 +2230,7 @@ func (a *Server) AugmentContextUserCertificates(
 		mfaVerified:          identity.MFAVerified,
 		activeAccessRequests: identity.ActiveRequests,
 		deviceID:             opts.DeviceExtensions.DeviceID, // Check lock against requested device.
+		loginID:              identity.LoginID,
 	}); err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -2366,6 +2367,7 @@ func generateCert(a *Server, req certRequest, caType types.CertAuthType) (*proto
 		mfaVerified:          req.mfaVerified,
 		activeAccessRequests: req.activeRequests.AccessRequests,
 		deviceID:             req.deviceExtensions.DeviceID,
+		loginID:              req.loginID,
 	}); err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -2709,6 +2711,8 @@ type verifyLocksForUserCertsReq struct {
 	// deviceID is the trusted device ID.
 	// Eg: tlsca.Identity.DeviceExtensions.DeviceID
 	deviceID string
+	// loginID is the login ID present in the certificate.
+	loginID string
 }
 
 // verifyLocksForUserCerts verifies if any locks are in place before issuing new
@@ -2721,6 +2725,7 @@ func (a *Server) verifyLocksForUserCerts(req verifyLocksForUserCertsReq) error {
 		{User: req.username},
 		{MFADevice: req.mfaVerified},
 		{Device: req.deviceID},
+		{LoginID: req.loginID},
 	}
 	lockTargets = append(lockTargets,
 		services.RolesToLockTargets(checker.RoleNames())...,

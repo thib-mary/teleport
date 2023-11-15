@@ -47,6 +47,7 @@ func (c *LockCommand) Initialize(app *kingpin.Application, config *servicecfg.Co
 	c.mainCmd.Flag("user", "Name of a Teleport user to disable.").StringVar(&c.spec.Target.User)
 	c.mainCmd.Flag("role", "Name of a Teleport role to disable.").StringVar(&c.spec.Target.Role)
 	c.mainCmd.Flag("login", "Name of a local UNIX user to disable.").StringVar(&c.spec.Target.Login)
+	c.mainCmd.Flag("login_id", "ID of a specific user logged session.").StringVar(&c.spec.Target.LoginID)
 	// Locking a node is now deprecated, but we still support it for backwards compatibility.
 	// Previously, locking a node would lock only the `ssh_service` from that node to
 	// access Teleport but didn't prevent any other roles that the same instance could run.

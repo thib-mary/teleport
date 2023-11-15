@@ -242,7 +242,8 @@ func (t LockTarget) IsEmpty() bool {
 		t.WindowsDesktop == "" &&
 		t.AccessRequest == "" &&
 		t.Device == "" &&
-		t.ServerID == ""
+		t.ServerID == "" &&
+		t.LoginID == ""
 }
 
 // Match returns true if the lock's target is matched by this target.
@@ -264,7 +265,8 @@ func (t LockTarget) Match(lock Lock) bool {
 			// and not the other services running on that host.
 			// Newer versions of Teleport will lock all services based on the ServerID field.
 			(lockTarget.Node != "" && lockTarget.Node == t.Node) ||
-			(lockTarget.ServerID != "" && lockTarget.ServerID == t.ServerID))
+			(lockTarget.ServerID != "" && lockTarget.ServerID == t.ServerID)) &&
+		(t.LoginID == "" || lockTarget.LoginID == t.LoginID)
 }
 
 // String returns string representation of the LockTarget.

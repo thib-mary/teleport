@@ -52,6 +52,9 @@ func LockTargetsFromTLSIdentity(id tlsca.Identity) []types.LockTarget {
 		lockTargets = append(lockTargets, types.LockTarget{Device: id.DeviceExtensions.DeviceID})
 	}
 	lockTargets = append(lockTargets, AccessRequestsToLockTargets(id.ActiveRequests)...)
+	if id.LoginID != "" {
+		lockTargets = append(lockTargets, types.LockTarget{LoginID: id.LoginID})
+	}
 	return lockTargets
 }
 

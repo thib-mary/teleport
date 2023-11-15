@@ -1309,6 +1309,9 @@ func ComputeLockTargets(clusterName, serverID string, id IdentityContext) []type
 	if trustedDevice := id.Certificate.Extensions[teleport.CertExtensionDeviceID]; trustedDevice != "" {
 		lockTargets = append(lockTargets, types.LockTarget{Device: trustedDevice})
 	}
+	if loginID := id.Certificate.Extensions[teleport.CertExtensionLoginID]; loginID != "" {
+		lockTargets = append(lockTargets, types.LockTarget{LoginID: loginID})
+	}
 	roles := apiutils.Deduplicate(append(id.AccessChecker.RoleNames(), id.UnmappedRoles...))
 	lockTargets = append(lockTargets, services.RolesToLockTargets(roles)...)
 	lockTargets = append(lockTargets, services.AccessRequestsToLockTargets(id.ActiveRequests)...)

@@ -4722,6 +4722,9 @@ message LockTarget {
 
   // ServerID is the host id of the Teleport instance.
   string ServerID = 9 [(gogoproto.jsontag) = "server_id,omitempty"];
+
+  // LoginID is the login_id contained in the certificate.
+  string LoginID = 10 [(gogoproto.jsontag) = "login_id,omitempty"];
 }
 
 // AddressCondition represents a set of addresses. Presently the addresses are specified
