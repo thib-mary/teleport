@@ -23,22 +23,31 @@ func NewAnomalyDetection(databaseFile string) (*AnomalyDetection, error) {
 	}, nil
 }
 
-func (a *AnomalyDetection) FillAuditEventMetadata(ipAddrWithPort string, evt *events.GeoLocationData) error {
+type Location struct {
+	Country     string
+	CountryCode string
+	Region      string
+	City        string
+	Latitude    float64
+	Longitude   float64
+}
+
+func (a *AnomalyDetection) GetLocationMetadata(ipAddrWithPort string) (*Location, error) {
 	ipAddr, _, err := net.SplitHostPort(ipAddrWithPort)
 	if err != nil {
-		return trace.Wrap(err, "failed to split ip address and port %s", ipAddrWithPort)
+		return nil, trace.Wrap(err, "failed to split ip address and port %s", ipAddrWithPort)
 	}
 
 	ip := net.ParseIP(ipAddr)
 	if ip == nil {
-		return trace.BadParameter("failed to parse ip address %s", ipAddr)
+		return nil, trace.BadParameter("failed to parse ip address %s", ipAddr)
 	}
 
 	city, err := a.reader.City(ip)
 	if err != nil {
-		return trace.Wrap(err, "failed to lookup ip address %s", ipAddr)
+		return nil, trace.Wrap(err, "failed to lookup ip address %s", ipAddr)
 	}
-
+	evt := &Location{}
 	evt.Country = pickEnOrFirstEntry(city.Country.Names)
 	evt.CountryCode = city.Country.IsoCode
 	if len(city.Subdivisions) > 0 {
@@ -47,6 +56,20 @@ func (a *AnomalyDetection) FillAuditEventMetadata(ipAddrWithPort string, evt *ev
 	evt.City = pickEnOrFirstEntry(city.City.Names)
 	evt.Latitude = city.Location.Latitude
 	evt.Longitude = city.Location.Longitude
+	return evt, nil
+}
+
+func (a *AnomalyDetection) FillAuditEventMetadata(ipAddrWithPort string, evt *events.GeoLocationData) error {
+	rec, err := a.GetLocationMetadata(ipAddrWithPort)
+	if err != nil {
+		return trace.Wrap(err)
+	}
+	evt.Country = rec.Country
+	evt.CountryCode = rec.CountryCode
+	evt.Region = rec.Region
+	evt.City = rec.City
+	evt.Latitude = rec.Latitude
+	evt.Longitude = rec.Longitude
 	return nil
 }
 

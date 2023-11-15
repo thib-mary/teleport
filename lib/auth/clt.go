@@ -147,6 +147,14 @@ func (c *Client) CreateCertAuthority(ctx context.Context, ca types.CertAuthority
 	return trace.NotImplemented(notImplementedMessage)
 }
 
+func (c *Client) CreateSessionLocationEntry(ctx context.Context, loc types.LocationEntry) error {
+	return trace.NotImplemented(notImplementedMessage)
+}
+
+func (c *Client) GetSessionLocationEntry(ctx context.Context, loginID string) (*types.LocationEntry, error) {
+	return nil, trace.NotImplemented(notImplementedMessage)
+}
+
 // UpsertCertAuthority updates or inserts new cert authority
 func (c *Client) UpsertCertAuthority(ctx context.Context, ca types.CertAuthority) error {
 	if err := services.ValidateCertAuthority(ca); err != nil {

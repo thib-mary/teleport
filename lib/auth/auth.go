@@ -6283,7 +6283,7 @@ func DefaultDNSNamesForRole(role types.SystemRole) []string {
 }
 
 // please fix me to remove ref
-func (a *Server) checkIfUserMetadataExistsAndAssignData(evt apievents.AuditEvent) error {
+func (a *Server) checkIfUserMetadataExistsAndAssignData(ctx context.Context, evt apievents.AuditEvent) error {
 	if a.anomalyDetection == nil {
 		return nil
 	}
@@ -6316,5 +6316,34 @@ func (a *Server) checkIfUserMetadataExistsAndAssignData(evt apievents.AuditEvent
 		return nil
 	}
 	err := a.anomalyDetection.FillAuditEventMetadata(connMetadata.RemoteAddr, userMetadata.GeoLocationData)
-	return trace.Wrap(err)
+	errA := a.createLockOnDataMismatch(ctx, userMetadata)
+	return trace.NewAggregate(err, errA)
+}
+
+func (a *Server) createLockOnDataMismatch(ctx context.Context, userMetadata *apievents.UserMetadata) error {
+	data, err := a.GetSessionLocationEntry(ctx, userMetadata.LoginID)
+	if err == nil {
+		log.Warnf("session location data not found %v", err)
+		return nil
+	}
+	if data.City != userMetadata.GeoLocationData.City || data.Country != userMetadata.GeoLocationData.Country {
+		lock, err := types.NewLock(userMetadata.LoginID, types.LockSpecV2{
+			Expires: &data.Expiration,
+			Target: types.LockTarget{
+				LoginID: userMetadata.LoginID,
+			},
+		})
+		if err != nil {
+			return trace.Wrap(err)
+		}
+		err = a.UpsertLock(
+			ctx,
+			lock,
+		)
+		if err != nil {
+			return trace.Wrap(err)
+		}
+	}
+
+	return nil
 }

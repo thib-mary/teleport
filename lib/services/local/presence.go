@@ -50,6 +50,11 @@ type PresenceService struct {
 // `backend.Item` into the implementation of `types.Resource`.
 type backendItemToResourceFunc func(item backend.Item) (types.ResourceWithLabels, error)
 
+const (
+	// sessionLocationKey is a key used to store session location in the backend.
+	sessionLocationKey = "session_location"
+)
+
 // NewPresenceService returns new presence service instance
 func NewPresenceService(b backend.Backend) *PresenceService {
 	return &PresenceService{
@@ -1500,6 +1505,35 @@ func (s *PresenceService) UpsertHostUserInteractionTime(ctx context.Context, nam
 		Value: val,
 	})
 	return trace.Wrap(err)
+}
+
+func (s *PresenceService) CreateSessionLocationEntry(ctx context.Context, loc types.LocationEntry) error {
+	if loc.Expiration.IsZero() {
+		return trace.BadParameter("missing expiration time")
+	}
+	val, err := utils.FastMarshal(loc)
+	if err != nil {
+		return trace.Wrap(err)
+	}
+
+	_, err = s.Put(ctx, backend.Item{
+		Key:     backend.Key(sessionLocationKey, loc.LoginID),
+		Value:   val,
+		Expires: loc.Expiration,
+	})
+	return trace.Wrap(err)
+}
+
+func (s *PresenceService) GetSessionLocationEntry(ctx context.Context, loginID string) (*types.LocationEntry, error) {
+	k, err := s.Get(ctx, backend.Key(sessionLocationKey, loginID))
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	loc := &types.LocationEntry{}
+	if err = utils.FastUnmarshal(k.Value, loc); err != nil {
+		return nil, trace.Wrap(err)
+	}
+	return loc, nil
 }
 
 // GetHostUserInteractionTime retrieves a unix user's interaction time

@@ -240,7 +240,7 @@ func (a *Server) emitAuthAuditEvent(ctx context.Context, props authAuditProps, l
 }
 
 func (a *Server) emitAuditEvent(ctx context.Context, evt apievents.AuditEvent) error {
-	if err := a.checkIfUserMetadataExistsAndAssignData(evt); err != nil {
+	if err := a.checkIfUserMetadataExistsAndAssignData(ctx, evt); err != nil {
 		return trace.Wrap(err)
 	}
 	return trace.Wrap(a.emitter.EmitAuditEvent(a.closeCtx, evt))
@@ -678,6 +678,7 @@ func AuthoritiesToTrustedCerts(authorities []types.CertAuthority) []TrustedCerts
 func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHRequest) (*SSHLoginResponse, error) {
 	username := req.Username // Empty if passwordless.
 	loginID := uuid.New().String()
+
 	authPref, err := a.GetAuthPreference(ctx)
 	if err != nil {
 		return nil, trace.Wrap(err)
@@ -755,6 +756,23 @@ func (a *Server) AuthenticateSSHUser(ctx context.Context, req AuthenticateSSHReq
 		return nil, trace.Wrap(err)
 	}
 	UserLoginCount.Inc()
+
+	metadata, err := a.anomalyDetection.GetLocationMetadata(req.ClientMetadata.RemoteAddr)
+	if err != nil {
+		return nil, trace.Wrap(err)
+	}
+	if err = a.CreateSessionLocationEntry(ctx,
+		types.LocationEntry{
+			LoginID:    loginID,
+			LoginTime:  a.clock.Now().UTC(),
+			Country:    metadata.Country,
+			City:       metadata.City,
+			Expiration: a.clock.Now().UTC().Add(certReq.ttl),
+		},
+	); err != nil {
+		return nil, trace.Wrap(err)
+	}
+
 	return &SSHLoginResponse{
 		Username:    user.GetName(),
 		Cert:        certs.SSH,

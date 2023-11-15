@@ -7124,6 +7124,23 @@ func (a *ServerWithRoles) DeleteClusterMaintenanceConfig(ctx context.Context) er
 	return a.authServer.DeleteClusterMaintenanceConfig(ctx)
 }
 
+func (a *ServerWithRoles) CreateSessionLocationEntry(ctx context.Context, loc types.LocationEntry) error {
+	return trace.NotImplemented("CreateSessionLocationEntry must not be called on auth.ServerWithRoles")
+}
+
+func (a *ServerWithRoles) GetSessionLocationEntry(ctx context.Context, loginID string) (*types.LocationEntry, error) {
+	return nil, trace.NotImplemented("GetSessionLocationEntry must not be called on auth.ServerWithRoles")
+}
+
+func (a *Server) CreateSessionLocationEntry(ctx context.Context, loc types.LocationEntry) error {
+	return trace.Wrap(a.PresenceInternal.CreateSessionLocationEntry(ctx, loc))
+}
+
+func (a *Server) GetSessionLocationEntry(ctx context.Context, loginID string) (*types.LocationEntry, error) {
+	loc, err := a.PresenceInternal.GetSessionLocationEntry(ctx, loginID)
+	return loc, trace.Wrap(err)
+}
+
 // NewAdminAuthServer returns auth server authorized as admin,
 // used for auth server cached access
 func NewAdminAuthServer(authServer *Server, alog events.AuditLogSessionStreamer) (ClientI, error) {

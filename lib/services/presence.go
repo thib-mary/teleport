@@ -243,6 +243,9 @@ type Presence interface {
 
 	// ListResources returns a paginated list of resources.
 	ListResources(ctx context.Context, req proto.ListResourcesRequest) (*types.ListResourcesResponse, error)
+
+	CreateSessionLocationEntry(ctx context.Context, loc types.LocationEntry) error
+	GetSessionLocationEntry(ctx context.Context, loginID string) (*types.LocationEntry, error)
 }
 
 // PresenceInternal extends the Presence interface with auth-specific internal methods.
