@@ -6328,6 +6328,8 @@ func (a *Server) createLockOnDataMismatch(ctx context.Context, userMetadata *api
 	}
 	if data.City != userMetadata.GeoLocationData.City || data.Country != userMetadata.GeoLocationData.Country {
 		lock, err := types.NewLock(userMetadata.LoginID, types.LockSpecV2{
+			Message: fmt.Sprintf("User %q used a certificate generated at %s/%s at a new location %s/%s. Certificate was locked.",
+				userMetadata.User, data.Country, data.City, userMetadata.GeoLocationData.Country, userMetadata.GeoLocationData.City),
 			Expires: &data.Expiration,
 			Target: types.LockTarget{
 				LoginID: userMetadata.LoginID,
