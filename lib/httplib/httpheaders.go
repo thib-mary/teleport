@@ -70,8 +70,13 @@ var defaultContentSecurityPolicy = cspMap{
 	"frame-ancestors": {"'none'"},
 	// additional default restrictions
 	"object-src": {"'none'"},
-	"img-src":    {"'self'", "data:", "blob:"},
-	"style-src":  {"'self'", "'unsafe-inline'"},
+
+	// DANGER! DANGER! DO NOT MERGE!...
+	"img-src": {"'self'", "data:", "blob:", "https://*.tile.openstreetmap.org"},
+	// "img-src":    {"'self'", "data:", "blob:"},
+	// ...DANGER! DANGER! DO NOT MERGE!
+
+	"style-src": {"'self'", "'unsafe-inline'"},
 }
 
 var defaultFontSrc = cspMap{"font-src": {"'self'", "data:"}}
