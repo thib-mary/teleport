@@ -4213,6 +4213,10 @@ func (a *ServerWithRoles) CreateRole(ctx context.Context, role types.Role) (type
 		return nil, trace.Wrap(err)
 	}
 
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
+		return nil, trace.Wrap(err)
+	}
+
 	if err := a.validateRole(ctx, role); err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -4227,6 +4231,10 @@ func (a *ServerWithRoles) UpdateRole(ctx context.Context, role types.Role) (type
 		return nil, trace.Wrap(err)
 	}
 
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
+		return nil, trace.Wrap(err)
+	}
+
 	if err := a.validateRole(ctx, role); err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -4238,6 +4246,10 @@ func (a *ServerWithRoles) UpdateRole(ctx context.Context, role types.Role) (type
 // UpsertRole creates or updates role.
 func (a *ServerWithRoles) UpsertRole(ctx context.Context, role types.Role) (types.Role, error) {
 	if err := a.action(apidefaults.Namespace, types.KindRole, types.VerbCreate, types.VerbUpdate); err != nil {
+		return nil, trace.Wrap(err)
+	}
+
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
 		return nil, trace.Wrap(err)
 	}
 
@@ -4388,6 +4400,11 @@ func (a *ServerWithRoles) DeleteRole(ctx context.Context, name string) error {
 	if err := a.action(apidefaults.Namespace, types.KindRole, types.VerbDelete); err != nil {
 		return trace.Wrap(err)
 	}
+
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
+		return trace.Wrap(err)
+	}
+
 	// DELETE IN (7.0)
 	// It's OK to delete this code alongside migrateOSS code in auth.
 	// It prevents 6.0 from migrating resources multiple times
