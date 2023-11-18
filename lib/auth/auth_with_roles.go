@@ -2591,10 +2591,19 @@ func (a *ServerWithRoles) GetAccessRequests(ctx context.Context, filter types.Ac
 }
 
 func (a *ServerWithRoles) CreateAccessRequestV2(ctx context.Context, req types.AccessRequest) (types.AccessRequest, error) {
+	isPendingUserRequest := req.GetState().IsPending() && a.currentUserAction(req.GetUser()) == nil
+
 	if err := a.action(apidefaults.Namespace, types.KindAccessRequest, types.VerbCreate); err != nil {
 		// An exception is made to allow users to create *pending* access requests
 		// for themselves unless the create verb was explicitly denied.
-		if services.IsAccessExplicitlyDenied(err) || !req.GetState().IsPending() || a.currentUserAction(req.GetUser()) != nil {
+		if services.IsAccessExplicitlyDenied(err) || !isPendingUserRequest {
+			return nil, trace.Wrap(err)
+		}
+	}
+
+	if !isPendingUserRequest {
+		// If this request was authorized by allow rules and not ownership, require MFA.
+		if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
 			return nil, trace.Wrap(err)
 		}
 	}
@@ -2608,6 +2617,10 @@ func (a *ServerWithRoles) CreateAccessRequestV2(ctx context.Context, req types.A
 
 func (a *ServerWithRoles) SetAccessRequestState(ctx context.Context, params types.AccessRequestUpdate) error {
 	if err := a.action(apidefaults.Namespace, types.KindAccessRequest, types.VerbUpdate); err != nil {
+		return trace.Wrap(err)
+	}
+
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
 		return trace.Wrap(err)
 	}
 
@@ -2651,6 +2664,10 @@ func (a *ServerWithRoles) SubmitAccessReview(ctx context.Context, submission typ
 
 	// Check if the current user is allowed to submit the given access review request.
 	if err := AuthorizeAccessReviewRequest(a.context, submission); err != nil {
+		return nil, trace.Wrap(err)
+	}
+
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
 		return nil, trace.Wrap(err)
 	}
 
@@ -2733,6 +2750,11 @@ func (a *ServerWithRoles) DeleteAccessRequest(ctx context.Context, name string) 
 	if err := a.action(apidefaults.Namespace, types.KindAccessRequest, types.VerbDelete); err != nil {
 		return trace.Wrap(err)
 	}
+
+	if err := authz.AuthorizeAdminAction(ctx, &a.context); err != nil {
+		return trace.Wrap(err)
+	}
+
 	return a.authServer.DeleteAccessRequest(ctx, name)
 }
 
