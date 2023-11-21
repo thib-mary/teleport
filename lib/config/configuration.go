@@ -684,6 +684,7 @@ func applyLogConfig(loggerConfig Log, cfg *servicecfg.Config) error {
 		hook, err := logrusSyslog.NewSyslogHook("", "", syslog.LOG_WARNING, "")
 		if err != nil {
 			// syslog is not available
+			logger.Errorf("Failed to switch logging to syslog: %v.", err)
 			w = os.Stderr
 			break
 		}
