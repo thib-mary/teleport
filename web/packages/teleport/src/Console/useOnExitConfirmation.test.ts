@@ -34,6 +34,11 @@ test('confirmation dialog before terminating an active ssh session', () => {
     kind: 'nodes',
     url: 'test',
     created: new Date(),
+    latency: {
+      client: 0,
+      server: 0,
+      total: 0,
+    },
   });
   let docs = ctx.getDocuments();
 
@@ -62,6 +67,11 @@ test('confirmation dialog before terminating an active ssh session', () => {
     login: 'login',
     created: new Date(),
     sid: 'random-123-sid',
+    latency: {
+      client: 0,
+      server: 0,
+      total: 0,
+    },
   });
   docs = ctx.getDocuments();
 
