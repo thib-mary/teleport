@@ -44,51 +44,101 @@ import (
 	logutils "github.com/gravitational/teleport/lib/utils/log"
 )
 
+// LoggingPurpose specifies which kind of application logging is
+// to be configured for.
 type LoggingPurpose int
 
 const (
+	// LoggingForDaemon configures logging for non-user interactive applications (teleport, tbot, tsh deamon).
 	LoggingForDaemon LoggingPurpose = iota
+	// LoggingForCLI configures logging for user face utilities (tctl, tsh).
 	LoggingForCLI
 )
 
+// LoggingFormat defines the possible logging output formats.
+type LoggingFormat = string
+
+const (
+	// LogFormatJSON configures logs to be emitted in json.
+	LogFormatJSON LoggingFormat = "json"
+	// LogFormatText configures logs to be emitted in a human readable text format.
+	LogFormatText LoggingFormat = "text"
+)
+
+type logOpts struct {
+	format LoggingFormat
+}
+
+// LoggerOption enables customizing the global logger.
+type LoggerOption func(opts *logOpts)
+
+// WithLogFormat initializes the default logger with the provided format.
+func WithLogFormat(format LoggingFormat) LoggerOption {
+	return func(opts *logOpts) {
+		opts.format = format
+	}
+}
+
 // InitLogger configures the global logger for a given purpose / verbosity level
-func InitLogger(purpose LoggingPurpose, level slog.Level) {
+func InitLogger(purpose LoggingPurpose, level slog.Level, opts ...LoggerOption) {
+	var o logOpts
+
+	for _, opt := range opts {
+		opt(&o)
+	}
+
 	logrus.StandardLogger().ReplaceHooks(make(logrus.LevelHooks))
 	logrus.SetLevel(logutils.SlogLevelToLogrusLevel(level))
+
+	var (
+		w            io.Writer
+		enableColors bool
+	)
 	switch purpose {
 	case LoggingForCLI:
 		// If debug logging was asked for on the CLI, then write logs to stderr.
 		// Otherwise, discard all logs.
 		if level == slog.LevelDebug {
-			enableColors := trace.IsTerminal(os.Stderr)
-			debugFormatter := logutils.NewDefaultTextFormatter(enableColors)
-			_ = debugFormatter.CheckAndSetDefaults()
-			logrus.SetFormatter(debugFormatter)
-
-			w := logutils.NewSharedWriter(os.Stderr)
-			logrus.SetOutput(w)
-			slog.SetDefault(slog.New(logutils.NewSlogTextHandler(w, &logutils.SlogTextHandlerConfig{
-				Level:        level,
-				EnableColors: enableColors,
-				WithCaller:   true,
-			})))
-			return
+			enableColors = trace.IsTerminal(os.Stderr)
+			w = logutils.NewSharedWriter(os.Stderr)
 		} else {
-			slog.SetDefault(slog.New(slog.NewTextHandler(io.Discard, nil)))
-			logrus.SetOutput(io.Discard)
+			w = io.Discard
+			enableColors = false
 		}
 	case LoggingForDaemon:
-		enableColors := trace.IsTerminal(os.Stderr)
-		w := logutils.NewSharedWriter(os.Stderr)
+		enableColors = trace.IsTerminal(os.Stderr)
+		w = logutils.NewSharedWriter(os.Stderr)
+	}
 
-		logrus.SetFormatter(logutils.NewDefaultTextFormatter(enableColors))
-		logrus.SetOutput(w)
-		slog.SetDefault(slog.New(logutils.NewSlogTextHandler(w, &logutils.SlogTextHandlerConfig{
+	var (
+		formatter logrus.Formatter
+		handler   slog.Handler
+	)
+	switch o.format {
+	case LogFormatText, "":
+		textFormatter := logutils.NewDefaultTextFormatter(enableColors)
+
+		// Calling CheckAndSetDefaults enables the timestamp field to
+		// be included in the output. The error returned is ignored
+		// because the default formatter cannot be invalid.
+		if purpose == LoggingForCLI && level == slog.LevelDebug {
+			_ = textFormatter.CheckAndSetDefaults()
+		}
+
+		formatter = textFormatter
+		handler = logutils.NewSlogTextHandler(w, &logutils.SlogTextHandlerConfig{
 			Level:        level,
 			EnableColors: enableColors,
 			WithCaller:   true,
-		})))
+		})
+	case LogFormatJSON:
+		formatter = &logutils.JSONFormatter{}
+		handler = logutils.NewSlogJSONHandler(w, level)
 	}
+
+	logrus.SetFormatter(formatter)
+	logrus.SetOutput(w)
+	slog.SetDefault(slog.New(handler))
 }
 
 var initTestLoggerOnce = sync.Once{}
