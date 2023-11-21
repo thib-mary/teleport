@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// package servicecfg contains the runtime configuration for Teleport services
+// Package servicecfg contains the runtime configuration for Teleport services
 package servicecfg
 
 import (
@@ -211,8 +211,11 @@ type Config struct {
 	// Kube is a Kubernetes API gateway using Teleport client identities.
 	Kube KubeConfig
 
-	// Log optionally specifies the logger
-	Log    utils.Logger
+	// Log optionally specifies the logger.
+	// Deprecated: use Logger instead.
+	Log utils.Logger
+	// Logger outputs messages using slog. The underlying handler respects
+	// the user supplied logging config.
 	Logger *slog.Logger
 
 	// PluginRegistry allows adding enterprise logic to Teleport services
