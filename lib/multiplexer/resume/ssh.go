@@ -25,6 +25,7 @@ import (
 	"io"
 	"net"
 	"regexp"
+	"strconv"
 	"sync"
 	"time"
 
@@ -195,7 +196,7 @@ func (r *ResumableSSHServer) HandleConnection(nc net.Conn) {
 	conn = nil
 }
 
-var resumablePreludeLine = regexp.MustCompile(`^` + regexp.QuoteMeta(protocolString) + ` ([0-9A-Za-z+/]{87}) ([0-9a-z\-]+)\r\n$`)
+var resumablePreludeLine = regexp.MustCompile(`^` + regexp.QuoteMeta(protocolString) + ` ([0-9A-Za-z+/]{` + strconv.Itoa(base64.RawStdEncoding.EncodedLen(ecdhP256UncompressedSize)) + `}) ([0-9a-z\-]+)\r\n$`)
 
 func readVersionExchange(conn *multiplexer.Conn) (dhPubKey *ecdh.PublicKey, hostID string, err error) {
 	line, err := conn.PeekLine(255)
