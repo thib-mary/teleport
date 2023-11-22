@@ -21,6 +21,7 @@ import (
 	"net"
 	"os"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/gravitational/trace"
@@ -40,8 +41,8 @@ func NewConn(localAddr, remoteAddr net.Addr) *Conn {
 		localAddr:  localAddr,
 		remoteAddr: remoteAddr,
 
-		receive: window{data: make([]byte, 4096)},
-		replay:  window{data: make([]byte, 4096)},
+		receive: buffer{data: make([]byte, 4096)},
+		replay:  buffer{data: make([]byte, 4096)},
 	}
 	c.cond.L = &c.mu
 
@@ -56,19 +57,24 @@ type Conn struct {
 	remoteAddr   net.Addr
 	allowRoaming bool
 
-	closed bool
+	localClosed  bool
+	remoteClosed bool
 	// current is set iff the Conn is attached; it's cleared at the end of run()
 	current io.Closer
 
 	readDeadline  deadline
 	writeDeadline deadline
 
-	receive window
-	replay  window
+	receive buffer
+	replay  buffer
 }
 
 var _ net.Conn = (*Conn)(nil)
 
+// AllowRoaming allows attaching underlying connections with a different remote
+// address than the Conn's remote address. Before calling this function,
+// attaching a new connection will fail if the current and new remote addresses
+// are not [*net.TCPAddr]s with the same IP.
 func (c *Conn) AllowRoaming() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -91,12 +97,29 @@ func sameTCPSourceAddress(addr1, addr2 net.Addr) bool {
 	return t1.IP.Equal(t2.IP)
 }
 
-func (c *Conn) Attach(nc net.Conn, firstRun bool) error {
+// HandleFirstConnection attaches the [net.Conn] as the underlying connection,
+// skipping the initial offset exchange (which is assumed to be zero). Takes
+// ownership of the net.Conn and blocks while
+func (c *Conn) HandleFirstConnection(nc net.Conn) error {
+	const isFirstConn = true
+	return c.handleConnection(nc, isFirstConn)
+}
+
+// HandleConnection attaches the [net.Conn] as the underlying connection. Takes ownership of the net.Conn and blocks until
+func (c *Conn) HandleConnection(nc net.Conn) error {
+	const isNotFirstConn = false
+	return c.handleConnection(nc, isNotFirstConn)
+}
+
+func (c *Conn) handleConnection(nc net.Conn, firstConn bool) error {
 	localAddr := nc.LocalAddr()
 	remoteAddr := nc.RemoteAddr()
 
 	c.mu.Lock()
-	if !c.allowRoaming && !sameTCPSourceAddress(c.remoteAddr, remoteAddr) {
+	// the first conn will always overwrite localAddr and remoteAddr but we
+	// still need to pass them to the constructor to avoid returning nil from
+	// RemoteAddr and LocalAddr between NewConn and HandleFirstConnection
+	if !firstConn && !c.allowRoaming && !sameTCPSourceAddress(c.remoteAddr, remoteAddr) {
 		c.mu.Unlock()
 		nc.Close()
 		return trace.AccessDenied("invalid TCP source address for resumable non-roaming connection")
@@ -104,10 +127,16 @@ func (c *Conn) Attach(nc net.Conn, firstRun bool) error {
 
 	c.waitForDetachLocked()
 
-	if c.closed {
+	if c.localClosed {
 		c.mu.Unlock()
 		nc.Close()
 		return trace.ConnectionProblem(net.ErrClosed, "attaching to a closed resumable connection: %v", net.ErrClosed.Error())
+	}
+
+	if c.remoteClosed {
+		c.mu.Unlock()
+		nc.Close()
+		return trace.ConnectionProblem(syscall.ECONNRESET, "attaching to a closed resumable connection: %v", syscall.ECONNRESET.Error())
 	}
 
 	c.localAddr = localAddr
@@ -116,7 +145,7 @@ func (c *Conn) Attach(nc net.Conn, firstRun bool) error {
 	c.cond.Broadcast()
 	c.mu.Unlock()
 
-	return c.run(nc, firstRun)
+	return c.run(nc, firstConn)
 }
 
 func (c *Conn) waitForDetachLocked() {
@@ -135,7 +164,7 @@ func (c *Conn) Detach() {
 func (c *Conn) Status() (closed, attached bool) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	return c.closed, c.current != nil
+	return c.localClosed, c.current != nil
 }
 
 func (c *Conn) run(nc net.Conn, firstRun bool) error {
@@ -145,7 +174,7 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 		defer c.mu.Unlock()
 		c.current = nil
 		if closeOnReturn {
-			c.closed = true
+			c.localClosed = true
 		}
 		c.cond.Broadcast()
 	}()
@@ -161,7 +190,7 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 	}
 
 	c.mu.Lock()
-	sentReceivePosition := c.receive.End()
+	sentReceivePosition := c.receive.end
 	c.mu.Unlock()
 
 	var peerReceivePosition uint64
@@ -178,7 +207,7 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 	}
 
 	c.mu.Lock()
-	if peerReceivePosition < c.replay.Start() || peerReceivePosition > c.replay.End() {
+	if peerReceivePosition < c.replay.start || peerReceivePosition > c.replay.end {
 		// we advanced our replay buffer past the read point of the peer, or the
 		// read point of the peer is in the future - can't continue, either way
 		c.mu.Unlock()
@@ -187,8 +216,8 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 		return trace.BadParameter("incompatible resume position")
 	}
 
-	if c.replay.Start() != peerReceivePosition {
-		c.replay.Advance(peerReceivePosition - c.replay.Start())
+	if c.replay.start != peerReceivePosition {
+		c.replay.advance(peerReceivePosition - c.replay.start)
 		c.cond.Broadcast()
 	}
 	c.mu.Unlock()
@@ -226,12 +255,12 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 				}
 				c.mu.Lock()
 
-				if replayLen := c.replay.Len(); ack > replayLen {
+				if replayLen := c.replay.len(); ack > replayLen {
 					// trying to move our cursor past the replay buffer?
 					c.mu.Unlock()
 					return trace.BadParameter("ack past end of replay buffer (got %v, len %v)", ack, replayLen)
 				}
-				c.replay.Advance(ack)
+				c.replay.advance(ack)
 				c.cond.Broadcast()
 
 				c.mu.Unlock()
@@ -248,7 +277,7 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 
 			c.mu.Lock()
 			for frameSize > 0 {
-				for c.receive.Len() >= readBufferSize {
+				for c.receive.len() >= readBufferSize {
 					c.cond.Wait()
 					if done {
 						c.mu.Unlock()
@@ -256,8 +285,8 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 					}
 				}
 
-				c.receive.Reserve(min(readBufferSize-c.receive.Len(), frameSize))
-				receiveTail, _ := c.receive.Free()
+				c.receive.reserve(min(readBufferSize-c.receive.len(), frameSize))
+				receiveTail, _ := c.receive.free()
 				receiveTail = receiveTail[:min(frameSize, len64(receiveTail))]
 				c.mu.Unlock()
 
@@ -265,7 +294,7 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 
 				c.mu.Lock()
 				if n > 0 {
-					c.receive.Append(receiveTail[:n])
+					c.receive.append(receiveTail[:n])
 					frameSize -= uint64(n)
 					c.cond.Broadcast()
 				}
@@ -292,9 +321,9 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 			c.mu.Lock()
 			for {
 				sendBuf = nil
-				if c.replay.End() > peerReceivePosition {
-					skip := peerReceivePosition - c.replay.Start()
-					d1, d2 := c.replay.Data()
+				if c.replay.end > peerReceivePosition {
+					skip := peerReceivePosition - c.replay.start
+					d1, d2 := c.replay.allocated()
 					if len64(d1) <= skip {
 						sendBuf = d2[skip-len64(d1):]
 					} else {
@@ -304,7 +333,7 @@ func (c *Conn) run(nc net.Conn, firstRun bool) error {
 						sendBuf = sendBuf[:maxFrameSize]
 					}
 				}
-				sendAck = c.receive.End() - sentReceivePosition
+				sendAck = c.receive.end - sentReceivePosition
 				if len(sendBuf) > 0 || sendAck > 0 {
 					break
 				}
@@ -344,11 +373,11 @@ func (c *Conn) Close() error {
 
 	c.waitForDetachLocked()
 
-	if c.closed {
-		return nil
+	if c.localClosed {
+		return net.ErrClosed
 	}
 
-	c.closed = true
+	c.localClosed = true
 	c.cond.Broadcast()
 
 	return nil
@@ -373,12 +402,12 @@ func (c *Conn) SetDeadline(t time.Time) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.closed {
+	if c.localClosed {
 		return net.ErrClosed
 	}
 
-	c.readDeadline.SetDeadlineLocked(t, &c.cond)
-	c.writeDeadline.SetDeadlineLocked(t, &c.cond)
+	c.readDeadline.setDeadlineLocked(t, &c.cond)
+	c.writeDeadline.setDeadlineLocked(t, &c.cond)
 
 	return nil
 }
@@ -388,11 +417,11 @@ func (c *Conn) SetReadDeadline(t time.Time) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.closed {
+	if c.localClosed {
 		return net.ErrClosed
 	}
 
-	c.readDeadline.SetDeadlineLocked(t, &c.cond)
+	c.readDeadline.setDeadlineLocked(t, &c.cond)
 
 	return nil
 }
@@ -402,11 +431,11 @@ func (c *Conn) SetWriteDeadline(t time.Time) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.closed {
+	if c.localClosed {
 		return net.ErrClosed
 	}
 
-	c.writeDeadline.SetDeadlineLocked(t, &c.cond)
+	c.writeDeadline.setDeadlineLocked(t, &c.cond)
 
 	return nil
 }
@@ -417,11 +446,11 @@ func (c *Conn) Read(b []byte) (n int, err error) {
 	defer c.mu.Unlock()
 
 	for {
-		if c.closed {
+		if c.localClosed {
 			return 0, net.ErrClosed
 		}
 
-		if c.readDeadline.TimeoutLocked() {
+		if c.readDeadline.timeout {
 			return 0, os.ErrDeadlineExceeded
 		}
 
@@ -429,7 +458,7 @@ func (c *Conn) Read(b []byte) (n int, err error) {
 			return 0, nil
 		}
 
-		n := c.receive.Read(b)
+		n := c.receive.read(b)
 		if n > 0 {
 			c.cond.Broadcast()
 			return n, nil
@@ -444,18 +473,18 @@ func (c *Conn) Write(b []byte) (n int, err error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.closed {
+	if c.localClosed {
 		return 0, net.ErrClosed
 	}
 
-	if c.writeDeadline.TimeoutLocked() {
+	if c.writeDeadline.timeout {
 		return 0, os.ErrDeadlineExceeded
 	}
 
 	for {
-		if c.replay.Len() < writeBufferSize {
-			s := min(writeBufferSize-c.replay.Len(), len64(b))
-			c.replay.Append(b[:s])
+		if c.replay.len() < writeBufferSize {
+			s := min(writeBufferSize-c.replay.len(), len64(b))
+			c.replay.append(b[:s])
 			b = b[s:]
 			n += int(s)
 			c.cond.Broadcast()
@@ -467,11 +496,11 @@ func (c *Conn) Write(b []byte) (n int, err error) {
 
 		c.cond.Wait()
 
-		if c.closed {
+		if c.localClosed {
 			return n, net.ErrClosed
 		}
 
-		if c.writeDeadline.TimeoutLocked() {
+		if c.writeDeadline.timeout {
 			return n, os.ErrDeadlineExceeded
 		}
 	}
@@ -481,117 +510,121 @@ func len64(s []byte) uint64 {
 	return uint64(len(s))
 }
 
-type window struct {
+// buffer represents a view of contiguous data in a bytestream, between the
+// absolute positions start and end (with 0 being the beginning of the
+// bytestream). The byte at absolute position i is data[i % len(data)],
+// len(data) is always a power of two (therefore it's always non-empty), and
+// len(data) == cap(data).
+type buffer struct {
 	data  []byte
 	start uint64
-	len   uint64
+	end   uint64
 }
 
-func (w *window) bounds() (capacity, left, right uint64) {
-	capacity = len64(w.data)
-	left = w.start % capacity
-	right = left + w.len
-	return
+// bounds returns the indexes of start and end in the current data slice. It's
+// possible for left to be greater than right, which happens when the data is
+// stored across the end of the slice.
+func (w *buffer) bounds() (left, right uint64) {
+	return w.start % len64(w.data), w.end % len64(w.data)
 }
 
-func (w *window) Start() uint64 {
-	return w.start
+func (w *buffer) len() uint64 {
+	return w.end - w.start
 }
 
-func (w *window) Len() uint64 {
-	return w.len
-}
-
-func (w *window) End() uint64 {
-	return w.start + w.len
-}
-
-func (w *window) Data() ([]byte, []byte) {
-	c, l, r := w.bounds()
-
-	if r > c {
-		return w.data[l:], w.data[:r-c]
+func (w *buffer) allocated() ([]byte, []byte) {
+	if w.len() == 0 {
+		return nil, nil
 	}
-	return w.data[l:r], nil
-}
 
-func (w *window) Free() ([]byte, []byte) {
-	c, l, r := w.bounds()
+	left, right := w.bounds()
 
-	if r > c {
-		return w.data[r-c : l], nil
+	if left >= right {
+		return w.data[left:], w.data[:right]
 	}
-	return w.data[r:], w.data[:l]
+	return w.data[left:right], nil
 }
 
-func (w *window) Reserve(n uint64) {
-	if w.len+n <= len64(w.data) {
+func (w *buffer) free() ([]byte, []byte) {
+	if w.len() == 0 {
+		return w.data, nil
+	}
+
+	left, right := w.bounds()
+
+	if left >= right {
+		return w.data[right:left], nil
+	}
+	return w.data[right:], w.data[:left]
+}
+
+func (w *buffer) reserve(n uint64) {
+	if w.len()+n <= len64(w.data) {
 		return
 	}
 
-	d1, d2 := w.Data()
-	c := len64(w.data) * 2
-	for w.len+n > c {
-		c *= 2
+	d1, d2 := w.allocated()
+	capacity := len64(w.data) * 2
+	for w.len()+n > capacity {
+		capacity *= 2
 	}
-	w.data = make([]byte, c)
-	l := w.start % c
-	copy(w.data[l:], d1)
-	m := l + len64(d1)
-	if m > c {
-		m -= c
+	w.data = make([]byte, capacity)
+	left := w.start % capacity
+	copy(w.data[left:], d1)
+	mid := left + len64(d1)
+	if mid > capacity {
+		mid -= capacity
 	}
-	copy(w.data[m:], d2)
+	copy(w.data[mid:], d2)
 }
 
-func (w *window) Append(b []byte) {
-	w.Reserve(len64(b))
-	f1, f2 := w.Free()
+func (w *buffer) append(b []byte) {
+	w.reserve(len64(b))
+	f1, f2 := w.free()
 	copy(f2, b[copy(f1, b):])
-	w.len += len64(b)
+	w.end += len64(b)
 }
 
-func (w *window) Advance(n uint64) {
+func (w *buffer) advance(n uint64) {
 	w.start += n
-	w.len -= min(n, w.len)
+	if w.start > w.end {
+		w.end = w.start
+	}
 }
 
-func (w *window) Read(b []byte) int {
-	d1, d2 := w.Data()
+func (w *buffer) read(b []byte) int {
+	d1, d2 := w.allocated()
 	n := copy(b, d1)
 	n += copy(b[n:], d2)
-	w.Advance(uint64(n))
+	w.advance(uint64(n))
 	return n
 }
 
 type deadline struct {
-	timeout  bool
-	deadline time.Time
-	timer    *time.Timer
-	stopped  bool
+	timeout bool
+	stopped bool
+	timer   *time.Timer
 }
 
-func (d *deadline) TimeoutLocked() bool {
-	return d.timeout
-}
-
-func (d *deadline) SetDeadlineLocked(t time.Time, cond *sync.Cond) {
-	if t.Equal(d.deadline) {
-		return
-	}
-	d.deadline = t
-
-	if !d.stopped && d.timer != nil {
-		if !d.timer.Stop() && !d.timeout {
-			// the timer has fired but the callback hasn't completed yet (it's
-			// likely blocked on the lock which we're holding), so we have to
-			// change d.timer to prevent it from setting a timeout that should
-			// no longer be valid
-			d.timer = nil
-		} else {
+func (d *deadline) setDeadlineLocked(t time.Time, cond *sync.Cond) {
+	if d.timer != nil && !d.stopped {
+		if d.timer.Stop() {
+			// the happy path: we stopped the timer with plenty of time left, so
+			// we prevented the execution of the func, and we can just reuse the
+			// timer; unfortunately, timer.Stop() again will return false, so we
+			// have to keep an additional boolean flag around
 			d.stopped = true
+		} else {
+			// the timer has fired but the func hasn't completed yet (it'll get
+			// stuck acquiring the lock that we're currently holding), so we
+			// reset d.timer to tell the func that it should do nothing after
+			// acquiring the lock
+			d.timer = nil
 		}
 	}
+
+	// if we got here, either timer is nil and stopped is unset, or timer is not
+	// nil but it's not running (and can be reused), and stopped is set
 
 	if t.IsZero() {
 		d.timeout = false
@@ -606,6 +639,8 @@ func (d *deadline) SetDeadlineLocked(t time.Time, cond *sync.Cond) {
 		return
 	}
 
+	d.timeout = false
+
 	if d.timer == nil {
 		thisTimer := new(*time.Timer)
 		d.timer = time.AfterFunc(dt, func() {
@@ -615,12 +650,12 @@ func (d *deadline) SetDeadlineLocked(t time.Time, cond *sync.Cond) {
 				return
 			}
 			d.timeout = true
+			d.stopped = true
 			cond.Broadcast()
 		})
 		*thisTimer = d.timer
 	} else {
 		d.timer.Reset(dt)
+		d.stopped = false
 	}
-
-	d.stopped = false
 }

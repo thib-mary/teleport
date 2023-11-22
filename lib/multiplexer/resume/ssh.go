@@ -164,7 +164,7 @@ func (r *ResumableSSHServer) HandleConnection(nc net.Conn) {
 		r.mu.Unlock()
 
 		go r.sshServer.HandleConnection(resumableConn)
-		r.log.Debugf("Handling new resumable connection: %v", resumableConn.Attach(conn, true))
+		r.log.Debugf("Handling new resumable connection: %v", resumableConn.HandleFirstConnection(conn))
 		return
 	case 1:
 	}
@@ -192,7 +192,7 @@ func (r *ResumableSSHServer) HandleConnection(nc net.Conn) {
 		return
 	}
 
-	r.log.Debugf("Handling existing resumable connection: %v", keyConn.conn.Attach(conn, false))
+	r.log.Debugf("Handling existing resumable connection: %v", keyConn.conn.HandleConnection(conn))
 	conn = nil
 }
 
@@ -299,7 +299,7 @@ func MaybeResumableSSHClientConn(nc net.Conn, connCtx context.Context, dial func
 	detached := make(chan struct{})
 	go func() {
 		defer close(detached)
-		resumableConn.Attach(conn, true)
+		resumableConn.HandleFirstConnection(conn)
 	}()
 
 	go func() {
@@ -411,7 +411,7 @@ func MaybeResumableSSHClientConn(nc net.Conn, connCtx context.Context, dial func
 			detached = make(chan struct{})
 			go func() {
 				defer close(detached)
-				resumableConn.Attach(c, false)
+				resumableConn.HandleConnection(c)
 			}()
 
 			backoff = 0
