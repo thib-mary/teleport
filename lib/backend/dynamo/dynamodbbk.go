@@ -236,31 +236,30 @@ func New(ctx context.Context, params backend.Params) (*Backend, error) {
 		clock:  clockwork.NewRealClock(),
 		buf:    buf,
 	}
+
 	// determine if the FIPS endpoints should be used
 	useFIPSEndpoint := endpoints.FIPSEndpointStateUnset
 	if modules.GetModules().IsBoringBinary() {
 		useFIPSEndpoint = endpoints.FIPSEndpointStateEnabled
 	}
-	// create an AWS session using default SDK behavior, i.e. it will interpret
-	// the environment and ~/.aws directory just like an AWS CLI tool would:
-	b.session, err = session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-		Config: aws.Config{
-			EC2MetadataEnableFallback: aws.Bool(false),
-			UseFIPSEndpoint:           useFIPSEndpoint,
-		},
-	})
-	if err != nil {
-		return nil, trace.Wrap(err)
+
+	awsConfig := aws.Config{
+		EC2MetadataEnableFallback: aws.Bool(false),
 	}
-	// override the default environment (region + credentials) with the values
-	// from the YAML file:
 	if cfg.Region != "" {
-		b.session.Config.Region = aws.String(cfg.Region)
+		awsConfig.Region = aws.String(cfg.Region)
 	}
 	if cfg.AccessKey != "" || cfg.SecretKey != "" {
 		creds := credentials.NewStaticCredentials(cfg.AccessKey, cfg.SecretKey, "")
-		b.session.Config.Credentials = creds
+		awsConfig.Credentials = creds
+	}
+
+	b.session, err = session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+		Config:            awsConfig,
+	})
+	if err != nil {
+		return nil, trace.Wrap(err)
 	}
 
 	// Increase the size of the connection pool. This substantially improves the
@@ -276,11 +275,19 @@ func New(ctx context.Context, params backend.Params) (*Backend, error) {
 	b.session.Config.HTTPClient = httpClient
 
 	// create DynamoDB service:
-	svc, err := dynamometrics.NewAPIMetrics(dynamometrics.Backend, dynamodb.New(b.session))
+	svc, err := dynamometrics.NewAPIMetrics(dynamometrics.Backend, dynamodb.New(b.session, &aws.Config{
+		// Setting this on the individual service instead of the session, as DynamoDB Streams
+		// and Application Auto Scaling do not yet have FIPS endpoints in non-GovCloud.
+		// See also: https://aws.amazon.com/compliance/fips/#FIPS_Endpoints_by_Service
+		// TODO(reed): This can be simplified once https://github.com/aws/aws-sdk-go/pull/5078
+		// is available (or whenever AWS adds the missing FIPS endpoints).
+		UseFIPSEndpoint: useFIPSEndpoint,
+	}))
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 	b.svc = svc
+
 	streams, err := dynamometrics.NewStreamsMetricsAPI(dynamometrics.Backend, dynamodbstreams.New(b.session))
 	if err != nil {
 		return nil, trace.Wrap(err)
