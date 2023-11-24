@@ -20,7 +20,7 @@ leader with a Kubernetes lease.
 
 <Admonition type="warning">
 Only one operator deployment should run against a Teleport cluster. Else, different operators
-could fight against each other and cause instability and non-deterministric behaviour.
+could cause instability and non-deterministic behaviour.
 </Admonition>
 
 Currently supported Teleport resources are:
@@ -37,7 +37,7 @@ If you are self-hosting Teleport using the `teleport-cluster` Helm chart,
 follow [the guide for Helm-deployed clusters](./teleport-operator-helm.mdx).
 
 If you are hosting Teleport out of Kubernetes (Teleport Cloud, Terraform, ...),
-follow [the guide for remote Teleport clusters](./teleport-operator-standalone.mdx).
+follow [the standalone operator guide](./teleport-operator-standalone.mdx).
 
 ### Troubleshooting
 

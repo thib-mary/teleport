@@ -1,10 +1,10 @@
 ---
-title: Kubernetes Operator for remote Teleport clusters
-description: Run the operator against a remote Teleport cluster such as Teleport Cloud.
+title: Standalone Kubernetes Operator
+description: Run a standalone operator against a remote Teleport cluster such as Teleport Cloud.
 ---
 
 This guide explains how to run the Teleport Kubernetes Operator against any remote Teleport cluster.
-If your Teleport cluster is deployed using the `teleport-cluster` Helm hart, you might want to follow
+If your Teleport cluster is deployed using the `teleport-cluster` Helm chart, you might want to follow
 [the guide for Helm-deployed clusters](./teleport-operator-helm.mdx) instead.
 
 ## Prerequisites
@@ -33,7 +33,7 @@ $ kubectl cluster-info
   ```
 </Admonition>
 
-### Step 1/X - Create the operator role
+### Step 1/4 - Create the operator role
 
 In this step we create the role the operator uses to interact with Teleport resources.
 
@@ -50,7 +50,7 @@ resources, you will need to re-apply the operator role manifest. This will grant
 the operator access to the new resources.
 </Admonition>
 
-### Step 2/X - Create the operator join token
+### Step 2/4 - Create the operator join token
 
 The join token is used by the operator on each startup to join the Teleport cluster and retrieve its client certificates.
 
@@ -58,7 +58,7 @@ To establish trust between the connecting operator and Teleport, we are delegati
 
 1. Retrieve the Kubernetes JWKS (the keys Teleport can use to validate Kubernetes SA tokens)
    ```shell
-   $ export JWKS "$(kubectl get --raw /openid/v1/jwks)"
+   $ export JWKS="$(kubectl get --raw /openid/v1/jwks)"
    ```
 1. Create the token manifest that allows serviceaccount teleport-iac-operator from the namespace teleport-iac to join the cluster as the operator.
    ```shell
@@ -86,19 +86,18 @@ To establish trust between the connecting operator and Teleport, we are delegati
    $ tctl create -f operator-token.yaml
    ```
 
-### Step 3/X - Create the operator bot
+### Step 3/4 - Create the operator bot
 
-In Teleport, is the resource allowing a machine to access Teleport.
+In Teleport, a bot is a resource allowing a machine to access Teleport.
 Create a bot for the operator with the following command:
 
 ```shell
 $ tctl bots add operator --token operator-bot --role operator
 ```
 
-### Step 4/X - Deploy the operator in the Kubernetes cluster
+### Step 4/4 - Deploy the operator in the Kubernetes cluster
 
-At this point, everything is ready on the Teleport side.
-You can configure and run the operator:
+At this point you can configure and run the operator:
 
 (!docs/pages/kubernetes-access/helm/includes/helm-repo-add.mdx!)
 
@@ -126,6 +125,6 @@ You can configure and run the operator:
 
 (!docs/pages/kubernetes-access/helm/includes/diagnostics/kubernetes-operator-troubleshooting.mdx!)
 
-## Going further
+## Next steps
 
 Helm Chart parameters are documented in the [`teleport-operator` Helm chart reference](../../reference/helm-reference/teleport-operator.mdx).
