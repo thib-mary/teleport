@@ -14,7 +14,7 @@ enabled: true
 #   - joining an Auth: `teleport-auth.example.com:3025`
 authServer: ""
 
-# caPins(list[string]) --  is a list of Teleport CA fingerprints that is used by the operator to
+# caPins(list[string]) -- is a list of Teleport CA fingerprints that is used by the operator to
 # validate the identity of the Teleport Auth server. This is only used when joining
 # an Auth server directly (on port `3025`) and is ignored when joining through a Proxy
 # (port `443` or `3080`).
