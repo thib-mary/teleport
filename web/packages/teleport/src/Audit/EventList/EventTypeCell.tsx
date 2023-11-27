@@ -248,6 +248,7 @@ const EventIconMap: Record<EventCode, any> = {
     Icons.Warning,
   [eventCodes.SECURITY_REPORT_AUDIT_QUERY_RUN]: Icons.Info,
   [eventCodes.SECURITY_REPORT_RUN]: Icons.Info,
+  [eventCodes.SECURITY_REPORT_GET_RESULT]: Icons.Info,
   [eventCodes.UNKNOWN]: Icons.Question,
 };
 

@@ -203,6 +203,20 @@ func ConvertAuditEvent(event apievents.AuditEvent) Anonymizable {
 			UserName:      e.User,
 			DirectoryName: e.DirectoryName,
 		}
+
+	case *apievents.SecurityReportGetResult:
+		return &SecurityReportGetResultEvent{
+			UserName:  e.User,
+			Name:      e.Name,
+			Days:      e.Days,
+			IsSuccess: e.Status.Success,
+		}
+	case *apievents.AuditQueryRun:
+		return &AuditQueryRunEvent{
+			UserName:  e.User,
+			Days:      e.Days,
+			IsSuccess: e.Status.Success,
+		}
 	}
 
 	return nil

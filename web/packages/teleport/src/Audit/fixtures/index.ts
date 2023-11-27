@@ -3367,6 +3367,18 @@ export const eventsSample = [
     uid: '0cb8a020-46ee-4938-833a-69bc03a7a831',
     user: 'moe',
   },
+  {
+    cluster_name: 'dev',
+    code: 'SRE003I',
+    days: 7,
+    ei: 0,
+    event: 'secreports.report.get.result',
+    name: 'privilege_access_report',
+    success: true,
+    time: '2023-11-27T08:55:24.905Z',
+    uid: 'db561c53-3e12-42d1-ad2e-66adca40b2e0',
+    user: 'alice',
+  },
 
   // Do not add new events to this array, add it to `events` list.
 ].map(makeEvent);

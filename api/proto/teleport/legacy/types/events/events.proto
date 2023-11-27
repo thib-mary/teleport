@@ -3662,6 +3662,7 @@ message OneOf {
     events.SAMLConnectorUpdate SAMLConnectorUpdate = 138;
     events.RoleUpdate RoleUpdate = 139;
     events.UserUpdate UserUpdate = 140;
+    events.SecurityReportGetResult SecurityReportGetResult = 141;
   }
 }
 
@@ -5453,4 +5454,33 @@ message SecurityReportRun {
   int64 TotalDataScannedInBytes = 7 [(gogoproto.jsontag) = "total_data_scanned_in_bytes"];
   // AuditQueries is the list of audit queries that were run.
   repeated AuditQueryDetails AuditQueries = 8 [(gogoproto.jsontag) = "audit_queries,omitempty"];
+}
+
+// SecurityReportGetResult is emitted when a user requests result of a security report.
+// This can be done via UX or directly via calling the API.
+message SecurityReportGetResult {
+  // Metadata is common event metadata.
+  Metadata Metadata = 1 [
+    (gogoproto.nullable) = false,
+    (gogoproto.embed) = true,
+    (gogoproto.jsontag) = ""
+  ];
+  // User is common user event metadata.
+  UserMetadata User = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.embed) = true,
+    (gogoproto.jsontag) = ""
+  ];
+
+  // Status indicates whether the read was successful.
+  Status Status = 3 [
+    (gogoproto.nullable) = false,
+    (gogoproto.embed) = true,
+    (gogoproto.jsontag) = ""
+  ];
+
+  // Name is the name of security report.
+  string Name = 4 [(gogoproto.jsontag) = "name,omitempty"];
+  // Days is the time range of the security report.
+  int32 Days = 5 [(gogoproto.jsontag) = "days,omitempty"];
 }

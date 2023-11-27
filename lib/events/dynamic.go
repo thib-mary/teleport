@@ -337,6 +337,8 @@ func FromEventFields(fields EventFields) (events.AuditEvent, error) {
 		e = &events.AuditQueryRun{}
 	case SecReportsReportRunEvent:
 		e = &events.SecurityReportRun{}
+	case SecReportsReportGetResultEvent:
+		e = &events.SecurityReportGetResult{}
 
 	case UnknownEvent:
 		e = &events.Unknown{}

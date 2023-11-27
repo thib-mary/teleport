@@ -595,6 +595,10 @@ func ToOneOf(in AuditEvent) (*OneOf, error) {
 		out.Event = &OneOf_SecurityReportRun{
 			SecurityReportRun: e,
 		}
+	case *SecurityReportGetResult:
+		out.Event = &OneOf_SecurityReportGetResult{
+			SecurityReportGetResult: e,
+		}
 
 	default:
 		log.Errorf("Attempted to convert dynamic event of unknown type \"%v\" into protobuf event.", in.GetType())

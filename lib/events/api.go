@@ -700,6 +700,9 @@ const (
 
 	// SecReportsReportRunEvent is emitted when a security report is run.
 	SecReportsReportRunEvent = "secreports.report.run"
+
+	// SecReportsReportGetResultEvent is emitted when a security report result is retrieved.
+	SecReportsReportGetResultEvent = "secreports.report.get.result"
 )
 
 const (

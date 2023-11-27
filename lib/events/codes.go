@@ -542,6 +542,9 @@ const (
 	// SecReportsReportRunCode is used when a report in run.
 	SecReportsReportRunCode = "SRE002I"
 
+	// SecReportsReportGetResultCode is the event code for when a report result is requested.
+	SecReportsReportGetResultCode = "SRE003I"
+
 	// UnknownCode is used when an event of unknown type is encountered.
 	UnknownCode = apievents.UnknownCode
 )

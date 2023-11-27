@@ -265,6 +265,7 @@ export const eventCodes = {
   ACCESS_LIST_MEMBER_DELETE_ALL_FOR_ACCESS_LIST_FAILURE: 'TAL008E',
   SECURITY_REPORT_AUDIT_QUERY_RUN: 'SRE001I',
   SECURITY_REPORT_RUN: 'SRE002I',
+  SECURITY_REPORT_GET_RESULT: 'SRE003I',
 } as const;
 
 /**
@@ -1456,11 +1457,17 @@ export type RawEvents = {
     }
   >;
   [eventCodes.SECURITY_REPORT_RUN]: RawEvent<
-    typeof eventCodes.SECURITY_REPORT_AUDIT_QUERY_RUN,
+    typeof eventCodes.SECURITY_REPORT_RUN,
     {
       name: string;
       total_execution_time_in_millis: string;
       total_data_scanned_in_bytes: string;
+    }
+  >;
+  [eventCodes.SECURITY_REPORT_GET_RESULT]: RawEvent<
+    typeof eventCodes.SECURITY_REPORT_GET_RESULT,
+    {
+      name: string;
     }
   >;
 };

@@ -1603,6 +1603,12 @@ export const formatters: Formatters = {
     format: ({ user, name }) =>
       `User [${user}] executed [${name}] access monitoring report`,
   },
+  [eventCodes.SECURITY_REPORT_GET_RESULT]: {
+    type: 'secreports.report.get.result',
+    desc: 'Access Monitoring Report Result Retrieved',
+    format: ({ user, name }) =>
+      `User [${user}] retrieved [${name}] access monitoring report result`,
+  },
   [eventCodes.UNKNOWN]: {
     type: 'unknown',
     desc: 'Unknown Event',
